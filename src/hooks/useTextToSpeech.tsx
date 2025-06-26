@@ -8,13 +8,13 @@ export const useTextToSpeech = () => {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const generateSpeech = useCallback(async (text: string, voice: string = 'Mo') => {
+  const generateSpeech = useCallback(async (text: string, voiceId: string = 'DPd861uv5p6zeVV94qOT') => {
     try {
       setIsLoading(true);
-      console.log('Generating speech for:', text, 'with voice:', voice);
+      console.log('Generating speech for:', text, 'with voice ID:', voiceId);
       
       const { data, error } = await supabase.functions.invoke('text-to-speech', {
-        body: { text, voice }
+        body: { text, voiceId }
       });
 
       if (error) {

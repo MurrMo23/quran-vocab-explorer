@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, AudioWaveform } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -21,7 +22,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   className,
   onPlay,
   text,
-  voice = 'Mo', // Default to Mo Wiseman
+  voice = 'DPd861uv5p6zeVV94qOT', // Use Mo Wiseman voice ID directly
   size = 'md',
   onClick
 }) => {
@@ -71,9 +72,13 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   }, [currentAudioSrc]);
 
-  const togglePlay = async (e?: React.MouseEvent) => {
-    // Handle click event propagation if onClick is provided
-    if (onClick && e) {
+  const togglePlay = async (e: React.MouseEvent) => {
+    // Always prevent event propagation for audio buttons
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Handle additional onClick if provided
+    if (onClick) {
       onClick(e);
     }
     
@@ -88,7 +93,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     // If we don't have an audio source but have text, generate TTS
     if (!currentAudioSrc && text) {
       try {
-        console.log('Generating TTS for:', text);
+        console.log('Generating TTS for:', text, 'with voice ID:', voice);
         const ttsUrl = await generateSpeech(text, voice);
         if (ttsUrl) {
           setCurrentAudioSrc(ttsUrl);
@@ -139,7 +144,10 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   };
 
-  const toggleMute = () => {
+  const toggleMute = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     if (!audioRef.current) return;
     
     const newMutedState = !isMuted;

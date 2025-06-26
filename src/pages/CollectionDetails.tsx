@@ -134,7 +134,7 @@ const CollectionDetails = () => {
                       <span className="text-xl font-arabic">{word.arabic}</span>
                       <AudioPlayer 
                         text={word.arabic}
-                        voice="Mo"
+                        voice="DPd861uv5p6zeVV94qOT"
                         size="sm"
                         className="ml-2"
                         onClick={(e) => e.stopPropagation()}

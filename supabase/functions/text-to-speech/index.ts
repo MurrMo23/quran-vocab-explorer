@@ -13,7 +13,7 @@ serve(async (req) => {
   }
 
   try {
-    const { text, voice = 'Mo' } = await req.json()
+    const { text, voice, voiceId } = await req.json()
 
     if (!text) {
       throw new Error('Text is required')
@@ -24,9 +24,12 @@ serve(async (req) => {
       throw new Error('ElevenLabs API key not configured')
     }
 
-    console.log('Generating TTS for text:', text, 'with voice:', voice)
+    console.log('Generating TTS for text:', text, 'with voice/voiceId:', voice || voiceId)
 
-    // Voice ID mapping for common voices - prioritizing Mo Wiseman
+    // Use voiceId directly if provided, otherwise map from voice name
+    let finalVoiceId = voiceId || 'DPd861uv5p6zeVV94qOT'; // Default to Mo Wiseman
+
+    // Voice ID mapping for backward compatibility
     const voiceIds: { [key: string]: string } = {
       'Mo': 'DPd861uv5p6zeVV94qOT', // Mo Wiseman - default voice
       'Aria': '9BWtsMINqrJLrRacOk9x',
@@ -40,10 +43,15 @@ serve(async (req) => {
       'Liam': 'TX3LPaxmHKxFdv7VOQHJ'
     }
 
-    const voiceId = voiceIds[voice] || voiceIds['Mo'] // Default to Mo Wiseman
+    // If voice name is provided, map it to voice ID
+    if (voice && voiceIds[voice]) {
+      finalVoiceId = voiceIds[voice];
+    }
+
+    console.log('Using voice ID:', finalVoiceId);
 
     // Generate speech using ElevenLabs API
-    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
+    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${finalVoiceId}`, {
       method: 'POST',
       headers: {
         'Accept': 'audio/mpeg',
