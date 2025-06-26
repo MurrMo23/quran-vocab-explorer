@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,10 +8,41 @@ import { getWordsByCollection, Collection, Word, getAllCollections } from '@/uti
 import PreviewMode from '@/components/PreviewMode';
 import { Helmet } from 'react-helmet';
 
-interface QuizQuestion {
+// Export types for components to use
+export type QuestionType = 'multiple-choice' | 'fill-in-blank' | 'arabic-to-meaning' | 'meaning-to-arabic';
+export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced' | 'mixed';
+
+export interface QuizSettings {
+  wordCount: number;
+  difficulty: DifficultyLevel;
+  collectionId?: string;
+  questionTypes: QuestionType[];
+  timeLimit?: number;
+}
+
+export interface QuizResult {
+  score: number;
+  accuracy: number;
+  totalTime: number;
+  totalQuestions: number;
+  questionsAnswered: number;
+  correctAnswers: number;
+  incorrectAnswers: number;
+  averageTimePerQuestion: number;
+  difficultyBreakdown: Record<string, { correct: number; total: number }>;
+  weakAreas: string[];
+  achievements: any[];
+  nextRecommendations: QuestionType[];
+}
+
+export interface QuizQuestion {
+  id: string;
   word: Word;
   options: string[];
   correctAnswer: string;
+  userAnswer?: string;
+  timeSpent?: number;
+  isCorrect?: boolean;
 }
 
 const Quiz = () => {
