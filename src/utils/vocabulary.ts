@@ -1,13 +1,12 @@
-
 import { Word, Collection } from './vocabulary-types';
 import { beginnerWords } from './words-beginner';
 import { intermediateWords } from './words-intermediate';
 import { advancedWords } from './words-advanced';
-import { collections } from './collections';
+import { expandedCollections } from './expanded-collections';
 
 // Export type and collection definitions
 export type { Word, Example, Collection } from './vocabulary-types';
-export { collections } from './collections';
+export { expandedCollections as collections } from './expanded-collections';
 
 // Assign collections to words based on their current collections arrays
 const assignCollections = () => {
@@ -153,7 +152,7 @@ export const addCustomCollection = (collection: Collection): Collection => {
 
 // Function to get all collections including custom ones
 export const getAllCollections = (): Collection[] => {
-  return [...collections, ...customCollections];
+  return [...expandedCollections, ...customCollections];
 };
 
 // Combine all vocabulary words
@@ -236,7 +235,7 @@ export const getWordsByCollection = (collectionId: string): Word[] => {
 // Get collection by ID
 export const getCollectionById = (id: string) => {
   // Check built-in collections
-  const builtInCollection = collections.find(collection => collection.id === id);
+  const builtInCollection = expandedCollections.find(collection => collection.id === id);
   if (builtInCollection) return builtInCollection;
   
   // Check custom collections

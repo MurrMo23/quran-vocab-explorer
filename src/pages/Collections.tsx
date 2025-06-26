@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import CollectionCard from '@/components/CollectionCard';
 import SearchBar from '@/components/SearchBar';
@@ -98,6 +99,7 @@ const Collections = () => {
           </p>
         </div>
 
+        {/* Top Collections Ad */}
         {isMobile && (
           <AdPlaceholder 
             adId="collections-top-mobile" 
@@ -134,6 +136,7 @@ const Collections = () => {
           )}
         </div>
         
+        {/* Desktop Collections Ad */}
         {!isMobile && (
           <AdPlaceholder 
             adId="collections-top" 
@@ -152,33 +155,77 @@ const Collections = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCollections.map(collection => {
-              const wordCount = getWordsByCollection(collection.id).length;
-              let icon = <BookText className="h-5 w-5" />;
-              let difficulty = 'Mixed';
-              
-              // Determine if the collection is custom
-              const isCustom = collection.id.startsWith('custom-');
-              
-              if (isCustom) {
-                icon = <BookMarked className="h-5 w-5" />;
-              }
-              
-              return (
-                <CollectionCard
-                  key={collection.id}
-                  id={collection.id}
-                  title={collection.name}
-                  description={collection.description || ''}
-                  count={wordCount}
-                  icon={icon}
-                  wordCount={wordCount}
-                  difficulty={difficulty}
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredCollections.slice(0, 12).map(collection => {
+                const wordCount = getWordsByCollection(collection.id).length;
+                let icon = <BookText className="h-5 w-5" />;
+                let difficulty = 'Mixed';
+                
+                // Determine if the collection is custom
+                const isCustom = collection.id.startsWith('custom-');
+                
+                if (isCustom) {
+                  icon = <BookMarked className="h-5 w-5" />;
+                }
+                
+                return (
+                  <CollectionCard
+                    key={collection.id}
+                    id={collection.id}
+                    title={collection.name}
+                    description={collection.description || ''}
+                    count={wordCount}
+                    icon={icon}
+                    wordCount={wordCount}
+                    difficulty={difficulty}
+                  />
+                );
+              })}
+            </div>
+            
+            {/* Mid-Section Ad */}
+            {filteredCollections.length > 12 && (
+              <div className="my-12">
+                <AdPlaceholder 
+                  adId="collections-middle" 
+                  size="medium-rectangle"
+                  className="mx-auto"
+                  location="collections-middle"
                 />
-              );
-            })}
-          </div>
+              </div>
+            )}
+              
+            {/* Show remaining collections */}
+            {filteredCollections.length > 12 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                {filteredCollections.slice(12).map(collection => {
+                  const wordCount = getWordsByCollection(collection.id).length;
+                  let icon = <BookText className="h-5 w-5" />;
+                  let difficulty = 'Mixed';
+                  
+                  const isCustom = collection.id.startsWith('custom-');
+                  
+                  if (isCustom) {
+                    icon = <BookMarked className="h-5 w-5" />;
+                  }
+                  
+                  return (
+                    <CollectionCard
+                      key={collection.id}
+                      id={collection.id}
+                      title={collection.name}
+                      description={collection.description || ''}
+                      count={wordCount}
+                      icon={icon}
+                      wordCount={wordCount}
+                      difficulty={difficulty}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </>
         )}
       </div>
     </>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -76,3 +77,90 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
       case 1:
         return <Crown className="h-5 w-5 text-yellow-500" />;
       case 2:
+        return <Medal className="h-5 w-5 text-gray-400" />;
+      case 3:
+        return <Award className="h-5 w-5 text-amber-600" />;
+      default:
+        return <span className="h-5 w-5 flex items-center justify-center text-sm font-bold">#{position}</span>;
+    }
+  };
+
+  if (loading) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Loading Leaderboard...</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="h-12 bg-gray-200 animate-pulse rounded"></div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Trophy className="h-5 w-5" />
+            Leaderboard - {period.charAt(0).toUpperCase() + period.slice(1)}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            {entries.map((entry) => (
+              <div
+                key={entry.id}
+                className={`flex items-center justify-between p-3 rounded-lg border ${
+                  entry.rank_position <= 3 ? 'bg-gradient-to-r from-yellow-50 to-amber-50' : 'bg-gray-50'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  {getRankIcon(entry.rank_position)}
+                  <div>
+                    <div className="font-medium">{entry.username}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {entry.score} points
+                    </div>
+                  </div>
+                </div>
+                <Badge variant={entry.rank_position <= 3 ? 'default' : 'secondary'}>
+                  #{entry.rank_position}
+                </Badge>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {currentUserRank && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Your Ranking</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-blue-50 border border-blue-200">
+              <div className="flex items-center gap-3">
+                {getRankIcon(currentUserRank.rank_position)}
+                <div>
+                  <div className="font-medium">{currentUserRank.username}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {currentUserRank.score} points
+                  </div>
+                </div>
+              </div>
+              <Badge variant="outline">#{currentUserRank.rank_position}</Badge>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+};
+
+export default Leaderboard;
