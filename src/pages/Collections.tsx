@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import CollectionCard from '@/components/CollectionCard';
 import SearchBar from '@/components/SearchBar';
@@ -9,6 +8,7 @@ import { getWordsByCollection, getAllCollections, addCustomCollection, Collectio
 import { Helmet } from 'react-helmet';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { usePermissions } from '@/hooks/usePermissions';
 import AdPlaceholder from '@/components/ads/AdPlaceholder';
 
 const Collections = () => {
@@ -19,6 +19,8 @@ const Collections = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   
   const isMobile = useIsMobile();
+  const { hasRole } = usePermissions();
+  const isAdmin = hasRole('admin');
 
   useEffect(() => {
     // Load collections
@@ -113,20 +115,23 @@ const Collections = () => {
             />
           </div>
           
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="flex items-center gap-2">
-                <Plus className="h-4 w-4" />
-                Create Collection
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[550px]">
-              <CreateCollectionForm 
-                onCreateCollection={handleCreateCollection}
-                onCancel={() => setDialogOpen(false)}
-              />
-            </DialogContent>
-          </Dialog>
+          {/* Only show Create Collection button for admins */}
+          {isAdmin && (
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="flex items-center gap-2">
+                  <Plus className="h-4 w-4" />
+                  Create Collection
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[550px]">
+                <CreateCollectionForm 
+                  onCreateCollection={handleCreateCollection}
+                  onCancel={() => setDialogOpen(false)}
+                />
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
         
         {!isMobile && (
@@ -143,7 +148,7 @@ const Collections = () => {
             <BookOpenCheck className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
             <h3 className="text-lg font-medium">No collections found</h3>
             <p className="text-muted-foreground mt-1">
-              {searchQuery ? 'Try a different search term' : 'Create a new collection to get started'}
+              {searchQuery ? 'Try a different search term' : 'Browse the available collections to get started'}
             </p>
           </div>
         ) : (

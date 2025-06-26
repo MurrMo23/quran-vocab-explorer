@@ -1,356 +1,245 @@
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import PracticeConfiguration, { PracticeConfig } from '@/components/practice/PracticeConfiguration';
-import PracticeSessionManager, { SessionResults, PracticeMode } from '@/components/practice/PracticeSessionManager';
-import PracticeResults from '@/components/practice/PracticeResults';
-import EnhancedTestingMode, { QuestionType } from '@/components/practice/EnhancedTestingMode';
-import WordCard from '@/components/WordCard';
-import DailyChallengeCard from '@/components/gamification/DailyChallengeCard';
-import AdvancedAudioRecorder from '@/components/audio/AdvancedAudioRecorder';
-import AdaptiveLearningDashboard from '@/components/adaptive/AdaptiveLearningDashboard';
-import SmartWordSelector from '@/components/adaptive/SmartWordSelector';
-import LearningPathGenerator from '@/components/adaptive/LearningPathGenerator';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useWordProgress } from '@/hooks/useWordProgress';
-import { useGamification } from '@/hooks/useGamification';
-import { useAdaptiveLearning } from '@/hooks/useAdaptiveLearning';
+import { Progress } from '@/components/ui/progress';
+import { CheckCircle, XCircle, Volume2, RotateCcw, BookOpen } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
-import { getWordsByCollection, getAllWords, getAllCollections } from '@/utils/vocabulary';
-import { updateWordProgress as updateWordProgressDB } from '@/utils/enhanced-spaced-repetition';
-import { Word } from '@/utils/vocabulary-types';
-import { toast } from 'sonner';
-
-type PracticeState = 'configuration' | 'session' | 'results' | 'testing' | 'adaptive-selection';
+import { getWordsByCollection, Collection, Word, getAllCollections } from '@/utils/vocabulary';
+import PreviewMode from '@/components/PreviewMode';
+import { Helmet } from 'react-helmet';
 
 const Practice = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const collection = searchParams.get('collection');
   const { session } = useAuth();
-  const { updateProgress } = useWordProgress();
-  const { todayChallenge, submitChallengeAttempt } = useGamification();
-  const { 
-    updateWordDifficulty, 
-    completeAdaptiveSession, 
-    currentSession: adaptiveSession 
-  } = useAdaptiveLearning();
-
-  const [practiceState, setPracticeState] = useState<PracticeState>('configuration');
+  const [selectedCollection, setSelectedCollection] = useState<string>('');
+  const [collections, setCollections] = useState<Collection[]>([]);
   const [words, setWords] = useState<Word[]>([]);
-  const [currentPracticeMode, setCurrentPracticeMode] = useState<PracticeMode>('vocabulary');
-  const [selectedCollection, setSelectedCollection] = useState<string>(collection || 'all');
-  const [sessionResults, setSessionResults] = useState<SessionResults | null>(null);
-  const [practiceConfig, setPracticeConfig] = useState<PracticeConfig | null>(null);
-  const [challengeProgress, setChallengeProgress] = useState(0);
-  const [adaptiveSessionType, setAdaptiveSessionType] = useState<'practice' | 'quiz' | 'review'>('practice');
-
-  // Enhanced Testing Mode states
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [testingResults, setTestingResults] = useState<{ correct: number; incorrect: number }>({
-    correct: 0,
-    incorrect: 0
-  });
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [practiceStarted, setPracticeStarted] = useState(false);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  
+  useEffect(() => {
+    const allCollections = getAllCollections();
+    setCollections(allCollections);
+    if (allCollections.length > 0) {
+      setSelectedCollection(allCollections[0].id);
+    }
+  }, []);
 
   useEffect(() => {
-    if (collection && collection !== selectedCollection) {
-      setSelectedCollection(collection);
+    if (selectedCollection) {
+      const collectionWords = getWordsByCollection(selectedCollection);
+      // For preview mode, limit to 3 words for non-logged in users
+      const wordsToShow = !session ? collectionWords.slice(0, 3) : collectionWords;
+      setWords(wordsToShow);
+      setCurrentWordIndex(0);
+      setShowAnswer(false);
+      setIsCorrect(null);
     }
-  }, [collection]);
+  }, [selectedCollection, session]);
 
-  const prepareWordsForPractice = (config: PracticeConfig) => {
-    let practiceWords: Word[] = [];
-    
-    if (selectedCollection === 'all') {
-      practiceWords = getAllWords();
-    } else {
-      practiceWords = getWordsByCollection(selectedCollection);
-    }
+  const currentWord = words[currentWordIndex];
+  const progress = words.length > 0 ? ((currentWordIndex + 1) / words.length) * 100 : 0;
 
-    // Filter by difficulty if specified
-    if (config.difficulty !== 'mixed') {
-      practiceWords = practiceWords.filter(word => word.level === config.difficulty);
-    }
-
-    // Shuffle if requested
-    if (config.shuffleWords) {
-      practiceWords = [...practiceWords].sort(() => Math.random() - 0.5);
-    }
-
-    // Limit to session length
-    practiceWords = practiceWords.slice(0, config.sessionLength);
-
-    return practiceWords;
+  const handleShowAnswer = () => {
+    setShowAnswer(true);
   };
 
-  const handleStartPractice = (config: PracticeConfig) => {
-    if (!session?.user?.id) {
-      toast.error('Please log in to start practice');
-      return;
-    }
-
-    const practiceWords = prepareWordsForPractice(config);
-    
-    if (practiceWords.length === 0) {
-      toast.error('No words available for the selected criteria');
-      return;
-    }
-
-    setWords(practiceWords);
-    setPracticeConfig(config);
-    setPracticeState('session');
-    toast.success(`Practice session started with ${practiceWords.length} words!`);
-  };
-
-  const handleStartAdaptiveSession = (sessionType: 'practice' | 'quiz' | 'review') => {
-    setAdaptiveSessionType(sessionType);
-    setPracticeState('adaptive-selection');
-  };
-
-  const handleAdaptiveWordsSelected = (selectedWords: Word[]) => {
-    setWords(selectedWords);
-    setPracticeState('session');
-    toast.success(`AI-powered ${adaptiveSessionType} session started with ${selectedWords.length} words!`);
-  };
-
-  const handleSessionComplete = async (results: SessionResults) => {
-    setSessionResults(results);
-    setPracticeState('results');
-
-    // Update challenge progress
-    if (todayChallenge?.challenge_type === 'vocabulary') {
-      const newProgress = challengeProgress + results.correctCount;
-      setChallengeProgress(newProgress);
-      
-      if (newProgress >= todayChallenge.goal_value) {
-        await submitChallengeAttempt(todayChallenge.id, newProgress);
+  const handleCorrect = () => {
+    setIsCorrect(true);
+    setTimeout(() => {
+      if (currentWordIndex < words.length - 1) {
+        setCurrentWordIndex(prev => prev + 1);
+        setShowAnswer(false);
+        setIsCorrect(null);
+      } else {
+        // Practice session complete
+        setPracticeStarted(false);
+        setCurrentWordIndex(0);
+        setShowAnswer(false);
+        setIsCorrect(null);
       }
-    }
-
-    // Complete adaptive session if active
-    if (adaptiveSession) {
-      await completeAdaptiveSession({
-        accuracy: results.accuracy / 100,
-        averageResponseTime: (results.timeSpent / results.totalWords) * 1000,
-        wordsStudied: results.wordsReviewed,
-        difficultyProgression: {}
-      });
-    }
-
-    toast.success(`Session completed! ${results.accuracy.toFixed(1)}% accuracy`);
+    }, 1000);
   };
 
-  const handleTestingModeResult = async (success: boolean) => {
-    const currentWord = words[currentWordIndex];
-    
-    if (success) {
-      setTestingResults(prev => ({ ...prev, correct: prev.correct + 1 }));
-    } else {
-      setTestingResults(prev => ({ ...prev, incorrect: prev.incorrect + 1 }));
-    }
-
-    // Update progress in database and adaptive learning
-    if (session?.user?.id && currentWord) {
-      const responseTime = Math.random() * 5000 + 2000; // Simulate response time
-      
-      await updateWordProgressDB(
-        currentWord.id,
-        success,
-        session.user.id
-      );
-      
-      await updateProgress(currentWord.id, currentWord.collections[0] || 'general', {
-        level: success ? 1 : 0,
-        review_count: 1,
-        success_streak: success ? 1 : 0,
-        last_reviewed: new Date().toISOString()
-      });
-
-      // Update adaptive learning difficulty
-      await updateWordDifficulty(currentWord.id, success, responseTime);
-    }
+  const handleIncorrect = () => {
+    setIsCorrect(false);
+    setTimeout(() => {
+      if (currentWordIndex < words.length - 1) {
+        setCurrentWordIndex(prev => prev + 1);
+        setShowAnswer(false);
+        setIsCorrect(null);
+      } else {
+        // Practice session complete
+        setPracticeStarted(false);
+        setCurrentWordIndex(0);
+        setShowAnswer(false);
+        setIsCorrect(null);
+      }
+    }, 1000);
   };
 
-  const handleTestingModeNext = () => {
-    if (currentWordIndex < words.length - 1) {
-      setCurrentWordIndex(prev => prev + 1);
-    } else {
-      // Complete testing session
-      const results: SessionResults = {
-        totalWords: words.length,
-        correctCount: testingResults.correct,
-        incorrectCount: testingResults.incorrect,
-        accuracy: (testingResults.correct / words.length) * 100,
-        timeSpent: 0, // We don't track time in testing mode
-        wordsReviewed: words.map(w => w.id),
-        difficultWords: [] // Could be enhanced to track difficult words
-      };
-      handleSessionComplete(results);
-    }
-  };
-
-  const startTestingMode = () => {
+  const resetPractice = () => {
     setCurrentWordIndex(0);
-    setTestingResults({ correct: 0, incorrect: 0 });
-    setPracticeState('testing');
+    setShowAnswer(false);
+    setIsCorrect(null);
+    setPracticeStarted(false);
   };
 
-  const restartPractice = () => {
-    setPracticeState('configuration');
-    setSessionResults(null);
-    setWords([]);
-    setCurrentWordIndex(0);
-    setTestingResults({ correct: 0, incorrect: 0 });
-    setChallengeProgress(0);
-  };
+  const practiceContent = (
+    <>
+      <Helmet>
+        <title>Practice Arabic Vocabulary | Learn Words</title>
+        <meta name="description" content="Practice Arabic vocabulary words with interactive flashcards and track your progress." />
+      </Helmet>
 
-  const reviewMistakes = () => {
-    if (sessionResults?.difficultWords.length) {
-      // Filter words to only show difficult ones
-      const difficultWordsData = words.filter(word => 
-        sessionResults.difficultWords.includes(word.id)
-      );
-      setWords(difficultWordsData);
-      setPracticeState('session');
-    }
-  };
+      <div className="container mx-auto py-8">
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-bold mb-4">Practice Mode</h1>
+          <p className="text-muted-foreground">
+            {session 
+              ? "Master Arabic vocabulary with interactive practice sessions" 
+              : "Try our practice mode with a preview of available words"
+            }
+          </p>
+        </div>
 
-  if (!session) {
-    return (
-      <div className="max-w-2xl mx-auto text-center py-12">
-        <h1 className="text-2xl font-bold mb-4">Sign In Required</h1>
-        <p className="text-muted-foreground mb-6">
-          Please sign in to track your progress and access personalized practice sessions.
-        </p>
-        <Button onClick={() => navigate('/auth')}>
-          Sign In
-        </Button>
+        {!practiceStarted ? (
+          <Card className="max-w-2xl mx-auto">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BookOpen className="h-5 w-5" />
+                Choose a Collection
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Collection:</label>
+                <select
+                  value={selectedCollection}
+                  onChange={(e) => setSelectedCollection(e.target.value)}
+                  className="w-full p-2 border rounded-md bg-background"
+                >
+                  {collections.map((collection) => (
+                    <option key={collection.id} value={collection.id}>
+                      {collection.name} ({getWordsByCollection(collection.id).length} words)
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              {!session && (
+                <div className="p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                  <p className="text-sm text-amber-800 dark:text-amber-200">
+                    Preview mode: You can try the first 3 words from this collection.
+                  </p>
+                </div>
+              )}
+              
+              <Button
+                onClick={() => setPracticeStarted(true)}
+                disabled={words.length === 0}
+                className="w-full"
+                size="lg"
+              >
+                Start Practice Session ({words.length} words)
+              </Button>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="max-w-2xl mx-auto">
+            <div className="mb-6">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm text-muted-foreground">
+                  Word {currentWordIndex + 1} of {words.length}
+                </span>
+                <Button variant="outline" size="sm" onClick={resetPractice}>
+                  <RotateCcw className="h-4 w-4 mr-2" />
+                  Reset
+                </Button>
+              </div>
+              <Progress value={progress} className="h-2" />
+            </div>
+
+            {currentWord && (
+              <Card className={`mb-4 ${
+                isCorrect === true ? 'border-green-500 bg-green-50 dark:bg-green-950/20' :
+                isCorrect === false ? 'border-red-500 bg-red-50 dark:bg-red-950/20' :
+                ''
+              }`}>
+                <CardContent className="p-8 text-center">
+                  <div className="mb-6">
+                    <h2 className="text-4xl font-bold mb-2 text-primary">
+                      {currentWord.arabic}
+                    </h2>
+                    <p className="text-lg text-muted-foreground">
+                      {currentWord.transliteration}
+                    </p>
+                  </div>
+
+                  {!showAnswer ? (
+                    <Button onClick={handleShowAnswer} size="lg">
+                      Show Answer
+                    </Button>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="p-4 bg-muted rounded-lg">
+                        <p className="text-xl font-semibold mb-2">{currentWord.meaning}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {currentWord.partOfSpeech} • {currentWord.root}
+                        </p>
+                      </div>
+
+                      {isCorrect === null && (
+                        <div className="flex gap-4 justify-center">
+                          <Button
+                            onClick={handleCorrect}
+                            className="bg-green-600 hover:bg-green-700"
+                          >
+                            <CheckCircle className="h-4 w-4 mr-2" />
+                            I knew it
+                          </Button>
+                          <Button
+                            onClick={handleIncorrect}
+                            className="bg-red-600 hover:bg-red-700"
+                          >
+                            <XCircle className="h-4 w-4 mr-2" />
+                            I didn't know
+                          </Button>
+                        </div>
+                      )}
+
+                      {isCorrect === true && (
+                        <div className="text-green-600 font-medium">
+                          <CheckCircle className="h-6 w-6 mx-auto mb-2" />
+                          Correct! Well done.
+                        </div>
+                      )}
+
+                      {isCorrect === false && (
+                        <div className="text-red-600 font-medium">
+                          <XCircle className="h-6 w-6 mx-auto mb-2" />
+                          Keep practicing!
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        )}
       </div>
-    );
+    </>
+  );
+
+  // Show preview mode for non-logged in users
+  if (!session) {
+    return <PreviewMode type="practice">{practiceContent}</PreviewMode>;
   }
 
-  return (
-    <div className="max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <button 
-          onClick={() => navigate(-1)}
-          className="text-muted-foreground hover:text-foreground flex items-center transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4 mr-1" />
-          <span>Back</span>
-        </button>
-        
-        <h1 className="text-2xl font-bold">Practice Session</h1>
-        
-        <div></div>
-      </div>
-
-      {/* Daily Challenge Card */}
-      {todayChallenge && practiceState === 'configuration' && (
-        <div className="mb-8">
-          <DailyChallengeCard 
-            challenge={todayChallenge}
-            userProgress={challengeProgress}
-            onStartChallenge={() => toast.info('Challenge started! Keep practicing to complete it.')}
-          />
-        </div>
-      )}
-
-      {/* Practice States */}
-      {practiceState === 'configuration' && (
-        <Tabs defaultValue="traditional" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="traditional">Traditional Practice</TabsTrigger>
-            <TabsTrigger value="adaptive">AI-Powered Learning</TabsTrigger>
-            <TabsTrigger value="learning-path">Learning Paths</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="traditional" className="space-y-6">
-            <PracticeConfiguration
-              onStart={handleStartPractice}
-              collections={getAllCollections().map(c => c.id)}
-              selectedCollection={selectedCollection}
-              onCollectionChange={setSelectedCollection}
-            />
-            
-            {/* Testing Mode Option */}
-            <div className="text-center">
-              <Button 
-                onClick={startTestingMode}
-                variant="outline"
-                className="w-full max-w-md"
-              >
-                Start Enhanced Testing Mode
-              </Button>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="adaptive">
-            <AdaptiveLearningDashboard 
-              onStartAdaptiveSession={handleStartAdaptiveSession}
-            />
-          </TabsContent>
-
-          <TabsContent value="learning-path">
-            <LearningPathGenerator />
-          </TabsContent>
-        </Tabs>
-      )}
-
-      {practiceState === 'adaptive-selection' && (
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">AI Word Selection</h2>
-            <Button 
-              variant="outline" 
-              onClick={() => setPracticeState('configuration')}
-            >
-              Back to Options
-            </Button>
-          </div>
-          <SmartWordSelector
-            onWordsSelected={handleAdaptiveWordsSelected}
-            sessionType={adaptiveSessionType}
-            targetCount={20}
-          />
-        </div>
-      )}
-
-      {practiceState === 'session' && (
-        <PracticeSessionManager
-          words={words}
-          onSessionComplete={handleSessionComplete}
-          onModeChange={setCurrentPracticeMode}
-          currentMode={currentPracticeMode}
-        />
-      )}
-
-      {practiceState === 'testing' && words[currentWordIndex] && (
-        <EnhancedTestingMode
-          word={words[currentWordIndex]}
-          questionType={'multiple-choice' as QuestionType}
-          otherWords={words.filter(w => w.id !== words[currentWordIndex].id)}
-          onNext={handleTestingModeNext}
-          onResult={handleTestingModeResult}
-          questionNumber={currentWordIndex + 1}
-          totalQuestions={words.length}
-          timeLimit={30}
-        />
-      )}
-
-      {practiceState === 'results' && sessionResults && (
-        <PracticeResults
-          results={sessionResults}
-          onRestartSession={restartPractice}
-          onBackToDashboard={() => navigate('/dashboard')}
-          onReviewMistakes={reviewMistakes}
-        />
-      )}
-    </div>
-  );
+  return practiceContent;
 };
 
 export default Practice;

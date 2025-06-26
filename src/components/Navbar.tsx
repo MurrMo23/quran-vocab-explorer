@@ -2,6 +2,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/components/AuthProvider';
+import { usePermissions } from '@/hooks/usePermissions';
 import {
   Home,
   BookOpen,
@@ -29,16 +30,16 @@ import { ModeToggle } from '@/components/ModeToggle';
 
 const Navbar = () => {
   const { session, logout } = useAuth();
+  const { hasRole } = usePermissions();
   const location = useLocation();
   const navigate = useNavigate();
 
   const navigationItems = [
-    { name: 'Dashboard', href: '/dashboard', icon: Home },
-    { name: 'Practice', href: '/practice', icon: BookOpen },
-    { name: 'Quiz', href: '/quiz', icon: Target },
-    { name: 'Collections', href: '/collections', icon: Library },
-    { name: 'Community', href: '/community', icon: Users },
-    { name: 'Notebook', href: '/notebook', icon: NotebookPen },
+    { name: 'Practice', href: '/practice', icon: BookOpen, requiresAuth: false },
+    { name: 'Quiz', href: '/quiz', icon: Target, requiresAuth: false },
+    { name: 'Collections', href: '/collections', icon: Library, requiresAuth: false },
+    { name: 'Community', href: '/community', icon: Users, requiresAuth: true },
+    { name: 'Notebook', href: '/notebook', icon: NotebookPen, requiresAuth: true },
   ];
 
   const isActive = (href: string) => {
@@ -50,8 +51,13 @@ const Navbar = () => {
   const userName = session?.user?.user_metadata?.name || session?.user?.user_metadata?.full_name || userEmail.split('@')[0];
   const userAvatar = session?.user?.user_metadata?.avatar_url || session?.user?.user_metadata?.picture || '';
 
+  // Filter navigation items based on auth status
+  const filteredNavItems = navigationItems.filter(item => 
+    !item.requiresAuth || session
+  );
+
   return (
-    <nav className="bg-background border-b sticky top-0 z-50">
+    <nav className="bg-background border-b sticky top-0 z-50 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center">
           <Sheet>
@@ -83,29 +89,31 @@ const Navbar = () => {
                 </SheetDescription>
               </SheetHeader>
               <div className="flex flex-col space-y-2 mt-4">
-                {navigationItems.map((item) => (
+                {filteredNavItems.map((item) => (
                   <Button
                     key={item.name}
                     variant="ghost"
-                    className={`justify-start ${isActive(item.href) ? 'font-semibold' : ''}`}
+                    className={`justify-start ${isActive(item.href) ? 'bg-primary/10 text-primary font-semibold' : 'hover:bg-muted'}`}
                     onClick={() => navigate(item.href)}
                   >
                     <item.icon className="h-4 w-4 mr-2" />
                     <span>{item.name}</span>
                   </Button>
                 ))}
-                <Button
-                  variant="ghost"
-                  className="justify-start"
-                  onClick={() => navigate('/settings')}
-                >
-                  <Settings className="h-4 w-4 mr-2" />
-                  <span>Settings</span>
-                </Button>
-                {session ? (
+                {session && (
                   <Button
                     variant="ghost"
                     className="justify-start"
+                    onClick={() => navigate('/settings')}
+                  >
+                    <Settings className="h-4 w-4 mr-2" />
+                    <span>Settings</span>
+                  </Button>
+                )}
+                {session ? (
+                  <Button
+                    variant="ghost"
+                    className="justify-start text-destructive hover:bg-destructive/10"
                     onClick={() => logout()}
                   >
                     <LogOut className="h-4 w-4 mr-2" />
@@ -134,15 +142,28 @@ const Navbar = () => {
               </div>
             </SheetContent>
           </Sheet>
-          <Button variant="ghost" className="font-bold text-xl px-2">
-            Arabic Vocabulary
+          
+          {/* Enhanced brand logo as clickable link */}
+          <Button 
+            variant="ghost" 
+            className="font-bold text-xl px-2 hover:bg-primary/5 transition-colors"
+            onClick={() => navigate('/')}
+          >
+            <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+              Arabic Vocabulary
+            </span>
           </Button>
-          <div className="hidden md:flex items-center space-x-4">
-            {navigationItems.map((item) => (
+          
+          <div className="hidden md:flex items-center space-x-1 ml-6">
+            {filteredNavItems.map((item) => (
               <Button
                 key={item.name}
                 variant="ghost"
-                className={isActive(item.href) ? 'font-semibold' : ''}
+                className={`transition-all duration-200 ${
+                  isActive(item.href) 
+                    ? 'bg-primary/10 text-primary font-semibold shadow-sm' 
+                    : 'hover:bg-muted'
+                }`}
                 onClick={() => navigate(item.href)}
               >
                 <item.icon className="h-4 w-4 mr-2" />
@@ -152,39 +173,57 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
           <ModeToggle />
           {session ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
+                <Button variant="ghost" className="h-9 w-9 p-0 hover:bg-muted">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={userAvatar} alt={userName} />
-                    <AvatarFallback>{userName.charAt(0).toUpperCase()}</AvatarFallback>
+                    <AvatarFallback className="bg-primary/10 text-primary font-medium">
+                      {userName.charAt(0).toUpperCase()}
+                    </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" className="w-48">
+                <div className="px-2 py-1.5 text-sm text-muted-foreground">
+                  {userEmail}
+                </div>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => navigate('/settings')}>
                   <Settings className="h-4 w-4 mr-2" />
                   <span>Settings</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => logout()}>
+                <DropdownMenuItem 
+                  onClick={() => logout()}
+                  className="text-destructive focus:text-destructive"
+                >
                   <LogOut className="h-4 w-4 mr-2" />
                   <span>Log Out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <>
-              <Button variant="ghost" onClick={() => navigate('/auth')}>
+            <div className="flex items-center space-x-2">
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/auth')}
+                className="hidden sm:inline-flex hover:bg-muted transition-colors"
+              >
+                <LogIn className="h-4 w-4 mr-2" />
                 Log In
               </Button>
-              <Button variant="ghost" onClick={() => navigate('/auth')}>
-                Register
+              <Button 
+                onClick={() => navigate('/auth')}
+                className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm transition-all duration-200 hover:shadow-md"
+              >
+                <UserPlus className="h-4 w-4 mr-2" />
+                Sign Up
               </Button>
-            </>
+            </div>
           )}
         </div>
       </div>
