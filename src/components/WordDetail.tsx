@@ -179,7 +179,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
               >
                 <div className="font-arabic text-lg">{recommendedWord.arabic}</div>
                 <div className="text-sm text-muted-foreground truncate">{recommendedWord.meaning}</div>
-              </div>
+              </button>
             ))}
           </div>
         </div>
