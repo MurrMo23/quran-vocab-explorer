@@ -1,13 +1,15 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/components/AuthProvider';
+import { usePermissions } from '@/hooks/usePermissions';
 import ProgressStats from '@/components/ProgressStats';
 import ProgressReport from '@/components/ProgressReport';
 import CollectionCard from '@/components/CollectionCard';
 import SearchBar from '@/components/SearchBar';
 import StreakCounter from '@/components/StreakCounter';
 import { collections, getWordsByCollection, getDailyWords } from '@/utils/vocabulary';
-import { BookText, BookOpen, ChevronRight, Brain, Heart, Users, Scroll } from 'lucide-react';
+import { BookText, BookOpen, ChevronRight, Brain, Heart, Users, Scroll, Settings, Database, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
@@ -27,6 +29,9 @@ const getIconForCollection = (id: string) => {
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { session } = useAuth();
+  const { hasRole } = usePermissions();
+  const isAdmin = hasRole('admin');
   const featuredCollections = collections.slice(0, 3);
   
   // Get today's daily words
@@ -34,6 +39,11 @@ const Dashboard = () => {
   
   // Mock user streak data
   const userStreak = 7;
+
+  if (!session) {
+    navigate('/auth');
+    return null;
+  }
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -47,6 +57,44 @@ const Dashboard = () => {
         </div>
         <SearchBar className="w-full md:w-64" />
       </div>
+
+      {/* Admin Panel Access */}
+      {isAdmin && (
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
+          <Card className="border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-primary">
+                <Settings className="h-5 w-5" />
+                Admin Panel
+              </CardTitle>
+              <CardDescription>
+                Manage the platform with full administrative access
+              </CardDescription>
+            </CardHeader>
+            <CardFooter className="flex gap-2">
+              <Button 
+                onClick={() => navigate('/admin')}
+                className="flex items-center gap-2"
+              >
+                <Database className="h-4 w-4" />
+                Admin Dashboard
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => navigate('/analytics')}
+                className="flex items-center gap-2"
+              >
+                <BarChart3 className="h-4 w-4" />
+                Analytics
+              </Button>
+            </CardFooter>
+          </Card>
+        </motion.div>
+      )}
 
       <div className="mb-10">
         <ProgressStats />
