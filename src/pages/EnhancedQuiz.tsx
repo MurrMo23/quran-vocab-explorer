@@ -9,10 +9,13 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/components/AuthProvider';
 import { getAllWords, getWordsByCollection, getWordsByLevel, getAllCollections } from '@/utils/vocabulary';
 import { Word } from '@/utils/vocabulary-types';
-import { QuizConfiguration, EnhancedQuizQuestion, QuizResult } from '@/utils/quiz-types';
+import { QuizConfiguration, EnhancedQuizQuestion } from '@/utils/quiz-types';
 import { AdvancedQuestionGenerator } from '@/utils/advanced-question-generator';
 import { useQuizSession } from '@/hooks/useQuizSession';
 import { toast } from 'sonner';
+
+// Import basic types from Quiz.tsx for compatibility
+import { QuestionType as BasicQuestionType, QuizResult, QuizQuestion as BasicQuizQuestion } from '@/pages/Quiz';
 
 // Legacy types for compatibility with existing QuizQuestion component
 export type QuestionType = 'multiple-choice' | 'fill-in-blank' | 'arabic-to-meaning' | 'meaning-to-arabic';
@@ -197,8 +200,18 @@ const EnhancedQuiz = () => {
       }
     });
 
+    // Convert to compatible basic question type for results
+    const basicQuestions: BasicQuizQuestion[] = finalQuestions.map(q => ({
+      id: q.id,
+      word: q.word,
+      options: q.options || [],
+      correctAnswer: q.correctAnswer,
+      userAnswer: q.userAnswer,
+      timeSpent: q.timeSpent,
+      isCorrect: q.isCorrect
+    }));
+
     const result: QuizResult = {
-      sessionId: sessionId || undefined,
       score: Math.round((correctAnswers / finalQuestions.length) * 100),
       accuracy: (correctAnswers / finalQuestions.length) * 100,
       totalTime,
@@ -210,7 +223,7 @@ const EnhancedQuiz = () => {
       difficultyBreakdown,
       weakAreas: [],
       achievements: [],
-      nextRecommendations: []
+      nextRecommendations: ['multiple-choice', 'fill-in-blank'] as BasicQuestionType[]
     };
 
     console.log('Quiz result calculated:', result);
@@ -301,7 +314,15 @@ const EnhancedQuiz = () => {
       {gameState === 'results' && quizResult && (
         <QuizResults
           result={quizResult}
-          questions={questions}
+          questions={questions.map(q => ({
+            id: q.id,
+            word: q.word,
+            options: q.options || [],
+            correctAnswer: q.correctAnswer,
+            userAnswer: q.userAnswer,
+            timeSpent: q.timeSpent,
+            isCorrect: q.isCorrect
+          }))}
           onRestart={resetQuiz}
           onBackToDashboard={() => navigate('/dashboard')}
         />

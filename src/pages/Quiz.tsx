@@ -69,7 +69,7 @@ const Quiz = () => {
     // For preview mode, limit to 3 questions for non-logged in users
     const wordsToUse = !session ? words.slice(0, 3) : words.slice(0, 10);
     
-    return wordsToUse.map(word => {
+    return wordsToUse.map((word, index) => {
       const correctAnswer = word.meaning;
       const otherWords = words.filter(w => w.id !== word.id);
       const wrongAnswers = otherWords
@@ -81,6 +81,7 @@ const Quiz = () => {
         .sort(() => Math.random() - 0.5);
 
       return {
+        id: `question-${index}-${word.id}`,
         word,
         options,
         correctAnswer
