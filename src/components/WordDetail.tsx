@@ -1,16 +1,35 @@
 
 import React from 'react';
-import { Book, AlignLeft, BookOpen, Hash } from 'lucide-react';
+import { Book, AlignLeft, BookOpen, Hash, ArrowLeft, ArrowRight, Search, Users } from 'lucide-react';
 import { Word } from '@/utils/vocabulary';
 import AudioPlayer from './AudioPlayer';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 interface WordDetailProps {
   word: Word;
   className?: string;
+  nextWord?: Word;
+  previousWord?: Word;
+  relatedWords?: Word[];
+  recommendedWords?: Word[];
 }
 
-const WordDetail: React.FC<WordDetailProps> = ({ word, className }) => {
+const WordDetail: React.FC<WordDetailProps> = ({ 
+  word, 
+  className,
+  nextWord,
+  previousWord,
+  relatedWords = [],
+  recommendedWords = []
+}) => {
+  const navigate = useNavigate();
+
+  const handleWordNavigation = (wordId: string) => {
+    navigate(`/word/${wordId}`);
+  };
+
   return (
     <div className={cn("glass-card rounded-xl p-6", className)}>
       <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
@@ -21,11 +40,10 @@ const WordDetail: React.FC<WordDetailProps> = ({ word, className }) => {
         </div>
         
         <AudioPlayer 
-          src={word.audioUrl} 
           text={word.arabic}
-          voice="Sarah"
+          voice="Mo"
           label="Listen to pronunciation" 
-          className="mt-4 md:mt-0"
+          className="flex items-center gap-2 mt-4 md:mt-0"
         />
       </div>
       
@@ -84,7 +102,7 @@ const WordDetail: React.FC<WordDetailProps> = ({ word, className }) => {
               <div className="mt-3">
                 <AudioPlayer
                   text={example.arabicText}
-                  voice="Sarah"
+                  voice="Mo"
                   label="Listen to verse"
                 />
               </div>
@@ -92,6 +110,80 @@ const WordDetail: React.FC<WordDetailProps> = ({ word, className }) => {
           ))}
         </div>
       </div>
+
+      {/* Navigation Section */}
+      <div className="border-t pt-6 mb-6">
+        <div className="flex flex-col sm:flex-row gap-4 justify-between items-start">
+          <div className="flex gap-2">
+            {previousWord && (
+              <Button
+                variant="outline"
+                onClick={() => handleWordNavigation(previousWord.id)}
+                className="flex items-center gap-2"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <span className="hidden sm:inline">Previous:</span>
+                <span className="font-arabic">{previousWord.arabic}</span>
+              </Button>
+            )}
+            {nextWord && (
+              <Button
+                variant="outline"
+                onClick={() => handleWordNavigation(nextWord.id)}
+                className="flex items-center gap-2"
+              >
+                <span className="hidden sm:inline">Next:</span>
+                <span className="font-arabic">{nextWord.arabic}</span>
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Related Words Section */}
+      {relatedWords.length > 0 && (
+        <div className="border-t pt-6 mb-6">
+          <h3 className="text-lg font-medium mb-3 flex items-center">
+            <Search className="h-5 w-5 mr-2 text-primary" />
+            <span>Similar Words</span>
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {relatedWords.slice(0, 4).map((relatedWord) => (
+              <button
+                key={relatedWord.id}
+                onClick={() => handleWordNavigation(relatedWord.id)}
+                className="p-3 rounded-lg bg-white/50 hover:bg-white/80 transition-colors text-left"
+              >
+                <div className="font-arabic text-lg">{relatedWord.arabic}</div>
+                <div className="text-sm text-muted-foreground truncate">{relatedWord.meaning}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Recommended Words Section */}
+      {recommendedWords.length > 0 && (
+        <div className="border-t pt-6 mb-6">
+          <h3 className="text-lg font-medium mb-3 flex items-center">
+            <Users className="h-5 w-5 mr-2 text-primary" />
+            <span>People Also Studied</span>
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {recommendedWords.slice(0, 4).map((recommendedWord) => (
+              <button
+                key={recommendedWord.id}
+                onClick={() => handleWordNavigation(recommendedWord.id)}
+                className="p-3 rounded-lg bg-white/50 hover:bg-white/80 transition-colors text-left"
+              >
+                <div className="font-arabic text-lg">{recommendedWord.arabic}</div>
+                <div className="text-sm text-muted-foreground truncate">{recommendedWord.meaning}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
       
       <div className="flex flex-wrap gap-2">
         {word.tags.map(tag => (

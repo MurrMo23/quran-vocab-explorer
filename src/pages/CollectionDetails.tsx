@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, BookOpen } from 'lucide-react';
 import SearchBar from '@/components/SearchBar';
-import WordCard from '@/components/WordCard';
+import AudioPlayer from '@/components/AudioPlayer';
 import { 
   getCollectionById, 
   getWordsByCollection, 
@@ -130,8 +130,15 @@ const CollectionDetails = () => {
                     onClick={() => handleWordClick(word.id)}
                     className="glass-card p-4 rounded-xl text-left hover:shadow-md transition-all border border-transparent hover:border-primary/20"
                   >
-                    <div className="mb-2">
+                    <div className="flex items-start justify-between mb-2">
                       <span className="text-xl font-arabic">{word.arabic}</span>
+                      <AudioPlayer 
+                        text={word.arabic}
+                        voice="Mo"
+                        size="sm"
+                        className="ml-2"
+                        onClick={(e) => e.stopPropagation()}
+                      />
                     </div>
                     <div className="text-sm text-muted-foreground mb-1">{word.transliteration}</div>
                     <div className="font-medium">{word.meaning}</div>

@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import AudioPlayer from './AudioPlayer';
 
 interface CollectionCardProps {
   id: string;
@@ -14,6 +15,7 @@ interface CollectionCardProps {
   wordCount?: number;
   difficulty?: string;
   imageSrc?: string;
+  arabic?: string; // Add Arabic text for audio playback
 }
 
 const CollectionCard: React.FC<CollectionCardProps> = ({
@@ -25,7 +27,8 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   icon = <BookOpen className="h-5 w-5" />,
   wordCount,
   difficulty,
-  imageSrc
+  imageSrc,
+  arabic
 }) => {
   const navigate = useNavigate();
 
@@ -45,11 +48,11 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
         className
       )}
     >
-      <div className="flex items-start">
+      <div className="flex items-start flex-1">
         <div className="p-2 rounded-lg bg-primary/10 text-primary mr-3">
           {icon}
         </div>
-        <div>
+        <div className="flex-1">
           <h3 className="text-lg font-medium">{title}</h3>
           <p className="text-muted-foreground text-sm line-clamp-2">{description}</p>
           <div className="mt-2 flex flex-wrap gap-2">
@@ -62,9 +65,21 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
               </span>
             )}
           </div>
+          {arabic && (
+            <div className="mt-2 flex items-center gap-2">
+              <span className="text-sm font-arabic">{arabic}</span>
+              <AudioPlayer 
+                text={arabic}
+                voice="Mo"
+                size="sm"
+                className="ml-auto"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          )}
         </div>
       </div>
-      <ChevronRight className="h-5 w-5 text-muted-foreground mt-1" />
+      <ChevronRight className="h-5 w-5 text-muted-foreground mt-1 ml-2" />
     </button>
   );
 };

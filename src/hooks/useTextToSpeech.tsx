@@ -8,7 +8,7 @@ export const useTextToSpeech = () => {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const generateSpeech = useCallback(async (text: string, voice: string = 'Aria') => {
+  const generateSpeech = useCallback(async (text: string, voice: string = 'Mo') => {
     try {
       setIsLoading(true);
       console.log('Generating speech for:', text, 'with voice:', voice);

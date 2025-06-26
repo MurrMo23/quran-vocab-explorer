@@ -13,7 +13,7 @@ serve(async (req) => {
   }
 
   try {
-    const { text, voice = 'Aria' } = await req.json()
+    const { text, voice = 'Mo' } = await req.json()
 
     if (!text) {
       throw new Error('Text is required')
@@ -26,8 +26,9 @@ serve(async (req) => {
 
     console.log('Generating TTS for text:', text, 'with voice:', voice)
 
-    // Voice ID mapping for common voices
+    // Voice ID mapping for common voices - prioritizing Mo Wiseman
     const voiceIds: { [key: string]: string } = {
+      'Mo': 'DPd861uv5p6zeVV94qOT', // Mo Wiseman - default voice
       'Aria': '9BWtsMINqrJLrRacOk9x',
       'Roger': 'CwhRBWXzGAHq8TQ4Fs17',
       'Sarah': 'EXAVITQu4vr4xnSDxMaL',
@@ -39,7 +40,7 @@ serve(async (req) => {
       'Liam': 'TX3LPaxmHKxFdv7VOQHJ'
     }
 
-    const voiceId = voiceIds[voice] || voiceIds['Aria']
+    const voiceId = voiceIds[voice] || voiceIds['Mo'] // Default to Mo Wiseman
 
     // Generate speech using ElevenLabs API
     const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {

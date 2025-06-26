@@ -12,6 +12,7 @@ interface AudioPlayerProps {
   onPlay?: () => void;
   text?: string; // Text to convert to speech if no src provided
   voice?: string; // Voice for TTS
+  size?: 'sm' | 'md' | 'lg';
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ 
@@ -20,7 +21,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   className,
   onPlay,
   text,
-  voice = 'Aria'
+  voice = 'Mo', // Default to Mo Wiseman
+  size = 'md'
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -29,6 +31,25 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { toast } = useToast();
   const { generateSpeech, isLoading: ttsLoading } = useTextToSpeech();
+
+  // Size configurations
+  const sizeConfig = {
+    sm: {
+      button: 'w-8 h-8',
+      icon: 'h-4 w-4',
+      mute: 'w-6 h-6'
+    },
+    md: {
+      button: 'w-10 h-10',
+      icon: 'h-5 w-5',
+      mute: 'w-8 h-8'
+    },
+    lg: {
+      button: 'w-12 h-12',
+      icon: 'h-6 w-6',
+      mute: 'w-10 h-10'
+    }
+  };
 
   // Initialize audio source
   useEffect(() => {
@@ -152,36 +173,40 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         onClick={togglePlay}
         disabled={isDisabled}
         className={cn(
-          "flex items-center justify-center w-10 h-10 rounded-full transition-colors",
+          "flex items-center justify-center rounded-full transition-colors",
+          sizeConfig[size].button,
           isPlaying ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary hover:bg-primary/20",
           isDisabled && "opacity-50 cursor-not-allowed"
         )}
       >
         {isLoadingAudio ? (
-          <AudioWaveform className="h-5 w-5 animate-pulse" />
+          <AudioWaveform className={cn(sizeConfig[size].icon, "animate-pulse")} />
         ) : isPlaying ? (
-          <Pause className="h-5 w-5" />
+          <Pause className={sizeConfig[size].icon} />
         ) : (
-          <Play className="h-5 w-5" />
+          <Play className={sizeConfig[size].icon} />
         )}
       </button>
       
-      {label && <span className="text-sm">{label}</span>}
+      {label && size !== 'sm' && <span className="text-sm">{label}</span>}
       
-      <button
-        onClick={toggleMute}
-        disabled={error}
-        className={cn(
-          "flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors ml-auto",
-          error && "opacity-50 cursor-not-allowed"
-        )}
-      >
-        {isMuted ? (
-          <VolumeX className="h-4 w-4 text-muted-foreground" />
-        ) : (
-          <Volume2 className="h-4 w-4 text-muted-foreground" />
-        )}
-      </button>
+      {size !== 'sm' && (
+        <button
+          onClick={toggleMute}
+          disabled={error}
+          className={cn(
+            "flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors ml-auto",
+            sizeConfig[size].mute,
+            error && "opacity-50 cursor-not-allowed"
+          )}
+        >
+          {isMuted ? (
+            <VolumeX className="h-4 w-4 text-muted-foreground" />
+          ) : (
+            <Volume2 className="h-4 w-4 text-muted-foreground" />
+          )}
+        </button>
+      )}
     </div>
   );
 };
