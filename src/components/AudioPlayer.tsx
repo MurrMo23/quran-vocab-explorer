@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, AudioWaveform } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -13,6 +12,7 @@ interface AudioPlayerProps {
   text?: string; // Text to convert to speech if no src provided
   voice?: string; // Voice for TTS
   size?: 'sm' | 'md' | 'lg';
+  onClick?: (e: React.MouseEvent) => void; // Add onClick prop
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ 
@@ -22,7 +22,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   onPlay,
   text,
   voice = 'Mo', // Default to Mo Wiseman
-  size = 'md'
+  size = 'md',
+  onClick
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -70,7 +71,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   }, [currentAudioSrc]);
 
-  const togglePlay = async () => {
+  const togglePlay = async (e?: React.MouseEvent) => {
+    // Handle click event propagation if onClick is provided
+    if (onClick && e) {
+      onClick(e);
+    }
+    
     if (!audioRef.current) return;
     
     if (isPlaying) {
