@@ -153,8 +153,9 @@ const AdminVocabulary: React.FC<AdminVocabularyProps> = ({ onAuditLog }) => {
         partOfSpeech: data.partOfSpeech || 'noun',
         root: data.root || '',
         examples: [],
-        difficulty: 1,
-        frequency: 1
+        frequency: 1,
+        tags: [],
+        collections: []
       };
       setWords(prev => [...prev, newWord]);
       setFilteredWords(prev => [...prev, newWord]);
