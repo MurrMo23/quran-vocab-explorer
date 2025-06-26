@@ -11,12 +11,14 @@ export const useTextToSpeech = () => {
   const generateSpeech = useCallback(async (text: string, voice: string = 'Aria') => {
     try {
       setIsLoading(true);
+      console.log('Generating speech for:', text, 'with voice:', voice);
       
       const { data, error } = await supabase.functions.invoke('text-to-speech', {
         body: { text, voice }
       });
 
       if (error) {
+        console.error('Supabase function error:', error);
         throw error;
       }
 
@@ -28,6 +30,7 @@ export const useTextToSpeech = () => {
         );
         const url = URL.createObjectURL(audioBlob);
         setAudioUrl(url);
+        console.log('Audio generated successfully');
         return url;
       }
 
@@ -36,7 +39,7 @@ export const useTextToSpeech = () => {
       console.error('Text-to-speech error:', error);
       toast({
         title: "Speech Generation Failed",
-        description: error.message || 'Please try again',
+        description: error.message || 'Please try again. Make sure your ElevenLabs API key is configured correctly.',
         variant: "destructive"
       });
       return null;

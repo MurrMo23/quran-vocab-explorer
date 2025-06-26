@@ -24,13 +24,19 @@ serve(async (req) => {
       throw new Error('ElevenLabs API key not configured')
     }
 
+    console.log('Generating TTS for text:', text, 'with voice:', voice)
+
     // Voice ID mapping for common voices
     const voiceIds: { [key: string]: string } = {
       'Aria': '9BWtsMINqrJLrRacOk9x',
       'Roger': 'CwhRBWXzGAHq8TQ4Fs17',
       'Sarah': 'EXAVITQu4vr4xnSDxMaL',
       'Laura': 'FGY2WhTYpPnrIDTdsKH5',
-      'Charlie': 'IKne3meq5aSn9XLyUdCD'
+      'Charlie': 'IKne3meq5aSn9XLyUdCD',
+      'George': 'JBFqnCBsd6RMkjVDRZzb',
+      'Callum': 'N2lVS1w4EtoT3dr4eOWO',
+      'River': 'SAz9YHcvj6GT2YYXdXww',
+      'Liam': 'TX3LPaxmHKxFdv7VOQHJ'
     }
 
     const voiceId = voiceIds[voice] || voiceIds['Aria']
@@ -48,13 +54,16 @@ serve(async (req) => {
         model_id: 'eleven_multilingual_v2',
         voice_settings: {
           stability: 0.5,
-          similarity_boost: 0.75
+          similarity_boost: 0.75,
+          style: 0.0,
+          use_speaker_boost: true
         }
       }),
     })
 
     if (!response.ok) {
       const errorText = await response.text()
+      console.error('ElevenLabs API error:', response.status, errorText)
       throw new Error(`ElevenLabs API error: ${response.status} - ${errorText}`)
     }
 
@@ -63,6 +72,8 @@ serve(async (req) => {
     const base64Audio = btoa(
       String.fromCharCode(...new Uint8Array(arrayBuffer))
     )
+
+    console.log('TTS generation successful, audio length:', base64Audio.length)
 
     return new Response(
       JSON.stringify({ 

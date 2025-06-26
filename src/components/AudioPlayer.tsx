@@ -36,7 +36,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
       setCurrentAudioSrc(src);
       setError(false);
     } else if (text) {
-      // Clear any previous source when we need to generate TTS
       setCurrentAudioSrc('');
     }
     setIsPlaying(false);
@@ -46,7 +45,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   useEffect(() => {
     if (audioRef.current && currentAudioSrc) {
       audioRef.current.src = currentAudioSrc;
-      audioRef.current.load(); // Reload the audio element
+      audioRef.current.load();
     }
   }, [currentAudioSrc]);
 
@@ -67,8 +66,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         if (ttsUrl) {
           setCurrentAudioSrc(ttsUrl);
           setError(false);
-          // The audio will be loaded in the useEffect above
-          // We'll try to play it after a brief delay to ensure it's loaded
+          // Play after a brief delay to ensure audio is loaded
           setTimeout(() => {
             if (audioRef.current) {
               audioRef.current.play()
@@ -79,11 +77,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
                 .catch(err => {
                   console.error('TTS Audio playback error:', err);
                   setError(true);
-                  toast({
-                    title: "Playback Error",
-                    description: "Could not play generated audio. Please try again.",
-                    variant: "destructive"
-                  });
                 });
             }
           }, 100);
@@ -95,11 +88,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
       } catch (error) {
         console.error('TTS generation failed:', error);
         setError(true);
-        toast({
-          title: "Speech Generation Error",
-          description: "Could not generate audio. Please try again.",
-          variant: "destructive"
-        });
         return;
       }
     }
@@ -140,11 +128,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     console.error('Audio element error for source:', currentAudioSrc);
     setError(true);
     setIsPlaying(false);
-    toast({
-      title: "Audio Error",
-      description: "Could not load audio file.",
-      variant: "destructive"
-    });
   };
 
   const handleCanPlay = () => {
