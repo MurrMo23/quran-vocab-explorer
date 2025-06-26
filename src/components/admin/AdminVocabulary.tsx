@@ -149,9 +149,12 @@ const AdminVocabulary: React.FC<AdminVocabularyProps> = ({ onAuditLog }) => {
     } else {
       const newWord: Word = {
         id: Date.now().toString(),
-        ...data,
-        partOfSpeech: data.partOfSpeech || 'noun',
+        arabic: data.arabic,
+        transliteration: data.transliteration,
+        meaning: data.meaning,
         root: data.root || '',
+        level: data.level,
+        partOfSpeech: data.partOfSpeech || 'noun',
         examples: [],
         frequency: 1,
         tags: [],
