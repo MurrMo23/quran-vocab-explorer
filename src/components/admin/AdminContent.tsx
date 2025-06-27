@@ -86,10 +86,11 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
 
       // Handle seo_keywords properly with explicit typing
       const processedKeywords: string[] = (() => {
-        if (!formData.seo_keywords) return [];
-        if (Array.isArray(formData.seo_keywords)) return formData.seo_keywords;
-        if (typeof formData.seo_keywords === 'string') {
-          return formData.seo_keywords.split(',').map(k => k.trim()).filter(k => k.length > 0);
+        const keywords = formData.seo_keywords;
+        if (!keywords) return [];
+        if (Array.isArray(keywords)) return keywords;
+        if (typeof keywords === 'string') {
+          return keywords.split(',').map(k => k.trim()).filter(k => k.length > 0);
         }
         return [];
       })();
@@ -207,7 +208,7 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
   };
 
   const handleSeoKeywordsChange = (value: string) => {
-    const keywords = value.split(',').map(k => k.trim()).filter(k => k.length > 0);
+    const keywords = value.split(',').map((k: string) => k.trim()).filter((k: string) => k.length > 0);
     setFormData(prev => ({ ...prev, seo_keywords: keywords }));
   };
 
