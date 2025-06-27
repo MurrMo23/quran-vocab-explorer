@@ -84,7 +84,7 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
       // Generate slug if not provided
       const slug = formData.slug || formData.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
-      // Handle seo_keywords properly
+      // Handle seo_keywords properly with type safety
       let seoKeywords: string[] = [];
       if (formData.seo_keywords) {
         if (Array.isArray(formData.seo_keywords)) {
