@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowLeft, Volume2, Mic, Headphones } from 'lucide-react';
@@ -61,7 +61,7 @@ const AudioPractice = () => {
         </TabsList>
 
         <TabsContent value="pronunciation" className="space-y-6">
-          <div className="p-6">
+          <Card className="rounded-lg border bg-card text-card-foreground shadow-sm">
             <CardHeader>
               <CardTitle>Pronunciation Training</CardTitle>
               <p className="text-sm text-muted-foreground">
@@ -76,10 +76,10 @@ const AudioPractice = () => {
                 />
               )}
             </CardContent>
-          </div>
+          </Card>
 
           {scores.length > 0 && (
-            <div className="p-6">
+            <Card>
               <CardHeader>
                 <CardTitle>Progress Summary</CardTitle>
               </CardHeader>
@@ -101,7 +101,7 @@ const AudioPractice = () => {
                   </div>
                 </div>
               </CardContent>
-            </div>
+            </Card>
           )}
         </TabsContent>
 
@@ -113,7 +113,7 @@ const AudioPractice = () => {
         </TabsContent>
 
         <TabsContent value="recording" className="space-y-6">
-          <div className="p-6">
+          <Card>
             <CardHeader>
               <CardTitle>Advanced Recording Practice</CardTitle>
               <p className="text-sm text-muted-foreground">
@@ -128,7 +128,7 @@ const AudioPractice = () => {
                 />
               )}
             </CardContent>
-          </div>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
