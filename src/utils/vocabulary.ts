@@ -1,4 +1,3 @@
-
 import { Word, Collection } from './vocabulary-types';
 import { beginnerWords } from './words-beginner';
 import { intermediateWords } from './words-intermediate';
@@ -18,7 +17,7 @@ export type { Word, Example, Collection } from './vocabulary-types';
 export { expandedCollections as collections } from './expanded-collections';
 
 // Combine all vocabulary words including new comprehensive sets
-export const sampleVocabulary: Word[] = [
+const allVocabularyWords: Word[] = [
   ...beginnerWords,
   ...intermediateWords,
   ...advancedWords,
@@ -33,12 +32,12 @@ export const sampleVocabulary: Word[] = [
 ];
 
 // Remove duplicates based on ID
-const uniqueVocabulary = sampleVocabulary.filter((word, index, self) => 
+const uniqueVocabulary = allVocabularyWords.filter((word, index, self) => 
   index === self.findIndex(w => w.id === word.id)
 );
 
-// Update the sample vocabulary to use unique words
-export const finalVocabulary: Word[] = uniqueVocabulary;
+// Export the final vocabulary - this is the main export
+export const sampleVocabulary: Word[] = uniqueVocabulary;
 
 // Assign collections to words based on their current collections arrays
 const assignCollections = () => {
@@ -46,7 +45,7 @@ const assignCollections = () => {
   // This function now just ensures consistency and adds any missing assignments
   
   // Ensure all faith-related words are properly categorized
-  const faithWords = finalVocabulary.filter(word => 
+  const faithWords = sampleVocabulary.filter(word => 
     word.tags.includes('divine') || 
     word.tags.includes('faith') || 
     word.tags.includes('divine attributes') ||
@@ -62,7 +61,7 @@ const assignCollections = () => {
   });
   
   // Ensure prophet-related words are in prophets collection
-  const prophetWords = finalVocabulary.filter(word => 
+  const prophetWords = sampleVocabulary.filter(word => 
     word.tags.includes('prophets') || 
     word.partOfSpeech === 'noun' && (
       word.meaning.toLowerCase().includes('prophet') ||
@@ -78,7 +77,7 @@ const assignCollections = () => {
   });
   
   // Ensure ethics-related words are properly categorized
-  const ethicsWords = finalVocabulary.filter(word => 
+  const ethicsWords = sampleVocabulary.filter(word => 
     word.tags.includes('ethics') || 
     word.tags.includes('righteousness') ||
     word.tags.includes('virtue') ||
@@ -93,7 +92,7 @@ const assignCollections = () => {
   });
   
   // Ensure afterlife-related words are properly categorized
-  const afterlifeWords = finalVocabulary.filter(word => 
+  const afterlifeWords = sampleVocabulary.filter(word => 
     word.tags.includes('afterlife') || 
     word.tags.includes('punishment') ||
     word.tags.includes('reward') ||
@@ -108,7 +107,7 @@ const assignCollections = () => {
   });
   
   // Ensure worship-related words are properly categorized
-  const worshipWords = finalVocabulary.filter(word => 
+  const worshipWords = sampleVocabulary.filter(word => 
     word.tags.includes('worship') || 
     word.tags.includes('prayer') ||
     word.tags.includes('pillar') ||
@@ -123,7 +122,7 @@ const assignCollections = () => {
   });
   
   // Ensure community-related words are properly categorized
-  const communityWords = finalVocabulary.filter(word => 
+  const communityWords = sampleVocabulary.filter(word => 
     word.tags.includes('community') || 
     word.tags.includes('social') ||
     word.tags.includes('governance') ||
@@ -137,7 +136,7 @@ const assignCollections = () => {
   });
   
   // Ensure knowledge-related words are properly categorized
-  const knowledgeWords = finalVocabulary.filter(word => 
+  const knowledgeWords = sampleVocabulary.filter(word => 
     word.tags.includes('knowledge') || 
     word.tags.includes('learning') ||
     word.tags.includes('understanding') ||
@@ -153,7 +152,7 @@ const assignCollections = () => {
   });
   
   // Ensure nature-related words are properly categorized
-  const natureWords = finalVocabulary.filter(word => 
+  const natureWords = sampleVocabulary.filter(word => 
     word.tags.includes('nature') || 
     word.tags.includes('creation') ||
     word.tags.includes('sustenance') ||
@@ -198,11 +197,11 @@ export const addCustomWord = (word: Word): Word => {
 
 // Get all words including custom ones
 export const getAllWords = (): Word[] => {
-  return [...finalVocabulary, ...Array.from(customWords.values())];
+  return [...sampleVocabulary, ...Array.from(customWords.values())];
 };
 
 // Add audio URLs to words that don't have them
-finalVocabulary.forEach(word => {
+sampleVocabulary.forEach(word => {
   // Only add audio URL if it doesn't already have one
   if (!word.audioUrl) {
     // Generate a placeholder audio URL based on the word ID
@@ -237,7 +236,7 @@ export const getWordById = (id: string): Word | undefined => {
     return customWords.get(id);
   }
   // Then check sample vocabulary
-  return finalVocabulary.find(word => word.id === id);
+  return sampleVocabulary.find(word => word.id === id);
 };
 
 // Search words by query (arabic, meaning, or transliteration)
@@ -312,6 +311,3 @@ export const generateAudioForWord = async (word: Word): Promise<string | null> =
   
   return audioUrl;
 };
-
-// Export the main vocabulary array for backward compatibility
-export { finalVocabulary as sampleVocabulary };
