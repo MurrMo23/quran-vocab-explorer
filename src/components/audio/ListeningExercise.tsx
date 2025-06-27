@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Volume2, Check, X, SkipForward, Headphones } from 'lucide-react';
-import { useTextToSpeech } from '@/hooks/useTextToSpeech';
+import AudioPlayer from '@/components/AudioPlayer';
 import { Word } from '@/utils/vocabulary-types';
 
 interface ListeningExerciseProps {
@@ -20,7 +20,6 @@ interface Question {
 }
 
 const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete }) => {
-  const { generateSpeech, playAudio, isLoading } = useTextToSpeech();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -56,16 +55,6 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
 
   const currentQuestion = questions[currentQuestionIndex];
 
-  const playCurrentWord = async () => {
-    if (currentQuestion) {
-      const audioUrl = await generateSpeech(currentQuestion.word.arabic, 'Aria');
-      if (audioUrl) {
-        playAudio(audioUrl);
-        setHasPlayedAudio(true);
-      }
-    }
-  };
-
   const handleAnswerSelect = (index: number) => {
     if (showResult) return;
     
@@ -94,6 +83,10 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
 
   const getProgressPercentage = () => {
     return ((currentQuestionIndex + 1) / questions.length) * 100;
+  };
+
+  const handleAudioPlay = () => {
+    setHasPlayedAudio(true);
   };
 
   if (questions.length === 0) {
@@ -149,15 +142,15 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
         {/* Audio Control */}
         <div className="text-center space-y-4">
           <div className="text-2xl font-arabic mb-2">{currentQuestion.word.arabic}</div>
-          <Button 
-            onClick={playCurrentWord} 
-            disabled={isLoading}
-            size="lg"
-            className="mb-4"
-          >
-            <Volume2 className="h-4 w-4 mr-2" />
-            {isLoading ? 'Loading Audio...' : 'Play Audio'}
-          </Button>
+          <div className="flex justify-center">
+            <AudioPlayer
+              text={currentQuestion.word.arabic}
+              voice="onwK4e9ZLuTAKqWW03F9"
+              label="Play Audio"
+              size="lg"
+              onPlay={handleAudioPlay}
+            />
+          </div>
           {!hasPlayedAudio && (
             <p className="text-sm text-muted-foreground">
               Click to hear the pronunciation, then select the correct meaning
