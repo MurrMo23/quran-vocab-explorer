@@ -78,11 +78,11 @@ const PronunciationTrainer: React.FC<PronunciationTrainerProps> = ({
           <p className="text-lg mt-2">{word.meaning}</p>
         </div>
         
-        {/* Listen Button */}
+        {/* Listen Button - Fixed with proper ElevenLabs voice ID */}
         <div className="flex justify-center">
           <AudioPlayer
             text={word.arabic}
-            voice="Aria"
+            voice="9BWtsMINqrJLrRacOk9x"
             label="Listen to pronunciation"
             size="lg"
           />
@@ -154,7 +154,7 @@ const PronunciationTrainer: React.FC<PronunciationTrainerProps> = ({
                 </Button>
                 <AudioPlayer
                   text={word.arabic}
-                  voice="Aria"
+                  voice="9BWtsMINqrJLrRacOk9x"
                   label="Listen Again"
                   size="md"
                 />
