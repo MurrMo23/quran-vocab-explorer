@@ -8,6 +8,7 @@ import { ArrowLeft, Volume2, Mic, Headphones } from 'lucide-react';
 import PronunciationTrainer from '@/components/audio/PronunciationTrainer';
 import ListeningExercise from '@/components/audio/ListeningExercise';
 import AdvancedAudioRecorder from '@/components/audio/AdvancedAudioRecorder';
+import AudioPlayer from '@/components/AudioPlayer';
 import { getDailyWords } from '@/utils/vocabulary';
 import { Word } from '@/utils/vocabulary-types';
 
@@ -42,6 +43,31 @@ const AudioPractice = () => {
           <p className="text-muted-foreground">Improve your Arabic pronunciation and listening skills</p>
         </div>
       </div>
+
+      {/* Quick Practice Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Quick Practice</CardTitle>
+          <p className="text-sm text-muted-foreground">
+            Try pronouncing today's featured word
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="text-center">
+            <h2 className="arabic-text text-4xl mb-2">{currentWord.arabic}</h2>
+            <p className="text-lg text-muted-foreground mb-2">/{currentWord.transliteration}/</p>
+            <p className="text-base mb-4">{currentWord.meaning}</p>
+          </div>
+          <div className="flex justify-center">
+            <AudioPlayer
+              text={currentWord.arabic}
+              voice="Aria"
+              label="Listen & Practice"
+              size="lg"
+            />
+          </div>
+        </CardContent>
+      </Card>
 
       <Tabs defaultValue="pronunciation" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
