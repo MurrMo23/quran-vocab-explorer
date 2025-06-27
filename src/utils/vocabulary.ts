@@ -17,6 +17,24 @@ import { angelsAndSpiritualWords } from './words-angels-spiritual';
 import { booksAndScripturesWords } from './words-books-scriptures';
 import { peopleAndSocietyWords } from './words-people-society';
 import { moralEthicalWords } from './words-moral-ethical';
+import { completeDivineNamesWords } from './words-complete-divine-names';
+import { additionalDivineNamesWords } from './words-additional-divine-names';
+import { religiousConceptsExtendedWords } from './words-religious-concepts-extended';
+import { afterlifeExtendedWords } from './words-afterlife-extended';
+import { timeAndCreationWords } from './words-time-creation';
+import { additionalProphetsWords } from './words-additional-prophets';
+import { additionalAngelsWords } from './words-additional-angels';
+import { additionalBooksWords } from './words-additional-books';
+import { additionalPeopleWords } from './words-additional-people';
+import { ethicalTermsExtendedWords } from './words-ethical-terms-extended';
+import { actionsAndDeedsWords } from './words-actions-deeds';
+import { particlesAndPrepositionsWords } from './words-particles-prepositions';
+import { quranicPhrasesWords } from './words-quranic-phrases';
+import { naturalPhenomenaWords } from './words-natural-phenomena';
+import { additionalBodyPartsWords } from './words-additional-body-parts';
+import { additionalNumbersWords } from './words-additional-numbers';
+import { directionsWords } from './words-directions';
+import { importantVerbsWords } from './words-important-verbs';
 import { expandedCollections } from './expanded-collections';
 
 // Export type and collection definitions
@@ -41,7 +59,25 @@ const allVocabularyWords: Word[] = [
   ...angelsAndSpiritualWords,
   ...booksAndScripturesWords,
   ...peopleAndSocietyWords,
-  ...moralEthicalWords
+  ...moralEthicalWords,
+  ...completeDivineNamesWords,
+  ...additionalDivineNamesWords,
+  ...religiousConceptsExtendedWords,
+  ...afterlifeExtendedWords,
+  ...timeAndCreationWords,
+  ...additionalProphetsWords,
+  ...additionalAngelsWords,
+  ...additionalBooksWords,
+  ...additionalPeopleWords,
+  ...ethicalTermsExtendedWords,
+  ...actionsAndDeedsWords,
+  ...particlesAndPrepositionsWords,
+  ...quranicPhrasesWords,
+  ...naturalPhenomenaWords,
+  ...additionalBodyPartsWords,
+  ...additionalNumbersWords,
+  ...directionsWords,
+  ...importantVerbsWords
 ];
 
 // Remove duplicates based on ID

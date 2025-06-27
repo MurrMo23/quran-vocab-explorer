@@ -29,13 +29,14 @@ export const expandedCollections: Collection[] = [
   { id: 'verbs', name: 'Important Verbs', description: 'Commonly used verbs in the Quran' },
   { id: 'particles', name: 'Particles & Prepositions', description: 'Frequently used particles and prepositions' },
   { id: 'phrases', name: 'Common Quranic Phrases', description: 'Important phrases and expressions from the Quran' },
+  { id: 'actions', name: 'Actions & Deeds', description: 'Terms for human actions and moral deeds' },
+  { id: 'weather', name: 'Weather & Natural Phenomena', description: 'Terms for weather conditions and natural events' },
   
   // Additional specialized collections
   { id: 'family', name: 'Family & Relationships', description: 'Terms for family members, kinship, and social bonds' },
   { id: 'emotions', name: 'Emotions & Feelings', description: 'Words expressing human emotions and spiritual states' },
   { id: 'food', name: 'Food & Sustenance', description: 'Terms for food, drink, and provisions mentioned in the Quran' },
   { id: 'travel', name: 'Travel & Journey', description: 'Terms related to travel, migration, and spiritual journeys' },
-  { id: 'weather', name: 'Weather & Elements', description: 'Words describing weather, natural phenomena, and elements' },
   { id: 'animals', name: 'Animals & Creatures', description: 'Names of animals and creatures mentioned in the Quran' },
   { id: 'clothing', name: 'Clothing & Adornment', description: 'Words for clothing, jewelry, and personal adornment' },
   { id: 'business', name: 'Trade & Commerce', description: 'Commercial terms and business-related vocabulary' },
