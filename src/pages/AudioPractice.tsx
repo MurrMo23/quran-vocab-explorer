@@ -44,31 +44,6 @@ const AudioPractice = () => {
         </div>
       </div>
 
-      {/* Quick Practice Section - Removed card styling */}
-      <div className="p-6">
-        <CardHeader>
-          <CardTitle>Quick Practice</CardTitle>
-          <p className="text-sm text-muted-foreground">
-            Try pronouncing today's featured word
-          </p>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="text-center">
-            <h2 className="arabic-text text-4xl mb-2">{currentWord.arabic}</h2>
-            <p className="text-lg text-muted-foreground mb-2">/{currentWord.transliteration}/</p>
-            <p className="text-base mb-4">{currentWord.meaning}</p>
-          </div>
-          <div className="flex justify-center">
-            <AudioPlayer
-              text={currentWord.arabic}
-              voice="9BWtsMINqrJLrRacOk9x"
-              label="Listen & Practice"
-              size="lg"
-            />
-          </div>
-        </CardContent>
-      </div>
-
       <Tabs defaultValue="pronunciation" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="pronunciation" className="gap-2">
