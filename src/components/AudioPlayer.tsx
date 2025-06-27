@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, AudioWaveform } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { useTextToSpeech } from '@/hooks/useTextToSpeech';
 
 interface AudioPlayerProps {
@@ -22,7 +22,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   className,
   onPlay,
   text,
-  voice = 'CwhRBWXzGAHq8TQ4Fs17', // Use Roger voice (free tier compatible)
+  voice = 'Aria', // Changed to Aria for better Arabic support
   size = 'md',
   onClick
 }) => {
@@ -32,7 +32,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   const [currentAudioSrc, setCurrentAudioSrc] = useState<string>('');
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { toast } = useToast();
-  const { generateSpeech, isLoading: ttsLoading } = useTextToSpeech();
+  const { generateSpeech, playAudio, isLoading: ttsLoading } = useTextToSpeech();
 
   // Size configurations
   const sizeConfig = {
@@ -66,7 +66,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
   // Update audio element source when currentAudioSrc changes
   useEffect(() => {
-    if (audioRef.current && currentAudioSrc) {
+    if (audioRef.current && currentAudioSrc && currentAudioSrc !== 'web-speech-api') {
       audioRef.current.src = currentAudioSrc;
       audioRef.current.load();
     }
@@ -77,10 +77,14 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     e.preventDefault();
     e.stopPropagation();
     
-    if (!audioRef.current) return;
-    
     if (isPlaying) {
-      audioRef.current.pause();
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      // Stop Web Speech API if it's being used
+      if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+      }
       setIsPlaying(false);
       return;
     }
@@ -88,11 +92,19 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     // If we don't have an audio source but have text, generate TTS
     if (!currentAudioSrc && text) {
       try {
-        console.log('Generating TTS for:', text, 'with voice ID:', voice);
+        console.log('Generating TTS for:', text, 'with voice:', voice);
         const ttsUrl = await generateSpeech(text, voice);
         if (ttsUrl) {
           setCurrentAudioSrc(ttsUrl);
           setError(false);
+          
+          if (ttsUrl === 'web-speech-api') {
+            // Web Speech API is already playing
+            setIsPlaying(true);
+            if (onPlay) onPlay();
+            return;
+          }
+          
           // Play after a brief delay to ensure audio is loaded
           setTimeout(() => {
             if (audioRef.current) {
@@ -120,7 +132,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
 
     // Play existing audio source
-    if (currentAudioSrc) {
+    if (currentAudioSrc && currentAudioSrc !== 'web-speech-api' && audioRef.current) {
       audioRef.current.play()
         .then(() => {
           setIsPlaying(true);
@@ -165,6 +177,21 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     setError(false);
   };
 
+  // Listen for Web Speech API events
+  useEffect(() => {
+    if (!('speechSynthesis' in window)) return;
+
+    const handleSpeechEnd = () => {
+      setIsPlaying(false);
+    };
+
+    speechSynthesis.addEventListener('voiceschanged', handleSpeechEnd);
+    
+    return () => {
+      speechSynthesis.removeEventListener('voiceschanged', handleSpeechEnd);
+    };
+  }, []);
+
   const isLoadingAudio = ttsLoading && !src && text;
   const isDisabled = Boolean(isLoadingAudio || error);
 
@@ -198,7 +225,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
       
       {label && size !== 'sm' && <span className="text-sm">{label}</span>}
       
-      {size !== 'sm' && (
+      {size !== 'sm' && currentAudioSrc && currentAudioSrc !== 'web-speech-api' && (
         <div
           onClick={toggleMute}
           className={cn(

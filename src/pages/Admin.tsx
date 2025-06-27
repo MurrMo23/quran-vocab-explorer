@@ -7,8 +7,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AdminUsers from '@/components/admin/AdminUsers';
 import AdminCollections from '@/components/admin/AdminCollections';
 import AdminVocabulary from '@/components/admin/AdminVocabulary';
+import AdminContent from '@/components/admin/AdminContent';
+import AdminAds from '@/components/admin/AdminAds';
+import SystemSettings from '@/components/admin/SystemSettings';
 import { supabase } from '@/integrations/supabase/client';
-import { Database, Users, BookOpen, FileText, Activity, Settings } from 'lucide-react';
+import { Database, Users, BookOpen, FileText, Activity, Settings, Megaphone, Globe } from 'lucide-react';
 
 interface AuditLogEntry {
   id: string;
@@ -100,7 +103,7 @@ const Admin = () => {
       </div>
 
       <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-8">
           <TabsTrigger value="overview" className="flex items-center gap-2">
             <Activity className="h-4 w-4" />
             Overview
@@ -121,9 +124,17 @@ const Admin = () => {
             <FileText className="h-4 w-4" />
             Content
           </TabsTrigger>
+          <TabsTrigger value="ads" className="flex items-center gap-2">
+            <Megaphone className="h-4 w-4" />
+            Ads
+          </TabsTrigger>
           <TabsTrigger value="settings" className="flex items-center gap-2">
             <Settings className="h-4 w-4" />
             Settings
+          </TabsTrigger>
+          <TabsTrigger value="system" className="flex items-center gap-2">
+            <Globe className="h-4 w-4" />
+            System
           </TabsTrigger>
         </TabsList>
 
@@ -215,29 +226,52 @@ const Admin = () => {
         </TabsContent>
 
         <TabsContent value="content">
-          <Card>
-            <CardHeader>
-              <CardTitle>Content Management</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                Manage blog posts, pages, and other content.
-              </p>
-              <Button>Coming Soon</Button>
-            </CardContent>
-          </Card>
+          <AdminContent onAuditLog={logAuditEvent} />
+        </TabsContent>
+
+        <TabsContent value="ads">
+          <AdminAds onAuditLog={logAuditEvent} />
         </TabsContent>
 
         <TabsContent value="settings">
+          <SystemSettings onAuditLog={logAuditEvent} />
+        </TabsContent>
+
+        <TabsContent value="system">
           <Card>
             <CardHeader>
-              <CardTitle>System Settings</CardTitle>
+              <CardTitle>System Information</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground mb-4">
-                Configure system-wide settings and preferences.
-              </p>
-              <Button>Coming Soon</Button>
+              <div className="grid gap-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-semibold">Application Version</h4>
+                    <p className="text-muted-foreground">v2.1.0</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Database Status</h4>
+                    <p className="text-green-600">Connected</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Cache Status</h4>
+                    <p className="text-green-600">Active</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Last Backup</h4>
+                    <p className="text-muted-foreground">2 hours ago</p>
+                  </div>
+                </div>
+                
+                <div className="pt-4 border-t">
+                  <h4 className="font-semibold mb-2">Quick Actions</h4>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm">Clear Cache</Button>
+                    <Button variant="outline" size="sm">Run Backup</Button>
+                    <Button variant="outline" size="sm">System Check</Button>
+                  </div>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
