@@ -41,7 +41,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
         
         <AudioPlayer 
           text={word.arabic}
-          voice="DPd861uv5p6zeVV94qOT"
+          voice="CwhRBWXzGAHq8TQ4Fs17"
           label="Listen to pronunciation" 
           className="flex items-center gap-2 mt-4 md:mt-0"
         />
@@ -102,7 +102,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
               <div className="mt-3">
                 <AudioPlayer
                   text={example.arabicText}
-                  voice="DPd861uv5p6zeVV94qOT"
+                  voice="CwhRBWXzGAHq8TQ4Fs17"
                   label="Listen to verse"
                 />
               </div>

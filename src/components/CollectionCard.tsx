@@ -40,10 +40,10 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   const displayCount = wordCount !== undefined ? wordCount : count;
 
   return (
-    <button
+    <div
       onClick={handleClick}
       className={cn(
-        "glass-card p-4 rounded-xl text-left border border-gray-100 hover:border-primary/20 transition-all",
+        "glass-card p-4 rounded-xl text-left border border-gray-100 hover:border-primary/20 transition-all cursor-pointer",
         "hover:shadow-md hover:-translate-y-1 flex items-start justify-between w-full",
         className
       )}
@@ -70,17 +70,16 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
               <span className="text-sm font-arabic">{arabic}</span>
               <AudioPlayer 
                 text={arabic}
-                voice="DPd861uv5p6zeVV94qOT"
+                voice="CwhRBWXzGAHq8TQ4Fs17"
                 size="sm"
                 className="ml-auto"
-                onClick={(e) => e.stopPropagation()}
               />
             </div>
           )}
         </div>
       </div>
       <ChevronRight className="h-5 w-5 text-muted-foreground mt-1 ml-2" />
-    </button>
+    </div>
   );
 };
 

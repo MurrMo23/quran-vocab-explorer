@@ -26,21 +26,19 @@ serve(async (req) => {
 
     console.log('Generating TTS for text:', text, 'with voice/voiceId:', voice || voiceId)
 
-    // Use voiceId directly if provided, otherwise map from voice name
-    let finalVoiceId = voiceId || 'DPd861uv5p6zeVV94qOT'; // Default to Mo Wiseman
+    // Use free-tier compatible voices
+    let finalVoiceId = voiceId || 'CwhRBWXzGAHq8TQ4Fs17'; // Default to Roger (free tier)
 
-    // Voice ID mapping for backward compatibility
+    // Voice ID mapping for free tier compatible voices
     const voiceIds: { [key: string]: string } = {
-      'Mo': 'DPd861uv5p6zeVV94qOT', // Mo Wiseman - default voice
-      'Aria': '9BWtsMINqrJLrRacOk9x',
-      'Roger': 'CwhRBWXzGAHq8TQ4Fs17',
-      'Sarah': 'EXAVITQu4vr4xnSDxMaL',
-      'Laura': 'FGY2WhTYpPnrIDTdsKH5',
-      'Charlie': 'IKne3meq5aSn9XLyUdCD',
-      'George': 'JBFqnCBsd6RMkjVDRZzb',
-      'Callum': 'N2lVS1w4EtoT3dr4eOWO',
-      'River': 'SAz9YHcvj6GT2YYXdXww',
-      'Liam': 'TX3LPaxmHKxFdv7VOQHJ'
+      'Roger': 'CwhRBWXzGAHq8TQ4Fs17', // Roger - free tier
+      'Sarah': 'EXAVITQu4vr4xnSDxMaL', // Sarah - free tier
+      'Laura': 'FGY2WhTYpPnrIDTdsKH5', // Laura - free tier
+      'Charlie': 'IKne3meq5aSn9XLyUdCD', // Charlie - free tier
+      'George': 'JBFqnCBsd6RMkjVDRZzb', // George - free tier
+      'Callum': 'N2lVS1w4EtoT3dr4eOWO', // Callum - free tier
+      'River': 'SAz9YHcvj6GT2YYXdXww', // River - free tier
+      'Liam': 'TX3LPaxmHKxFdv7VOQHJ' // Liam - free tier
     }
 
     // If voice name is provided, map it to voice ID

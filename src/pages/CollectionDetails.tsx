@@ -125,20 +125,21 @@ const CollectionDetails = () => {
             <div className="w-full md:w-3/4">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {filteredWords.map((word) => (
-                  <button
+                  <div
                     key={word.id}
                     onClick={() => handleWordClick(word.id)}
-                    className="glass-card p-4 rounded-xl text-left hover:shadow-md transition-all border border-transparent hover:border-primary/20"
+                    className="glass-card p-4 rounded-xl text-left hover:shadow-md transition-all border border-transparent hover:border-primary/20 cursor-pointer"
                   >
                     <div className="flex items-start justify-between mb-2">
                       <span className="text-xl font-arabic">{word.arabic}</span>
-                      <AudioPlayer 
-                        text={word.arabic}
-                        voice="DPd861uv5p6zeVV94qOT"
-                        size="sm"
-                        className="ml-2"
-                        onClick={(e) => e.stopPropagation()}
-                      />
+                      <div onClick={(e) => e.stopPropagation()}>
+                        <AudioPlayer 
+                          text={word.arabic}
+                          voice="CwhRBWXzGAHq8TQ4Fs17"
+                          size="sm"
+                          className="ml-2"
+                        />
+                      </div>
                     </div>
                     <div className="text-sm text-muted-foreground mb-1">{word.transliteration}</div>
                     <div className="font-medium">{word.meaning}</div>
@@ -157,7 +158,7 @@ const CollectionDetails = () => {
                         </span>
                       )}
                     </div>
-                  </button>
+                  </div>
                 ))}
               </div>
 

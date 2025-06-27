@@ -13,7 +13,7 @@ interface AudioPlayerProps {
   text?: string; // Text to convert to speech if no src provided
   voice?: string; // Voice for TTS
   size?: 'sm' | 'md' | 'lg';
-  onClick?: (e: React.MouseEvent) => void; // Add onClick prop
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ 
@@ -22,7 +22,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   className,
   onPlay,
   text,
-  voice = 'DPd861uv5p6zeVV94qOT', // Use Mo Wiseman voice ID directly
+  voice = 'CwhRBWXzGAHq8TQ4Fs17', // Use Roger voice (free tier compatible)
   size = 'md',
   onClick
 }) => {
@@ -73,14 +73,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   }, [currentAudioSrc]);
 
   const togglePlay = async (e: React.MouseEvent) => {
-    // Always prevent event propagation for audio buttons
+    // Prevent event from bubbling up to parent elements
     e.preventDefault();
     e.stopPropagation();
-    
-    // Handle additional onClick if provided
-    if (onClick) {
-      onClick(e);
-    }
     
     if (!audioRef.current) return;
     
@@ -183,11 +178,10 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         className="hidden"
       />
       
-      <button
+      <div
         onClick={togglePlay}
-        disabled={isDisabled}
         className={cn(
-          "flex items-center justify-center rounded-full transition-colors",
+          "flex items-center justify-center rounded-full transition-colors cursor-pointer",
           sizeConfig[size].button,
           isPlaying ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary hover:bg-primary/20",
           isDisabled && "opacity-50 cursor-not-allowed"
@@ -200,16 +194,15 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         ) : (
           <Play className={sizeConfig[size].icon} />
         )}
-      </button>
+      </div>
       
       {label && size !== 'sm' && <span className="text-sm">{label}</span>}
       
       {size !== 'sm' && (
-        <button
+        <div
           onClick={toggleMute}
-          disabled={error}
           className={cn(
-            "flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors ml-auto",
+            "flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors ml-auto cursor-pointer",
             sizeConfig[size].mute,
             error && "opacity-50 cursor-not-allowed"
           )}
@@ -219,7 +212,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           ) : (
             <Volume2 className="h-4 w-4 text-muted-foreground" />
           )}
-        </button>
+        </div>
       )}
     </div>
   );
