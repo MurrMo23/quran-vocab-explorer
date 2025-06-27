@@ -10,9 +10,9 @@ import { Switch } from '@/components/ui/switch';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { Plus, Edit, Trash2, Eye, FileText, Globe, Settings, Save } from 'lucide-react';
+import { Plus, Edit, Trash2, Save } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { usePermissions } from '@/hooks/usePermissions';
 
@@ -83,13 +83,28 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
       }
 
       // Generate slug if not provided
-      const slug = formData.slug || formData.title?.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+      const slug = formData.slug || formData.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
+      // Properly handle seo_keywords
+      let seoKeywords: string[] = [];
+      if (formData.seo_keywords) {
+        if (Array.isArray(formData.seo_keywords)) {
+          seoKeywords = formData.seo_keywords;
+        } else if (typeof formData.seo_keywords === 'string') {
+          seoKeywords = formData.seo_keywords.split(',').map(k => k.trim()).filter(k => k.length > 0);
+        }
+      }
 
       const pageData = {
-        ...formData,
+        title: formData.title,
+        content: formData.content,
         slug,
-        seo_keywords: Array.isArray(formData.seo_keywords) ? formData.seo_keywords : 
-          typeof formData.seo_keywords === 'string' ? formData.seo_keywords.split(',').map(k => k.trim()) : []
+        excerpt: formData.excerpt || '',
+        is_published: formData.is_published ?? true,
+        page_type: formData.page_type || 'static',
+        seo_title: formData.seo_title || '',
+        seo_description: formData.seo_description || '',
+        seo_keywords: seoKeywords
       };
 
       if (selectedPage) {
@@ -187,6 +202,11 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
     setSelectedPage(null);
   };
 
+  const handleNewPage = () => {
+    resetForm();
+    setIsEditing(true);
+  };
+
   if (!hasRole('admin')) {
     return (
       <Card>
@@ -204,218 +224,76 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <FileText className="h-5 w-5" />
-            Content Management
+          <CardTitle className="flex items-center justify-between">
+            <span>Content Management</span>
+            <Button onClick={handleNewPage}>
+              <Plus className="h-4 w-4 mr-2" />
+              New Page
+            </Button>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="pages">
-            <TabsList className="mb-4">
-              <TabsTrigger value="pages">Pages</TabsTrigger>
-              <TabsTrigger value="create">Create New</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="pages">
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold">Content Pages</h3>
-                  <Button onClick={() => setIsEditing(true)}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    New Page
-                  </Button>
-                </div>
-
-                {loading ? (
-                  <div className="text-center py-8">Loading pages...</div>
-                ) : pages.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">
-                    No pages found. Create your first page to get started.
-                  </div>
-                ) : (
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Title</TableHead>
-                        <TableHead>Slug</TableHead>
-                        <TableHead>Type</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Created</TableHead>
-                        <TableHead>Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {pages.map((page) => (
-                        <TableRow key={page.id}>
-                          <TableCell className="font-medium">{page.title}</TableCell>
-                          <TableCell>
-                            <code className="text-sm bg-muted px-1 rounded">
-                              /{page.slug}
-                            </code>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant="outline">{page.page_type}</Badge>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant={page.is_published ? "default" : "secondary"}>
-                              {page.is_published ? "Published" : "Draft"}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            {new Date(page.created_at).toLocaleDateString()}
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex gap-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handleEdit(page)}
-                              >
-                                <Edit className="h-4 w-4" />
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="sm"
-                                onClick={() => handleDelete(page)}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                )}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="create">
-              <div className="space-y-6">
-                <h3 className="text-lg font-semibold">
-                  {selectedPage ? 'Edit Page' : 'Create New Page'}
-                </h3>
-
-                <div className="grid gap-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="title">Title *</Label>
-                      <Input
-                        id="title"
-                        value={formData.title}
-                        onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                        placeholder="Page title"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="slug">Slug</Label>
-                      <Input
-                        id="slug"
-                        value={formData.slug}
-                        onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
-                        placeholder="page-url-slug"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="excerpt">Excerpt</Label>
-                    <Textarea
-                      id="excerpt"
-                      value={formData.excerpt}
-                      onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
-                      placeholder="Brief description of the page"
-                      rows={2}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="content">Content *</Label>
-                    <Textarea
-                      id="content"
-                      value={formData.content}
-                      onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                      placeholder="Page content (supports HTML)"
-                      rows={10}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="page_type">Page Type</Label>
-                      <Select
-                        value={formData.page_type}
-                        onValueChange={(value) => setFormData(prev => ({ ...prev, page_type: value }))}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="static">Static Page</SelectItem>
-                          <SelectItem value="landing">Landing Page</SelectItem>
-                          <SelectItem value="help">Help Page</SelectItem>
-                          <SelectItem value="legal">Legal Page</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex items-center space-x-2 pt-8">
-                      <Switch
-                        id="published"
-                        checked={formData.is_published}
-                        onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
-                      />
-                      <Label htmlFor="published">Published</Label>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4 border-t pt-4">
-                    <h4 className="font-semibold">SEO Settings</h4>
-                    <div className="space-y-2">
-                      <Label htmlFor="seo_title">SEO Title</Label>
-                      <Input
-                        id="seo_title"
-                        value={formData.seo_title}
-                        onChange={(e) => setFormData(prev => ({ ...prev, seo_title: e.target.value }))}
-                        placeholder="SEO optimized title"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="seo_description">SEO Description</Label>
-                      <Textarea
-                        id="seo_description"
-                        value={formData.seo_description}
-                        onChange={(e) => setFormData(prev => ({ ...prev, seo_description: e.target.value }))}
-                        placeholder="SEO meta description"
-                        rows={2}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="seo_keywords">SEO Keywords</Label>
-                      <Input
-                        id="seo_keywords"
-                        value={Array.isArray(formData.seo_keywords) ? formData.seo_keywords.join(', ') : formData.seo_keywords}
-                        onChange={(e) => setFormData(prev => ({ ...prev, seo_keywords: e.target.value.split(',').map(k => k.trim()) }))}
-                        placeholder="keyword1, keyword2, keyword3"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <Button onClick={handleSave}>
-                      <Save className="h-4 w-4 mr-2" />
-                      {selectedPage ? 'Update Page' : 'Create Page'}
-                    </Button>
-                    <Button variant="outline" onClick={() => {
-                      setIsEditing(false);
-                      resetForm();
-                    }}>
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
+          {loading ? (
+            <div className="text-center py-8">Loading pages...</div>
+          ) : pages.length === 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              No pages found. Create your first page to get started.
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Title</TableHead>
+                  <TableHead>Slug</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Created</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {pages.map((page) => (
+                  <TableRow key={page.id}>
+                    <TableCell className="font-medium">{page.title}</TableCell>
+                    <TableCell>
+                      <code className="text-sm bg-muted px-1 rounded">
+                        /{page.slug}
+                      </code>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline">{page.page_type}</Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={page.is_published ? "default" : "secondary"}>
+                        {page.is_published ? "Published" : "Draft"}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {new Date(page.created_at).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleEdit(page)}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => handleDelete(page)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </CardContent>
       </Card>
 
@@ -428,7 +306,124 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              {/* Content form will be rendered here */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="title">Title *</Label>
+                  <Input
+                    id="title"
+                    value={formData.title || ''}
+                    onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                    placeholder="Page title"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="slug">Slug</Label>
+                  <Input
+                    id="slug"
+                    value={formData.slug || ''}
+                    onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
+                    placeholder="page-url-slug"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="excerpt">Excerpt</Label>
+                <Textarea
+                  id="excerpt"
+                  value={formData.excerpt || ''}
+                  onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
+                  placeholder="Brief description of the page"
+                  rows={2}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="content">Content *</Label>
+                <Textarea
+                  id="content"
+                  value={formData.content || ''}
+                  onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                  placeholder="Page content (supports HTML)"
+                  rows={10}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="page_type">Page Type</Label>
+                  <Select
+                    value={formData.page_type}
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, page_type: value }))}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="static">Static Page</SelectItem>
+                      <SelectItem value="landing">Landing Page</SelectItem>
+                      <SelectItem value="help">Help Page</SelectItem>
+                      <SelectItem value="legal">Legal Page</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center space-x-2 pt-8">
+                  <Switch
+                    id="published"
+                    checked={formData.is_published}
+                    onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
+                  />
+                  <Label htmlFor="published">Published</Label>
+                </div>
+              </div>
+
+              <div className="space-y-4 border-t pt-4">
+                <h4 className="font-semibold">SEO Settings</h4>
+                <div className="space-y-2">
+                  <Label htmlFor="seo_title">SEO Title</Label>
+                  <Input
+                    id="seo_title"
+                    value={formData.seo_title || ''}
+                    onChange={(e) => setFormData(prev => ({ ...prev, seo_title: e.target.value }))}
+                    placeholder="SEO optimized title"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="seo_description">SEO Description</Label>
+                  <Textarea
+                    id="seo_description"
+                    value={formData.seo_description || ''}
+                    onChange={(e) => setFormData(prev => ({ ...prev, seo_description: e.target.value }))}
+                    placeholder="SEO meta description"
+                    rows={2}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="seo_keywords">SEO Keywords</Label>
+                  <Input
+                    id="seo_keywords"
+                    value={Array.isArray(formData.seo_keywords) ? formData.seo_keywords.join(', ') : ''}
+                    onChange={(e) => setFormData(prev => ({ 
+                      ...prev, 
+                      seo_keywords: e.target.value.split(',').map(k => k.trim()).filter(k => k.length > 0)
+                    }))}
+                    placeholder="keyword1, keyword2, keyword3"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <Button onClick={handleSave}>
+                  <Save className="h-4 w-4 mr-2" />
+                  {selectedPage ? 'Update Page' : 'Create Page'}
+                </Button>
+                <Button variant="outline" onClick={() => {
+                  setIsEditing(false);
+                  resetForm();
+                }}>
+                  Cancel
+                </Button>
+              </div>
             </div>
           </DialogContent>
         </Dialog>
