@@ -84,15 +84,15 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
       // Generate slug if not provided
       const slug = formData.slug || formData.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
-      // Handle seo_keywords properly with type safety
-      let seoKeywords: string[] = [];
-      if (formData.seo_keywords) {
-        if (Array.isArray(formData.seo_keywords)) {
-          seoKeywords = formData.seo_keywords;
-        } else if (typeof formData.seo_keywords === 'string') {
-          seoKeywords = formData.seo_keywords.split(',').map(k => k.trim()).filter(k => k.length > 0);
+      // Handle seo_keywords properly
+      const processedKeywords = (() => {
+        if (!formData.seo_keywords) return [];
+        if (Array.isArray(formData.seo_keywords)) return formData.seo_keywords;
+        if (typeof formData.seo_keywords === 'string') {
+          return formData.seo_keywords.split(',').map(k => k.trim()).filter(k => k.length > 0);
         }
-      }
+        return [];
+      })();
 
       const pageData = {
         title: formData.title,
@@ -103,7 +103,7 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
         page_type: formData.page_type || 'static',
         seo_title: formData.seo_title || '',
         seo_description: formData.seo_description || '',
-        seo_keywords: seoKeywords
+        seo_keywords: processedKeywords
       };
 
       if (selectedPage) {
