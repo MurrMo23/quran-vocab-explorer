@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -85,7 +84,7 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
       // Generate slug if not provided
       const slug = formData.slug || formData.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
-      // Properly handle seo_keywords
+      // Handle seo_keywords properly
       let seoKeywords: string[] = [];
       if (formData.seo_keywords) {
         if (Array.isArray(formData.seo_keywords)) {
@@ -205,6 +204,11 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
   const handleNewPage = () => {
     resetForm();
     setIsEditing(true);
+  };
+
+  const handleSeoKeywordsChange = (value: string) => {
+    const keywords = value.split(',').map(k => k.trim()).filter(k => k.length > 0);
+    setFormData(prev => ({ ...prev, seo_keywords: keywords }));
   };
 
   if (!hasRole('admin')) {
@@ -403,10 +407,7 @@ const AdminContent: React.FC<AdminContentProps> = ({ onAuditLog }) => {
                   <Input
                     id="seo_keywords"
                     value={Array.isArray(formData.seo_keywords) ? formData.seo_keywords.join(', ') : ''}
-                    onChange={(e) => setFormData(prev => ({ 
-                      ...prev, 
-                      seo_keywords: e.target.value.split(',').map(k => k.trim()).filter(k => k.length > 0)
-                    }))}
+                    onChange={(e) => handleSeoKeywordsChange(e.target.value)}
                     placeholder="keyword1, keyword2, keyword3"
                   />
                 </div>
