@@ -14,6 +14,7 @@ export const expandedCollections: Collection[] = [
   { id: 'nature', name: 'Nature & Creation', description: 'Words about the natural world and creation' },
   
   // New expanded collections
+  { id: 'divine-names', name: 'Divine Names & Attributes', description: 'The 99 Beautiful Names of Allah and divine attributes' },
   { id: 'family', name: 'Family & Relationships', description: 'Terms for family members, kinship, and social bonds' },
   { id: 'emotions', name: 'Emotions & Feelings', description: 'Words expressing human emotions and spiritual states' },
   { id: 'food', name: 'Food & Sustenance', description: 'Terms for food, drink, and provisions mentioned in the Quran' },
