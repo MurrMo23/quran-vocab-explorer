@@ -1,3 +1,4 @@
+
 import { Word, Collection } from './vocabulary-types';
 import { beginnerWords } from './words-beginner';
 import { intermediateWords } from './words-intermediate';
@@ -10,6 +11,12 @@ import { natureExpandedWords } from './words-nature-expanded';
 import { numbersWords } from './words-numbers';
 import { colorsWords } from './words-colors';
 import { bodyPartsWords } from './words-body-parts';
+import { extendedDivineNamesWords } from './words-extended-divine-names';
+import { worshipExtendedWords } from './words-worship-extended';
+import { angelsAndSpiritualWords } from './words-angels-spiritual';
+import { booksAndScripturesWords } from './words-books-scriptures';
+import { peopleAndSocietyWords } from './words-people-society';
+import { moralEthicalWords } from './words-moral-ethical';
 import { expandedCollections } from './expanded-collections';
 
 // Export type and collection definitions
@@ -28,7 +35,13 @@ const allVocabularyWords: Word[] = [
   ...natureExpandedWords,
   ...numbersWords,
   ...colorsWords,
-  ...bodyPartsWords
+  ...bodyPartsWords,
+  ...extendedDivineNamesWords,
+  ...worshipExtendedWords,
+  ...angelsAndSpiritualWords,
+  ...booksAndScripturesWords,
+  ...peopleAndSocietyWords,
+  ...moralEthicalWords
 ];
 
 // Remove duplicates based on ID
