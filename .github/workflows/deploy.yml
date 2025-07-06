@@ -32,5 +32,5 @@ jobs:
         with:
           github_token: ${{ secrets.GH_PAT }}
           publish_dir: ./dist
-          cname: quranvocab.com
+          cname: https://quranvocab.com/
           force_orphan: true
