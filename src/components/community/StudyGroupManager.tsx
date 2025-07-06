@@ -105,11 +105,11 @@ const StudyGroupManager: React.FC = () => {
               Create Group
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Create Study Group</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4">
+            <div className="space-y-4 pr-2">
               <div>
                 <Label htmlFor="groupName">Group Name</Label>
                 <Input
@@ -145,7 +145,7 @@ const StudyGroupManager: React.FC = () => {
 
               <div>
                 <Label>Focus Collections</Label>
-                <div className="grid grid-cols-2 gap-2 mt-2">
+                <div className="grid grid-cols-2 gap-2 mt-2 max-h-48 overflow-y-auto border border-border rounded-md p-3">
                   {collections.map(collection => (
                     <div key={collection.id} className="flex items-center space-x-2">
                       <Checkbox
