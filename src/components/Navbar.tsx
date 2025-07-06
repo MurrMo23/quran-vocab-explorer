@@ -50,7 +50,6 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { href: '/', label: 'Home', icon: Home },
     { href: '/collections', label: 'Collections', icon: BookOpen },
     { href: '/practice', label: 'Practice', icon: Target },
     { href: '/quiz', label: 'Quiz', icon: HelpCircle },
