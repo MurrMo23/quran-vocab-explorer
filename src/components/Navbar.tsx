@@ -51,6 +51,7 @@ const Navbar = () => {
 
   const navItems = [
     { href: '/collections', label: 'Collections', icon: BookOpen },
+    { href: '/custom-learning', label: 'Custom Learning', icon: Target },
     { href: '/practice', label: 'Practice', icon: Target },
     { href: '/quiz', label: 'Quiz', icon: HelpCircle },
     { href: '/audio-practice', label: 'Audio', icon: Volume2 },

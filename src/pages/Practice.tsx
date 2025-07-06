@@ -3,14 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, XCircle, Volume2, RotateCcw, BookOpen } from 'lucide-react';
+import { CheckCircle, XCircle, Volume2, RotateCcw, BookOpen, ArrowLeft } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import { getWordsByCollection, Collection, Word, getAllCollections } from '@/utils/vocabulary';
 import PreviewMode from '@/components/PreviewMode';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 const Practice = () => {
   const { session } = useAuth();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isCustomMode = searchParams.get('mode') === 'custom';
+  
   const [selectedCollection, setSelectedCollection] = useState<string>('');
   const [collections, setCollections] = useState<Collection[]>([]);
   const [words, setWords] = useState<Word[]>([]);
@@ -18,17 +23,40 @@ const Practice = () => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [practiceStarted, setPracticeStarted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [customWords, setCustomWords] = useState<Word[]>([]);
   
   useEffect(() => {
-    const allCollections = getAllCollections();
-    setCollections(allCollections);
-    if (allCollections.length > 0) {
-      setSelectedCollection(allCollections[0].id);
+    // Check for custom words from localStorage first
+    if (isCustomMode) {
+      const storedWords = localStorage.getItem('customPracticeWords');
+      if (storedWords) {
+        try {
+          const parsedWords = JSON.parse(storedWords);
+          setCustomWords(parsedWords);
+          setWords(parsedWords);
+          setPracticeStarted(true);
+          // Clear the custom words to prevent reuse
+          localStorage.removeItem('customPracticeWords');
+        } catch (error) {
+          console.error('Error parsing custom words:', error);
+          navigate('/custom-learning');
+        }
+      } else {
+        // No custom words found, redirect to custom learning
+        navigate('/custom-learning');
+      }
+    } else {
+      // Regular mode - load collections
+      const allCollections = getAllCollections();
+      setCollections(allCollections);
+      if (allCollections.length > 0) {
+        setSelectedCollection(allCollections[0].id);
+      }
     }
-  }, []);
+  }, [isCustomMode, navigate]);
 
   useEffect(() => {
-    if (selectedCollection) {
+    if (!isCustomMode && selectedCollection) {
       const collectionWords = getWordsByCollection(selectedCollection);
       // For preview mode, limit to 3 words for non-logged in users
       const wordsToShow = !session ? collectionWords.slice(0, 3) : collectionWords;
@@ -37,7 +65,7 @@ const Practice = () => {
       setShowAnswer(false);
       setIsCorrect(null);
     }
-  }, [selectedCollection, session]);
+  }, [selectedCollection, session, isCustomMode]);
 
   const currentWord = words[currentWordIndex];
   const progress = words.length > 0 ? ((currentWordIndex + 1) / words.length) * 100 : 0;
@@ -96,16 +124,28 @@ const Practice = () => {
 
       <div className="container mx-auto py-8">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold mb-4">Practice Mode</h1>
-          <p className="text-muted-foreground">
-            {session 
-              ? "Master Arabic vocabulary with interactive practice sessions" 
-              : "Try our practice mode with a preview of available words"
-            }
-          </p>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            {isCustomMode && (
+              <Button variant="outline" onClick={() => navigate('/custom-learning')}>
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Custom Learning
+              </Button>
+            )}
+            <div>
+              <h1 className="text-3xl font-bold mb-2">
+                {isCustomMode ? 'Custom Practice Mode' : 'Practice Mode'}
+              </h1>
+              <p className="text-muted-foreground">
+                {isCustomMode 
+                  ? `Practice with your custom word selection (${words.length} words)`
+                  : 'Study Arabic vocabulary with interactive flashcards'
+                }
+              </p>
+            </div>
+          </div>
         </div>
 
-        {!practiceStarted ? (
+        {!practiceStarted && !isCustomMode && (
           <Card className="max-w-2xl mx-auto">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -147,7 +187,9 @@ const Practice = () => {
               </Button>
             </CardContent>
           </Card>
-        ) : (
+        )}
+
+        {(practiceStarted || isCustomMode) && words.length > 0 && (
           <div className="max-w-2xl mx-auto">
             <div className="mb-6">
               <div className="flex justify-between items-center mb-2">
