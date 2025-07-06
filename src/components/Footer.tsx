@@ -48,9 +48,9 @@ const Footer: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center">
               <img 
-                src="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png" 
+                src="/lovable-uploads/b5c20cf5-bb83-4ad5-ac3d-308060e995d8.png" 
                 alt="Quran Vocab"
-                className="h-12"
+                className="h-12 brightness-0 invert"
               />
             </div>
             <p className="text-sm">

@@ -154,7 +154,7 @@ const Navbar = () => {
         <div className="mr-4 hidden md:flex">
           <Link to="/" className="mr-6 flex items-center">
             <img 
-              src="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png" 
+              src="/lovable-uploads/b5c20cf5-bb83-4ad5-ac3d-308060e995d8.png" 
               alt="Quran Vocab"
               className="h-8"
             />
@@ -181,7 +181,7 @@ const Navbar = () => {
             <MobileMenu />
             <Link to="/" className="ml-4 flex items-center">
               <img 
-                src="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png" 
+                src="/lovable-uploads/b5c20cf5-bb83-4ad5-ac3d-308060e995d8.png" 
                 alt="Quran Vocab"
                 className="h-6"
               />
