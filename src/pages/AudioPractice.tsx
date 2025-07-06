@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,28 +10,22 @@ import AdvancedAudioRecorder from '@/components/audio/AdvancedAudioRecorder';
 import AudioPlayer from '@/components/AudioPlayer';
 import { getDailyWords } from '@/utils/vocabulary';
 import { Word } from '@/utils/vocabulary-types';
-
 const AudioPractice = () => {
   const navigate = useNavigate();
   const [practiceWords] = useState<Word[]>(getDailyWords(15));
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [scores, setScores] = useState<number[]>([]);
-
   const currentWord = practiceWords[currentWordIndex];
-
   const handlePronunciationComplete = (score: number) => {
     setScores(prev => [...prev, score]);
     if (currentWordIndex < practiceWords.length - 1) {
       setCurrentWordIndex(prev => prev + 1);
     }
   };
-
   const handleListeningComplete = (score: number) => {
     console.log('Listening exercise completed with score:', score);
   };
-
-  return (
-    <div className="max-w-4xl mx-auto space-y-6">
+  return <div className="max-w-4xl mx-auto space-y-6 my-[20px]">
       <div className="flex items-center gap-4">
         <Button variant="ghost" onClick={() => navigate(-1)}>
           <ArrowLeft className="h-4 w-4 mr-2" />
@@ -69,17 +62,11 @@ const AudioPractice = () => {
               </p>
             </CardHeader>
             <CardContent>
-              {currentWord && (
-                <PronunciationTrainer
-                  word={currentWord}
-                  onComplete={handlePronunciationComplete}
-                />
-              )}
+              {currentWord && <PronunciationTrainer word={currentWord} onComplete={handlePronunciationComplete} />}
             </CardContent>
           </Card>
 
-          {scores.length > 0 && (
-            <Card>
+          {scores.length > 0 && <Card>
               <CardHeader>
                 <CardTitle>Progress Summary</CardTitle>
               </CardHeader>
@@ -101,15 +88,11 @@ const AudioPractice = () => {
                   </div>
                 </div>
               </CardContent>
-            </Card>
-          )}
+            </Card>}
         </TabsContent>
 
         <TabsContent value="listening" className="space-y-6">
-          <ListeningExercise
-            words={practiceWords}
-            onComplete={handleListeningComplete}
-          />
+          <ListeningExercise words={practiceWords} onComplete={handleListeningComplete} />
         </TabsContent>
 
         <TabsContent value="recording" className="space-y-6">
@@ -121,18 +104,11 @@ const AudioPractice = () => {
               </p>
             </CardHeader>
             <CardContent>
-              {currentWord && (
-                <AdvancedAudioRecorder
-                  word={currentWord}
-                  onScoreUpdate={(score) => console.log('Recording score:', score)}
-                />
-              )}
+              {currentWord && <AdvancedAudioRecorder word={currentWord} onScoreUpdate={score => console.log('Recording score:', score)} />}
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>;
 };
-
 export default AudioPractice;
