@@ -152,11 +152,12 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-14 items-center px-4">
         <div className="mr-4 hidden md:flex">
-          <Link to="/" className="mr-6 flex items-center space-x-2">
-            <BookOpen className="h-6 w-6" />
-            <span className="hidden font-bold sm:inline-block">
-              Quran Vocab Explorer
-            </span>
+          <Link to="/" className="mr-6 flex items-center">
+            <img 
+              src="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png" 
+              alt="Quran Vocab"
+              className="h-8"
+            />
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {navItems.map((item) => (
@@ -178,9 +179,12 @@ const Navbar = () => {
         {isMobile && (
           <div className="flex items-center">
             <MobileMenu />
-            <Link to="/" className="ml-4 flex items-center space-x-2">
-              <BookOpen className="h-6 w-6" />
-              <span className="font-bold text-sm">Quran Vocab</span>
+            <Link to="/" className="ml-4 flex items-center">
+              <img 
+                src="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png" 
+                alt="Quran Vocab"
+                className="h-6"
+              />
             </Link>
           </div>
         )}

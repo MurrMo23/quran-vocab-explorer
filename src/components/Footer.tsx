@@ -46,9 +46,12 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand & Description */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <BookOpen className="h-8 w-8 text-primary" />
-              <span className="text-2xl font-bold text-white">Arabic Vocabulary</span>
+            <div className="flex items-center">
+              <img 
+                src="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png" 
+                alt="Quran Vocab"
+                className="h-12"
+              />
             </div>
             <p className="text-sm">
               Master Quranic Arabic vocabulary with our comprehensive learning platform. 
