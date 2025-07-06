@@ -157,7 +157,7 @@ const Navbar = () => {
             <img 
               src="/lovable-uploads/b5c20cf5-bb83-4ad5-ac3d-308060e995d8.png" 
               alt="Quran Vocab"
-              className="h-8"
+              className="h-12"
             />
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -184,7 +184,7 @@ const Navbar = () => {
               <img 
                 src="/lovable-uploads/b5c20cf5-bb83-4ad5-ac3d-308060e995d8.png" 
                 alt="Quran Vocab"
-                className="h-6"
+                className="h-10"
               />
             </Link>
           </div>
