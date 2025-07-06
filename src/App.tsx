@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { AuthProvider } from '@/components/AuthProvider';
 import Layout from '@/components/Layout';
+import ScrollToTop from '@/components/ScrollToTop';
 import Index from '@/pages/Index';
 import Auth from '@/pages/Auth';
 import Dashboard from '@/pages/Dashboard';
@@ -44,6 +45,7 @@ function App() {
       <AuthProvider>
         <ThemeProvider>
           <BrowserRouter>
+            <ScrollToTop />
             <div className="min-h-screen bg-background">
               <Routes>
                 <Route path="/" element={<Layout />}>
