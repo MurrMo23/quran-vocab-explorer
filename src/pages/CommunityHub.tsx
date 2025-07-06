@@ -1,14 +1,11 @@
-
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Users, Trophy, MessageCircle, BookOpen } from 'lucide-react';
 import StudyGroupManager from '@/components/community/StudyGroupManager';
 import Leaderboard from '@/components/community/Leaderboard';
 import CommunityHub from '@/components/community/CommunityHub';
-
 const CommunityPage = () => {
-  return (
-    <div className="max-w-6xl mx-auto space-y-6">
+  return <div className="max-w-6xl mx-auto space-y-6 py-0 my-[20px]">
       <div className="text-center space-y-2">
         <h1 className="text-3xl font-bold">Community Hub</h1>
         <p className="text-muted-foreground">Connect, compete, and learn together</p>
@@ -56,8 +53,6 @@ const CommunityPage = () => {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>;
 };
-
 export default CommunityPage;
