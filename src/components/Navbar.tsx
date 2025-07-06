@@ -55,7 +55,6 @@ const Navbar = () => {
     { href: '/quiz', label: 'Quiz', icon: HelpCircle },
     { href: '/audio-practice', label: 'Audio', icon: Volume2 },
     { href: '/community-hub', label: 'Community', icon: Users },
-    { href: '/analytics', label: 'Analytics', icon: BarChart3 },
     { href: '/blog', label: 'Blog', icon: Globe }
   ];
 
