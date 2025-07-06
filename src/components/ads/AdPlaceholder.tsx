@@ -8,7 +8,7 @@ import {
   shouldShowAdToUser, 
   getNextAdForPlacement 
 } from '@/utils/ads-utils';
-import { useState as useSystemState } from 'react';
+import { sanitizeAdContent } from '@/utils/security';
 
 export type AdSize = 
   | 'banner' // 468x60
@@ -145,35 +145,25 @@ const AdPlaceholder: React.FC<AdPlaceholderProps> = ({
         // Insert the ad code
         if (adToShow && adToShow.code) {
           try {
-            const adCode = adToShow.code;
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = adCode;
+            // SECURITY: Sanitize ad content to prevent XSS attacks
+            const sanitizedAdCode = sanitizeAdContent(adToShow.code);
             
             // Track impression
             trackAdImpression(adToShow.id, location, userId);
             
-            // Add click tracking
-            tempDiv.addEventListener('click', () => {
+            // Safely insert sanitized HTML
+            adContainer.innerHTML = sanitizedAdCode;
+            
+            // Add click tracking to the container (safer than individual elements)
+            adContainer.addEventListener('click', () => {
               trackAdClick(adToShow.id, location, userId);
             });
-            
-            // Move all child nodes from tempDiv to adContainer
-            while (tempDiv.firstChild) {
-              adContainer.appendChild(tempDiv.firstChild);
-            }
-            
-            // Execute any scripts in the ad code
-            const scripts = adContainer.getElementsByTagName('script');
-            for (let i = 0; i < scripts.length; i++) {
-              const script = document.createElement('script');
-              script.text = scripts[i].text;
-              if (scripts[i].src) script.src = scripts[i].src;
-              scripts[i].parentNode?.replaceChild(script, scripts[i]);
-            }
             
             setAdRendered(true);
           } catch (error) {
             console.error('Error inserting ad code:', error);
+            // Show fallback content on error
+            adContainer.innerHTML = '<div class="text-xs text-gray-400 text-center p-2">Ad could not be loaded</div>';
           }
         }
       }

@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { Mail, Lock, User, ArrowLeft } from 'lucide-react';
+import { Mail, Lock, User, ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import { validatePasswordStrength, isValidEmail, rateLimiter, sanitizeInput } from '@/utils/security';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +16,8 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [mode, setMode] = useState<'login' | 'signup' | 'reset'>('login');
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,13 +34,29 @@ const Auth = () => {
     setLoading(true);
 
     try {
+      // Rate limiting check
+      const userKey = `auth_${sanitizeInput(email)}`;
+      if (!rateLimiter.isAllowed(userKey)) {
+        toast.error('Too many attempts. Please try again in 15 minutes.');
+        return;
+      }
+
+      // Input validation
+      if (!isValidEmail(email)) {
+        toast.error('Please enter a valid email address');
+        return;
+      }
+
       if (mode === 'signup') {
         if (password !== confirmPassword) {
           toast.error('Passwords do not match');
           return;
         }
-        if (password.length < 6) {
-          toast.error('Password must be at least 6 characters');
+        
+        const passwordValidation = validatePasswordStrength(password);
+        if (!passwordValidation.isValid) {
+          toast.error(passwordValidation.errors[0]);
+          setPasswordErrors(passwordValidation.errors);
           return;
         }
 
@@ -122,14 +141,42 @@ const Auth = () => {
                 />
               </div>
               {mode !== 'reset' && (
-                <div>
+                <div className="relative">
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (mode === 'signup' && e.target.value) {
+                        const validation = validatePasswordStrength(e.target.value);
+                        setPasswordErrors(validation.errors);
+                      } else {
+                        setPasswordErrors([]);
+                      }
+                    }}
                     required
                   />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4 text-muted-foreground" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-muted-foreground" />
+                    )}
+                  </Button>
+                </div>
+              )}
+              {mode === 'signup' && passwordErrors.length > 0 && (
+                <div className="text-sm text-destructive space-y-1">
+                  {passwordErrors.map((error, index) => (
+                    <p key={index}>• {error}</p>
+                  ))}
                 </div>
               )}
               {mode === 'signup' && (

@@ -12,6 +12,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { AlertTriangle, Save, X, Plus, Tag, Upload, Loader2 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
+import { sanitizeHtml, sanitizeInput } from '@/utils/security';
 
 interface BlogFormProps {
   post?: BlogPost;
@@ -95,7 +96,21 @@ const BlogForm = ({ post, onSubmit, onCancel }: BlogFormProps) => {
   const handleSubmit = async (data: Partial<BlogPost>) => {
     try {
       setIsSubmitting(true);
-      await onSubmit({ ...data, tags }, selectedCategories);
+      
+      // Sanitize all text inputs to prevent XSS
+      const sanitizedData = {
+        ...data,
+        title: sanitizeInput(data.title || ''),
+        slug: sanitizeInput(data.slug || ''),
+        content: sanitizeHtml(data.content || ''),
+        excerpt: sanitizeInput(data.excerpt || ''),
+        seo_title: sanitizeInput(data.seo_title || ''),
+        seo_description: sanitizeInput(data.seo_description || ''),
+        featured_image: sanitizeInput(data.featured_image || ''),
+        tags: tags.map(tag => sanitizeInput(tag))
+      };
+      
+      await onSubmit(sanitizedData, selectedCategories);
     } catch (error) {
       console.error('Error submitting form:', error);
     } finally {
