@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import SEO from '@/components/SEO';
@@ -21,15 +21,17 @@ interface ContentPageData {
 }
 
 const ContentPage: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const location = useLocation();
   const [page, setPage] = useState<ContentPageData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Extract slug from pathname (remove leading slash)
+    const slug = location.pathname.replace('/', '');
     if (slug) {
       fetchPage(slug);
     }
-  }, [slug]);
+  }, [location.pathname]);
 
   const fetchPage = async (pageSlug: string) => {
     try {
