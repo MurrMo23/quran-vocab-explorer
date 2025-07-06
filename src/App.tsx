@@ -28,6 +28,7 @@ import Blog from '@/pages/Blog';
 import BlogCategory from '@/pages/BlogCategory';
 import BlogTag from '@/pages/BlogTag';
 import BlogPost from '@/pages/BlogPost';
+import ContentPage from '@/components/ContentPage';
 import NotFound from '@/pages/NotFound';
 
 const queryClient = new QueryClient({
@@ -70,6 +71,11 @@ function App() {
                   <Route path="blog/category/:category" element={<BlogCategory />} />
                   <Route path="blog/tag/:tag" element={<BlogTag />} />
                   <Route path="blog/:slug" element={<BlogPost />} />
+                  <Route path="help" element={<ContentPage />} />
+                  <Route path="about" element={<ContentPage />} />
+                  <Route path="contact" element={<ContentPage />} />
+                  <Route path="privacy-policy" element={<ContentPage />} />
+                  <Route path="terms-of-service" element={<ContentPage />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
               </Routes>
