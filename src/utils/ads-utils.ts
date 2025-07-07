@@ -86,6 +86,14 @@ export const DEFAULT_AD_CONFIGS: AdConfig[] = [
     code: '<div class="ad-placeholder">Your ad code here</div>',
     is_active: true,
     location: 'custom-learning'
+  },
+  {
+    id: 'square-inline-responsive',
+    name: 'Square Inline - Responsive',
+    size: 'medium-rectangle',
+    code: '<!-- Square Inline - All Pages --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9516200521702404" data-ad-slot="4124075621" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
+    is_active: true,
+    location: 'homepage-features'
   }
 ];
 
