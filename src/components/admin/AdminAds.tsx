@@ -56,6 +56,7 @@ const AdminAds: React.FC<AdminAdsProps> = ({ onAuditLog }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [previewAd, setPreviewAd] = useState<AdConfig | null>(null);
+  const [adSenseScript, setAdSenseScript] = useState('');
   const { hasRole } = usePermissions();
   
   useEffect(() => {
@@ -123,6 +124,17 @@ const AdminAds: React.FC<AdminAdsProps> = ({ onAuditLog }) => {
     };
     
     loadAds();
+  }, []);
+  
+  useEffect(() => {
+    // Load AdSense script from localStorage
+    const savedScript = localStorage.getItem('adSenseScript');
+    if (savedScript) {
+      setAdSenseScript(savedScript);
+    } else {
+      // Set default AdSense script
+      setAdSenseScript('<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9516200521702404" crossorigin="anonymous"></script>');
+    }
   }, []);
   
   const handleSaveAd = async () => {
@@ -339,6 +351,52 @@ const AdminAds: React.FC<AdminAdsProps> = ({ onAuditLog }) => {
     }
   };
 
+  const handleSaveAdSenseScript = () => {
+    localStorage.setItem('adSenseScript', adSenseScript);
+    
+    // Update the actual script in the document head
+    updateDocumentAdSenseScript();
+    
+    if (onAuditLog) {
+      onAuditLog('UPDATE', 'adsense_script', 'global', { script: adSenseScript });
+    }
+    
+    toast.success('AdSense script saved successfully');
+  };
+
+  const updateDocumentAdSenseScript = () => {
+    // Remove existing AdSense script if it exists
+    const existingScript = document.querySelector('script[src*="googlesyndication.com/pagead/js/adsbygoogle.js"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+    
+    // Parse the new script and add it to the head
+    if (adSenseScript.trim()) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(adSenseScript, 'text/html');
+      const newScript = doc.querySelector('script');
+      
+      if (newScript) {
+        const scriptElement = document.createElement('script');
+        if (newScript.src) {
+          scriptElement.src = newScript.src;
+        }
+        if (newScript.getAttribute('crossorigin')) {
+          scriptElement.setAttribute('crossorigin', newScript.getAttribute('crossorigin') || '');
+        }
+        if (newScript.hasAttribute('async')) {
+          scriptElement.async = true;
+        }
+        if (newScript.textContent) {
+          scriptElement.textContent = newScript.textContent;
+        }
+        
+        document.head.appendChild(scriptElement);
+      }
+    }
+  };
+
   if (!hasRole('admin')) {
     return (
       <Card>
@@ -367,6 +425,10 @@ const AdminAds: React.FC<AdminAdsProps> = ({ onAuditLog }) => {
               <TabsTrigger value="ads-list">
                 <Settings className="h-4 w-4 mr-2" />
                 Ad Configurations
+              </TabsTrigger>
+              <TabsTrigger value="global-scripts">
+                <Code className="h-4 w-4 mr-2" />
+                Global Scripts
               </TabsTrigger>
               <TabsTrigger value="add-new">
                 <Plus className="h-4 w-4 mr-2" />
@@ -461,6 +523,59 @@ const AdminAds: React.FC<AdminAdsProps> = ({ onAuditLog }) => {
                   </div>
                 </>
               )}
+            </TabsContent>
+            
+            <TabsContent value="global-scripts">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Global Ad Scripts</CardTitle>
+                  <CardDescription>
+                    Manage global advertising scripts that are loaded in the HTML head section, such as Google AdSense.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="adsense-script">Google AdSense Script</Label>
+                      <p className="text-sm text-muted-foreground">
+                        This script will be automatically added to all pages in the HTML head section. 
+                        Changes are applied immediately after saving.
+                      </p>
+                      <Textarea 
+                        id="adsense-script"
+                        placeholder='<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>'
+                        value={adSenseScript}
+                        onChange={(e) => setAdSenseScript(e.target.value)}
+                        rows={4}
+                        className="font-mono text-sm"
+                      />
+                    </div>
+                    
+                    <div className="flex space-x-4">
+                      <Button onClick={handleSaveAdSenseScript}>
+                        <Code className="h-4 w-4 mr-2" />
+                        Save AdSense Script
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        onClick={() => setAdSenseScript('<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9516200521702404" crossorigin="anonymous"></script>')}
+                      >
+                        Reset to Default
+                      </Button>
+                    </div>
+                    
+                    <div className="bg-blue-50 p-4 rounded-md border border-blue-200">
+                      <h4 className="font-medium text-blue-900 mb-2">How to use:</h4>
+                      <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
+                        <li>Get your AdSense script code from Google AdSense dashboard</li>
+                        <li>Paste the complete script tag in the text area above</li>
+                        <li>Click "Save AdSense Script" to apply the changes</li>
+                        <li>The script will be automatically loaded on all pages</li>
+                      </ol>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </TabsContent>
             
             <TabsContent value="add-new" id="add-new-tab">
