@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import { usePermissions } from '@/hooks/usePermissions';
 import { Button } from './ui/button';
-import { ModeToggle } from './ModeToggle';
 import { 
   BookOpen, 
   User, 
@@ -195,8 +194,6 @@ const Navbar = () => {
             {/* Search or other components can go here */}
           </div>
           <nav className="flex items-center space-x-2">
-            <ModeToggle />
-            
             {session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
