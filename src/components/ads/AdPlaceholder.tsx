@@ -101,8 +101,6 @@ const AdPlaceholder: React.FC<AdPlaceholderProps> = ({
     if (!isVisible || adRendered || adBlockerDetected) return;
     
     const renderAd = () => {
-      // This would be replaced with actual Google Ads code
-      // when the user adds their ad code in the admin panel
       const adContainer = adRef.current;
       
       if (adContainer && window.googleAdsData) {
@@ -117,29 +115,28 @@ const AdPlaceholder: React.FC<AdPlaceholderProps> = ({
           adContainer.removeChild(adContainer.firstChild);
         }
         
-        // For rotation: 
-        // 1. Get all ads for this location
-        const allAdsForLocation = Object.entries(window.googleAdsData)
-          .filter(([id, code]) => id.startsWith(location))
-          .map(([id, code]) => ({ 
-            id, 
-            code, 
-            location,
-            is_active: true,
-            size,
-            name: id
-          }));
-        
-        // 2. If we have multiple ads, rotate them
+        // Get the ad code for this location or specific ad ID
         let adToShow = null;
         
-        if (allAdsForLocation.length > 1) {
-          // Use rotation logic
-          adToShow = getNextAdForPlacement(location, allAdsForLocation);
+        // Try to get specific ad first
+        if (window.googleAdsData[adId]) {
+          adToShow = { id: adId, code: window.googleAdsData[adId] };
         } else {
-          // Use the specific ad requested
-          adToShow = window.googleAdsData[adId] ? 
-            { id: adId, code: window.googleAdsData[adId] } : null;
+          // Fall back to any ad for this location
+          const locationAds = Object.entries(window.googleAdsData)
+            .filter(([id, code]) => id.includes(location))
+            .map(([id, code]) => ({ 
+              id, 
+              code, 
+              name: id,
+              size: size,
+              is_active: true,
+              location: location
+            }));
+          
+          if (locationAds.length > 0) {
+            adToShow = getNextAdForPlacement(location, locationAds);
+          }
         }
         
         // Insert the ad code
@@ -154,7 +151,25 @@ const AdPlaceholder: React.FC<AdPlaceholderProps> = ({
             // Safely insert sanitized HTML
             adContainer.innerHTML = sanitizedAdCode;
             
-            // Add click tracking to the container (safer than individual elements)
+            // Initialize Google AdSense if ads are present
+            if (sanitizedAdCode.includes('adsbygoogle')) {
+              // Ensure adsbygoogle is available
+              if (typeof window !== 'undefined') {
+                (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+                
+                // Push ads to Google AdSense
+                try {
+                  const adsbyGoogleElements = adContainer.querySelectorAll('.adsbygoogle');
+                  adsbyGoogleElements.forEach(() => {
+                    (window as any).adsbygoogle.push({});
+                  });
+                } catch (adsError) {
+                  console.log('AdSense initialization:', adsError);
+                }
+              }
+            }
+            
+            // Add click tracking to the container
             adContainer.addEventListener('click', () => {
               trackAdClick(adToShow.id, location, userId);
             });
