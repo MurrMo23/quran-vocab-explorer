@@ -77,16 +77,28 @@ const SiteBranding: React.FC<SiteBrandingProps> = ({ onAuditLog }) => {
       const fileName = `${settingKey}-${Date.now()}.${fileExt}`;
       const filePath = `site-branding/${fileName}`;
 
-      const { error: uploadError } = await supabase.storage
-        .from('avatars')
-        .upload(filePath, file);
+      console.log('Uploading file:', fileName, 'to path:', filePath);
 
-      if (uploadError) throw uploadError;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        throw uploadError;
+      }
+
+      console.log('Upload successful:', uploadData);
 
       // Get public URL
       const { data: { publicUrl } } = supabase.storage
         .from('avatars')
         .getPublicUrl(filePath);
+
+      console.log('Public URL:', publicUrl);
 
       // Update settings in database
       const { error: updateError } = await supabase
@@ -97,10 +109,23 @@ const SiteBranding: React.FC<SiteBrandingProps> = ({ onAuditLog }) => {
           setting_value: publicUrl
         });
 
-      if (updateError) throw updateError;
+      if (updateError) {
+        console.error('Database update error:', updateError);
+        throw updateError;
+      }
 
-      // Update local state
+      // Update local state immediately
       setSettings(prev => ({ ...prev, [settingKey]: publicUrl }));
+
+      // Force update the global site settings in localStorage for immediate frontend updates
+      const currentSettings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
+      const updatedSettings = { ...currentSettings, [settingKey]: publicUrl };
+      localStorage.setItem('siteSettings', JSON.stringify(updatedSettings));
+
+      // Trigger a custom event to notify other components
+      window.dispatchEvent(new CustomEvent('siteSettingsUpdated', { 
+        detail: { [settingKey]: publicUrl }
+      }));
 
       // Log audit event
       if (onAuditLog) {
@@ -118,9 +143,9 @@ const SiteBranding: React.FC<SiteBrandingProps> = ({ onAuditLog }) => {
         updateFavicon(publicUrl);
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error uploading file:', error);
-      toast.error('Failed to upload file');
+      toast.error(`Failed to upload file: ${error.message || 'Unknown error'}`);
     } finally {
       setUploading(prev => ({ ...prev, [settingKey]: false }));
     }

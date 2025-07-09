@@ -20,7 +20,7 @@ export const useSiteSettings = () => {
   useEffect(() => {
     loadSettings();
     
-    // Subscribe to changes
+    // Subscribe to database changes
     const subscription = supabase
       .channel('site_settings_changes')
       .on(
@@ -36,8 +36,16 @@ export const useSiteSettings = () => {
       )
       .subscribe();
 
+    // Listen for custom events from the admin panel
+    const handleSettingsUpdate = (event: CustomEvent) => {
+      setSettings(prev => ({ ...prev, ...event.detail }));
+    };
+
+    window.addEventListener('siteSettingsUpdated', handleSettingsUpdate as EventListener);
+
     return () => {
       subscription.unsubscribe();
+      window.removeEventListener('siteSettingsUpdated', handleSettingsUpdate as EventListener);
     };
   }, []);
 
