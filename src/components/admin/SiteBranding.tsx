@@ -107,6 +107,8 @@ const SiteBranding: React.FC<SiteBrandingProps> = ({ onAuditLog }) => {
           setting_key: settingKey,
           file_url: publicUrl,
           setting_value: publicUrl
+        }, {
+          onConflict: 'setting_key'
         });
 
       if (updateError) {
