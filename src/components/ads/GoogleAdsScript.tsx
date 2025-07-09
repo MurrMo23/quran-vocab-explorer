@@ -71,7 +71,49 @@ const GoogleAdsScript = () => {
     };
 
     loadAdsData();
+    loadAdSenseScript();
   }, []);
+
+  const loadAdSenseScript = () => {
+    // Load and inject AdSense script from localStorage
+    const savedScript = localStorage.getItem('adSenseScript');
+    if (savedScript && savedScript.trim()) {
+      updateDocumentAdSenseScript(savedScript);
+    }
+  };
+
+  const updateDocumentAdSenseScript = (scriptContent: string) => {
+    // Remove existing AdSense script if it exists
+    const existingScript = document.querySelector('script[src*="googlesyndication.com/pagead/js/adsbygoogle.js"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+    
+    // Parse the new script and add it to the head
+    if (scriptContent.trim()) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(scriptContent, 'text/html');
+      const newScript = doc.querySelector('script');
+      
+      if (newScript) {
+        const scriptElement = document.createElement('script');
+        if (newScript.src) {
+          scriptElement.src = newScript.src;
+        }
+        if (newScript.getAttribute('crossorigin')) {
+          scriptElement.setAttribute('crossorigin', newScript.getAttribute('crossorigin') || '');
+        }
+        if (newScript.hasAttribute('async')) {
+          scriptElement.async = true;
+        }
+        if (newScript.textContent) {
+          scriptElement.textContent = newScript.textContent;
+        }
+        
+        document.head.appendChild(scriptElement);
+      }
+    }
+  };
 
   // This is a non-visual component, so we don't render anything
   return null;

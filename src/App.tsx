@@ -30,6 +30,7 @@ import BlogTag from '@/pages/BlogTag';
 import BlogPost from '@/pages/BlogPost';
 import ContentPage from '@/components/ContentPage';
 import NotFound from '@/pages/NotFound';
+import GoogleAdsScript from '@/components/ads/GoogleAdsScript';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,6 +48,7 @@ function App() {
         <ThemeProvider>
           <BrowserRouter>
             <ScrollToTop />
+            <GoogleAdsScript />
             <div className="min-h-screen bg-background">
               <Routes>
                 <Route path="/" element={<Layout />}>
