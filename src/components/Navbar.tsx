@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import { usePermissions } from '@/hooks/usePermissions';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { Button } from './ui/button';
 import { 
   BookOpen, 
@@ -36,6 +37,7 @@ import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 const Navbar = () => {
   const { session, signOut } = useAuth();
   const { hasRole } = usePermissions();
+  const { settings } = useSiteSettings();
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
@@ -80,7 +82,7 @@ const Navbar = () => {
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between mb-6">
             <Link to="/" className="text-xl font-bold">
-              Quran Vocab
+              {settings.site_name}
             </Link>
             <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
               <X className="h-5 w-5" />
@@ -153,11 +155,15 @@ const Navbar = () => {
       <div className="container mx-auto flex h-14 items-center px-4">
         <div className="mr-4 hidden md:flex">
           <Link to="/" className="mr-6 flex items-center">
-            <img 
-              src="/lovable-uploads/b5c20cf5-bb83-4ad5-ac3d-308060e995d8.png" 
-              alt="Quran Vocab"
-              className="h-12"
-            />
+            {settings.logo_url ? (
+              <img 
+                src={settings.logo_url} 
+                alt={settings.site_name}
+                className="h-12"
+              />
+            ) : (
+              <span className="text-xl font-bold">{settings.site_name}</span>
+            )}
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {navItems.map((item) => (
@@ -180,11 +186,15 @@ const Navbar = () => {
           <div className="flex items-center">
             <MobileMenu />
             <Link to="/" className="ml-4 flex items-center">
-              <img 
-                src="/lovable-uploads/b5c20cf5-bb83-4ad5-ac3d-308060e995d8.png" 
-                alt="Quran Vocab"
-                className="h-10"
-              />
+              {settings.logo_url ? (
+                <img 
+                  src={settings.logo_url} 
+                  alt={settings.site_name}
+                  className="h-10"
+                />
+              ) : (
+                <span className="text-lg font-bold">{settings.site_name}</span>
+              )}
             </Link>
           </div>
         )}

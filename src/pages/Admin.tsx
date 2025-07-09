@@ -10,8 +10,9 @@ import AdminVocabulary from '@/components/admin/AdminVocabulary';
 import AdminContent from '@/components/admin/AdminContent';
 import AdminAds from '@/components/admin/AdminAds';
 import SystemSettings from '@/components/admin/SystemSettings';
+import SiteBranding from '@/components/admin/SiteBranding';
 import { supabase } from '@/integrations/supabase/client';
-import { Database, Users, BookOpen, FileText, Activity, Settings, Megaphone, Globe } from 'lucide-react';
+import { Database, Users, BookOpen, FileText, Activity, Settings, Megaphone, Globe, Palette } from 'lucide-react';
 
 interface AuditLogEntry {
   id: string;
@@ -103,7 +104,7 @@ const Admin = () => {
       </div>
 
       <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-8">
+        <TabsList className="grid w-full grid-cols-9">
           <TabsTrigger value="overview" className="flex items-center gap-2">
             <Activity className="h-4 w-4" />
             Overview
@@ -127,6 +128,10 @@ const Admin = () => {
           <TabsTrigger value="ads" className="flex items-center gap-2">
             <Megaphone className="h-4 w-4" />
             Ads
+          </TabsTrigger>
+          <TabsTrigger value="branding" className="flex items-center gap-2">
+            <Palette className="h-4 w-4" />
+            Branding
           </TabsTrigger>
           <TabsTrigger value="settings" className="flex items-center gap-2">
             <Settings className="h-4 w-4" />
@@ -231,6 +236,10 @@ const Admin = () => {
 
         <TabsContent value="ads">
           <AdminAds onAuditLog={logAuditEvent} />
+        </TabsContent>
+
+        <TabsContent value="branding">
+          <SiteBranding onAuditLog={logAuditEvent} />
         </TabsContent>
 
         <TabsContent value="settings">
