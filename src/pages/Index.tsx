@@ -20,7 +20,7 @@ import {
 import { useAuth } from '@/components/AuthProvider';
 import { useIsMobile } from '@/hooks/use-mobile';
 import AdPlaceholder from '@/components/ads/AdPlaceholder';
-import { Helmet } from 'react-helmet';
+import SEO from '@/components/SEO';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -75,11 +75,13 @@ const Index = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Quran Vocab Explorer | Learn Quranic Arabic Vocabulary</title>
-        <meta name="description" content="Master Quranic Arabic vocabulary with interactive learning tools, audio pronunciation, and cultural context. Start your journey today!" />
-        <meta name="keywords" content="Quranic Arabic, vocabulary, learning, Islamic education, Arabic language, Quran study" />
-      </Helmet>
+      <SEO 
+        title="Quran Vocab Explorer | Learn Quranic Arabic Vocabulary"
+        description="Master Quranic Arabic vocabulary with interactive learning tools, audio pronunciation, and cultural context. Start your journey today!"
+        keywords={["Quranic Arabic", "vocabulary", "learning", "Islamic education", "Arabic language", "Quran study"]}
+        url="https://quranvocab.com"
+        type="website"
+      />
 
       <div className="min-h-screen">
         {/* Hero Section */}
