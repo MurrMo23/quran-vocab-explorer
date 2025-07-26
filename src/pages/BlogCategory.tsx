@@ -5,7 +5,7 @@ import BlogList from '@/components/blog/BlogList';
 import BlogSidebar from '@/components/blog/BlogSidebar';
 import { useBlogCategories } from '@/hooks/useBlogCategories';
 import { ChevronLeft } from 'lucide-react';
-import { Helmet } from 'react-helmet';
+import SEO from '@/components/SEO';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const BlogCategory = () => {
@@ -20,13 +20,13 @@ const BlogCategory = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{category ? `${category.name} | Blog` : 'Category | Blog'}</title>
-        <meta 
-          name="description" 
-          content={category?.description || `Browse articles in the ${slug} category.`} 
-        />
-      </Helmet>
+      <SEO 
+        title={category ? `${category.name} | Blog` : 'Category | Blog'}
+        description={category?.description || `Browse articles in the ${slug} category.`}
+        keywords={["Arabic blog category", "language learning", "vocabulary articles"]}
+        url={`https://quranvocab.com/blog/category/${slug}`}
+        type="website"
+      />
 
       <div className="container mx-auto py-8">
         <div className="mb-6">

@@ -6,7 +6,7 @@ import { CheckCircle, XCircle, Target, RotateCcw } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import { getWordsByCollection, Collection, Word, getAllCollections } from '@/utils/vocabulary';
 import PreviewMode from '@/components/PreviewMode';
-import { Helmet } from 'react-helmet';
+import SEO from '@/components/SEO';
 
 // Export types for components to use
 export type QuestionType = 'multiple-choice' | 'fill-in-blank' | 'arabic-to-meaning' | 'meaning-to-arabic';
@@ -145,10 +145,13 @@ const Quiz = () => {
 
   const quizContent = (
     <>
-      <Helmet>
-        <title>Arabic Vocabulary Quiz | Test Your Knowledge</title>
-        <meta name="description" content="Test your Arabic vocabulary knowledge with interactive quizzes and track your progress." />
-      </Helmet>
+      <SEO 
+        title="Arabic Vocabulary Quiz | Test Your Knowledge"
+        description="Test your Arabic vocabulary knowledge with interactive quizzes and track your progress. Multiple choice questions for all levels."
+        keywords={["Arabic quiz", "vocabulary test", "language assessment", "interactive learning"]}
+        url="https://quranvocab.com/quiz"
+        type="website"
+      />
 
       <div className="container mx-auto py-8">
         <div className="mb-8 text-center">

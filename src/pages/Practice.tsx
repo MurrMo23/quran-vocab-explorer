@@ -8,7 +8,7 @@ import { useAuth } from '@/components/AuthProvider';
 import { getWordsByCollection, Collection, Word, getAllCollections } from '@/utils/vocabulary';
 import PreviewMode from '@/components/PreviewMode';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import SEO from '@/components/SEO';
 
 const Practice = () => {
   const { session } = useAuth();
@@ -117,10 +117,13 @@ const Practice = () => {
 
   const practiceContent = (
     <>
-      <Helmet>
-        <title>Practice Arabic Vocabulary | Learn Words</title>
-        <meta name="description" content="Practice Arabic vocabulary words with interactive flashcards and track your progress." />
-      </Helmet>
+      <SEO 
+        title="Practice Arabic Vocabulary | Learn Words"
+        description="Practice Arabic vocabulary words with interactive flashcards and track your progress. Master Quranic Arabic through spaced repetition."
+        keywords={["Arabic practice", "vocabulary flashcards", "language learning", "interactive study"]}
+        url="https://quranvocab.com/practice"
+        type="website"
+      />
 
       <div className="container mx-auto py-8">
         <div className="mb-8 text-center">

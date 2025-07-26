@@ -6,6 +6,7 @@ import BlogSidebar from '@/components/blog/BlogSidebar';
 import AdPlaceholder from '@/components/ads/AdPlaceholder';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { ChevronLeft } from 'lucide-react';
+import SEO from '@/components/SEO';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -17,7 +18,15 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="container mx-auto py-8">
+    <>
+      <SEO 
+        title={`${slug} | Blog Post`}
+        description="Read our detailed blog post about Arabic vocabulary and language learning."
+        keywords={["Arabic blog post", "language learning", "vocabulary"]}
+        url={`https://quranvocab.com/blog/${slug}`}
+        type="article"
+      />
+      <div className="container mx-auto py-8">
       <div className="mb-6">
         <Link to="/blog" className="flex items-center text-primary hover:underline">
           <ChevronLeft className="h-4 w-4 mr-1" />
@@ -48,7 +57,8 @@ const BlogPost = () => {
           <AdSidebar className="mt-8" />
         </aside>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

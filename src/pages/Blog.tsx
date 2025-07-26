@@ -4,18 +4,18 @@ import BlogList from '@/components/blog/BlogList';
 import BlogSidebar from '@/components/blog/BlogSidebar';
 import AdPlaceholder from '@/components/ads/AdPlaceholder';
 import AdSidebar from '@/components/ads/AdSidebar';
-import { Helmet } from 'react-helmet';
+import SEO from '@/components/SEO';
 
 const Blog = () => {
   return (
     <>
-      <Helmet>
-        <title>Blog | Arabic Words</title>
-        <meta name="description" content="Read our blog posts about Arabic vocabulary, learning tips, and more." />
-        <meta property="og:title" content="Blog | Arabic Words" />
-        <meta property="og:description" content="Read our blog posts about Arabic vocabulary, learning tips, and more." />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <SEO 
+        title="Blog | Arabic Words"
+        description="Read our blog posts about Arabic vocabulary, learning tips, and more. Expert insights on Quranic Arabic learning."
+        keywords={["Arabic blog", "language learning", "vocabulary tips", "Quranic Arabic", "educational content"]}
+        url="https://quranvocab.com/blog"
+        type="website"
+      />
 
       <div className="container mx-auto py-8">
         <div className="flex flex-col md:flex-row gap-8">

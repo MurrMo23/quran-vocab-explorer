@@ -13,6 +13,7 @@ import { BookText, BookOpen, ChevronRight, Brain, Heart, Users, Scroll, Settings
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
+import SEO from '@/components/SEO';
 
 const getIconForCollection = (id: string) => {
   switch (id) {
@@ -46,7 +47,15 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <>
+      <SEO 
+        title="Dashboard | Quran Vocab Explorer"
+        description="Track your Arabic vocabulary learning progress with personalized stats, daily words, and featured collections."
+        keywords={["Arabic dashboard", "vocabulary progress", "Quranic learning"]}
+        url="https://quranvocab.com/dashboard"
+        type="website"
+      />
+      <div className="max-w-4xl mx-auto">
       <div className="mb-6 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold mb-1">Dashboard</h1>
@@ -227,7 +236,8 @@ const Dashboard = () => {
           Browse Collections
         </Button>
       </motion.div>
-    </div>
+      </div>
+    </>
   );
 };
 

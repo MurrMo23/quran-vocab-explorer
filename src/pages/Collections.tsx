@@ -6,7 +6,7 @@ import CreateCollectionForm from '@/components/collections/CreateCollectionForm'
 import { Button } from '@/components/ui/button';
 import { BookOpenCheck, Plus, BookText, BookMarked } from 'lucide-react';
 import { getWordsByCollection, getAllCollections, addCustomCollection, Collection } from '@/utils/vocabulary';
-import { Helmet } from 'react-helmet';
+import SEO from '@/components/SEO';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { usePermissions } from '@/hooks/usePermissions';
@@ -83,13 +83,13 @@ const Collections = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Word Collections | Arabic Vocabulary</title>
-        <meta 
-          name="description" 
-          content="Browse and learn from organized collections of Arabic vocabulary words." 
-        />
-      </Helmet>
+      <SEO 
+        title="Word Collections | Arabic Vocabulary"
+        description="Browse and learn from organized collections of Arabic vocabulary words. Explore different categories and difficulty levels."
+        keywords={["Arabic collections", "vocabulary categories", "organized learning", "word lists"]}
+        url="https://quranvocab.com/collections"
+        type="website"
+      />
       
       <div className="container mx-auto py-8">
         <div className="mb-8">
