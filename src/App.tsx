@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/components/ThemeProvider';
@@ -46,44 +46,42 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ThemeProvider>
-          <BrowserRouter>
-            <ScrollToTop />
-            <GoogleAdsScript />
-            <div className="min-h-screen bg-background">
-              <Routes>
-                <Route path="/" element={<Layout />}>
-                  <Route index element={<Index />} />
-                  <Route path="auth" element={<Auth />} />
-                  <Route path="dashboard" element={<Dashboard />} />
-                  <Route path="collections" element={<Collections />} />
-                  <Route path="collections/:id" element={<CollectionDetails />} />
-                  <Route path="practice" element={<Practice />} />
-                  <Route path="quiz" element={<Quiz />} />
-                  <Route path="enhanced-quiz" element={<EnhancedQuiz />} />
-                  <Route path="word/:id" element={<WordView />} />
-                  <Route path="admin" element={<Admin />} />
-                  <Route path="analytics" element={<Analytics />} />
-                  <Route path="settings" element={<Settings />} />
-                  <Route path="notebook" element={<Notebook />} />
-                  <Route path="custom-learning" element={<CustomLearning />} />
-                  <Route path="community" element={<Community />} />
-                  <Route path="community-hub" element={<CommunityHub />} />
-                  <Route path="audio-practice" element={<AudioPractice />} />
-                  <Route path="blog" element={<Blog />} />
-                  <Route path="blog/category/:category" element={<BlogCategory />} />
-                  <Route path="blog/tag/:tag" element={<BlogTag />} />
-                  <Route path="blog/:slug" element={<BlogPost />} />
-                  <Route path="help" element={<ContentPage />} />
-                  <Route path="about" element={<ContentPage />} />
-                  <Route path="contact" element={<ContentPage />} />
-                  <Route path="privacy-policy" element={<ContentPage />} />
-                  <Route path="terms-of-service" element={<ContentPage />} />
-                  <Route path="*" element={<NotFound />} />
-                </Route>
-              </Routes>
-              <Toaster />
-            </div>
-          </BrowserRouter>
+          <ScrollToTop />
+          <GoogleAdsScript />
+          <div className="min-h-screen bg-background">
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Index />} />
+                <Route path="auth" element={<Auth />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="collections" element={<Collections />} />
+                <Route path="collections/:id" element={<CollectionDetails />} />
+                <Route path="practice" element={<Practice />} />
+                <Route path="quiz" element={<Quiz />} />
+                <Route path="enhanced-quiz" element={<EnhancedQuiz />} />
+                <Route path="word/:id" element={<WordView />} />
+                <Route path="admin" element={<Admin />} />
+                <Route path="analytics" element={<Analytics />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="notebook" element={<Notebook />} />
+                <Route path="custom-learning" element={<CustomLearning />} />
+                <Route path="community" element={<Community />} />
+                <Route path="community-hub" element={<CommunityHub />} />
+                <Route path="audio-practice" element={<AudioPractice />} />
+                <Route path="blog" element={<Blog />} />
+                <Route path="blog/category/:category" element={<BlogCategory />} />
+                <Route path="blog/tag/:tag" element={<BlogTag />} />
+                <Route path="blog/:slug" element={<BlogPost />} />
+                <Route path="help" element={<ContentPage />} />
+                <Route path="about" element={<ContentPage />} />
+                <Route path="contact" element={<ContentPage />} />
+                <Route path="privacy-policy" element={<ContentPage />} />
+                <Route path="terms-of-service" element={<ContentPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+            <Toaster />
+          </div>
         </ThemeProvider>
       </AuthProvider>
     </QueryClientProvider>
