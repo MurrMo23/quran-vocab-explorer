@@ -6,6 +6,7 @@ interface SiteSettings {
   logo_url: string;
   og_image_url: string;
   site_name: string;
+  ads_enabled: string;
 }
 
 export const useSiteSettings = () => {
@@ -13,7 +14,8 @@ export const useSiteSettings = () => {
     favicon_url: '/favicon.ico',
     logo_url: '',
     og_image_url: '/og-image.png',
-    site_name: 'Quranic Vocabulary Learning'
+    site_name: 'Quranic Vocabulary Learning',
+    ads_enabled: 'false'
   });
   const [loading, setLoading] = useState(true);
 

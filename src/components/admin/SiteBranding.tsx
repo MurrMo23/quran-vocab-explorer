@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 import { Upload, Image, Globe, Smartphone } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
@@ -16,6 +17,7 @@ interface SiteSettings {
   logo_url: string;
   og_image_url: string;
   site_name: string;
+  ads_enabled: string;
 }
 
 const SiteBranding: React.FC<SiteBrandingProps> = ({ onAuditLog }) => {
@@ -23,7 +25,8 @@ const SiteBranding: React.FC<SiteBrandingProps> = ({ onAuditLog }) => {
     favicon_url: '/favicon.ico',
     logo_url: '',
     og_image_url: '/og-image.png',
-    site_name: 'Quranic Vocabulary Learning'
+    site_name: 'Quranic Vocabulary Learning',
+    ads_enabled: 'false'
   });
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState<{[key: string]: boolean}>({});
@@ -235,6 +238,36 @@ const SiteBranding: React.FC<SiteBrandingProps> = ({ onAuditLog }) => {
     </Card>
   );
 
+  const handleToggleAds = async () => {
+    const newValue = settings.ads_enabled === 'true' ? 'false' : 'true';
+    
+    try {
+      const { error } = await supabase
+        .from('site_settings')
+        .upsert({
+          setting_key: 'ads_enabled',
+          setting_value: newValue
+        }, {
+          onConflict: 'setting_key'
+        });
+
+      if (error) throw error;
+
+      // Update local state immediately
+      setSettings(prev => ({ ...prev, ads_enabled: newValue }));
+
+      // Trigger custom event to update settings
+      window.dispatchEvent(new CustomEvent('siteSettingsUpdated', {
+        detail: { ads_enabled: newValue }
+      }));
+
+      toast.success(`Ads ${newValue === 'true' ? 'enabled' : 'disabled'} globally`);
+    } catch (error) {
+      console.error('Error updating ads setting:', error);
+      toast.error('Failed to update ads setting');
+    }
+  };
+
   if (!hasRole('admin')) {
     return (
       <Card>
@@ -282,6 +315,32 @@ const SiteBranding: React.FC<SiteBrandingProps> = ({ onAuditLog }) => {
           currentUrl={settings.og_image_url}
         />
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Ads Control</CardTitle>
+          <CardDescription>
+            Control the visibility of all advertisement placeholders across the website
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-between">
+            <div>
+              <Label className="text-sm font-medium">Enable Ads</Label>
+              <p className="text-sm text-muted-foreground">
+                {settings.ads_enabled === 'true' 
+                  ? 'All ad placeholders are currently visible on the website'
+                  : 'All ad placeholders are currently hidden from the website'
+                }
+              </p>
+            </div>
+            <Switch 
+              checked={settings.ads_enabled === 'true'} 
+              onCheckedChange={handleToggleAds}
+            />
+          </div>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

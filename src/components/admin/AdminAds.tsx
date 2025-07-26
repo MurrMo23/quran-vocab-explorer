@@ -34,6 +34,7 @@ import { AdConfig, AdConfigResponse } from '@/utils/ads-types';
 import { supabase } from '@/integrations/supabase/client';
 import AdPlaceholder from '@/components/ads/AdPlaceholder';
 import { usePermissions } from '@/hooks/usePermissions';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 import AdPerformance from './AdPerformance';
 import { initializeDefaultAds, DEFAULT_AD_CONFIGS } from '@/utils/ads-utils';
 
@@ -58,6 +59,7 @@ const AdminAds: React.FC<AdminAdsProps> = ({ onAuditLog }) => {
   const [previewAd, setPreviewAd] = useState<AdConfig | null>(null);
   const [adSenseScript, setAdSenseScript] = useState('');
   const { hasRole } = usePermissions();
+  const { settings } = useSiteSettings();
   
   useEffect(() => {
     const loadAds = async () => {
@@ -397,6 +399,37 @@ const AdminAds: React.FC<AdminAdsProps> = ({ onAuditLog }) => {
     }
   };
 
+  const handleToggleGlobalAds = async () => {
+    const newValue = settings.ads_enabled === 'true' ? 'false' : 'true';
+    
+    try {
+      const { error } = await supabase
+        .from('site_settings')
+        .upsert({
+          setting_key: 'ads_enabled',
+          setting_value: newValue
+        }, {
+          onConflict: 'setting_key'
+        });
+
+      if (error) throw error;
+
+      // Trigger custom event to update settings
+      window.dispatchEvent(new CustomEvent('siteSettingsUpdated', {
+        detail: { ads_enabled: newValue }
+      }));
+
+      if (onAuditLog) {
+        await onAuditLog('UPDATE', 'site_setting', 'ads_enabled', { value: newValue });
+      }
+
+      toast.success(`Ads ${newValue === 'true' ? 'enabled' : 'disabled'} globally`);
+    } catch (error) {
+      console.error('Error updating ads setting:', error);
+      toast.error('Failed to update ads setting');
+    }
+  };
+
   if (!hasRole('admin')) {
     return (
       <Card>
@@ -420,6 +453,25 @@ const AdminAds: React.FC<AdminAdsProps> = ({ onAuditLog }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {/* Global Ads Toggle */}
+          <div className="mb-6 p-4 border rounded-lg bg-muted/50">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-medium">Global Ads Control</h3>
+                <p className="text-sm text-muted-foreground">
+                  {settings.ads_enabled === 'true' 
+                    ? 'All ad placeholders are currently visible on the website'
+                    : 'All ad placeholders are currently hidden from the website'
+                  }
+                </p>
+              </div>
+              <Switch 
+                checked={settings.ads_enabled === 'true'} 
+                onCheckedChange={handleToggleGlobalAds}
+              />
+            </div>
+          </div>
+          
           <Tabs defaultValue="ads-list">
             <TabsList className="mb-4">
               <TabsTrigger value="ads-list">

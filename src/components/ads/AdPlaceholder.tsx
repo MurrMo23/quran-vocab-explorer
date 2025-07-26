@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/components/AuthProvider';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { 
   trackAdImpression, 
   trackAdClick, 
@@ -52,6 +53,13 @@ const AdPlaceholder: React.FC<AdPlaceholderProps> = ({
   location = 'unknown',
   lazyLoad = true
 }) => {
+  const { settings } = useSiteSettings();
+  
+  // If ads are globally disabled, don't render anything
+  if (settings.ads_enabled === 'false') {
+    return null;
+  }
+  
   const adRef = useRef<HTMLDivElement>(null);
   const dimensions = getAdSizeDimensions(size);
   const { session } = useAuth();
