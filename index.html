@@ -31,7 +31,51 @@
   </head>
 
   <body>
-    <div id="root"><!--app-html--></div>
+    <div id="root">
+      <!-- Static content for crawlers - will be replaced by React -->
+      <header>
+        <h1>Quran Vocab Explorer | Learn Quranic Arabic Vocabulary</h1>
+        <nav>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/collections">Collections</a>
+          <a href="/practice">Practice</a>
+          <a href="/quiz">Quiz</a>
+          <a href="/blog">Blog</a>
+        </nav>
+      </header>
+      <main>
+        <section>
+          <h2>Master Quranic Arabic Vocabulary</h2>
+          <p>Learn Quranic Arabic vocabulary with interactive tools, audio pronunciation, and cultural context. Our comprehensive platform helps you understand and memorize Arabic words from the Quran through spaced repetition, gamification, and adaptive learning.</p>
+        </section>
+        <section>
+          <h2>Key Features</h2>
+          <h3>Interactive Learning</h3>
+          <p>Engage with vocabulary through flashcards, quizzes, and games designed for effective retention.</p>
+          <h3>Audio Pronunciation</h3>
+          <p>Listen to authentic Arabic pronunciation to improve your speaking and comprehension skills.</p>
+          <h3>Cultural Context</h3>
+          <p>Understand the deeper meanings and cultural significance of Quranic vocabulary.</p>
+          <h3>Progress Tracking</h3>
+          <p>Monitor your learning journey with detailed analytics and achievement systems.</p>
+        </section>
+        <section>
+          <h2>Learning Collections</h2>
+          <p>Explore curated vocabulary collections including Divine Names, Prophets, Angels, and fundamental Islamic concepts. Each collection is designed to build your understanding systematically.</p>
+        </section>
+      </main>
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "Quran Vocab Explorer",
+        "description": "Master Quranic Arabic vocabulary with interactive learning tools, audio pronunciation, and cultural context",
+        "url": "https://quranvocab.com",
+        "sameAs": [],
+        "educationalCredentialAwarded": "Arabic Language Proficiency"
+      }
+      </script>
+    </div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
