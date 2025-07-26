@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import WordDetail from '@/components/WordDetail';
+import SEO from '@/components/SEO';
 import { getWordById, Word, getAllWords } from '@/utils/vocabulary';
 import { toast } from 'sonner';
 
@@ -65,6 +66,22 @@ const WordView = () => {
 
   return (
     <>
+      {/* SEO Component for word-specific pages */}
+      {word && (
+        <SEO
+          type="vocabulary"
+          word={{
+            arabic: word.arabic,
+            transliteration: word.transliteration,
+            meaning: word.meaning,
+            root: word.root,
+            frequency: word.frequency,
+            partOfSpeech: word.partOfSpeech,
+            tags: word.tags
+          }}
+        />
+      )}
+      
       <div className="mb-6">
         <button 
           onClick={() => navigate(-1)}

@@ -31,10 +31,10 @@ const WordDetail: React.FC<WordDetailProps> = ({
   };
 
   return (
-    <div className={cn("glass-card rounded-xl p-6", className)}>
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
+    <article className={cn("glass-card rounded-xl p-6", className)}>
+      <header className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-arabic mb-2">{word.arabic}</h1>
+          <h1 className="text-3xl font-arabic mb-2" lang="ar">{word.arabic}</h1>
           <div className="text-lg text-muted-foreground mb-1">{word.transliteration}</div>
           <h2 className="text-2xl font-medium">{word.meaning}</h2>
         </div>
@@ -45,7 +45,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
           label="Listen to pronunciation" 
           className="flex items-center gap-2 mt-4 md:mt-0"
         />
-      </div>
+      </header>
       
       <div className="grid md:grid-cols-3 gap-4 mb-6">
         <div className="flex items-center">
@@ -79,7 +79,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
         </div>
       </div>
       
-      <div className="mb-6">
+      <section className="mb-6">
         <h3 className="text-lg font-medium mb-3 flex items-center">
           <BookOpen className="h-5 w-5 mr-2 text-primary" />
           <span>Quranic Examples</span>
@@ -87,17 +87,17 @@ const WordDetail: React.FC<WordDetailProps> = ({
         
         <div className="space-y-4">
           {word.examples.map((example, index) => (
-            <div key={index} className="bg-white/50 rounded-lg p-4">
+            <div key={index} className="bg-white/50 rounded-lg p-4" itemScope itemType="https://schema.org/Quotation">
               <div className="mb-2">
                 <span className="text-sm text-muted-foreground">
-                  Surah {example.surah}, Ayah {example.ayah}
+                  <span itemProp="isPartOf">Surah {example.surah}, Ayah {example.ayah}</span>
                 </span>
               </div>
               <div className="text-right mb-2">
-                <p className="text-xl font-arabic leading-loose">{example.arabicText}</p>
+                <p className="text-xl font-arabic leading-loose" lang="ar" itemProp="text">{example.arabicText}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{example.translation}</p>
+                <p className="text-sm text-muted-foreground" itemProp="translationOfWork">{example.translation}</p>
               </div>
               <div className="mt-3">
                 <AudioPlayer
@@ -109,10 +109,10 @@ const WordDetail: React.FC<WordDetailProps> = ({
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
       {/* Navigation Section */}
-      <div className="border-t pt-6 mb-6">
+      <nav className="border-t pt-6 mb-6" aria-label="Word navigation">
         <div className="flex flex-col sm:flex-row gap-4 justify-between items-start">
           <div className="flex gap-2">
             {previousWord && (
@@ -139,11 +139,11 @@ const WordDetail: React.FC<WordDetailProps> = ({
             )}
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* Related Words Section */}
       {relatedWords.length > 0 && (
-        <div className="border-t pt-6 mb-6">
+        <section className="border-t pt-6 mb-6">
           <h3 className="text-lg font-medium mb-3 flex items-center">
             <Search className="h-5 w-5 mr-2 text-primary" />
             <span>Similar Words</span>
@@ -160,12 +160,12 @@ const WordDetail: React.FC<WordDetailProps> = ({
               </button>
             ))}
           </div>
-        </div>
+        </section>
       )}
 
       {/* Recommended Words Section */}
       {recommendedWords.length > 0 && (
-        <div className="border-t pt-6 mb-6">
+        <section className="border-t pt-6 mb-6">
           <h3 className="text-lg font-medium mb-3 flex items-center">
             <Users className="h-5 w-5 mr-2 text-primary" />
             <span>People Also Studied</span>
@@ -182,20 +182,21 @@ const WordDetail: React.FC<WordDetailProps> = ({
               </button>
             ))}
           </div>
-        </div>
+        </section>
       )}
       
-      <div className="flex flex-wrap gap-2">
+      <footer className="flex flex-wrap gap-2">
         {word.tags.map(tag => (
           <span 
             key={tag} 
             className="text-xs bg-gray-100 px-3 py-1 rounded-full"
+            itemProp="keywords"
           >
             {tag}
           </span>
         ))}
-      </div>
-    </div>
+      </footer>
+    </article>
   );
 };
 
