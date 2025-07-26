@@ -28,6 +28,7 @@ import Blog from '@/pages/Blog';
 import BlogCategory from '@/pages/BlogCategory';
 import BlogTag from '@/pages/BlogTag';
 import BlogPost from '@/pages/BlogPost';
+import MobileFlashcards from '@/pages/MobileFlashcards';
 import ContentPage from '@/components/ContentPage';
 import NotFound from '@/pages/NotFound';
 import GoogleAdsScript from '@/components/ads/GoogleAdsScript';
@@ -72,6 +73,7 @@ function App() {
                 <Route path="blog/category/:category" element={<BlogCategory />} />
                 <Route path="blog/tag/:tag" element={<BlogTag />} />
                 <Route path="blog/:slug" element={<BlogPost />} />
+                <Route path="mobile-flashcards" element={<MobileFlashcards />} />
                 <Route path="help" element={<ContentPage />} />
                 <Route path="about" element={<ContentPage />} />
                 <Route path="contact" element={<ContentPage />} />
