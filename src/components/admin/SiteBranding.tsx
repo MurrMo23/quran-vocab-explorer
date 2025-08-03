@@ -157,14 +157,28 @@ const SiteBranding: React.FC<SiteBrandingProps> = ({ onAuditLog }) => {
   };
 
   const updateFavicon = (url: string) => {
-    // Update favicon in the DOM
-    let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
-    if (!link) {
-      link = document.createElement('link');
+    // Update all favicon links in the DOM
+    const faviconSelectors = [
+      "link[rel='icon']",
+      "link[rel='shortcut icon']", 
+      "link[rel='apple-touch-icon']"
+    ];
+    
+    faviconSelectors.forEach(selector => {
+      const links = document.querySelectorAll(selector) as NodeListOf<HTMLLinkElement>;
+      links.forEach(link => {
+        link.href = url;
+      });
+    });
+    
+    // Create favicon link if none exists
+    if (!document.querySelector("link[rel='icon']")) {
+      const link = document.createElement('link');
       link.rel = 'icon';
+      link.type = 'image/png';
+      link.href = url;
       document.getElementsByTagName('head')[0].appendChild(link);
     }
-    link.href = url;
   };
 
   const FileUploadCard = ({ 

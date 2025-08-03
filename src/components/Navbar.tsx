@@ -158,12 +158,18 @@ const Navbar = () => {
             {settings.logo_url ? (
               <img 
                 src={settings.logo_url} 
-                alt={settings.site_name}
-                className="h-12"
+                alt={`${settings.site_name} logo`}
+                className="h-8 w-auto max-w-[200px] object-contain"
+                loading="lazy"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                  (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+                }}
               />
-            ) : (
-              <span className="text-xl font-bold">{settings.site_name}</span>
-            )}
+            ) : null}
+            <span className={`text-xl font-bold ${settings.logo_url ? 'hidden' : ''}`}>
+              {settings.site_name}
+            </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {navItems.map((item) => (
@@ -189,12 +195,18 @@ const Navbar = () => {
               {settings.logo_url ? (
                 <img 
                   src={settings.logo_url} 
-                  alt={settings.site_name}
-                  className="h-10"
+                  alt={`${settings.site_name} logo`}
+                  className="h-6 w-auto max-w-[150px] object-contain"
+                  loading="lazy"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = 'none';
+                    (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+                  }}
                 />
-              ) : (
-                <span className="text-lg font-bold">{settings.site_name}</span>
-              )}
+              ) : null}
+              <span className={`text-lg font-bold ${settings.logo_url ? 'hidden' : ''}`}>
+                {settings.site_name}
+              </span>
             </Link>
           </div>
         )}
