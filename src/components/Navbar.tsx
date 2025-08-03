@@ -38,6 +38,9 @@ const Navbar = () => {
   const { session, signOut } = useAuth();
   const { hasRole } = usePermissions();
   const { settings } = useSiteSettings();
+  
+  // Debug: Log settings to see what's being loaded
+  console.log('Navbar settings:', settings);
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
@@ -155,19 +158,21 @@ const Navbar = () => {
       <div className="container mx-auto flex h-14 items-center px-4">
         <div className="mr-4 hidden md:flex">
           <Link to="/" className="mr-6 flex items-center">
-            {settings.logo_url ? (
+            {settings.logo_url && settings.logo_url.trim() !== '' ? (
               <img 
                 src={settings.logo_url} 
                 alt={`${settings.site_name} logo`}
                 className="h-8 w-auto max-w-[200px] object-contain"
                 loading="lazy"
+                onLoad={() => console.log('Logo loaded successfully:', settings.logo_url)}
                 onError={(e) => {
+                  console.error('Logo failed to load:', settings.logo_url);
                   (e.target as HTMLImageElement).style.display = 'none';
                   (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
                 }}
               />
             ) : null}
-            <span className={`text-xl font-bold ${settings.logo_url ? 'hidden' : ''}`}>
+            <span className={`text-xl font-bold ${settings.logo_url && settings.logo_url.trim() !== '' ? 'hidden' : ''}`}>
               {settings.site_name}
             </span>
           </Link>
@@ -192,19 +197,21 @@ const Navbar = () => {
           <div className="flex items-center">
             <MobileMenu />
             <Link to="/" className="ml-4 flex items-center">
-              {settings.logo_url ? (
+              {settings.logo_url && settings.logo_url.trim() !== '' ? (
                 <img 
                   src={settings.logo_url} 
                   alt={`${settings.site_name} logo`}
                   className="h-6 w-auto max-w-[150px] object-contain"
                   loading="lazy"
+                  onLoad={() => console.log('Mobile logo loaded successfully:', settings.logo_url)}
                   onError={(e) => {
+                    console.error('Mobile logo failed to load:', settings.logo_url);
                     (e.target as HTMLImageElement).style.display = 'none';
                     (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
                   }}
                 />
               ) : null}
-              <span className={`text-lg font-bold ${settings.logo_url ? 'hidden' : ''}`}>
+              <span className={`text-lg font-bold ${settings.logo_url && settings.logo_url.trim() !== '' ? 'hidden' : ''}`}>
                 {settings.site_name}
               </span>
             </Link>
