@@ -60,12 +60,23 @@ export const useSiteSettings = () => {
 
       if (error) throw error;
 
+      console.log('Raw site settings data:', data);
+
       const settingsMap = data?.reduce((acc, setting) => {
-        acc[setting.setting_key] = setting.file_url || setting.setting_value || '';
+        // Prioritize file_url over setting_value, and ensure we get a valid string
+        const value = setting.file_url || setting.setting_value || '';
+        acc[setting.setting_key] = value;
+        console.log(`Setting ${setting.setting_key}:`, value);
         return acc;
       }, {} as any) || {};
 
-      setSettings(prev => ({ ...prev, ...settingsMap }));
+      console.log('Processed settings map:', settingsMap);
+      
+      setSettings(prev => {
+        const newSettings = { ...prev, ...settingsMap };
+        console.log('Final settings state:', newSettings);
+        return newSettings;
+      });
     } catch (error) {
       console.error('Error loading site settings:', error);
     } finally {
