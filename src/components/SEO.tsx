@@ -63,9 +63,9 @@ const SEO: React.FC<SEOProps> = ({
       <link rel="canonical" href={url} />
       
       {/* Language and Content Type */}
-      <html lang="ar" dir="rtl" />
-      <meta name="language" content="Arabic" />
-      <meta name="content-language" content="ar-SA" />
+      <html lang="en" />
+      <meta name="language" content="English" />
+      <meta name="content-language" content="en-US" />
 
       {/* Open Graph Tags */}
       <meta property="og:type" content={type === 'vocabulary' ? 'article' : type} />
