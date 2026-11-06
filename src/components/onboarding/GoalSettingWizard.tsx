@@ -59,7 +59,6 @@ const GoalSettingWizard: React.FC = () => {
     { id: 'spaced-repetition', name: 'Spaced Repetition', description: 'Optimized review scheduling' },
     { id: 'cultural-context', name: 'Cultural Context', description: 'Learn etymology and cultural significance' },
     { id: 'grammar', name: 'Grammar Patterns', description: 'Understand word structures and patterns' },
-    { id: 'community', name: 'Community Features', description: 'Join study groups and competitions' },
     { id: 'analytics', name: 'Progress Analytics', description: 'Detailed learning insights' }
   ];
 

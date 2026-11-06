@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { QuizResult, QuizQuestion } from '@/pages/Quiz';
+import type { QuizResult, QuizQuestion } from './quiz-utils';
+import ProgressSaveNotice from '@/components/practice/ProgressSaveNotice';
 import { toast } from 'sonner';
 
 interface QuizResultsProps {
@@ -37,18 +38,17 @@ const QuizResults: React.FC<QuizResultsProps> = ({
     return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
   };
 
-  const shareResults = () => {
-    const text = `I just completed a quiz with ${result.accuracy.toFixed(1)}% accuracy! ${result.correctAnswers}/${result.totalQuestions} correct answers.`;
-    
-    if (navigator.share) {
-      navigator.share({
-        title: 'Quiz Results',
-        text,
-        url: window.location.href
-      });
-    } else {
-      navigator.clipboard.writeText(text);
-      toast.success('Results copied to clipboard!');
+  const shareResults = async () => {
+    const text = `I just completed a Quranic vocabulary quiz: ${result.correctAnswers}/${result.questionsAnswered} correct (${result.accuracy.toFixed(0)}%).`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'Quiz Results', text, url: window.location.href });
+      } else {
+        await navigator.clipboard.writeText(text);
+        toast.success('Results copied to clipboard!');
+      }
+    } catch {
+      // Share sheet dismissed or clipboard blocked: nothing to do.
     }
   };
 
@@ -60,7 +60,7 @@ const QuizResults: React.FC<QuizResultsProps> = ({
           <div className="text-6xl mb-4">{performance.emoji}</div>
           <CardTitle className="text-2xl">Quiz Complete!</CardTitle>
           <p className="text-muted-foreground">
-            You scored {result.correctAnswers} out of {result.totalQuestions} questions
+            You scored {result.correctAnswers} out of {result.questionsAnswered} questions
           </p>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -168,11 +168,11 @@ const QuizResults: React.FC<QuizResultsProps> = ({
         </CardHeader>
         <CardContent>
           <div className="space-y-3 max-h-60 overflow-y-auto">
-            {questions.map((question, index) => (
+            {questions.filter((q) => q.userAnswer !== undefined).map((question, index) => (
               <div 
                 key={question.id}
                 className={`flex items-center justify-between p-3 rounded-lg ${
-                  question.isCorrect ? 'bg-green-50' : 'bg-red-50'
+                  question.isCorrect ? 'bg-green-50 dark:bg-green-950/20' : 'bg-red-50 dark:bg-red-950/20'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -192,7 +192,7 @@ const QuizResults: React.FC<QuizResultsProps> = ({
                   }`}>
                     {question.isCorrect ? 'Correct' : 'Incorrect'}
                   </p>
-                  {question.timeSpent && (
+                  {question.timeSpent !== undefined && (
                     <p className="text-xs text-muted-foreground">
                       {formatTime(question.timeSpent)}
                     </p>
@@ -203,6 +203,8 @@ const QuizResults: React.FC<QuizResultsProps> = ({
           </div>
         </CardContent>
       </Card>
+
+      <ProgressSaveNotice />
 
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -223,7 +225,7 @@ const QuizResults: React.FC<QuizResultsProps> = ({
       </div>
 
       {/* Recommendations */}
-      <Card className="bg-gradient-to-r from-blue-50 to-purple-50">
+      <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
         <CardContent className="pt-6">
           <h3 className="font-semibold mb-2">Recommendations for Improvement</h3>
           <div className="text-sm text-muted-foreground space-y-1">
@@ -236,7 +238,7 @@ const QuizResults: React.FC<QuizResultsProps> = ({
             {Object.values(result.difficultyBreakdown).some(level => level.correct / level.total < 0.6) && (
               <p>• Focus on practicing words from difficulty levels where you scored below 60%</p>
             )}
-            <p>• Regular practice will help improve both accuracy and speed</p>
+            <p>• Missed words are now scheduled for review soon in Practice</p>
           </div>
         </CardContent>
       </Card>

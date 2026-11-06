@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -9,13 +9,10 @@ import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { 
-  Brain, 
   Clock, 
   Zap, 
   Trophy, 
-  Users, 
   Target,
-  Volume2,
   BookOpen,
   Shuffle,
   TrendingUp
@@ -26,13 +23,14 @@ import { Collection } from '@/utils/vocabulary-types';
 interface EnhancedQuizSetupProps {
   collections: Collection[];
   onStart: (config: QuizConfiguration) => void;
-  userPreferences?: any;
+  /** Collection preselected from the URL. */
+  initialCollectionId?: string;
 }
 
 const EnhancedQuizSetup: React.FC<EnhancedQuizSetupProps> = ({
   collections,
   onStart,
-  userPreferences
+  initialCollectionId
 }) => {
   const [config, setConfig] = useState<QuizConfiguration>({
     mode: 'practice',
@@ -40,59 +38,37 @@ const EnhancedQuizSetup: React.FC<EnhancedQuizSetupProps> = ({
     difficulty: 'mixed',
     questionCount: 10,
     timeLimit: 30,
-    adaptiveLearning: true,
+    adaptiveLearning: false,
     spacedRepetition: true,
-    focusOnWeakAreas: false
+    focusOnWeakAreas: false,
+    collectionId: initialCollectionId
   });
 
+  // Only question types with a real implementation in quiz-utils.buildQuestion.
   const questionTypeOptions: { type: QuestionType; label: string; icon: React.ReactNode; description: string }[] = [
-    { 
-      type: 'multiple-choice', 
-      label: 'Multiple Choice', 
+    {
+      type: 'multiple-choice',
+      label: 'Multiple Choice',
       icon: <Target className="h-4 w-4" />,
-      description: 'Choose from multiple options'
+      description: 'Pick the meaning of an Arabic word'
     },
-    { 
-      type: 'fill-in-blank', 
-      label: 'Fill in Blank', 
+    {
+      type: 'fill-in-blank',
+      label: 'Type the Meaning',
       icon: <BookOpen className="h-4 w-4" />,
-      description: 'Type the correct answer'
+      description: 'Type the English meaning'
     },
-    { 
-      type: 'arabic-to-meaning', 
-      label: 'Arabic to Meaning', 
+    {
+      type: 'arabic-to-meaning',
+      label: 'Arabic to Meaning',
       icon: <Shuffle className="h-4 w-4" />,
       description: 'Translate Arabic to English'
     },
-    { 
-      type: 'meaning-to-arabic', 
-      label: 'Meaning to Arabic', 
+    {
+      type: 'meaning-to-arabic',
+      label: 'Meaning to Arabic',
       icon: <Shuffle className="h-4 w-4" />,
-      description: 'Translate English to Arabic'
-    },
-    { 
-      type: 'audio-recognition', 
-      label: 'Audio Recognition',
-      icon: <Volume2 className="h-4 w-4" />,
-      description: 'Listen and identify words'
-    },
-    { 
-      type: 'contextual-completion', 
-      label: 'Contextual Completion',
-      icon: <BookOpen className="h-4 w-4" />,
-      description: 'Complete Quranic verses'
-    },
-    { 
-      type: 'root-family', 
-      label: 'Root Family',
-      icon: <TrendingUp className="h-4 w-4" />,
-      description: 'Group words by same root'
-    },
-    { 
-      type: 'synonym-antonym', 
-      label: 'Synonyms & Antonyms',
-      icon: <Shuffle className="h-4 w-4" />,
-      description: 'Find related words'
+      description: 'Pick the Arabic word for a meaning'
     }
   ];
 
@@ -107,25 +83,13 @@ const EnhancedQuizSetup: React.FC<EnhancedQuizSetupProps> = ({
       mode: 'timed',
       label: 'Timed Challenge',
       icon: <Clock className="h-4 w-4" />,
-      description: 'Race against the clock'
+      description: 'Answer each question before the clock runs out'
     },
     {
       mode: 'survival',
       label: 'Survival Mode',
       icon: <Zap className="h-4 w-4" />,
-      description: 'Keep going until you fail'
-    },
-    {
-      mode: 'adaptive',
-      label: 'Adaptive Learning',
-      icon: <Brain className="h-4 w-4" />,
-      description: 'AI adjusts difficulty'
-    },
-    {
-      mode: 'challenge',
-      label: 'Friend Challenge',
-      icon: <Users className="h-4 w-4" />,
-      description: 'Compete with friends'
+      description: 'The quiz ends at your first mistake'
     }
   ];
 
@@ -142,7 +106,8 @@ const EnhancedQuizSetup: React.FC<EnhancedQuizSetupProps> = ({
     if (config.questionTypes.length === 0) {
       return;
     }
-    onStart(config);
+    // The timer only applies to timed mode.
+    onStart({ ...config, timeLimit: config.mode === 'timed' ? config.timeLimit || 30 : undefined });
   };
 
   const getModeIcon = (mode: QuizMode) => {
@@ -265,7 +230,6 @@ const EnhancedQuizSetup: React.FC<EnhancedQuizSetupProps> = ({
                   <SelectItem value="intermediate">Intermediate</SelectItem>
                   <SelectItem value="advanced">Advanced</SelectItem>
                   <SelectItem value="mixed">Mixed Levels</SelectItem>
-                  <SelectItem value="adaptive">Adaptive</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -307,27 +271,9 @@ const EnhancedQuizSetup: React.FC<EnhancedQuizSetupProps> = ({
         {/* Advanced Settings */}
         <Card>
           <CardHeader>
-            <CardTitle>Advanced Features</CardTitle>
+            <CardTitle>Word Selection</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <Label className="flex items-center gap-2">
-                  <Brain className="h-4 w-4" />
-                  Adaptive Learning
-                </Label>
-                <p className="text-sm text-muted-foreground">
-                  AI adjusts difficulty based on performance
-                </p>
-              </div>
-              <Switch
-                checked={config.adaptiveLearning}
-                onCheckedChange={(checked) => 
-                  setConfig(prev => ({ ...prev, adaptiveLearning: checked }))
-                }
-              />
-            </div>
-
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <Label className="flex items-center gap-2">
@@ -335,7 +281,7 @@ const EnhancedQuizSetup: React.FC<EnhancedQuizSetupProps> = ({
                   Spaced Repetition
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  Focus on words you've struggled with
+                  Ask words that are due for review first
                 </p>
               </div>
               <Switch
@@ -353,7 +299,7 @@ const EnhancedQuizSetup: React.FC<EnhancedQuizSetupProps> = ({
                   Focus on Weak Areas
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  Prioritize areas needing improvement
+                  Ask words you've forgotten before first
                 </p>
               </div>
               <Switch
@@ -377,7 +323,7 @@ const EnhancedQuizSetup: React.FC<EnhancedQuizSetupProps> = ({
             <Badge variant="outline">{config.mode} mode</Badge>
             <Badge variant="outline">{config.questionCount} questions</Badge>
             <Badge variant="outline">{config.difficulty} difficulty</Badge>
-            {config.timeLimit && <Badge variant="outline">{config.timeLimit}s per question</Badge>}
+            {config.mode === 'timed' && config.timeLimit && <Badge variant="outline">{config.timeLimit}s per question</Badge>}
             {config.questionTypes.map(type => (
               <Badge key={type} variant="secondary">
                 {questionTypeOptions.find(opt => opt.type === type)?.label}

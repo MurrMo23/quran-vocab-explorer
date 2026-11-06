@@ -1,328 +1,189 @@
-
-import React, { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Target, Clock } from 'lucide-react';
 import EnhancedQuizSetup from '@/components/quiz/EnhancedQuizSetup';
 import QuizQuestion from '@/components/quiz/QuizQuestion';
 import QuizResults from '@/components/quiz/QuizResults';
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/components/AuthProvider';
-import { getAllWords, getWordsByCollection, getWordsByLevel, getAllCollections } from '@/utils/vocabulary';
-import { Word } from '@/utils/vocabulary-types';
-import { QuizConfiguration, EnhancedQuizQuestion } from '@/utils/quiz-types';
-import { AdvancedQuestionGenerator } from '@/utils/advanced-question-generator';
+import ProgressSaveNotice from '@/components/practice/ProgressSaveNotice';
+import { getAllCollections, getAllWords, getWordsByCollection, getWordsByLevel } from '@/utils/vocabulary';
+import type { Word } from '@/utils/vocabulary-types';
+import type { QuizConfiguration } from '@/utils/quiz-types';
 import { useQuizSession } from '@/hooks/useQuizSession';
+import { useProgress } from '@/lib/progress';
+import { PRACTICE_COLLECTION_PARAM } from '@/lib/collections';
+import {
+  buildQuestion,
+  pickQuizWords,
+  summarizeQuiz,
+  type QuestionType as BasicQuestionType,
+  type QuizResult,
+  type TypedQuizQuestion,
+} from '@/components/quiz/quiz-utils';
 import { toast } from 'sonner';
 
-// Import basic types from Quiz.tsx for compatibility
-import { QuestionType as BasicQuestionType, QuizResult, QuizQuestion as BasicQuizQuestion } from '@/pages/Quiz';
+// Legacy exports kept for existing importers.
+export type QuestionType = BasicQuestionType;
+export type QuizQuestion = TypedQuizQuestion;
 
-// Legacy types for compatibility with existing QuizQuestion component
-export type QuestionType = 'multiple-choice' | 'fill-in-blank' | 'arabic-to-meaning' | 'meaning-to-arabic';
+const SUPPORTED_TYPES: readonly BasicQuestionType[] = ['multiple-choice', 'fill-in-blank', 'arabic-to-meaning', 'meaning-to-arabic'];
 
-export interface QuizQuestion {
-  id: string;
-  word: Word;
-  type: QuestionType;
-  question: string;
-  options?: string[];
-  correctAnswer: string;
-  userAnswer?: string;
-  timeSpent?: number;
-  isCorrect?: boolean;
+function wordsFor(config: QuizConfiguration): Word[] {
+  let words = config.collectionId ? getWordsByCollection(config.collectionId) : getAllWords();
+  if (config.difficulty === 'beginner' || config.difficulty === 'intermediate' || config.difficulty === 'advanced') {
+    const level = config.difficulty;
+    words = config.collectionId ? words.filter((w) => w.level === level) : getWordsByLevel(level);
+  }
+  return words;
 }
 
 const EnhancedQuiz = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { session } = useAuth();
+  const initialCollection = searchParams.get(PRACTICE_COLLECTION_PARAM) ?? undefined;
   const { startQuizSession, completeQuizSession } = useQuizSession();
-  
+  const { recordReview, cards } = useProgress();
+
   const [gameState, setGameState] = useState<'setup' | 'playing' | 'results'>('setup');
-  const [quizConfig, setQuizConfig] = useState<QuizConfiguration>({
-    mode: 'practice',
-    questionTypes: ['multiple-choice', 'fill-in-blank'],
-    difficulty: 'mixed',
-    questionCount: 10,
-    timeLimit: 30,
-    adaptiveLearning: true,
-    spacedRepetition: true,
-    focusOnWeakAreas: false
-  });
+  const [quizConfig, setQuizConfig] = useState<QuizConfiguration | null>(null);
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [quizResult, setQuizResult] = useState<QuizResult | null>(null);
-  const [startTime, setStartTime] = useState<Date | null>(null);
-  const [sessionId, setSessionId] = useState<string | null>(null);
+  const startedAt = useRef(0);
+  const sessionIdRef = useRef<Promise<string | null> | null>(null);
+  const finished = useRef(false);
 
-  // Initialize with collection from URL if provided
   useEffect(() => {
-    const collection = searchParams.get('collection');
-    if (collection) {
-      setQuizConfig(prev => ({ ...prev, collectionId: collection }));
-    }
-  }, [searchParams]);
-
-  const generateQuestions = (config: QuizConfiguration): QuizQuestion[] => {
-    let availableWords: Word[] = [];
-
-    // Get words based on configuration
-    if (config.collectionId) {
-      availableWords = getWordsByCollection(config.collectionId);
-    } else if (config.difficulty === 'mixed') {
-      availableWords = getAllWords();
-    } else {
-      if (config.difficulty === 'adaptive') {
-        availableWords = getAllWords();
-      } else {
-        availableWords = getWordsByLevel(config.difficulty);
-      }
-    }
-
-    if (availableWords.length === 0) return [];
-
-    // Use advanced question generator
-    const generator = new AdvancedQuestionGenerator(availableWords);
-    const enhancedQuestions = generator.generateQuestionBatch(
-      config.questionTypes,
-      config.questionCount,
-      config.difficulty === 'adaptive' ? 'mixed' : config.difficulty
-    );
-
-    // Convert enhanced questions to legacy format for compatibility
-    return enhancedQuestions.map((eq, index) => convertToLegacyQuestion(eq, index));
-  };
-
-  const convertToLegacyQuestion = (enhancedQ: EnhancedQuizQuestion, index: number): QuizQuestion => {
-    const legacyTypeMap: Record<string, QuestionType> = {
-      'multiple-choice': 'multiple-choice',
-      'fill-in-blank': 'fill-in-blank',
-      'arabic-to-meaning': 'arabic-to-meaning',
-      'meaning-to-arabic': 'meaning-to-arabic',
-      'audio-recognition': 'multiple-choice',
-      'contextual-completion': 'multiple-choice',
-      'root-family': 'multiple-choice',
-      'synonym-antonym': 'multiple-choice',
-      'pronunciation-match': 'multiple-choice'
+    // Leaving the page mid-quiz: answers are already saved per question; nothing else to do.
+    return () => {
+      finished.current = true;
     };
+  }, []);
 
-    return {
-      id: `question-${index}-${Date.now()}`,
-      word: enhancedQ.word,
-      type: legacyTypeMap[enhancedQ.type] || 'multiple-choice',
-      question: enhancedQ.question,
-      options: enhancedQ.options,
-      correctAnswer: enhancedQ.correctAnswer
-    };
-  };
-
-  const startQuiz = async (config: QuizConfiguration) => {
-    if (!session?.user?.id) {
-      toast.error('Please log in to start a quiz');
-      return;
-    }
-
-    const generatedQuestions = generateQuestions(config);
-    
-    if (generatedQuestions.length === 0) {
+  const startQuiz = (config: QuizConfiguration) => {
+    const pool = wordsFor(config);
+    if (pool.length === 0) {
       toast.error('No words available for the selected criteria');
       return;
     }
-
-    console.log('Starting quiz with', generatedQuestions.length, 'questions');
-
-    // Start quiz session in database
-    const newSessionId = await startQuizSession(config);
-    if (!newSessionId) {
-      toast.error('Failed to start quiz session');
+    const types = config.questionTypes.filter((t): t is BasicQuestionType =>
+      (SUPPORTED_TYPES as readonly string[]).includes(t),
+    );
+    if (types.length === 0) {
+      toast.error('Choose at least one question type');
       return;
     }
-
-    setQuizConfig(config);
-    setQuestions(generatedQuestions);
-    setCurrentQuestionIndex(0);
-    setStartTime(new Date());
-    setSessionId(newSessionId);
-    setGameState('playing');
-    toast.success(`Quiz started with ${generatedQuestions.length} questions!`);
-  };
-
-  const handleAnswerSubmit = (answer: string, timeSpent: number) => {
-    console.log('Answer received:', { 
-      answer, 
-      timeSpent, 
-      currentIndex: currentQuestionIndex,
-      totalQuestions: questions.length 
+    const distractorPool = pool.length >= 4 ? pool : getAllWords();
+    const picked = pickQuizWords(pool, config.questionCount, {
+      cards,
+      dueFirst: config.spacedRepetition,
+      weakFirst: config.focusOnWeakAreas,
     });
-    
-    const currentQuestion = questions[currentQuestionIndex];
-    const isCorrect = answer.toLowerCase().trim() === currentQuestion.correctAnswer.toLowerCase().trim();
+    const generated = picked.map((w, i) => buildQuestion(w, types[i % types.length], distractorPool, i));
 
-    // Update question with user answer
-    const updatedQuestions = [...questions];
-    updatedQuestions[currentQuestionIndex] = {
-      ...currentQuestion,
-      userAnswer: answer,
-      timeSpent,
-      isCorrect
-    };
-    setQuestions(updatedQuestions);
-
-    console.log('Question updated, advancing to next...');
-
-    // Check if this was the last question
-    if (currentQuestionIndex >= questions.length - 1) {
-      console.log('Quiz completed, finishing...');
-      finishQuiz(updatedQuestions);
-    } else {
-      console.log('Moving to next question:', currentQuestionIndex + 1);
-      setCurrentQuestionIndex(prev => prev + 1);
-    }
+    finished.current = false;
+    setQuizConfig(config);
+    setQuestions(generated);
+    setCurrentQuestionIndex(0);
+    setQuizResult(null);
+    startedAt.current = Date.now();
+    // Signed-in learners get a quiz_sessions row (history); failures don't block the quiz.
+    sessionIdRef.current = startQuizSession({ ...config, questionCount: generated.length });
+    setGameState('playing');
   };
 
   const finishQuiz = async (finalQuestions: QuizQuestion[]) => {
-    console.log('Finishing quiz with', finalQuestions.length, 'questions');
-    
-    const correctAnswers = finalQuestions.filter(q => q.isCorrect).length;
-    const totalTime = startTime ? (new Date().getTime() - startTime.getTime()) / 1000 : 0;
-    const averageTimePerQuestion = totalTime / finalQuestions.length;
-
-    // Calculate difficulty breakdown
-    const difficultyBreakdown: Record<string, { correct: number; total: number }> = {};
-    finalQuestions.forEach(q => {
-      const level = q.word.level;
-      if (!difficultyBreakdown[level]) {
-        difficultyBreakdown[level] = { correct: 0, total: 0 };
-      }
-      difficultyBreakdown[level].total++;
-      if (q.isCorrect) {
-        difficultyBreakdown[level].correct++;
-      }
-    });
-
-    // Convert to compatible basic question type for results
-    const basicQuestions: BasicQuizQuestion[] = finalQuestions.map(q => ({
-      id: q.id,
-      word: q.word,
-      options: q.options || [],
-      correctAnswer: q.correctAnswer,
-      userAnswer: q.userAnswer,
-      timeSpent: q.timeSpent,
-      isCorrect: q.isCorrect
-    }));
-
-    const result: QuizResult = {
-      score: Math.round((correctAnswers / finalQuestions.length) * 100),
-      accuracy: (correctAnswers / finalQuestions.length) * 100,
-      totalTime,
-      totalQuestions: finalQuestions.length,
-      questionsAnswered: finalQuestions.length,
-      correctAnswers,
-      incorrectAnswers: finalQuestions.length - correctAnswers,
-      averageTimePerQuestion,
-      difficultyBreakdown,
-      weakAreas: [],
-      achievements: [],
-      nextRecommendations: ['multiple-choice', 'fill-in-blank'] as BasicQuestionType[]
-    };
-
-    console.log('Quiz result calculated:', result);
-
-    // Complete quiz session in database
-    if (sessionId) {
-      await completeQuizSession(sessionId, result);
-    }
-
+    if (finished.current) return;
+    finished.current = true;
+    const result = summarizeQuiz(finalQuestions, startedAt.current, Date.now());
     setQuizResult(result);
     setGameState('results');
-    toast.success(`Quiz completed! Score: ${result.score}%`);
+
+    const sessionId = await sessionIdRef.current;
+    if (sessionId) void completeQuizSession(sessionId, result);
+  };
+
+  const handleAnswer = (answer: string, elapsedMs: number, isCorrect: boolean) => {
+    const current = questions[currentQuestionIndex];
+    if (!current || current.userAnswer !== undefined) return;
+
+    void recordReview(current.word.id, isCorrect ? 'good' : 'again', 'quiz', elapsedMs);
+
+    const updated = questions.map((q, i) =>
+      i === currentQuestionIndex ? { ...q, userAnswer: answer, timeSpent: elapsedMs / 1000, isCorrect } : q,
+    );
+    setQuestions(updated);
+
+    const survivalOver = quizConfig?.mode === 'survival' && !isCorrect;
+    if (survivalOver || currentQuestionIndex >= updated.length - 1) {
+      void finishQuiz(updated);
+    } else {
+      setCurrentQuestionIndex((i) => i + 1);
+    }
   };
 
   const resetQuiz = () => {
-    console.log('Resetting quiz');
+    finished.current = true;
     setGameState('setup');
     setQuestions([]);
     setCurrentQuestionIndex(0);
     setQuizResult(null);
-    setStartTime(null);
-    setSessionId(null);
+    sessionIdRef.current = null;
   };
 
-  if (!session) {
-    return (
-      <div className="max-w-2xl mx-auto text-center py-12">
-        <h1 className="text-2xl font-bold mb-4">Sign In Required</h1>
-        <p className="text-muted-foreground mb-6">
-          Please sign in to access the enhanced quiz features and track your progress.
-        </p>
-        <Button onClick={() => navigate('/auth')}>
-          Sign In
-        </Button>
-      </div>
-    );
-  }
+  const timeLimit = quizConfig?.mode === 'timed' ? quizConfig.timeLimit : undefined;
 
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-8">
-        <button 
+    <div className="mx-auto max-w-4xl">
+      <div className="mb-8 flex items-center justify-between">
+        <button
           onClick={() => navigate(-1)}
-          className="text-muted-foreground hover:text-foreground flex items-center transition-colors"
+          className="flex items-center text-muted-foreground transition-colors hover:text-foreground"
         >
-          <ArrowLeft className="h-4 w-4 mr-1" />
+          <ArrowLeft className="mr-1 h-4 w-4" />
           <span>Back</span>
         </button>
-        
-        <div className="flex items-center space-x-4">
-          {gameState === 'playing' && (
-            <>
+
+        {gameState === 'playing' && (
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center text-sm text-muted-foreground">
+              <Target className="mr-1 h-4 w-4" />
+              Question {currentQuestionIndex + 1} of {questions.length}
+            </div>
+            {timeLimit && (
               <div className="flex items-center text-sm text-muted-foreground">
-                <Target className="h-4 w-4 mr-1" />
-                Question {currentQuestionIndex + 1} of {questions.length}
+                <Clock className="mr-1 h-4 w-4" />
+                {timeLimit}s per question
               </div>
-              {quizConfig.timeLimit && (
-                <div className="flex items-center text-sm text-muted-foreground">
-                  <Clock className="h-4 w-4 mr-1" />
-                  {quizConfig.timeLimit}s per question
-                </div>
-              )}
-            </>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Game States */}
       {gameState === 'setup' && (
-        <EnhancedQuizSetup
-          collections={getAllCollections()}
-          onStart={startQuiz}
-        />
+        <>
+          <EnhancedQuizSetup collections={getAllCollections()} onStart={startQuiz} initialCollectionId={initialCollection} />
+          <ProgressSaveNotice className="mt-4" />
+        </>
       )}
 
-      {gameState === 'playing' && questions.length > 0 && currentQuestionIndex < questions.length && (
-        <QuizQuestion
-          key={`question-${questions[currentQuestionIndex].id}`}
-          question={questions[currentQuestionIndex]}
-          questionNumber={currentQuestionIndex + 1}
-          totalQuestions={questions.length}
-          timeLimit={quizConfig.timeLimit}
-          onAnswer={handleAnswerSubmit}
-        />
+      {gameState === 'playing' && questions[currentQuestionIndex] && (
+        <>
+          <QuizQuestion
+            key={questions[currentQuestionIndex].id}
+            question={questions[currentQuestionIndex]}
+            questionNumber={currentQuestionIndex + 1}
+            totalQuestions={questions.length}
+            timeLimit={timeLimit}
+            onAnswer={handleAnswer}
+          />
+          <ProgressSaveNotice className="mt-4" />
+        </>
       )}
 
       {gameState === 'results' && quizResult && (
         <QuizResults
           result={quizResult}
-          questions={questions.map(q => ({
-            id: q.id,
-            word: q.word,
-            options: q.options || [],
-            correctAnswer: q.correctAnswer,
-            userAnswer: q.userAnswer,
-            timeSpent: q.timeSpent,
-            isCorrect: q.isCorrect
-          }))}
+          questions={questions}
           onRestart={resetQuiz}
           onBackToDashboard={() => navigate('/dashboard')}
         />

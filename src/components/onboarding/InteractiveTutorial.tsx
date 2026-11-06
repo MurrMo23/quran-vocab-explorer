@@ -63,7 +63,7 @@ const InteractiveTutorial: React.FC = () => {
     {
       id: 'features',
       title: 'Advanced Features',
-      description: 'Discover audio pronunciation, community features, and personalized learning paths.',
+      description: 'Listen to real Quran recitation, keep notes on words, and build your own collections.',
       action: 'Explore Features',
       component: 'features'
     },

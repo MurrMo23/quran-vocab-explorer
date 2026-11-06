@@ -1,42 +1,57 @@
-
-import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Loader2 } from 'lucide-react';
 import MobileFlashcards from '@/components/mobile/MobileFlashcards';
 import OfflineIndicator from '@/components/mobile/OfflineIndicator';
-import { getWordsByCollection, getDailyWords } from '@/utils/vocabulary';
+import { getWordById } from '@/utils/vocabulary';
+import type { Word } from '@/utils/vocabulary-types';
+import { useProgress } from '@/lib/progress';
+import { PRACTICE_COLLECTION_PARAM } from '@/lib/collections';
+import { usePracticePool } from '@/components/practice/usePracticePool';
+
+const SESSION_SIZE = 20;
 
 const MobileFlashcardsPage = () => {
   const navigate = useNavigate();
-  const { collectionId } = useParams();
-  const [sessionResults, setSessionResults] = useState<{ easy: number; difficult: number } | null>(null);
+  const [searchParams] = useSearchParams();
+  const pool = usePracticePool(searchParams.get(PRACTICE_COLLECTION_PARAM));
+  const { buildSession, loading } = useProgress();
+  // Bumped to rebuild the queue ("Start Over" picks up whatever is due now).
+  const [round, setRound] = useState(0);
+  // The queue is fixed per round so it doesn't change as cards get rescheduled mid-session.
+  const [ids, setIds] = useState<string[] | null>(null);
+  const ready = !loading && !pool.loading;
+  const poolKey = pool.wordIds.join('|');
 
-  const words = collectionId 
-    ? getWordsByCollection(collectionId).slice(0, 20) 
-    : getDailyWords(20);
+  useEffect(() => {
+    if (!ready) return;
+    setIds(buildSession(pool.wordIds, SESSION_SIZE));
+    // Rebuild only when the round, readiness or the pool itself changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [round, ready, poolKey]);
 
-  const handleSessionComplete = (results: { easy: number; difficult: number }) => {
-    setSessionResults(results);
-    // In a real app, you'd save this progress to the backend
-  };
+  const words = useMemo(() => (ids ?? []).map((id) => getWordById(id)).filter((w): w is Word => !!w), [ids]);
 
   return (
     <div className="min-h-screen bg-background p-4">
       <OfflineIndicator />
-      
-      <div className="max-w-sm mx-auto space-y-4">
+
+      <div className="mx-auto max-w-sm space-y-4">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
+          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} aria-label="Back">
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <h1 className="text-lg font-semibold">Mobile Flashcards</h1>
+          <h1 className="text-lg font-semibold">Flashcards{pool.name ? ` · ${pool.name}` : ''}</h1>
         </div>
 
-        <MobileFlashcards
-          words={words}
-          onComplete={handleSessionComplete}
-        />
+        {ids === null ? (
+          <p className="flex items-center justify-center gap-2 py-12 text-sm text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" /> Loading…
+          </p>
+        ) : (
+          <MobileFlashcards key={round} words={words} onRestart={() => setRound((r) => r + 1)} />
+        )}
       </div>
     </div>
   );

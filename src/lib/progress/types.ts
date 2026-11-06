@@ -19,6 +19,9 @@ export interface CardState {
   lapses: number;
   status: CardStatus;
   lastReview: string | null;
+  /** Optional FSRS bookkeeping (current (re)learning step, last scheduled interval in days). */
+  learningSteps?: number;
+  scheduledDays?: number;
 }
 
 /** One answer given by the learner. */

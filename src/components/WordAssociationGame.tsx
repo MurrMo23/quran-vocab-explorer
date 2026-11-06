@@ -1,10 +1,13 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Shuffle, Target, CheckCircle, XCircle, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Word, getWordsByCollection, getAllWords } from '@/utils/vocabulary';
+import { useProgress } from '@/lib/progress';
+import { shuffle } from '@/components/quiz/quiz-utils';
+import ProgressSaveNotice from '@/components/practice/ProgressSaveNotice';
 
 interface WordAssociationGameProps {
   collectionId: string;
@@ -17,6 +20,10 @@ interface GameQuestion {
   type: 'meaning-to-arabic' | 'arabic-to-meaning' | 'root-connection';
 }
 
+const QUESTION_COUNT = 10;
+const SECONDS_PER_QUESTION = 15;
+const FEEDBACK_MS = 2000;
+
 const WordAssociationGame: React.FC<WordAssociationGameProps> = ({
   collectionId,
   onGameComplete
@@ -27,133 +34,127 @@ const WordAssociationGame: React.FC<WordAssociationGameProps> = ({
   const [score, setScore] = useState(0);
   const [gameComplete, setGameComplete] = useState(false);
   const [answered, setAnswered] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(15);
+  const [timeLeft, setTimeLeft] = useState(SECONDS_PER_QUESTION);
   const [gameStarted, setGameStarted] = useState(false);
+  const { recordReview } = useProgress();
+  const shownAt = useRef(Date.now());
+  const scoreRef = useRef(0);
+  const advanceTimer = useRef<number | null>(null);
 
-  const generateQuestions = () => {
+  const generateQuestions = (): GameQuestion[] => {
     const collectionWords = getWordsByCollection(collectionId);
     const allWords = getAllWords();
     const gameQuestions: GameQuestion[] = [];
-    
-    // Generate 10 questions
-    for (let i = 0; i < Math.min(10, collectionWords.length); i++) {
-      const word = collectionWords[i];
-      const questionTypes: GameQuestion['type'][] = ['meaning-to-arabic', 'arabic-to-meaning', 'root-connection'];
-      const questionType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
-      
-      let options: Word[] = [word];
-      
-      if (questionType === 'root-connection') {
-        // Find words with the same root
-        const sameRootWords = allWords.filter(w => w.root === word.root && w.id !== word.id);
-        const differentRootWords = allWords.filter(w => w.root !== word.root);
-        
-        // Add 1 same root word and 2 different root words
-        if (sameRootWords.length > 0) {
-          options.push(sameRootWords[0]);
-        }
-        options.push(...differentRootWords.slice(0, 2));
+    const picked = shuffle(collectionWords).slice(0, QUESTION_COUNT);
+
+    for (const word of picked) {
+      // Root questions only make sense when another word shares the root.
+      const sameRoot = word.root ? allWords.filter((w) => w.root === word.root && w.id !== word.id) : [];
+      const types: GameQuestion['type'][] = ['meaning-to-arabic', 'arabic-to-meaning'];
+      if (sameRoot.length > 0) types.push('root-connection');
+      const type = types[Math.floor(Math.random() * types.length)];
+
+      let options: Word[];
+      if (type === 'root-connection') {
+        const partner = shuffle(sameRoot)[0];
+        const others = shuffle(allWords.filter((w) => w.root !== word.root)).slice(0, 3);
+        // The reference word is shown separately; options are the partner plus distractors.
+        options = shuffle([partner, ...others]);
       } else {
-        // For meaning/arabic questions, get random words from collection or all words
-        const otherWords = collectionWords.filter(w => w.id !== word.id);
-        if (otherWords.length >= 3) {
-          options.push(...otherWords.slice(0, 3));
-        } else {
-          const additionalWords = allWords.filter(w => 
-            w.id !== word.id && !otherWords.find(ow => ow.id === w.id)
-          );
-          options.push(...otherWords, ...additionalWords.slice(0, 3 - otherWords.length));
+        const source = collectionWords.length >= 4 ? collectionWords : allWords;
+        const seen = new Set([word.id]);
+        const display = (w: Word) => (type === 'meaning-to-arabic' ? w.arabic : w.meaning);
+        const seenText = new Set([display(word)]);
+        const distractors: Word[] = [];
+        for (const w of shuffle(source)) {
+          if (distractors.length >= 3) break;
+          if (seen.has(w.id) || seenText.has(display(w))) continue;
+          seen.add(w.id);
+          seenText.add(display(w));
+          distractors.push(w);
         }
+        options = shuffle([word, ...distractors]);
       }
-      
-      // Shuffle options
-      options = options.sort(() => 0.5 - Math.random()).slice(0, 4);
-      
-      gameQuestions.push({
-        word,
-        options,
-        type: questionType
-      });
+      gameQuestions.push({ word, options, type });
     }
-    
-    setQuestions(gameQuestions);
+    return gameQuestions;
   };
 
-  useEffect(() => {
-    if (gameStarted && !gameComplete) {
-      const timer = setInterval(() => {
-        setTimeLeft(prev => {
-          if (prev <= 1) {
-            handleTimeUp();
-            return 15;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-      
-      return () => clearInterval(timer);
-    }
-  }, [gameStarted, currentQuestion, gameComplete]);
+  const question = questions[currentQuestion];
 
-  const startGame = () => {
-    generateQuestions();
-    setGameStarted(true);
-    setCurrentQuestion(0);
-    setScore(0);
-    setGameComplete(false);
-    setTimeLeft(15);
-  };
-
-  const handleTimeUp = () => {
-    if (!answered) {
-      setAnswered(true);
-      setTimeout(() => {
-        nextQuestion();
-      }, 2000);
-    }
-  };
-
-  const handleAnswer = (wordId: string) => {
-    if (answered) return;
-    
-    setSelectedAnswer(wordId);
-    setAnswered(true);
-    
-    const question = questions[currentQuestion];
-    let isCorrect = false;
-    
-    switch (question.type) {
-      case 'meaning-to-arabic':
-      case 'arabic-to-meaning':
-        isCorrect = wordId === question.word.id;
-        break;
-      case 'root-connection':
-        const selectedWord = question.options.find(w => w.id === wordId);
-        isCorrect = selectedWord?.root === question.word.root;
-        break;
-    }
-    
-    if (isCorrect) {
-      setScore(prev => prev + 1);
-    }
-    
-    setTimeout(() => {
-      nextQuestion();
-    }, 2000);
+  const recordAnswer = (correct: boolean) => {
+    if (!question) return;
+    void recordReview(question.word.id, correct ? 'good' : 'again', 'quiz', Date.now() - shownAt.current);
   };
 
   const nextQuestion = () => {
+    if (advanceTimer.current) window.clearTimeout(advanceTimer.current);
+    advanceTimer.current = null;
     if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(prev => prev + 1);
+      setCurrentQuestion((prev) => prev + 1);
       setSelectedAnswer(null);
       setAnswered(false);
-      setTimeLeft(15);
+      setTimeLeft(SECONDS_PER_QUESTION);
+      shownAt.current = Date.now();
     } else {
       setGameComplete(true);
-      if (onGameComplete) {
-        onGameComplete(score, questions.length);
-      }
+      onGameComplete?.(scoreRef.current, questions.length);
     }
+  };
+
+  // Countdown: a question left unanswered counts as a miss.
+  useEffect(() => {
+    if (!gameStarted || gameComplete || answered || !question) return;
+    const deadline = shownAt.current + SECONDS_PER_QUESTION * 1000;
+    const id = window.setInterval(() => {
+      const left = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+      setTimeLeft(left);
+      if (left <= 0) {
+        window.clearInterval(id);
+        setAnswered(true);
+        recordAnswer(false);
+        advanceTimer.current = window.setTimeout(nextQuestion, FEEDBACK_MS);
+      }
+    }, 250);
+    return () => window.clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameStarted, gameComplete, answered, currentQuestion, questions]);
+
+  useEffect(() => () => {
+    if (advanceTimer.current) window.clearTimeout(advanceTimer.current);
+  }, []);
+
+  const startGame = () => {
+    const generated = generateQuestions();
+    setQuestions(generated);
+    setGameStarted(true);
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setAnswered(false);
+    setScore(0);
+    scoreRef.current = 0;
+    setGameComplete(generated.length === 0);
+    setTimeLeft(SECONDS_PER_QUESTION);
+    shownAt.current = Date.now();
+  };
+
+  const handleAnswer = (wordId: string) => {
+    if (answered || !question) return;
+    setSelectedAnswer(wordId);
+    setAnswered(true);
+
+    const selectedWord = question.options.find((w) => w.id === wordId);
+    const isCorrect =
+      question.type === 'root-connection'
+        ? !!selectedWord && selectedWord.id !== question.word.id && selectedWord.root === question.word.root
+        : wordId === question.word.id;
+
+    if (isCorrect) {
+      scoreRef.current += 1;
+      setScore(scoreRef.current);
+    }
+    recordAnswer(isCorrect);
+    advanceTimer.current = window.setTimeout(nextQuestion, FEEDBACK_MS);
   };
 
   const getQuestionText = (question: GameQuestion) => {
@@ -188,7 +189,7 @@ const WordAssociationGame: React.FC<WordAssociationGameProps> = ({
       case 'arabic-to-meaning':
         return question.word.id;
       case 'root-connection':
-        return question.options.find(w => w.root === question.word.root && w.id !== question.word.id)?.id || question.word.id;
+        return question.options.find(w => w.root === question.word.root && w.id !== question.word.id)?.id ?? '';
       default:
         return question.word.id;
     }
@@ -218,7 +219,7 @@ const WordAssociationGame: React.FC<WordAssociationGameProps> = ({
             </div>
             <div className="p-3 bg-purple-50 rounded-lg">
               <strong>Timed Challenge</strong>
-              <p className="text-xs mt-1">15 seconds per question</p>
+              <p className="text-xs mt-1">{SECONDS_PER_QUESTION} seconds per question</p>
             </div>
           </div>
           <Button onClick={startGame} size="lg" className="w-full md:w-auto">
@@ -231,7 +232,14 @@ const WordAssociationGame: React.FC<WordAssociationGameProps> = ({
   }
 
   if (gameComplete) {
-    const percentage = Math.round((score / questions.length) * 100);
+    const percentage = questions.length > 0 ? Math.round((score / questions.length) * 100) : 0;
+    if (questions.length === 0) {
+      return (
+        <Card className="w-full max-w-2xl mx-auto">
+          <CardContent className="p-6 text-center text-muted-foreground">This collection has no words to play with yet.</CardContent>
+        </Card>
+      );
+    }
     return (
       <Card className="w-full max-w-2xl mx-auto">
         <CardHeader>
@@ -259,6 +267,7 @@ const WordAssociationGame: React.FC<WordAssociationGameProps> = ({
                'Consider reviewing the collection before trying again.'}
             </p>
           </div>
+          <ProgressSaveNotice />
           <div className="flex gap-2 justify-center">
             <Button onClick={startGame} variant="outline">
               <Shuffle className="h-4 w-4 mr-2" />
@@ -270,7 +279,7 @@ const WordAssociationGame: React.FC<WordAssociationGameProps> = ({
     );
   }
 
-  const question = questions[currentQuestion];
+  if (!question) return null;
   const correctAnswerId = getCorrectAnswerId(question);
 
   return (
@@ -283,7 +292,7 @@ const WordAssociationGame: React.FC<WordAssociationGameProps> = ({
             <div className="w-12 h-2 bg-muted rounded-full overflow-hidden">
               <div 
                 className="h-full bg-orange-500 transition-all duration-1000"
-                style={{ width: `${(timeLeft / 15) * 100}%` }}
+                style={{ width: `${(timeLeft / SECONDS_PER_QUESTION) * 100}%` }}
               />
             </div>
           </div>

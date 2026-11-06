@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart, LineChart, PieChart, Pie, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, Cell } from 'recharts';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 import { BarChart as BarChartIcon, PieChart as PieChartIcon, LineChart as LineChartIcon, Users, Clock, Activity, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -38,64 +39,55 @@ const AnalyticsDashboard: React.FC = () => {
   const [timeSeriesData, setTimeSeriesData] = useState<TimeSeriesDataPoint[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Aggregates real admin activity from public.audit_logs for the selected range.
+  // Shows empty charts (not invented numbers) when there is no activity.
   const fetchAnalyticsData = async () => {
+    const days = timeRange === 'day' ? 1 : timeRange === 'week' ? 7 : 30;
+    const since = new Date();
+    since.setDate(since.getDate() - (days - 1));
+    since.setHours(0, 0, 0, 0);
     try {
       setLoading(true);
-      
-      // Use simulated data since we may not have real data yet
-      useSimulatedData();
+      const { data, error } = await supabase
+        .from('audit_logs')
+        .select('action, entity_type, user_id, created_at')
+        .gte('created_at', since.toISOString())
+        .order('created_at', { ascending: true })
+        .limit(5000);
+      if (error) throw error;
+      const rows = data ?? [];
+
+      const countBy = (key: (r: (typeof rows)[number]) => string): AnalyticsDataPoint[] => {
+        const m = new Map<string, number>();
+        for (const r of rows) m.set(key(r), (m.get(key(r)) ?? 0) + 1);
+        return [...m.entries()].map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
+      };
+      setActionTypeData(countBy(r => r.action || 'unknown'));
+      setEntityTypeData(countBy(r => r.entity_type || 'unknown'));
+      setUserActivityData(countBy(r => (r.user_id ? `${r.user_id.slice(0, 8)}…` : 'system')).slice(0, 5));
+
+      const series: TimeSeriesDataPoint[] = [];
+      const actions = [...new Set(rows.map(r => r.action || 'unknown'))];
+      for (let i = 0; i < days; i++) {
+        const d = new Date(since);
+        d.setDate(since.getDate() + i);
+        const label = d.toLocaleDateString();
+        for (const type of actions) {
+          const count = rows.filter(r => (r.action || 'unknown') === type && new Date(r.created_at).toLocaleDateString() === label).length;
+          series.push({ date: label, type, count });
+        }
+      }
+      setTimeSeriesData(series);
     } catch (error: any) {
       console.error('Error fetching analytics data:', error);
-      toast.error(`Failed to load analytics: ${error.message}`);
-      
-      // Use simulated data if real data fails
-      useSimulatedData();
+      toast.error('Failed to load admin activity');
+      setActionTypeData([]);
+      setEntityTypeData([]);
+      setUserActivityData([]);
+      setTimeSeriesData([]);
     } finally {
       setLoading(false);
     }
-  };
-  
-  const useSimulatedData = () => {
-    // Simulated data for demo purposes
-    setActionTypeData([
-      { name: 'CREATE', value: 45 },
-      { name: 'UPDATE', value: 30 },
-      { name: 'DELETE', value: 15 },
-      { name: 'VIEW', value: 85 }
-    ]);
-    
-    setEntityTypeData([
-      { name: 'users', value: 25 },
-      { name: 'words', value: 40 },
-      { name: 'collections', value: 35 },
-      { name: 'learning_paths', value: 20 }
-    ]);
-    
-    setUserActivityData([
-      { name: 'Admin 1', value: 50 },
-      { name: 'Admin 2', value: 35 },
-      { name: 'Admin 3', value: 40 }
-    ]);
-    
-    const dates = [];
-    const now = new Date();
-    for (let i = 6; i >= 0; i--) {
-      const date = new Date();
-      date.setDate(now.getDate() - i);
-      dates.push(date.toLocaleDateString());
-    }
-    
-    const timeSeriesData = [];
-    for (const date of dates) {
-      timeSeriesData.push(
-        { date, type: 'CREATE', count: Math.floor(Math.random() * 10) + 1 },
-        { date, type: 'UPDATE', count: Math.floor(Math.random() * 8) + 1 },
-        { date, type: 'DELETE', count: Math.floor(Math.random() * 5) + 1 },
-        { date, type: 'VIEW', count: Math.floor(Math.random() * 15) + 5 }
-      );
-    }
-    
-    setTimeSeriesData(timeSeriesData);
   };
 
   useEffect(() => {
