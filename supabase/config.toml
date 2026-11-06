@@ -1,3 +1,8 @@
 project_id = "ozacrpxnfywmueasbhbm"
 [functions.text-to-speech]
 verify_jwt = true
+
+# Public: anonymous visitors submit the contact form. The function only alerts once for a
+# message created in the last 15 minutes and never takes email content from the request.
+[functions.notify-contact]
+verify_jwt = false

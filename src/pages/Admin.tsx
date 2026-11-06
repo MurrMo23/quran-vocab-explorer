@@ -10,15 +10,19 @@ import AdminVocabulary from '@/components/admin/AdminVocabulary';
 import AdminContent from '@/components/admin/AdminContent';
 import SystemSettings from '@/components/admin/SystemSettings';
 import SiteBranding from '@/components/admin/SiteBranding';
+import AdminInbox from '@/components/admin/AdminInbox';
+import { Badge } from '@/components/ui/badge';
+import { useUnreadContactCount } from '@/hooks/useUnreadContactCount';
 import { supabase } from '@/integrations/supabase/client';
-import { Database, Users, BookOpen, FileText, Activity, Settings, Globe, Palette } from 'lucide-react';
+import type { Json } from '@/integrations/supabase/types';
+import { Database, Users, BookOpen, FileText, Activity, Settings, Globe, Palette, Inbox } from 'lucide-react';
 
 interface AuditLogEntry {
   id: string;
   action: string;
   entityType: string;
   entityId: string | null;
-  details?: any;
+  details?: Json;
   timestamp: string;
 }
 
@@ -27,12 +31,14 @@ const Admin = () => {
     requiredRole: 'admin' 
   });
   const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>([]);
+  const [activeTab, setActiveTab] = useState('overview');
+  const { count: unreadCount, refresh: refreshUnread } = useUnreadContactCount(isAuthorized === true);
 
   const logAuditEvent = async (
     action: string, 
     entityType: string, 
     entityId: string | null, 
-    details?: any
+    details?: Json
   ) => {
     try {
       const logEntry: AuditLogEntry = {
@@ -103,11 +109,20 @@ const Admin = () => {
         </p>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-8">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <TabsList className="flex h-auto w-full flex-wrap justify-start">
           <TabsTrigger value="overview" className="flex items-center gap-2">
             <Activity className="h-4 w-4" />
             Overview
+          </TabsTrigger>
+          <TabsTrigger value="inbox" className="flex items-center gap-2">
+            <Inbox className="h-4 w-4" />
+            Inbox
+            {unreadCount !== null && unreadCount > 0 && (
+              <Badge className="ml-1 h-5 min-w-5 justify-center px-1.5" aria-label={`${unreadCount} new messages`}>
+                {unreadCount > 99 ? '99+' : unreadCount}
+              </Badge>
+            )}
           </TabsTrigger>
           <TabsTrigger value="users" className="flex items-center gap-2">
             <Users className="h-4 w-4" />
@@ -140,6 +155,21 @@ const Admin = () => {
         </TabsList>
 
         <TabsContent value="overview">
+          <Card className="mb-6">
+            <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-3">
+                <Inbox className="h-5 w-5 text-muted-foreground" />
+                <div>
+                  <p className="text-sm font-medium">New contact messages</p>
+                  <p className="text-2xl font-bold">{unreadCount === null ? '–' : unreadCount}</p>
+                </div>
+              </div>
+              <Button variant="outline" size="sm" onClick={() => setActiveTab('inbox')}>
+                Open inbox
+              </Button>
+            </CardContent>
+          </Card>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -212,6 +242,10 @@ const Admin = () => {
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="inbox">
+          <AdminInbox onAuditLog={logAuditEvent} onUnreadChange={() => void refreshUnread()} />
         </TabsContent>
 
         <TabsContent value="users">

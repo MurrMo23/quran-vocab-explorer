@@ -31,6 +31,16 @@ const CATEGORIES = [
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/** RFC 4122 v4 uuid; falls back to getRandomValues on browsers without crypto.randomUUID. */
+function newUuid(): string {
+  if (typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  const b = crypto.getRandomValues(new Uint8Array(16));
+  b[6] = (b[6] & 0x0f) | 0x40;
+  b[8] = (b[8] & 0x3f) | 0x80;
+  const h = Array.from(b, (x) => x.toString(16).padStart(2, '0')).join('');
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>(EMPTY);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -71,13 +81,13 @@ const ContactForm: React.FC = () => {
     setIsSubmitting(true);
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      // `contact_messages` is created by migration 20261106130000_honest_content_pages.sql.
-      // It is not yet in the generated Supabase types, hence the narrow cast.
-      const { error } = await (supabase as unknown as {
-        from: (t: string) => { insert: (row: Record<string, unknown>) => Promise<{ error: unknown }> };
-      })
+      // The id is generated here because visitors cannot SELECT contact_messages (RLS), so the
+      // insert cannot return it; the notify-contact function needs it to send the owner alert.
+      const id = newUuid();
+      const { error } = await supabase
         .from('contact_messages')
         .insert({
+          id,
           name: name.slice(0, 200),
           email: email.slice(0, 320),
           subject: formData.subject.trim().slice(0, 300) || null,
@@ -88,6 +98,12 @@ const ContactForm: React.FC = () => {
         });
 
       if (error) throw error;
+
+      // Fire-and-forget owner alert. The message is already saved, so a failure here must never
+      // block or confuse the visitor.
+      supabase.functions
+        .invoke('notify-contact', { body: { id } })
+        .catch(() => undefined);
 
       setIsSubmitted(true);
       setFormData(EMPTY);
