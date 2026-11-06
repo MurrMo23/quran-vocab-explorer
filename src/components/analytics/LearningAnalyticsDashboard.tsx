@@ -1,326 +1,214 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Brain, CalendarClock, Info, TrendingDown } from 'lucide-react';
+import { useProgress } from '@/lib/progress';
+import ProgressReport from '@/components/ProgressReport';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  LineChart, 
-  Line, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell
-} from 'recharts';
-import { 
-  TrendingUp, 
-  Brain, 
-  Clock, 
-  Target, 
-  BookOpen, 
-  Zap,
-  Calendar,
-  BarChart3
-} from 'lucide-react';
-import { useAuth } from '@/components/AuthProvider';
+import { Skeleton } from '@/components/ui/skeleton';
+import { getWordById } from '@/utils/vocabulary';
+import {
+  accuracyPerDay,
+  hardestWords,
+  reviewsPerDay,
+  shortDateLabel,
+  upcomingReviews,
+  weekdayLabel,
+} from './progress-utils';
 
-interface LearningMetrics {
-  dailyProgress: Array<{ date: string; wordsLearned: number; accuracy: number; timeSpent: number }>;
-  collectionProgress: Array<{ name: string; progress: number; wordsLearned: number }>;
-  difficultyBreakdown: Array<{ level: string; count: number; accuracy: number }>;
-  weeklyStats: {
-    totalWords: number;
-    averageAccuracy: number;
-    totalTimeMinutes: number;
-    streakDays: number;
-    improvementRate: number;
-  };
-}
-
+/** Detailed analytics, all computed from the learner's review logs and FSRS cards. */
 const LearningAnalyticsDashboard: React.FC = () => {
-  const { session } = useAuth();
-  const [metrics, setMetrics] = useState<LearningMetrics | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState<'week' | 'month' | 'quarter'>('week');
+  const { loading, isGuest, cards, logs } = useProgress();
 
-  useEffect(() => {
-    if (session) {
-      fetchAnalytics();
-    }
-  }, [session, timeRange]);
+  const daily30 = useMemo(() => reviewsPerDay(logs, 30), [logs]);
+  const accuracy30 = useMemo(
+    () => accuracyPerDay(logs, 30).map((d) => ({ ...d, label: shortDateLabel(d.date) })),
+    [logs],
+  );
+  const hardest = useMemo(() => hardestWords(logs, 10), [logs]);
+  const upcoming = useMemo(() => upcomingReviews(cards, 7), [cards]);
 
-  const fetchAnalytics = async () => {
-    try {
-      setLoading(true);
-      
-      // Mock data - in a real app, this would come from your analytics API
-      const mockMetrics: LearningMetrics = {
-        dailyProgress: [
-          { date: '2024-01-01', wordsLearned: 12, accuracy: 85, timeSpent: 25 },
-          { date: '2024-01-02', wordsLearned: 15, accuracy: 88, timeSpent: 30 },
-          { date: '2024-01-03', wordsLearned: 8, accuracy: 82, timeSpent: 20 },
-          { date: '2024-01-04', wordsLearned: 18, accuracy: 91, timeSpent: 35 },
-          { date: '2024-01-05', wordsLearned: 22, accuracy: 89, timeSpent: 40 },
-          { date: '2024-01-06', wordsLearned: 16, accuracy: 93, timeSpent: 28 },
-          { date: '2024-01-07', wordsLearned: 14, accuracy: 87, timeSpent: 32 }
-        ],
-        collectionProgress: [
-          { name: 'Faith & Theology', progress: 75, wordsLearned: 45 },
-          { name: 'Prophets', progress: 60, wordsLearned: 32 },
-          { name: 'Ethics & Morality', progress: 85, wordsLearned: 58 },
-          { name: 'Afterlife', progress: 40, wordsLearned: 28 },
-          { name: 'Worship', progress: 70, wordsLearned: 42 }
-        ],
-        difficultyBreakdown: [
-          { level: 'Beginner', count: 85, accuracy: 92 },
-          { level: 'Intermediate', count: 45, accuracy: 78 },
-          { level: 'Advanced', count: 15, accuracy: 65 }
-        ],
-        weeklyStats: {
-          totalWords: 105,
-          averageAccuracy: 87,
-          totalTimeMinutes: 210,
-          streakDays: 7,
-          improvementRate: 12
-        }
-      };
+  const total30 = daily30.reduce((s, d) => s + d.count, 0);
+  const activeDays30 = daily30.filter((d) => d.count > 0).length;
+  const ok30 = accuracy30.reduce((s, d) => s + (d.accuracy === null ? 0 : (d.accuracy / 100) * d.reviews), 0);
+  const overall30 = total30 > 0 ? Math.round((ok30 / total30) * 100) : null;
+  const upcomingTotal = upcoming.reduce((s, d) => s + d.count, 0);
 
-      setMetrics(mockMetrics);
-    } catch (error) {
-      console.error('Error fetching analytics:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (!session) {
+  if (!loading && logs.length === 0) {
     return (
-      <Card>
-        <CardContent className="text-center p-8">
-          <BarChart3 className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-          <p className="text-muted-foreground">Please log in to view your learning analytics</p>
+      <Card className="border-dashed">
+        <CardContent className="flex flex-col items-center gap-4 py-12 text-center">
+          <Brain className="h-10 w-10 text-primary" />
+          <div className="space-y-1">
+            <h2 className="text-xl font-semibold">No reviews yet</h2>
+            <p className="mx-auto max-w-md text-muted-foreground">
+              Once you start reviewing, you'll see your daily activity, accuracy trend, the words you find
+              hardest, and what's coming up.
+            </p>
+          </div>
+          <Button asChild size="lg">
+            <Link to="/practice">Start your first review</Link>
+          </Button>
         </CardContent>
       </Card>
     );
   }
-
-  if (loading || !metrics) {
-    return (
-      <Card>
-        <CardContent className="text-center p-8">
-          <BarChart3 className="h-12 w-12 mx-auto mb-4 text-muted-foreground animate-pulse" />
-          <p className="text-muted-foreground">Loading analytics...</p>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#0088fe'];
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Learning Analytics</h2>
-        <Tabs value={timeRange} onValueChange={(value) => setTimeRange(value as any)}>
-          <TabsList>
-            <TabsTrigger value="week">Week</TabsTrigger>
-            <TabsTrigger value="month">Month</TabsTrigger>
-            <TabsTrigger value="quarter">Quarter</TabsTrigger>
-          </TabsList>
-        </Tabs>
+      {isGuest && (
+        <Alert>
+          <Info className="h-4 w-4" />
+          <AlertDescription>
+            Your progress is saved in this browser. Sign in to keep it across devices.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      <div className="grid grid-cols-3 gap-3">
+        {[
+          { label: 'Reviews (30 days)', value: String(total30) },
+          { label: 'Active days (30)', value: `${activeDays30}/30` },
+          { label: 'Accuracy (30 days)', value: overall30 === null ? '—' : `${overall30}%` },
+        ].map((t) => (
+          <div key={t.label} className="rounded-xl border bg-card p-4">
+            <div className="text-xs text-muted-foreground sm:text-sm">{t.label}</div>
+            {loading ? (
+              <Skeleton className="mt-1 h-7 w-14" />
+            ) : (
+              <div className="text-xl font-semibold tabular-nums sm:text-2xl">{t.value}</div>
+            )}
+          </div>
+        ))}
       </div>
 
-      {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Words Learned</CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{metrics.weeklyStats.totalWords}</div>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 text-green-500" />
-              +{metrics.weeklyStats.improvementRate}% from last week
-            </div>
-          </CardContent>
-        </Card>
+      <ProgressReport
+        data={daily30}
+        loading={loading}
+        title="Reviews per day, last 30 days"
+        labelStyle="date"
+        height={220}
+      />
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Average Accuracy</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{metrics.weeklyStats.averageAccuracy}%</div>
-            <Badge variant="secondary" className="mt-1">
-              {metrics.weeklyStats.averageAccuracy >= 90 ? 'Excellent' : 
-               metrics.weeklyStats.averageAccuracy >= 80 ? 'Good' : 'Needs Work'}
-            </Badge>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Study Time</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{Math.round(metrics.weeklyStats.totalTimeMinutes / 60)}h</div>
-            <div className="text-xs text-muted-foreground">
-              {metrics.weeklyStats.totalTimeMinutes} minutes this week
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Learning Streak</CardTitle>
-            <Zap className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{metrics.weeklyStats.streakDays}</div>
-            <div className="text-xs text-muted-foreground">consecutive days</div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Tabs defaultValue="progress" className="w-full">
-        <TabsList>
-          <TabsTrigger value="progress">Progress Trends</TabsTrigger>
-          <TabsTrigger value="collections">Collections</TabsTrigger>
-          <TabsTrigger value="difficulty">Difficulty Analysis</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="progress" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Daily Learning Progress</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={metrics.dailyProgress}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip />
-                  <Line 
-                    type="monotone" 
-                    dataKey="wordsLearned" 
-                    stroke="#8884d8" 
-                    name="Words Learned"
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg">Accuracy trend, last 30 days</CardTitle>
+          <p className="text-sm text-muted-foreground">
+            Share of answers not rated "again" on each day you reviewed.
+          </p>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <Skeleton className="h-[220px] w-full" />
+          ) : (
+            <div className="h-[220px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={accuracy30} margin={{ top: 8, right: 8, bottom: 0, left: -20 }}>
+                  <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-muted" />
+                  <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={12} interval="preserveStartEnd" />
+                  <YAxis domain={[0, 100]} tickLine={false} axisLine={false} fontSize={12} unit="%" />
+                  <Tooltip
+                    formatter={(value: number, _n, item) => [
+                      `${value}% of ${(item.payload as { reviews: number }).reviews} reviews`,
+                      'Accuracy',
+                    ]}
                   />
-                  <Line 
-                    type="monotone" 
-                    dataKey="accuracy" 
-                    stroke="#82ca9d" 
-                    name="Accuracy %"
+                  <Line
+                    type="monotone"
+                    dataKey="accuracy"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth={2}
+                    dot={{ r: 3 }}
+                    connectNulls
                   />
                 </LineChart>
               </ResponsiveContainer>
-            </CardContent>
-          </Card>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Study Time Distribution</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={metrics.dailyProgress}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="timeSpent" fill="#ffc658" name="Minutes" />
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="collections" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Collection Progress</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {metrics.collectionProgress.map((collection, index) => (
-                  <div key={index} className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium">{collection.name}</span>
-                      <Badge variant="outline">{collection.wordsLearned} words</Badge>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${collection.progress}%` }}
-                      />
-                    </div>
-                    <div className="text-sm text-muted-foreground text-right">
-                      {collection.progress}% complete
-                    </div>
-                  </div>
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <TrendingDown className="h-5 w-5 text-rose-500" />
+              Hardest words
+            </CardTitle>
+            <p className="text-sm text-muted-foreground">Most often rated "again".</p>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <div className="space-y-2">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <Skeleton key={i} className="h-8 w-full" />
                 ))}
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+            ) : hardest.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                No misses yet. Words you rate "again" will show up here.
+              </p>
+            ) : (
+              <ol className="divide-y">
+                {hardest.map((h) => {
+                  const word = getWordById(h.wordId);
+                  return (
+                    <li key={h.wordId} className="flex items-center justify-between gap-3 py-2">
+                      <Link to={`/word/${h.wordId}`} className="min-w-0 hover:underline">
+                        <span className="font-arabic text-lg" dir="rtl">
+                          {word?.arabic ?? h.wordId}
+                        </span>
+                        {word && (
+                          <span className="ml-2 truncate text-sm text-muted-foreground">{word.meaning}</span>
+                        )}
+                      </Link>
+                      <span className="shrink-0 text-xs text-muted-foreground tabular-nums">
+                        {h.again} of {h.total} missed
+                      </span>
+                    </li>
+                  );
+                })}
+              </ol>
+            )}
+          </CardContent>
+        </Card>
 
-        <TabsContent value="difficulty" className="space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Words by Difficulty</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ResponsiveContainer width="100%" height={250}>
-                  <PieChart>
-                    <Pie
-                      data={metrics.difficultyBreakdown}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={({ level, count }) => `${level}: ${count}`}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="count"
-                    >
-                      {metrics.difficultyBreakdown.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Accuracy by Difficulty</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={metrics.difficultyBreakdown}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="level" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="accuracy" fill="#82ca9d" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-      </Tabs>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <CalendarClock className="h-5 w-5 text-sky-600" />
+              Upcoming reviews
+            </CardTitle>
+            <p className="text-sm text-muted-foreground">
+              {loading ? ' ' : `${upcomingTotal} due in the next 7 days (overdue counted today).`}
+            </p>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <Skeleton className="h-40 w-full" />
+            ) : (
+              <ul className="space-y-2">
+                {upcoming.map((d, i) => {
+                  const max = Math.max(1, ...upcoming.map((u) => u.count));
+                  return (
+                    <li key={d.date} className="flex items-center gap-3 text-sm">
+                      <span className="w-20 shrink-0 text-muted-foreground">
+                        {i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : weekdayLabel(d.date)}
+                      </span>
+                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
+                        <div className="h-full bg-sky-500" style={{ width: `${(d.count / max) * 100}%` }} />
+                      </div>
+                      <span className="w-8 shrink-0 text-right tabular-nums">{d.count}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

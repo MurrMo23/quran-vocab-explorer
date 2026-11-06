@@ -1,265 +1,179 @@
-
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/components/AuthProvider';
+import { Link } from 'react-router-dom';
+import { BarChart3, BookText, Brain, CloudOff, Database, Info, Settings, Sparkles } from 'lucide-react';
+import { useProgress } from '@/lib/progress';
 import { usePermissions } from '@/hooks/usePermissions';
 import ProgressStats from '@/components/ProgressStats';
 import ProgressReport from '@/components/ProgressReport';
-import CollectionCard from '@/components/CollectionCard';
-import SearchBar from '@/components/SearchBar';
+import CollectionProgressTracker from '@/components/CollectionProgressTracker';
+import AchievementSystem from '@/components/achievement/AchievementSystem';
 import StreakCounter from '@/components/StreakCounter';
-import { collections, getWordsByCollection, getDailyWords } from '@/utils/vocabulary';
-import { BookText, BookOpen, ChevronRight, Brain, Heart, Users, Scroll, Settings, Database, BarChart3 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { motion } from 'framer-motion';
+import SearchBar from '@/components/SearchBar';
 import SEO from '@/components/SEO';
-
-const getIconForCollection = (id: string) => {
-  switch (id) {
-    case 'faith':
-      return <Heart className="h-5 w-5" />;
-    case 'prophets':
-      return <Users className="h-5 w-5" />;
-    case 'ethics':
-      return <Scroll className="h-5 w-5" />;
-    default:
-      return <BookText className="h-5 w-5" />;
-  }
-};
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const { session } = useAuth();
+  const { loading, isGuest, offlineFallback, stats, cards, logs } = useProgress();
   const { hasRole } = usePermissions();
-  const isAdmin = hasRole('admin');
-  const featuredCollections = collections.slice(0, 3);
-  
-  // Get today's daily words
-  const dailyWords = getDailyWords(3);
-  
-  // Mock user streak data
-  const userStreak = 7;
+  const isAdmin = !isGuest && hasRole('admin');
 
-  if (!session) {
-    navigate('/auth');
-    return null;
-  }
+  const isNewLearner = !loading && logs.length === 0 && stats.wordsStarted === 0;
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Your Dashboard"
-        description="Track your Arabic vocabulary learning progress with personalized stats, daily words, and featured collections."
-        keywords={["Arabic dashboard", "vocabulary progress", "Quranic learning"]}
+        description="Track your Quranic Arabic vocabulary progress: words started and mastered, reviews due, streaks and accuracy."
+        keywords={['Arabic dashboard', 'vocabulary progress', 'Quranic learning']}
         url="https://quranvocab.com/dashboard"
         type="website"
       />
-      <div className="max-w-4xl mx-auto">
-      <div className="mb-6 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold mb-1">Dashboard</h1>
-          <div className="flex items-center gap-2">
-            <StreakCounter streak={userStreak} />
-            <span className="text-sm text-muted-foreground">Keep up the good work!</span>
+      <div className="mx-auto max-w-4xl space-y-6">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h1 className="mb-1 text-2xl font-bold">Dashboard</h1>
+            {loading ? (
+              <Skeleton className="h-6 w-28" />
+            ) : (
+              <div className="flex items-center gap-2">
+                <StreakCounter streak={stats.currentStreak} />
+                <span className="text-sm text-muted-foreground">
+                  {stats.currentStreak > 0
+                    ? stats.reviewsToday > 0
+                      ? 'You reviewed today. Keep it going!'
+                      : 'Review today to keep your streak.'
+                    : 'Review today to start a streak.'}
+                </span>
+              </div>
+            )}
           </div>
+          <SearchBar className="w-full md:w-64" />
         </div>
-        <SearchBar className="w-full md:w-64" />
-      </div>
 
-      {/* Admin Panel Access */}
-      {isAdmin && (
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
+        {isGuest && (
+          <Alert>
+            <Info className="h-4 w-4" />
+            <AlertDescription className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <span>Your progress is saved in this browser. Sign in to keep it across devices.</span>
+              <Button asChild size="sm" variant="outline" className="shrink-0">
+                <Link to="/auth">Sign in</Link>
+              </Button>
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {!isGuest && offlineFallback && (
+          <Alert>
+            <CloudOff className="h-4 w-4" />
+            <AlertDescription>
+              We couldn't reach the server, so your progress is being saved in this browser for now.
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {isAdmin && (
           <Card className="border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-primary">
                 <Settings className="h-5 w-5" />
                 Admin Panel
               </CardTitle>
-              <CardDescription>
-                Manage the platform with full administrative access
-              </CardDescription>
+              <CardDescription>Manage the platform with full administrative access</CardDescription>
             </CardHeader>
-            <CardFooter className="flex gap-2">
-              <Button 
-                onClick={() => navigate('/admin')}
-                className="flex items-center gap-2"
-              >
-                <Database className="h-4 w-4" />
-                Admin Dashboard
-              </Button>
-              <Button 
-                variant="outline"
-                onClick={() => navigate('/analytics')}
-                className="flex items-center gap-2"
-              >
-                <BarChart3 className="h-4 w-4" />
-                Analytics
+            <CardFooter className="flex flex-wrap gap-2">
+              <Button asChild>
+                <Link to="/admin">
+                  <Database className="mr-2 h-4 w-4" />
+                  Admin Dashboard
+                </Link>
               </Button>
             </CardFooter>
           </Card>
-        </motion.div>
-      )}
+        )}
 
-      <div className="mb-10">
-        <ProgressStats />
-      </div>
-
-      <div className="mb-10">
-        <ProgressReport />
-      </div>
-      
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
-      >
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Today's Words</h2>
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/practice')}
-            className="text-primary hover:text-primary flex items-center"
-          >
-            Practice all
-            <ChevronRight className="h-4 w-4 ml-1" />
-          </Button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {dailyWords.map((word, index) => (
-            <motion.div
-              key={word.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ 
-                opacity: 1, 
-                y: 0,
-                transition: { delay: index * 0.1 }
-              }}
-            >
-              <Card className="h-full flex flex-col">
-                <CardHeader className="pb-2">
-                  <CardTitle className="flex justify-between items-start">
-                    <span className="text-2xl font-arabic">{word.arabic}</span>
-                    <Badge level={word.level} />
-                  </CardTitle>
-                  <CardDescription>{word.transliteration}</CardDescription>
-                </CardHeader>
-                <CardContent className="py-2 flex-grow">
-                  <p className="font-medium">{word.meaning}</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Root: {word.root}
+        {isNewLearner ? (
+          <Card className="border-dashed">
+            <CardContent className="flex flex-col items-center gap-4 py-12 text-center">
+              <div className="rounded-full bg-primary/10 p-4">
+                <Sparkles className="h-8 w-8 text-primary" />
+              </div>
+              <div className="space-y-1">
+                <h2 className="text-xl font-semibold">Your journey starts with one word</h2>
+                <p className="mx-auto max-w-md text-muted-foreground">
+                  Review a few words and this page will track what you've learned, what's due, and your daily
+                  streak. A few minutes a day is all it takes.
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <Button asChild size="lg">
+                  <Link to="/practice">
+                    <Brain className="mr-2 h-5 w-5" />
+                    Start your first review
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link to="/collections">
+                    <BookText className="mr-2 h-5 w-5" />
+                    Browse collections
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ) : (
+          <>
+            <div className="flex flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+              {loading ? (
+                <Skeleton className="h-6 w-56" />
+              ) : (
+                <div>
+                  <div className="text-lg font-semibold">
+                    {stats.dueNow > 0
+                      ? `${stats.dueNow} word${stats.dueNow === 1 ? '' : 's'} ready for review`
+                      : "You're all caught up"}
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    {stats.dueNow > 0
+                      ? 'Reviewing on time is what makes words stick.'
+                      : 'Nothing is due right now. You can still learn new words.'}
                   </p>
-                </CardContent>
-                <CardFooter className="pt-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="w-full"
-                    onClick={() => navigate(`/word/${word.id}`)}
-                  >
-                    <BookOpen className="mr-2 h-4 w-4" />
-                    View Details
-                  </Button>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+                </div>
+              )}
+              <Button asChild size="lg" className="shrink-0">
+                <Link to="/practice">
+                  <Brain className="mr-2 h-5 w-5" />
+                  {loading
+                    ? 'Practice'
+                    : stats.dueNow > 0
+                      ? `Review ${stats.dueNow} due word${stats.dueNow === 1 ? '' : 's'}`
+                      : 'Learn new words'}
+                </Link>
+              </Button>
+            </div>
 
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="mb-8"
-      >
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Featured Collections</h2>
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/collections')}
-            className="text-primary hover:text-primary flex items-center"
-          >
-            View all
-            <ChevronRight className="h-4 w-4 ml-1" />
-          </Button>
-        </div>
+            <ProgressStats stats={stats} loading={loading} />
 
-        <div className="grid md:grid-cols-3 gap-4">
-          {featuredCollections.map((collection, index) => (
-            <motion.div
-              key={collection.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ 
-                opacity: 1, 
-                y: 0,
-                transition: { delay: 0.3 + index * 0.1 }
-              }}
-            >
-              <CollectionCard
-                id={collection.id}
-                title={collection.name}
-                description={collection.description}
-                count={getWordsByCollection(collection.id).length}
-                icon={getIconForCollection(collection.id)}
-              />
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+            <ProgressReport data={stats.reviewsLast7Days} loading={loading} />
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="flex flex-col sm:flex-row gap-4 justify-center"
-      >
-        <Button
-          onClick={() => navigate('/practice')}
-          className="px-6"
-          size="lg"
-        >
-          <Brain className="mr-2 h-5 w-5" />
-          Start Practice
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => navigate('/collections')}
-          size="lg"
-        >
-          <BookText className="mr-2 h-5 w-5" />
-          Browse Collections
-        </Button>
-      </motion.div>
+            <CollectionProgressTracker cards={cards} loading={loading} />
+
+            <AchievementSystem />
+
+            <div className="flex justify-center">
+              <Button asChild variant="outline">
+                <Link to="/analytics">
+                  <BarChart3 className="mr-2 h-4 w-4" />
+                  Detailed analytics
+                </Link>
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </>
-  );
-};
-
-// Badge component for word difficulty level
-const Badge = ({ level }: { level: string }) => {
-  const getColorByLevel = () => {
-    switch (level) {
-      case 'beginner':
-        return 'bg-emerald-50 text-emerald-600 border-emerald-200';
-      case 'intermediate':
-        return 'bg-blue-50 text-blue-600 border-blue-200';
-      case 'advanced':
-        return 'bg-purple-50 text-purple-600 border-purple-200';
-      default:
-        return 'bg-gray-50 text-gray-600 border-gray-200';
-    }
-  };
-
-  return (
-    <span className={`text-xs px-2 py-1 rounded-full border ${getColorByLevel()}`}>
-      {level}
-    </span>
   );
 };
 

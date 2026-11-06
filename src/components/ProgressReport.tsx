@@ -1,106 +1,70 @@
+import React from 'react';
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Skeleton } from '@/components/ui/skeleton';
+import type { DailyCount } from '@/lib/progress/types';
+import { shortDateLabel, weekdayLabel } from '@/components/analytics/progress-utils';
 
-import React, { useState } from 'react';
-import { Calendar } from '@/components/ui/calendar';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { getUserProgress } from '@/utils/spaced-repetition';
-import { Calendar as CalendarIcon, LineChart, Bookmark } from 'lucide-react';
+interface ProgressReportProps {
+  /** Daily review counts, oldest first (e.g. stats.reviewsLast7Days). */
+  data: readonly DailyCount[];
+  loading?: boolean;
+  title?: string;
+  /** Use weekday labels (7-day view) or short dates (longer ranges). */
+  labelStyle?: 'weekday' | 'date';
+  height?: number;
+}
 
-// Simulated data - in a real app this would come from the user's activity history
-const generateActivityData = () => {
-  const today = new Date();
-  const data = [];
-  
-  for (let i = 30; i >= 0; i--) {
-    const date = new Date(today);
-    date.setDate(date.getDate() - i);
-    
-    data.push({
-      date: date.toISOString().split('T')[0],
-      wordsLearned: Math.floor(Math.random() * 10),
-      wordsReviewed: Math.floor(Math.random() * 15) + 5,
-    });
-  }
-  
-  return data;
-};
+/** Bar chart of real reviews per day. */
+const ProgressReport: React.FC<ProgressReportProps> = ({
+  data,
+  loading = false,
+  title = 'Reviews, last 7 days',
+  labelStyle = 'weekday',
+  height = 200,
+}) => {
+  const rows = data.map((d) => ({
+    ...d,
+    label: labelStyle === 'weekday' ? weekdayLabel(d.date) : shortDateLabel(d.date),
+  }));
+  const total = data.reduce((sum, d) => sum + d.count, 0);
 
-const ProgressReport = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
-  const activityData = generateActivityData();
-  const progress = getUserProgress();
-  
-  const last7Days = activityData.slice(-7);
-  
   return (
-    <div className="glass-card rounded-xl p-6">
-      <h2 className="text-xl font-semibold mb-6">Progress Report</h2>
-      
-      <div className="grid md:grid-cols-2 gap-8">
-        <div>
-          <h3 className="text-lg font-medium mb-4 flex items-center">
-            <CalendarIcon className="h-5 w-5 mr-2 text-primary" />
-            <span>Daily Activity</span>
-          </h3>
-          <div className="bg-white/50 rounded-lg p-4">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              className="rounded-md"
-            />
-          </div>
-        </div>
-        
-        <div>
-          <h3 className="text-lg font-medium mb-4 flex items-center">
-            <LineChart className="h-5 w-5 mr-2 text-primary" />
-            <span>Weekly Progress</span>
-          </h3>
-          <div className="bg-white/50 rounded-lg p-4 h-[calc(100%-2rem)]">
-            <ResponsiveContainer width="100%" height={220}>
-              <BarChart data={last7Days}>
-                <XAxis 
-                  dataKey="date" 
-                  tickFormatter={(date) => new Date(date).toLocaleDateString(undefined, { weekday: 'short' })}
-                />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="wordsLearned" name="New Words" fill="#4f46e5" />
-                <Bar dataKey="wordsReviewed" name="Reviewed" fill="#06b6d4" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
+    <div className="rounded-xl border bg-card p-4 sm:p-6">
+      <div className="mb-4 flex items-baseline justify-between gap-2">
+        <h2 className="text-lg font-semibold">{title}</h2>
+        {!loading && (
+          <span className="text-sm text-muted-foreground tabular-nums">
+            {total} review{total === 1 ? '' : 's'}
+          </span>
+        )}
       </div>
-      
-      <div className="mt-8">
-        <h3 className="text-lg font-medium mb-4 flex items-center">
-          <Bookmark className="h-5 w-5 mr-2 text-primary" />
-          <span>Learning Summary</span>
-        </h3>
-        
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div className="bg-white/50 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-primary">{progress.totalWords}</div>
-            <div className="text-sm text-muted-foreground">Total Words</div>
-          </div>
-          
-          <div className="bg-white/50 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-green-500">{progress.masteredWords}</div>
-            <div className="text-sm text-muted-foreground">Mastered</div>
-          </div>
-          
-          <div className="bg-white/50 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-amber-500">{progress.streak}</div>
-            <div className="text-sm text-muted-foreground">Day Streak</div>
-          </div>
-          
-          <div className="bg-white/50 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-blue-500">{progress.mastery}%</div>
-            <div className="text-sm text-muted-foreground">Overall Mastery</div>
-          </div>
+      {loading ? (
+        <Skeleton className="w-full" style={{ height }} />
+      ) : (
+        <div style={{ height }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={rows} margin={{ top: 4, right: 4, bottom: 0, left: -24 }}>
+              <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-muted" />
+              <XAxis
+                dataKey="label"
+                tickLine={false}
+                axisLine={false}
+                fontSize={12}
+                interval={labelStyle === 'date' ? 'preserveStartEnd' : 0}
+              />
+              <YAxis allowDecimals={false} tickLine={false} axisLine={false} fontSize={12} />
+              <Tooltip
+                cursor={{ fill: 'hsl(var(--muted))' }}
+                labelFormatter={(_l, payload) =>
+                  payload?.[0] ? shortDateLabel((payload[0].payload as DailyCount).date) : ''
+                }
+                formatter={(value: number) => [value, 'Reviews']}
+              />
+              <Bar dataKey="count" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={36} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
-      </div>
+      )}
     </div>
   );
 };

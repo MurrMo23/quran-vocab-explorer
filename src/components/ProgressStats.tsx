@@ -1,70 +1,83 @@
-
 import React from 'react';
-import { Award, TrendingUp, BookOpen, CheckCircle2, Flame } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
-import { getUserProgress } from '@/utils/spaced-repetition';
+import { BookOpen, CheckCircle2, Clock, Flame, Target, Trophy, Repeat } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
+import type { ProgressStats as Stats } from '@/lib/progress/types';
 
-const ProgressStats: React.FC = () => {
-  const progress = getUserProgress();
-  
-  const stats = [
+interface ProgressStatsProps {
+  stats: Stats;
+  loading?: boolean;
+}
+
+interface Tile {
+  label: string;
+  value: string;
+  hint: string;
+  icon: React.ReactNode;
+}
+
+/** Headline numbers, all taken directly from useProgress().stats. */
+const ProgressStats: React.FC<ProgressStatsProps> = ({ stats, loading = false }) => {
+  const tiles: Tile[] = [
     {
-      title: 'Mastered',
-      value: progress.masteredWords,
-      icon: <CheckCircle2 className="h-5 w-5 text-green-500" />,
-      color: 'bg-green-100 text-green-800',
+      label: 'Words started',
+      value: String(stats.wordsStarted),
+      hint: 'Reviewed at least once',
+      icon: <BookOpen className="h-4 w-4 text-sky-600" />,
     },
     {
-      title: 'Learning',
-      value: progress.learningWords,
-      icon: <TrendingUp className="h-5 w-5 text-blue-500" />,
-      color: 'bg-blue-100 text-blue-800',
+      label: 'Words mastered',
+      value: String(stats.wordsMastered),
+      hint: 'Remembered for 21+ days',
+      icon: <CheckCircle2 className="h-4 w-4 text-emerald-600" />,
     },
     {
-      title: 'New',
-      value: progress.newWords,
-      icon: <BookOpen className="h-5 w-5 text-purple-500" />,
-      color: 'bg-purple-100 text-purple-800',
+      label: 'Due now',
+      value: String(stats.dueNow),
+      hint: 'Ready for review',
+      icon: <Clock className="h-4 w-4 text-amber-600" />,
     },
     {
-      title: 'Total',
-      value: progress.totalWords,
-      icon: <Award className="h-5 w-5 text-yellow-500" />,
-      color: 'bg-yellow-100 text-yellow-800',
+      label: 'Reviews today',
+      value: String(stats.reviewsToday),
+      hint: 'Answers given today',
+      icon: <Repeat className="h-4 w-4 text-violet-600" />,
+    },
+    {
+      label: 'Current streak',
+      value: `${stats.currentStreak} day${stats.currentStreak === 1 ? '' : 's'}`,
+      hint: 'Consecutive days reviewing',
+      icon: <Flame className="h-4 w-4 text-orange-500" />,
+    },
+    {
+      label: 'Longest streak',
+      value: `${stats.longestStreak} day${stats.longestStreak === 1 ? '' : 's'}`,
+      hint: 'Your best run',
+      icon: <Trophy className="h-4 w-4 text-yellow-600" />,
+    },
+    {
+      label: '7-day accuracy',
+      value: stats.accuracy7d === null ? '—' : `${Math.round(stats.accuracy7d * 100)}%`,
+      hint: stats.accuracy7d === null ? 'No reviews this week' : "Answers not rated 'again'",
+      icon: <Target className="h-4 w-4 text-rose-600" />,
     },
   ];
 
   return (
-    <div className="glass-card rounded-xl p-6">
-      <div className="flex justify-between items-center mb-5">
-        <h2 className="text-xl font-semibold">Your Progress</h2>
-        
-        <div className="flex items-center bg-amber-100 text-amber-800 px-2 py-1 rounded-full">
-          <Flame className="h-4 w-4 mr-1 text-amber-500" />
-          <span className="text-sm font-medium">{progress.streak} day streak</span>
-        </div>
-      </div>
-      
-      <div className="mb-6">
-        <div className="flex justify-between items-end mb-2">
-          <span className="text-sm text-muted-foreground">Mastery Level</span>
-          <span className="font-medium">{progress.mastery}%</span>
-        </div>
-        <Progress value={progress.mastery} className="h-2" />
-      </div>
-      
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {stats.map((stat) => (
-          <div 
-            key={stat.title} 
-            className="bg-white/50 rounded-lg p-4 flex flex-col items-center justify-center card-hover"
-          >
-            <div className="mb-2">{stat.icon}</div>
-            <span className="text-2xl font-bold">{stat.value}</span>
-            <span className="text-sm text-muted-foreground">{stat.title}</span>
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      {tiles.map((tile) => (
+        <div key={tile.label} className="rounded-xl border bg-card p-4">
+          <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
+            {tile.icon}
+            <span>{tile.label}</span>
           </div>
-        ))}
-      </div>
+          {loading ? (
+            <Skeleton className="h-8 w-16" />
+          ) : (
+            <div className="text-2xl font-semibold tabular-nums">{tile.value}</div>
+          )}
+          <div className="mt-1 text-xs text-muted-foreground">{tile.hint}</div>
+        </div>
+      ))}
     </div>
   );
 };
