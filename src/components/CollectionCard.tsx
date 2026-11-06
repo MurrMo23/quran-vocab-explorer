@@ -70,7 +70,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
               <span className="text-sm font-arabic">{arabic}</span>
               <AudioPlayer 
                 text={arabic}
-                voice="CwhRBWXzGAHq8TQ4Fs17"
+                allowComputerVoice
                 size="sm"
                 className="ml-auto"
               />

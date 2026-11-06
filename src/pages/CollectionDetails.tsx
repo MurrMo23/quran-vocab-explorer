@@ -92,7 +92,7 @@ const CollectionDetails = () => {
                     <div className="flex items-start justify-between mb-2">
                       <span className="text-xl font-arabic">{word.arabic}</span>
                       <div onClick={e => e.stopPropagation()}>
-                        <AudioPlayer text={word.arabic} voice="CwhRBWXzGAHq8TQ4Fs17" size="sm" className="ml-2" />
+                        <AudioPlayer word={word} size="sm" className="ml-2" />
                       </div>
                     </div>
                     <div className="text-sm text-muted-foreground mb-1">{word.transliteration}</div>
