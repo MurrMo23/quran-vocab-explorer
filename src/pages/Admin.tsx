@@ -13,6 +13,8 @@ import SiteBranding from '@/components/admin/SiteBranding';
 import AdminInbox from '@/components/admin/AdminInbox';
 import { Badge } from '@/components/ui/badge';
 import { useUnreadContactCount } from '@/hooks/useUnreadContactCount';
+import { useAdminOverviewStats } from '@/hooks/useAdminOverviewStats';
+import type { LucideIcon } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import type { Json } from '@/integrations/supabase/types';
 import { Database, Users, BookOpen, FileText, Activity, Settings, Globe, Palette, Inbox } from 'lucide-react';
@@ -26,6 +28,21 @@ interface AuditLogEntry {
   timestamp: string;
 }
 
+const fmt = (n: number | null) => (n === null ? '\u2013' : n.toLocaleString());
+
+const StatCard = ({ title, icon: Icon, value, note }: { title: string; icon: LucideIcon; value: string; note: string }) => (
+  <Card>
+    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+      <CardTitle className="text-sm font-medium">{title}</CardTitle>
+      <Icon className="h-4 w-4 text-muted-foreground" />
+    </CardHeader>
+    <CardContent>
+      <div className="text-2xl font-bold">{value}</div>
+      <p className="text-xs text-muted-foreground">{note}</p>
+    </CardContent>
+  </Card>
+);
+
 const Admin = () => {
   const { isAuthorized, isLoading } = useProtectedRoute({ 
     requiredRole: 'admin' 
@@ -33,6 +50,7 @@ const Admin = () => {
   const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>([]);
   const [activeTab, setActiveTab] = useState('overview');
   const { count: unreadCount, refresh: refreshUnread } = useUnreadContactCount(isAuthorized === true);
+  const stats = useAdminOverviewStats(isAuthorized === true);
 
   const logAuditEvent = async (
     action: string, 
@@ -171,49 +189,34 @@ const Admin = () => {
           </Card>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Users</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">1,234</div>
-                <p className="text-xs text-muted-foreground">+12% from last month</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Vocabulary Words</CardTitle>
-                <BookOpen className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">2,847</div>
-                <p className="text-xs text-muted-foreground">+45 this week</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Collections</CardTitle>
-                <Database className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">23</div>
-                <p className="text-xs text-muted-foreground">+2 this month</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Active Sessions</CardTitle>
-                <Activity className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">128</div>
-                <p className="text-xs text-muted-foreground">+8% from yesterday</p>
-              </CardContent>
-            </Card>
+            <StatCard
+              title="Registered users"
+              icon={Users}
+              value={fmt(stats.totalUsers)}
+              note="Accounts with a profile"
+            />
+            <StatCard
+              title="New users (30 days)"
+              icon={Activity}
+              value={fmt(stats.newUsers30d)}
+              note={
+                stats.newUsersPrev30d === null
+                  ? '\u00a0'
+                  : `${stats.newUsersPrev30d.toLocaleString()} in the 30 days before`
+              }
+            />
+            <StatCard
+              title="Vocabulary words"
+              icon={BookOpen}
+              value={stats.words.toLocaleString()}
+              note={`${stats.verifiedWords.toLocaleString()} with corpus-verified frequency`}
+            />
+            <StatCard
+              title="Collections"
+              icon={Database}
+              value={stats.collections.toLocaleString()}
+              note="Collections with at least one word"
+            />
           </div>
 
           <Card>
