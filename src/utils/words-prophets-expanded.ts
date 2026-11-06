@@ -11,16 +11,16 @@ export const prophetsExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 75,
-    location: { surah: 2, ayah: 61, position: 52 },
+    location: { surah: 33, ayah: 56, position: 6 },
     frequencyVerified: true,
     tags: ['prophets', 'messenger', 'guidance'],
     collections: ['prophets'],
     examples: [
       {
-        surah: 3,
-        ayah: 144,
-        arabicText: 'وَمَا مُحَمَّدٌ إِلَّا رَسُولٌ قَدْ خَلَتْ مِن قَبْلِهِ الرُّسُلُ',
-        translation: 'Muhammad is not but a messenger. [Other] messengers have passed on before him'
+        surah: 33,
+        ayah: 56,
+        arabicText: 'إِنَّ ٱللَّهَ وَمَلَـٰٓئِكَتَهُۥ يُصَلُّونَ عَلَى ٱلنَّبِىِّ',
+        translation: 'Indeed, Allah and His angels send blessings upon the Prophet'
       }
     ]
   },

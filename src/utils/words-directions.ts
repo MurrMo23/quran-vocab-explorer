@@ -12,7 +12,7 @@ export const directionsWords: Word[] = [
     level: 'beginner',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'directions', 'geography', 'orientation'],
+    tags: ['related-form', 'not-in-quran', 'directions', 'geography', 'orientation'],
     collections: ['directions', 'geography'],
     examples: [
       {
@@ -33,7 +33,7 @@ export const directionsWords: Word[] = [
     level: 'beginner',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'directions', 'geography', 'orientation'],
+    tags: ['related-form', 'not-in-quran', 'directions', 'geography', 'orientation'],
     collections: ['directions', 'geography'],
     examples: [
       {
@@ -54,7 +54,7 @@ export const directionsWords: Word[] = [
     level: 'beginner',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'directions', 'geography', 'orientation'],
+    tags: ['related-form', 'not-in-quran', 'directions', 'geography', 'orientation'],
     collections: ['directions', 'geography'],
     examples: [
       {
@@ -75,7 +75,7 @@ export const directionsWords: Word[] = [
     level: 'beginner',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'directions', 'geography', 'orientation'],
+    tags: ['related-form', 'not-in-quran', 'directions', 'geography', 'orientation'],
     collections: ['directions', 'geography'],
     examples: [
       {
@@ -95,16 +95,16 @@ export const directionsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 65,
-    location: { surah: 2, ayah: 224, position: 5 },
+    location: { surah: 56, ayah: 27, position: 2 },
     frequencyVerified: true,
     tags: ['directions', 'side', 'hand'],
     collections: ['directions', 'body'],
     examples: [
       {
         surah: 56,
-        ayah: 8,
-        arabicText: 'فَأَصْحَابُ الْمَيْمَنَةِ مَا أَصْحَابُ الْمَيْمَنَةِ',
-        translation: 'Then the companions of the right - what are the companions of the right?'
+        ayah: 27,
+        arabicText: 'وَأَصْحَـٰبُ ٱلْيَمِينِ مَآ أَصْحَـٰبُ ٱلْيَمِينِ',
+        translation: 'The companions of the right - what are the companions of the right?'
       }
     ]
   },

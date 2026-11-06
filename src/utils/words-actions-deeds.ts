@@ -11,16 +11,16 @@ export const actionsAndDeedsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 71,
-    location: { surah: 2, ayah: 139, position: 9 },
+    location: { surah: 99, ayah: 6, position: 6 },
     frequencyVerified: true,
     tags: ['work', 'action', 'deed'],
     collections: ['actions'],
     examples: [
       {
-        surah: 2,
-        ayah: 25,
-        arabicText: 'وَبَشِّرِ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ',
-        translation: 'And give good tidings to those who believe and do righteous deeds'
+        surah: 99,
+        ayah: 6,
+        arabicText: 'يَوْمَئِذٍ يَصْدُرُ ٱلنَّاسُ أَشْتَاتًا لِّيُرَوْا۟ أَعْمَـٰلَهُمْ',
+        translation: 'That Day, the people will depart separated [into categories] to be shown [the result of] their deeds'
       }
     ]
   },
@@ -99,16 +99,16 @@ export const actionsAndDeedsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 3,
-    location: { surah: 4, ayah: 81, position: 2 },
+    location: { surah: 47, ayah: 21, position: 1 },
     frequencyVerified: true,
     tags: ['obedience', 'submission', 'compliance'],
     collections: ['actions', 'worship'],
     examples: [
       {
-        surah: 4,
-        ayah: 59,
-        arabicText: 'وَأَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ',
-        translation: 'And obey Allah and obey the Messenger'
+        surah: 47,
+        ayah: 21,
+        arabicText: 'طَاعَةٌ وَقَوْلٌ مَّعْرُوفٌ',
+        translation: 'Obedience and good words'
       }
     ]
   },
@@ -121,16 +121,16 @@ export const actionsAndDeedsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 2,
-    location: { surah: 58, ayah: 8, position: 16 },
+    location: { surah: 58, ayah: 9, position: 10 },
     frequencyVerified: true,
     tags: ['disobedience', 'rebellion', 'sin'],
     collections: ['actions', 'ethics'],
     examples: [
       {
-        surah: 18,
-        ayah: 50,
-        arabicText: 'فَفَسَقَ عَنْ أَمْرِ رَبِّهِ',
-        translation: 'And he departed from the command of his Lord'
+        surah: 58,
+        ayah: 9,
+        arabicText: 'فَلَا تَتَنَـٰجَوْا۟ بِٱلْإِثْمِ وَٱلْعُدْوَٰنِ وَمَعْصِيَتِ ٱلرَّسُولِ',
+        translation: 'Do not converse in sin and aggression and disobedience to the Messenger'
       }
     ]
   }

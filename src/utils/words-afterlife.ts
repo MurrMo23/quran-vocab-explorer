@@ -151,8 +151,8 @@ export const afterlifeWords: Word[] = [
       {
         surah: 7,
         ayah: 8,
-        arabicText: 'وَالْوَزْنُ يَوْمَئِذٍ الْحَقُّ',
-        translation: 'And the weighing [of deeds] that Day will be the truth'
+        arabicText: 'وَٱلْوَزْنُ يَوْمَئِذٍ ٱلْحَقُّ ۚ فَمَن ثَقُلَتْ مَوَٰزِينُهُۥ فَأُو۟لَـٰٓئِكَ هُمُ ٱلْمُفْلِحُونَ',
+        translation: 'And the weighing [of deeds] that Day will be the truth. So those whose scales are heavy - it is they who will be the successful'
       }
     ]
   },

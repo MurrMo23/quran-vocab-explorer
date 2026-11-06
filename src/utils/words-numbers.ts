@@ -11,16 +11,16 @@ export const numbersWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 30,
-    location: { surah: 2, ayah: 61, position: 8 },
+    location: { surah: 2, ayah: 163, position: 3 },
     frequencyVerified: true,
     tags: ['numbers', 'unity', 'basic'],
     collections: ['numbers'],
     examples: [
       {
-        surah: 112,
-        ayah: 1,
-        arabicText: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
-        translation: 'Say, He is Allah, [who is] One'
+        surah: 2,
+        ayah: 163,
+        arabicText: 'وَإِلَـٰهُكُمْ إِلَـٰهٌ وَٰحِدٌ ۖ لَّآ إِلَـٰهَ إِلَّا هُوَ ٱلرَّحْمَـٰنُ ٱلرَّحِيمُ',
+        translation: 'And your god is one God. There is no deity [worthy of worship] except Him, the Entirely Merciful, the Especially Merciful'
       }
     ]
   },
@@ -33,16 +33,16 @@ export const numbersWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 13,
-    location: { surah: 5, ayah: 12, position: 9 },
+    location: { surah: 16, ayah: 51, position: 6 },
     frequencyVerified: true,
     tags: ['numbers', 'pair', 'basic'],
     collections: ['numbers'],
     examples: [
       {
-        surah: 2,
-        ayah: 60,
-        arabicText: 'فَانفَجَرَتْ مِنْهُ اثْنَتَا عَشْرَةَ عَيْنًا',
-        translation: 'And there gushed forth from it twelve springs'
+        surah: 16,
+        ayah: 51,
+        arabicText: 'وَقَالَ ٱللَّهُ لَا تَتَّخِذُوٓا۟ إِلَـٰهَيْنِ ٱثْنَيْنِ ۖ إِنَّمَا هُوَ إِلَـٰهٌ وَٰحِدٌ ۖ فَإِيَّـٰىَ فَٱرْهَبُونِ',
+        translation: 'And Allah has said, "Do not take for yourselves two deities. He is but one God, so fear only Me"'
       }
     ]
   },
@@ -143,16 +143,16 @@ export const numbersWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 4,
-    location: { surah: 2, ayah: 196, position: 53 },
+    location: { surah: 15, ayah: 44, position: 2 },
     frequencyVerified: true,
     tags: ['numbers', 'basic'],
     collections: ['numbers'],
     examples: [
       {
-        surah: 2,
-        ayah: 29,
-        arabicText: 'فَسَوَّاهُنَّ سَبْعَ سَمَاوَاتٍ',
-        translation: 'And He completed them as seven heavens'
+        surah: 15,
+        ayah: 44,
+        arabicText: 'لَهَا سَبْعَةُ أَبْوَٰبٍ لِّكُلِّ بَابٍ مِّنْهُمْ جُزْءٌ مَّقْسُومٌ',
+        translation: 'It has seven gates; for every gate is of them a portion designated'
       }
     ]
   },

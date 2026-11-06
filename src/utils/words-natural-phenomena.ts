@@ -78,7 +78,7 @@ export const naturalPhenomenaWords: Word[] = [
     level: 'intermediate',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'nature', 'weather', 'cold'],
+    tags: ['related-form', 'not-in-quran', 'nature', 'weather', 'cold'],
     collections: ['nature', 'weather'],
     examples: [
       {
@@ -137,7 +137,7 @@ export const naturalPhenomenaWords: Word[] = [
     id: 'al-hawa',
     arabic: 'الهواء',
     transliteration: 'Al-Hawa',
-    meaning: 'Air',
+    meaning: 'Void, empty (in 14:43 the hearts are "hawa\'" - void); the sense "air" does not occur in the Quran',
     root: 'هوي',
     partOfSpeech: 'noun',
     level: 'intermediate',
@@ -149,9 +149,9 @@ export const naturalPhenomenaWords: Word[] = [
     examples: [
       {
         surah: 14,
-        ayah: 18,
-        arabicText: 'كَرَمَادٍ اشْتَدَّتْ بِهِ الرِّيحُ فِي يَوْمٍ عَاصِفٍ',
-        translation: 'Like ashes which the wind has blown forcefully on a stormy day'
+        ayah: 43,
+        arabicText: 'مُهْطِعِينَ مُقْنِعِى رُءُوسِهِمْ لَا يَرْتَدُّ إِلَيْهِمْ طَرْفُهُمْ ۖ وَأَفْـِٔدَتُهُمْ هَوَآءٌ',
+        translation: 'Racing ahead, their heads raised up, their glance does not come back to them, and their hearts are void'
       }
     ]
   },
@@ -164,16 +164,16 @@ export const naturalPhenomenaWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 9,
-    location: { surah: 3, ayah: 37, position: 6 },
+    location: { surah: 78, ayah: 15, position: 4 },
     frequencyVerified: true,
     tags: ['nature', 'plants', 'growth'],
     collections: ['nature'],
     examples: [
       {
-        surah: 2,
-        ayah: 61,
-        arabicText: 'فَادْعُ لَنَا رَبَّكَ يُخْرِجْ لَنَا مِمَّا تُنبِتُ الْأَرْضُ',
-        translation: 'So call upon your Lord to bring forth for us from the earth its green herbs'
+        surah: 78,
+        ayah: 15,
+        arabicText: 'لِّنُخْرِجَ بِهِۦ حَبًّا وَنَبَاتًا',
+        translation: 'That We may bring forth thereby grain and vegetation'
       }
     ]
   }

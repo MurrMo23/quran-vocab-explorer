@@ -55,16 +55,16 @@ export const importantVerbsWords: Word[] = [
     partOfSpeech: 'verb',
     level: 'beginner',
     frequency: 88,
-    location: { surah: 2, ayah: 24, position: 3 },
+    location: { surah: 105, ayah: 1, position: 4 },
     frequencyVerified: true,
     tags: ['verbs', 'action', 'doing'],
     collections: ['verbs'],
     examples: [
       {
-        surah: 2,
-        ayah: 74,
-        arabicText: 'ثُمَّ قَسَتْ قُلُوبُكُم مِّن بَعْدِ ذَٰلِكَ فَهِيَ كَالْحِجَارَةِ أَوْ أَشَدُّ قَسْوَةً',
-        translation: 'Then your hearts became hardened after that, being like stones or even harder'
+        surah: 105,
+        ayah: 1,
+        arabicText: 'أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَـٰبِ ٱلْفِيلِ',
+        translation: 'Have you not considered how your Lord dealt with the companions of the elephant?'
       }
     ]
   },
@@ -121,16 +121,16 @@ export const importantVerbsWords: Word[] = [
     partOfSpeech: 'verb',
     level: 'beginner',
     frequency: 382,
-    location: { surah: 2, ayah: 13, position: 19 },
+    location: { surah: 81, ayah: 14, position: 1 },
     frequencyVerified: true,
     tags: ['verbs', 'knowledge', 'understanding'],
     collections: ['verbs', 'knowledge'],
     examples: [
       {
-        surah: 2,
-        ayah: 31,
-        arabicText: 'وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا',
-        translation: 'And He taught Adam the names - all of them'
+        surah: 81,
+        ayah: 14,
+        arabicText: 'عَلِمَتْ نَفْسٌ مَّآ أَحْضَرَتْ',
+        translation: 'A soul will [then] know what it has brought [with it]'
       }
     ]
   },
@@ -165,7 +165,7 @@ export const importantVerbsWords: Word[] = [
     partOfSpeech: 'verb',
     level: 'beginner',
     frequency: 78,
-    location: { surah: 2, ayah: 93, position: 11 },
+    location: { surah: 2, ayah: 93, position: 13 },
     frequencyVerified: true,
     tags: ['verbs', 'hearing', 'perception'],
     collections: ['verbs'],
@@ -173,7 +173,7 @@ export const importantVerbsWords: Word[] = [
       {
         surah: 2,
         ayah: 93,
-        arabicText: 'قَالُوا سَمِعْنَا وَعَصَيْنَا',
+        arabicText: 'قَالُوا۟ سَمِعْنَا وَعَصَيْنَا',
         translation: 'They said, "We hear and disobey"'
       }
     ]

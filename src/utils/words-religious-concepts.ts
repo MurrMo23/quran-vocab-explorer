@@ -33,16 +33,16 @@ export const religiousConceptsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 45,
-    location: { surah: 2, ayah: 93, position: 24 },
+    location: { surah: 49, ayah: 7, position: 17 },
     frequencyVerified: true,
     tags: ['faith', 'belief', 'fundamental'],
     collections: ['faith'],
     examples: [
       {
-        surah: 2,
-        ayah: 3,
-        arabicText: 'الَّذِينَ يُؤْمِنُونَ بِالْغَيْبِ',
-        translation: 'Who believe in the unseen'
+        surah: 49,
+        ayah: 7,
+        arabicText: 'وَلَـٰكِنَّ ٱللَّهَ حَبَّبَ إِلَيْكُمُ ٱلْإِيمَـٰنَ وَزَيَّنَهُۥ فِى قُلُوبِكُمْ',
+        translation: 'But Allah has endeared to you the faith and has made it pleasing in your hearts'
       }
     ]
   },
@@ -56,7 +56,7 @@ export const religiousConceptsWords: Word[] = [
     level: 'intermediate',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'theology', 'monotheism', 'fundamental'],
+    tags: ['related-form', 'not-in-quran', 'theology', 'monotheism', 'fundamental'],
     collections: ['faith'],
     examples: [
       {
@@ -83,9 +83,9 @@ export const religiousConceptsWords: Word[] = [
     examples: [
       {
         surah: 2,
-        ayah: 2,
-        arabicText: 'هُدًى لِّلْمُتَّقِينَ',
-        translation: 'Guidance for those conscious of Allah'
+        ayah: 197,
+        arabicText: 'وَتَزَوَّدُوا۟ فَإِنَّ خَيْرَ ٱلزَّادِ ٱلتَّقْوَىٰ',
+        translation: 'And take provisions, but indeed, the best provision is fear of Allah'
       }
     ]
   },
@@ -148,10 +148,10 @@ export const religiousConceptsWords: Word[] = [
     collections: ['worship'],
     examples: [
       {
-        surah: 2,
-        ayah: 183,
-        arabicText: 'كُتِبَ عَلَيْكُمُ الصِّيَامُ',
-        translation: 'Fasting has been prescribed for you'
+        surah: 19,
+        ayah: 26,
+        arabicText: 'فَقُولِىٓ إِنِّى نَذَرْتُ لِلرَّحْمَـٰنِ صَوْمًا',
+        translation: 'Then say, "Indeed, I have vowed to the Most Merciful a fast (abstention)"'
       }
     ]
   },

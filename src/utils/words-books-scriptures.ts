@@ -11,16 +11,16 @@ export const booksAndScripturesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 70,
-    location: { surah: 2, ayah: 185, position: 6 },
+    location: { surah: 55, ayah: 2, position: 2 },
     frequencyVerified: true,
     tags: ['book', 'scripture', 'revelation'],
     collections: ['knowledge', 'faith'],
     examples: [
       {
-        surah: 2,
+        surah: 55,
         ayah: 2,
-        arabicText: 'ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ',
-        translation: 'This is the Book about which there is no doubt, a guidance for those conscious of Allah'
+        arabicText: 'عَلَّمَ ٱلْقُرْءَانَ',
+        translation: 'Taught the Qur\'an'
       }
     ]
   },

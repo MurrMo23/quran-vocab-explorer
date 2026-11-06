@@ -121,16 +121,16 @@ export const natureExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 7,
-    location: { surah: 4, ayah: 102, position: 48 },
+    location: { surah: 7, ayah: 84, position: 3 },
     frequencyVerified: true,
     tags: ['nature', 'weather', 'sustenance'],
     collections: ['nature', 'weather'],
     examples: [
       {
-        surah: 2,
-        ayah: 164,
-        arabicText: 'وَمَا أَنزَلَ اللَّهُ مِنَ السَّمَاءِ مِن مَّاءٍ',
-        translation: 'And what Allah has sent down from heaven of water'
+        surah: 7,
+        ayah: 84,
+        arabicText: 'وَأَمْطَرْنَا عَلَيْهِم مَّطَرًا ۖ فَٱنظُرْ كَيْفَ كَانَ عَـٰقِبَةُ ٱلْمُجْرِمِينَ',
+        translation: 'And We rained upon them a rain [of stones]. Then see how was the end of the criminals'
       }
     ]
   },

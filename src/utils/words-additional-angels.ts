@@ -34,7 +34,7 @@ export const additionalAngelsWords: Word[] = [
     level: 'advanced',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'angels', 'archangel', 'trumpet'],
+    tags: ['related-form', 'not-in-quran', 'angels', 'archangel', 'trumpet'],
     collections: ['faith', 'angels'],
     examples: [
       {
@@ -55,7 +55,7 @@ export const additionalAngelsWords: Word[] = [
     level: 'advanced',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'angels', 'death', 'soul'],
+    tags: ['related-form', 'not-in-quran', 'angels', 'death', 'soul'],
     collections: ['faith', 'angels'],
     examples: [
       {

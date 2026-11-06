@@ -11,16 +11,16 @@ export const worshipExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 12,
-    location: { surah: 2, ayah: 83, position: 11 },
+    location: { surah: 55, ayah: 60, position: 3 },
     frequencyVerified: true,
     tags: ['worship', 'excellence', 'spiritual'],
     collections: ['worship', 'ethics'],
     examples: [
       {
-        surah: 2,
-        ayah: 195,
-        arabicText: 'وَأَحْسِنُوا ۛ إِنَّ اللَّهَ يُحِبُّ الْمُحْسِنِينَ',
-        translation: 'And do good; indeed, Allah loves the doers of good'
+        surah: 55,
+        ayah: 60,
+        arabicText: 'هَلْ جَزَآءُ ٱلْإِحْسَـٰنِ إِلَّا ٱلْإِحْسَـٰنُ',
+        translation: 'Is the reward for good [anything] but good?'
       }
     ]
   },
@@ -39,10 +39,10 @@ export const worshipExtendedWords: Word[] = [
     collections: ['faith', 'ethics'],
     examples: [
       {
-        surah: 4,
-        ayah: 116,
-        arabicText: 'إِنَّ اللَّهَ لَا يَغْفِرُ أَن يُشْرَكَ بِهِ وَيَغْفِرُ مَا دُونَ ذَٰلِكَ لِمَن يَشَاءُ',
-        translation: 'Indeed, Allah does not forgive association with Him, but He forgives what is less than that for whom He wills'
+        surah: 31,
+        ayah: 13,
+        arabicText: 'يَـٰبُنَىَّ لَا تُشْرِكْ بِٱللَّهِ ۖ إِنَّ ٱلشِّرْكَ لَظُلْمٌ عَظِيمٌ',
+        translation: 'O my son, do not associate [anything] with Allah. Indeed, association [with Him] is great injustice'
       }
     ]
   },

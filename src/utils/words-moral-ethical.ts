@@ -33,16 +33,16 @@ export const moralEthicalWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 11,
-    location: { surah: 2, ayah: 205, position: 14 },
+    location: { surah: 30, ayah: 41, position: 2 },
     frequencyVerified: true,
     tags: ['corruption', 'evil', 'negative traits'],
     collections: ['ethics'],
     examples: [
       {
-        surah: 2,
-        ayah: 11,
-        arabicText: 'وَإِذَا قِيلَ لَهُمْ لَا تُفْسِدُوا فِي الْأَرْضِ قَالُوا إِنَّمَا نَحْنُ مُصْلِحُونَ',
-        translation: 'And when it is said to them, "Do not cause corruption on the earth," they say, "We are but reformers"'
+        surah: 30,
+        ayah: 41,
+        arabicText: 'ظَهَرَ ٱلْفَسَادُ فِى ٱلْبَرِّ وَٱلْبَحْرِ بِمَا كَسَبَتْ أَيْدِى ٱلنَّاسِ',
+        translation: 'Corruption has appeared throughout the land and sea by [reason of] what the hands of people have earned'
       }
     ]
   },
@@ -55,16 +55,16 @@ export const moralEthicalWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 20,
-    location: { surah: 3, ayah: 108, position: 10 },
+    location: { surah: 11, ayah: 117, position: 6 },
     frequencyVerified: true,
     tags: ['injustice', 'oppression', 'negative traits'],
     collections: ['ethics'],
     examples: [
       {
-        surah: 2,
-        ayah: 254,
-        arabicText: 'وَالْكَافِرُونَ هُمُ الظَّالِمُونَ',
-        translation: 'And the disbelievers - they are the wrongdoers'
+        surah: 11,
+        ayah: 117,
+        arabicText: 'وَمَا كَانَ رَبُّكَ لِيُهْلِكَ ٱلْقُرَىٰ بِظُلْمٍ وَأَهْلُهَا مُصْلِحُونَ',
+        translation: 'And your Lord would not have destroyed the cities unjustly while their people were reformers'
       }
     ]
   },

@@ -11,16 +11,16 @@ export const particlesAndPrepositionsWords: Word[] = [
     partOfSpeech: 'preposition',
     level: 'beginner',
     frequency: 1701,
-    location: { surah: 2, ayah: 2, position: 5 },
+    location: { surah: 85, ayah: 22, position: 1 },
     frequencyVerified: true,
     tags: ['preposition', 'location', 'basic'],
     collections: ['particles'],
     examples: [
       {
-        surah: 1,
-        ayah: 1,
-        arabicText: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
-        translation: 'In the name of Allah, the Entirely Merciful, the Especially Merciful'
+        surah: 85,
+        ayah: 22,
+        arabicText: 'فِى لَوْحٍ مَّحْفُوظٍۭ',
+        translation: '[Inscribed] in a Preserved Slate'
       }
     ]
   },
@@ -33,16 +33,16 @@ export const particlesAndPrepositionsWords: Word[] = [
     partOfSpeech: 'preposition',
     level: 'beginner',
     frequency: 3226,
-    location: { surah: 2, ayah: 3, position: 6 },
+    location: { surah: 113, ayah: 2, position: 1 },
     frequencyVerified: true,
     tags: ['preposition', 'source', 'basic'],
     collections: ['particles'],
     examples: [
       {
-        surah: 2,
+        surah: 113,
         ayah: 2,
-        arabicText: 'ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ',
-        translation: 'This is the Book about which there is no doubt, a guidance for those conscious of Allah'
+        arabicText: 'مِن شَرِّ مَا خَلَقَ',
+        translation: 'From the evil of that which He created'
       }
     ]
   },
@@ -55,16 +55,16 @@ export const particlesAndPrepositionsWords: Word[] = [
     partOfSpeech: 'preposition',
     level: 'beginner',
     frequency: 742,
-    location: { surah: 2, ayah: 4, position: 5 },
+    location: { surah: 94, ayah: 8, position: 1 },
     frequencyVerified: true,
     tags: ['preposition', 'direction', 'basic'],
     collections: ['particles'],
     examples: [
       {
-        surah: 1,
-        ayah: 6,
-        arabicText: 'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',
-        translation: 'Guide us to the straight path'
+        surah: 94,
+        ayah: 8,
+        arabicText: 'وَإِلَىٰ رَبِّكَ فَٱرْغَب',
+        translation: 'And to your Lord direct [your] longing'
       }
     ]
   },

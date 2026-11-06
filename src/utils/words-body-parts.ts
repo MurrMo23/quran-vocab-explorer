@@ -26,15 +26,16 @@ export const bodyPartsWords: Word[] = [
   },
   {
     id: 'al-aql',
-    arabic: 'العقل',
-    transliteration: 'Al-Aql',
-    meaning: 'Mind',
+    arabic: 'عَقَلَ',
+    transliteration: '\'aqala',
+    meaning: 'To reason, use the intellect (the noun عقل does not occur; only this verb, e.g. يَعْقِلُونَ)',
     root: 'عقل',
-    partOfSpeech: 'noun',
+    partOfSpeech: 'verb',
     level: 'intermediate',
-    frequency: 0,
+    frequency: 49,
+    location: { surah: 2, ayah: 164, position: 43 },
     frequencyVerified: true,
-    tags: ['not-in-quran', 'body', 'intellect', 'reasoning'],
+    tags: ['body', 'intellect', 'reasoning'],
     collections: ['body', 'knowledge'],
     examples: [
       {
@@ -76,16 +77,16 @@ export const bodyPartsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 57,
-    location: { surah: 2, ayah: 60, position: 13 },
+    location: { surah: 90, ayah: 8, position: 4 },
     frequencyVerified: true,
     tags: ['body', 'sight', 'perception'],
     collections: ['body'],
     examples: [
       {
-        surah: 2,
-        ayah: 20,
-        arabicText: 'يَكَادُ الْبَرْقُ يَخْطَفُ أَبْصَارَهُمْ',
-        translation: 'The lightning almost snatches away their sight'
+        surah: 90,
+        ayah: 8,
+        arabicText: 'أَلَمْ نَجْعَل لَّهُۥ عَيْنَيْنِ',
+        translation: 'Have We not made for him two eyes?'
       }
     ]
   },
@@ -142,7 +143,7 @@ export const bodyPartsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 120,
-    location: { surah: 5, ayah: 64, position: 3 },
+    location: { surah: 5, ayah: 64, position: 12 },
     frequencyVerified: true,
     tags: ['body', 'action', 'power'],
     collections: ['body'],
@@ -150,7 +151,7 @@ export const bodyPartsWords: Word[] = [
       {
         surah: 5,
         ayah: 64,
-        arabicText: 'بَلْ يَدَاهُ مَبْسُوطَتَانِ',
+        arabicText: 'يَدَاهُ مَبْسُوطَتَانِ',
         translation: 'Rather, both His hands are extended'
       }
     ]

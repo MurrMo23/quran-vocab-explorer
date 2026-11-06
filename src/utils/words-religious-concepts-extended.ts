@@ -17,10 +17,10 @@ export const religiousConceptsExtendedWords: Word[] = [
     collections: ['faith', 'ethics'],
     examples: [
       {
-        surah: 2,
-        ayah: 8,
-        arabicText: 'وَمِنَ النَّاسِ مَن يَقُولُ آمَنَّا بِاللَّهِ وَبِالْيَوْمِ الْآخِرِ وَمَا هُم بِمُؤْمِنِينَ',
-        translation: 'And of the people are some who say, "We believe in Allah and the Last Day," but they are not believers'
+        surah: 9,
+        ayah: 77,
+        arabicText: 'فَأَعْقَبَهُمْ نِفَاقًا فِى قُلُوبِهِمْ إِلَىٰ يَوْمِ يَلْقَوْنَهُۥ',
+        translation: 'So He penalized them with hypocrisy in their hearts until the Day they will meet Him'
       }
     ]
   },
@@ -33,16 +33,16 @@ export const religiousConceptsExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 9,
-    location: { surah: 4, ayah: 172, position: 14 },
+    location: { surah: 19, ayah: 65, position: 8 },
     frequencyVerified: true,
     tags: ['worship', 'service', 'devotion'],
     collections: ['worship', 'faith'],
     examples: [
       {
-        surah: 51,
-        ayah: 56,
-        arabicText: 'وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ',
-        translation: 'And I did not create the jinn and mankind except to worship Me'
+        surah: 19,
+        ayah: 65,
+        arabicText: 'رَّبُّ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَمَا بَيْنَهُمَا فَٱعْبُدْهُ وَٱصْطَبِرْ لِعِبَـٰدَتِهِۦ ۚ هَلْ تَعْلَمُ لَهُۥ سَمِيًّا',
+        translation: 'Lord of the heavens and the earth and whatever is between them - so worship Him and have patience for His worship. Do you know of any similarity to Him?'
       }
     ]
   },
@@ -77,16 +77,16 @@ export const religiousConceptsExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 22,
-    location: { surah: 2, ayah: 171, position: 11 },
+    location: { surah: 14, ayah: 40, position: 9 },
     frequencyVerified: true,
     tags: ['prayer', 'supplication', 'calling'],
     collections: ['worship', 'faith'],
     examples: [
       {
-        surah: 2,
-        ayah: 186,
-        arabicText: 'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ',
-        translation: 'And when My servants ask you, [O Muhammad], concerning Me - indeed I am near. I respond to the invocation of the supplicant when he calls upon Me'
+        surah: 14,
+        ayah: 40,
+        arabicText: 'رَبِّ ٱجْعَلْنِى مُقِيمَ ٱلصَّلَوٰةِ وَمِن ذُرِّيَّتِى ۚ رَبَّنَا وَتَقَبَّلْ دُعَآءِ',
+        translation: 'My Lord, make me an establisher of prayer, and [many] from my descendants. Our Lord, and accept my supplication'
       }
     ]
   },
@@ -107,8 +107,8 @@ export const religiousConceptsExtendedWords: Word[] = [
       {
         surah: 17,
         ayah: 44,
-        arabicText: 'تُسَبِّحُ لَهُ السَّمَاوَاتُ السَّبْعُ وَالْأَرْضُ وَمَن فِيهِنَّ',
-        translation: 'The seven heavens and the earth and whatever is in them exalt Him'
+        arabicText: 'وَإِن مِّن شَىْءٍ إِلَّا يُسَبِّحُ بِحَمْدِهِۦ وَلَـٰكِن لَّا تَفْقَهُونَ تَسْبِيحَهُمْ',
+        translation: 'And there is not a thing except that it exalts [Allah] by His praise, but you do not understand their [way of] exalting'
       }
     ]
   },
@@ -122,7 +122,7 @@ export const religiousConceptsExtendedWords: Word[] = [
     level: 'intermediate',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'praise', 'thanksgiving', 'worship'],
+    tags: ['related-form', 'not-in-quran', 'praise', 'thanksgiving', 'worship'],
     collections: ['worship', 'faith'],
     examples: [
       {
@@ -165,7 +165,7 @@ export const religiousConceptsExtendedWords: Word[] = [
     level: 'intermediate',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'declaration', 'oneness', 'worship'],
+    tags: ['related-form', 'not-in-quran', 'declaration', 'oneness', 'worship'],
     collections: ['worship', 'faith'],
     examples: [
       {
@@ -191,10 +191,10 @@ export const religiousConceptsExtendedWords: Word[] = [
     collections: ['worship', 'faith', 'ethics'],
     examples: [
       {
-        surah: 71,
-        ayah: 10,
-        arabicText: 'فَقُلْتُ اسْتَغْفِرُوا رَبَّكُمْ إِنَّهُ كَانَ غَفَّارًا',
-        translation: 'And said, "Ask forgiveness of your Lord. Indeed, He is ever a Perpetual Forgiver"'
+        surah: 9,
+        ayah: 114,
+        arabicText: 'وَمَا كَانَ ٱسْتِغْفَارُ إِبْرَٰهِيمَ لِأَبِيهِ إِلَّا عَن مَّوْعِدَةٍ وَعَدَهَآ إِيَّاهُ',
+        translation: 'And the request of forgiveness of Abraham for his father was only because of a promise he had made to him'
       }
     ]
   },
@@ -208,7 +208,7 @@ export const religiousConceptsExtendedWords: Word[] = [
     level: 'intermediate',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'contentment', 'satisfaction', 'spiritual'],
+    tags: ['related-form', 'not-in-quran', 'contentment', 'satisfaction', 'spiritual'],
     collections: ['faith', 'ethics'],
     examples: [
       {

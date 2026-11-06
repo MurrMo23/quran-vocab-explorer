@@ -77,16 +77,16 @@ export const afterlifeExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 4,
-    location: { surah: 22, ayah: 5, position: 8 },
+    location: { surah: 31, ayah: 28, position: 4 },
     frequencyVerified: true,
     tags: ['afterlife', 'resurrection', 'revival'],
     collections: ['afterlife'],
     examples: [
       {
-        surah: 22,
-        ayah: 7,
-        arabicText: 'وَأَنَّ السَّاعَةَ آتِيَةٌ لَّا رَيْبَ فِيهَا وَأَنَّ اللَّهَ يَبْعَثُ مَن فِي الْقُبُورِ',
-        translation: 'And that the Hour is coming - no doubt about it - and that Allah will resurrect those in the graves'
+        surah: 31,
+        ayah: 28,
+        arabicText: 'مَّا خَلْقُكُمْ وَلَا بَعْثُكُمْ إِلَّا كَنَفْسٍ وَٰحِدَةٍ',
+        translation: 'Your creation and your resurrection will not be but as that of a single soul'
       }
     ]
   },

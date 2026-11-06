@@ -99,16 +99,16 @@ export const quranicPhrasesWords: Word[] = [
     partOfSpeech: 'phrase',
     level: 'beginner',
     frequency: 9,
-    location: { surah: 12, ayah: 108, position: 12 },
+    location: { surah: 37, ayah: 159, position: 1 },
     frequencyVerified: true,
     tags: ['phrases', 'glorification', 'praise'],
     collections: ['phrases', 'worship'],
     examples: [
       {
-        surah: 17,
-        ayah: 1,
-        arabicText: 'سُبْحَانَ الَّذِي أَسْرَىٰ بِعَبْدِهِ لَيْلًا',
-        translation: 'Exalted is He who took His Servant by night'
+        surah: 37,
+        ayah: 159,
+        arabicText: 'سُبْحَـٰنَ ٱللَّهِ عَمَّا يَصِفُونَ',
+        translation: 'Exalted is Allah above what they describe'
       }
     ]
   },

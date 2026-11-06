@@ -100,7 +100,7 @@ export const completeDivineNamesWords: Word[] = [
     level: 'advanced',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'divine attributes', 'control', 'names of allah'],
+    tags: ['related-form', 'not-in-quran', 'divine attributes', 'control', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
       {
@@ -126,10 +126,10 @@ export const completeDivineNamesWords: Word[] = [
     collections: ['divine-names', 'faith'],
     examples: [
       {
-        surah: 2,
-        ayah: 245,
-        arabicText: 'وَاللَّهُ يَقْبِضُ وَيَبْصُۜطُ',
-        translation: 'And Allah contracts and expands'
+        surah: 5,
+        ayah: 28,
+        arabicText: 'مَآ أَنَا۠ بِبَاسِطٍ يَدِىَ إِلَيْكَ لِأَقْتُلَكَ',
+        translation: 'I shall not stretch out my hand toward you to kill you'
       }
     ]
   },
@@ -170,10 +170,10 @@ export const completeDivineNamesWords: Word[] = [
     collections: ['divine-names', 'faith'],
     examples: [
       {
-        surah: 58,
-        ayah: 11,
-        arabicText: 'يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ',
-        translation: 'Allah will raise those who have believed among you and those who were given knowledge, by degrees'
+        surah: 3,
+        ayah: 55,
+        arabicText: 'إِذْ قَالَ ٱللَّهُ يَـٰعِيسَىٰٓ إِنِّى مُتَوَفِّيكَ وَرَافِعُكَ إِلَىَّ',
+        translation: '[Mention] when Allah said, "O Jesus, indeed I will take you and raise you to Myself"'
       }
     ]
   },
@@ -187,7 +187,7 @@ export const completeDivineNamesWords: Word[] = [
     level: 'advanced',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'divine attributes', 'honor', 'names of allah'],
+    tags: ['related-form', 'not-in-quran', 'divine attributes', 'honor', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
       {
@@ -208,7 +208,7 @@ export const completeDivineNamesWords: Word[] = [
     level: 'advanced',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'divine attributes', 'humility', 'names of allah'],
+    tags: ['related-form', 'not-in-quran', 'divine attributes', 'humility', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
       {

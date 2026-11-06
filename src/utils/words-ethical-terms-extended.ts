@@ -3,7 +3,7 @@ import { Word } from './vocabulary-types';
 
 export const ethicalTermsExtendedWords: Word[] = [
   {
-    id: 'as-salah',
+    id: 'as-salah-righteousness',
     arabic: 'الصلاح',
     transliteration: 'As-Salah',
     meaning: 'Righteousness',
@@ -12,7 +12,7 @@ export const ethicalTermsExtendedWords: Word[] = [
     level: 'intermediate',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'righteousness', 'virtue', 'goodness'],
+    tags: ['related-form', 'not-in-quran', 'righteousness', 'virtue', 'goodness'],
     collections: ['ethics'],
     examples: [
       {
@@ -61,9 +61,9 @@ export const ethicalTermsExtendedWords: Word[] = [
     examples: [
       {
         surah: 8,
-        ayah: 27,
-        arabicText: 'لَا تَخُونُوا اللَّهَ وَالرَّسُولَ وَتَخُونُوا أَمَانَاتِكُمْ',
-        translation: 'Do not betray Allah and the Messenger or betray your trusts'
+        ayah: 58,
+        arabicText: 'وَإِمَّا تَخَافَنَّ مِن قَوْمٍ خِيَانَةً فَٱنۢبِذْ إِلَيْهِمْ عَلَىٰ سَوَآءٍ',
+        translation: 'If you [have reason to] fear from a people betrayal, throw [their treaty] back to them, [putting you] on equal terms'
       }
     ]
   },
@@ -77,7 +77,7 @@ export const ethicalTermsExtendedWords: Word[] = [
     level: 'intermediate',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'modesty', 'shyness', 'virtue'],
+    tags: ['related-form', 'not-in-quran', 'modesty', 'shyness', 'virtue'],
     collections: ['ethics'],
     examples: [
       {
@@ -98,7 +98,7 @@ export const ethicalTermsExtendedWords: Word[] = [
     level: 'intermediate',
     frequency: 0,
     frequencyVerified: true,
-    tags: ['not-in-quran', 'humility', 'modesty', 'virtue'],
+    tags: ['related-form', 'not-in-quran', 'humility', 'modesty', 'virtue'],
     collections: ['ethics'],
     examples: [
       {
@@ -118,16 +118,16 @@ export const ethicalTermsExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 2,
-    location: { surah: 24, ayah: 11, position: 24 },
+    location: { surah: 40, ayah: 56, position: 14 },
     frequencyVerified: true,
     tags: ['pride', 'arrogance', 'negative traits'],
     collections: ['ethics'],
     examples: [
       {
-        surah: 7,
-        ayah: 12,
-        arabicText: 'قَالَ مَا مَنَعَكَ أَلَّا تَسْجُدَ إِذْ أَمَرْتُكَ ۖ قَالَ أَنَا خَيْرٌ مِّنْهُ',
-        translation: '[Allah] said, "What prevented you from prostrating when I commanded you?" [Satan] said, "I am better than him"'
+        surah: 40,
+        ayah: 56,
+        arabicText: 'إِن فِى صُدُورِهِمْ إِلَّا كِبْرٌ مَّا هُم بِبَـٰلِغِيهِ',
+        translation: 'There is not within their breasts except pride, [the extent of] which they cannot reach'
       }
     ]
   },
@@ -146,10 +146,10 @@ export const ethicalTermsExtendedWords: Word[] = [
     collections: ['ethics'],
     examples: [
       {
-        surah: 113,
-        ayah: 5,
-        arabicText: 'وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ',
-        translation: 'And from the evil of an envier when he envies'
+        surah: 2,
+        ayah: 109,
+        arabicText: 'وَدَّ كَثِيرٌ مِّنْ أَهْلِ ٱلْكِتَـٰبِ لَوْ يَرُدُّونَكُم مِّنۢ بَعْدِ إِيمَـٰنِكُمْ كُفَّارًا حَسَدًا مِّنْ عِندِ أَنفُسِهِم',
+        translation: 'Many of the People of the Scripture wish they could turn you back to disbelief after you have believed, out of envy from themselves'
       }
     ]
   },
@@ -162,16 +162,16 @@ export const ethicalTermsExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 14,
-    location: { surah: 2, ayah: 61, position: 42 },
+    location: { surah: 7, ayah: 154, position: 5 },
     frequencyVerified: true,
     tags: ['anger', 'wrath', 'emotion'],
     collections: ['ethics', 'emotions'],
     examples: [
       {
-        surah: 3,
-        ayah: 134,
-        arabicText: 'وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ',
-        translation: 'Who repress anger and who pardon the people'
+        surah: 7,
+        ayah: 154,
+        arabicText: 'وَلَمَّا سَكَتَ عَن مُّوسَى ٱلْغَضَبُ أَخَذَ ٱلْأَلْوَاحَ',
+        translation: 'And when the anger subsided in Moses, he took up the tablets'
       }
     ]
   }
