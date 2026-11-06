@@ -2,8 +2,6 @@
 import React from 'react';
 import BlogList from '@/components/blog/BlogList';
 import BlogSidebar from '@/components/blog/BlogSidebar';
-import AdPlaceholder from '@/components/ads/AdPlaceholder';
-import AdSidebar from '@/components/ads/AdSidebar';
 import SEO from '@/components/SEO';
 
 const Blog = () => {
@@ -27,25 +25,11 @@ const Blog = () => {
               </p>
             </header>
             
-            <AdPlaceholder 
-              adId="blog-top" 
-              size="leaderboard"
-              className="mx-auto mb-8"
-            />
-            
             <BlogList />
-            
-            <div className="mt-8">
-              <AdPlaceholder 
-                adId="blog-bottom" 
-                size="leaderboard"
-                className="mx-auto"
-              />
-            </div>
+
           </div>
           <aside className="w-full md:w-1/4">
             <BlogSidebar />
-            <AdSidebar className="mt-8" />
           </aside>
         </div>
       </div>

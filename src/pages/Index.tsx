@@ -8,78 +8,79 @@ import {
   BookOpen, 
   Target, 
   Trophy, 
-  Users, 
   Volume2, 
   Brain,
   Play,
   ArrowRight,
-  Star,
   CheckCircle,
-  Globe
+  Layers,
+  Unlock,
+  Database
 } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
-import { useIsMobile } from '@/hooks/use-mobile';
-import AdPlaceholder from '@/components/ads/AdPlaceholder';
 import SEO from '@/components/SEO';
+import { sampleVocabulary, collections, getWordsByCollection } from '@/utils/vocabulary';
+
+// Computed once from the bundled data so the numbers on the page are always true.
+const wordCount = sampleVocabulary.length;
+const collectionCount = collections.filter((c) => getWordsByCollection(c.id).length > 0).length;
 
 const Index = () => {
   const navigate = useNavigate();
   const { session } = useAuth();
-  const isMobile = useIsMobile();
 
   const features = [
     {
       icon: BookOpen,
-      title: 'Comprehensive Collections',
-      description: 'Explore organized vocabulary from different Quranic themes and contexts',
+      title: 'Themed Collections',
+      description: 'Browse Quranic vocabulary grouped by theme: faith, prophets, worship, the afterlife, nature and more',
       color: 'text-blue-600'
     },
     {
       icon: Volume2,
       title: 'Audio Pronunciation',
-      description: 'Listen to native Arabic pronunciation with advanced TTS technology',
+      description: 'Listen to each word pronounced in Arabic as you study it',
       color: 'text-green-600'
     },
     {
       icon: Brain,
-      title: 'Adaptive Learning',
-      description: 'Personalized learning paths that adapt to your progress and pace',
+      title: 'Spaced Repetition',
+      description: 'Words you find hard come back sooner, so your review time goes where it is needed',
       color: 'text-purple-600'
     },
     {
       icon: Target,
-      title: 'Interactive Practice',
-      description: 'Engage with flashcards, quizzes, and pronunciation exercises',
+      title: 'Flashcards & Quizzes',
+      description: 'Practise with flashcards, then check yourself with multiple-choice quizzes',
       color: 'text-orange-600'
     },
     {
-      icon: Users,
-      title: 'Community Learning',
-      description: 'Join study groups, compete in challenges, and learn together',
+      icon: Layers,
+      title: 'Word Pages',
+      description: 'Every word has its own page with Arabic spelling, transliteration, root and meaning',
       color: 'text-pink-600'
     },
     {
       icon: Trophy,
       title: 'Progress Tracking',
-      description: 'Monitor your learning journey with detailed analytics and achievements',
+      description: 'Sign in to save which words you have learned and pick up where you left off',
       color: 'text-yellow-600'
     }
   ];
 
   const stats = [
-    { label: 'Vocabulary Words', value: '2,500+', icon: BookOpen },
-    { label: 'Learning Collections', value: '25+', icon: Target },
-    { label: 'Active Learners', value: '10,000+', icon: Users },
-    { label: 'Languages Supported', value: '5', icon: Globe }
+    { label: 'Quranic words', value: wordCount.toLocaleString('en-US'), icon: BookOpen },
+    { label: 'Themed collections', value: collectionCount.toLocaleString('en-US'), icon: Target },
+    { label: 'Free to use', value: 'Free', icon: Unlock },
+    { label: 'No account needed to start', value: 'No sign-up', icon: CheckCircle }
   ];
 
   return (
     <>
       <SEO 
-        title="Quran Vocab Explorer | Learn Quranic Arabic Vocabulary"
-        description="Master Quranic Arabic vocabulary with interactive learning tools, audio pronunciation, and cultural context. Start your journey today!"
-        keywords={["Quranic Arabic", "vocabulary", "learning", "Islamic education", "Arabic language", "Quran study"]}
-        url="https://quranvocab.com"
+        title="QuranVocab — Learn the Words of the Quran"
+        description={`Learn ${wordCount} common words of the Quran with flashcards, quizzes and word pages showing root and meaning. Free, no account needed to start.`}
+        keywords={["Quranic Arabic", "Quran vocabulary", "Quranic words", "Arabic flashcards", "Quran study"]}
         type="website"
       />
 
@@ -89,39 +90,22 @@ const Index = () => {
           <div className="container mx-auto px-4 text-center">
             <div className="max-w-4xl mx-auto space-y-8">
               <Badge variant="secondary" className="mb-4">
-                ✨ New: Advanced Grammar Modules & Cultural Context
+                Free · {wordCount} words · {collectionCount} collections
               </Badge>
               
               <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Master Quranic Arabic Vocabulary
+                Learn the Words of the Quran
               </h1>
               
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Discover the beauty of Quranic Arabic through interactive learning, cultural context, and advanced pronunciation tools. 
-                Your journey to understanding the Quran starts here.
+                QuranVocab helps you learn high-frequency Quranic Arabic vocabulary with flashcards, quizzes and
+                spaced repetition. Start right away — no account needed.
               </p>
-              
-              {/* Top Hero Ad */}
-              {isMobile ? (
-                <AdPlaceholder 
-                  adId="hero-mobile" 
-                  size="mobile-banner"
-                  className="mx-auto mb-8"
-                  location="homepage-hero-mobile"
-                />
-              ) : (
-                <AdPlaceholder 
-                  adId="hero-desktop" 
-                  size="leaderboard"
-                  className="mx-auto mb-8"
-                  location="homepage-hero"
-                />
-              )}
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
-                  onClick={() => navigate(session ? '/dashboard' : '/auth')}
+                  onClick={() => navigate(session ? '/dashboard' : '/practice')}
                   className="text-lg px-8 py-3"
                 >
                   <Play className="mr-2 h-5 w-5" />
@@ -166,17 +150,9 @@ const Index = () => {
                 Everything You Need to Learn
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Comprehensive tools and features designed to make learning Quranic Arabic engaging and effective
+                Simple tools focused on one goal: recognising the words you hear and read in the Quran
               </p>
             </div>
-            
-            {/* Features Ad */}
-            <AdPlaceholder 
-              adId="features-section" 
-              size="medium-rectangle"
-              className="mx-auto mb-12"
-              location="homepage-features"
-            />
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {features.map((feature, index) => (
@@ -203,10 +179,10 @@ const Index = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center space-y-8">
               <h2 className="text-3xl md:text-4xl font-bold">
-                Your Personalized Learning Journey
+                How It Works
               </h2>
               <p className="text-xl opacity-90">
-                From beginner to advanced, our adaptive learning system guides you through every step
+                Start with the most common words, practise a little every day, and build from there
               </p>
               
               <div className="grid md:grid-cols-3 gap-8 mt-12">
@@ -214,84 +190,51 @@ const Index = () => {
                   <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
                     <span className="text-2xl font-bold">1</span>
                   </div>
-                  <h3 className="text-xl font-semibold">Start with Basics</h3>
-                  <p className="opacity-90">Begin with fundamental vocabulary and pronunciation</p>
+                  <h3 className="text-xl font-semibold">Pick a Collection</h3>
+                  <p className="opacity-90">Begin with a themed set of frequent Quranic words</p>
                 </div>
                 <div className="space-y-4">
                   <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
                     <span className="text-2xl font-bold">2</span>
                   </div>
-                  <h3 className="text-xl font-semibold">Practice & Progress</h3>
-                  <p className="opacity-90">Engage with interactive exercises and track your growth</p>
+                  <h3 className="text-xl font-semibold">Practise with Flashcards</h3>
+                  <p className="opacity-90">Review words, hear them pronounced and mark what you know</p>
                 </div>
                 <div className="space-y-4">
                   <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
                     <span className="text-2xl font-bold">3</span>
                   </div>
-                  <h3 className="text-xl font-semibold">Master Advanced Concepts</h3>
-                  <p className="opacity-90">Explore complex vocabulary and cultural nuances</p>
+                  <h3 className="text-xl font-semibold">Test Yourself</h3>
+                  <p className="opacity-90">Take a quiz and revisit the words you missed</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Testimonials Section */}
+        {/* Sources Section */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Loved by Learners Worldwide
+            <div className="max-w-3xl mx-auto text-center space-y-6">
+              <div className="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                <Database className="h-6 w-6 text-primary" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold">
+                An Independent, Open Project
               </h2>
-              <p className="text-xl text-muted-foreground">
-                Join thousands of students on their Quranic Arabic journey
+              <p className="text-lg text-muted-foreground">
+                QuranVocab is a free, independent project. Word data is being checked against the Quranic Arabic
+                Corpus and the Tanzil Quran text. If you spot a mistake, please let us know through the contact page
+                so we can correct it.
               </p>
-            </div>
-            
-            {/* Testimonials Ad */}
-            <AdPlaceholder 
-              adId="testimonials-section" 
-              size="large-rectangle"
-              className="mx-auto mb-12"
-              location="homepage-testimonials"
-            />
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  name: "Sarah Ahmed",
-                  role: "Student",
-                  content: "This platform transformed my understanding of Quranic Arabic. The cultural context feature is incredible!",
-                  rating: 5
-                },
-                {
-                  name: "Mohammed Hassan",
-                  role: "Teacher",
-                  content: "I recommend this to all my students. The pronunciation tools and grammar modules are excellent.",
-                  rating: 5
-                },
-                {
-                  name: "Fatima Ali",
-                  role: "Scholar",
-                  content: "The etymology and historical context make learning so much more meaningful and memorable.",
-                  rating: 5
-                }
-              ].map((testimonial, index) => (
-                <Card key={index} className="bg-gray-50">
-                  <CardContent className="pt-6">
-                    <div className="flex items-center mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-muted-foreground mb-4">"{testimonial.content}"</p>
-                    <div>
-                      <div className="font-semibold">{testimonial.name}</div>
-                      <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button variant="outline" onClick={() => navigate('/about')}>
+                  About QuranVocab &amp; sources
+                </Button>
+                <Button variant="ghost" onClick={() => navigate('/contact')}>
+                  Report an error
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -301,29 +244,21 @@ const Index = () => {
           <div className="container mx-auto px-4 text-center">
             <div className="max-w-3xl mx-auto space-y-8">
               <h2 className="text-3xl md:text-4xl font-bold">
-                Ready to Begin Your Journey?
+                Ready to Begin?
               </h2>
               <p className="text-xl opacity-90">
-                Join thousands of learners exploring the beautiful language of the Quran
+                Open a collection and start learning your first Quranic words today
               </p>
-              
-              {/* Bottom CTA Ad */}
-              <AdPlaceholder 
-                adId="cta-section" 
-                size="medium-rectangle"
-                className="mx-auto mb-8"
-                location="homepage-cta"
-              />
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
                   variant="secondary"
-                  onClick={() => navigate(session ? '/dashboard' : '/auth')}
+                  onClick={() => navigate(session ? '/dashboard' : '/practice')}
                   className="text-lg px-8 py-3"
                 >
                   <CheckCircle className="mr-2 h-5 w-5" />
-                  {session ? 'Continue Learning' : 'Get Started Free'}
+                  {session ? 'Continue Learning' : 'Start Practising Free'}
                 </Button>
                 <Button 
                   size="lg" 
@@ -336,18 +271,6 @@ const Index = () => {
                 </Button>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Footer Ad */}
-        <section className="py-8 bg-white">
-          <div className="container mx-auto px-4">
-            <AdPlaceholder 
-              adId="footer-section" 
-              size="leaderboard"
-              className="mx-auto"
-              location="homepage-footer"
-            />
           </div>
         </section>
       </div>

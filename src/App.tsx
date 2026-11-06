@@ -31,7 +31,6 @@ import BlogPost from '@/pages/BlogPost';
 import MobileFlashcards from '@/pages/MobileFlashcards';
 import ContentPage from '@/components/ContentPage';
 import NotFound from '@/pages/NotFound';
-import GoogleAdsScript from '@/components/ads/GoogleAdsScript';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,7 +47,6 @@ function App() {
       <AuthProvider>
         <ThemeProvider>
           <ScrollToTop />
-          <GoogleAdsScript />
           <div className="min-h-screen bg-background">
             <Routes>
               <Route path="/" element={<Layout />}>

@@ -10,8 +10,6 @@ import SurahSelector from '@/components/learning/SurahSelector';
 import ThemeSelector from '@/components/learning/ThemeSelector';
 import LearningPathForm from '@/components/learning/LearningPathForm';
 import { useCustomLearning } from '@/hooks/useCustomLearning';
-import AdPlaceholder from '@/components/ads/AdPlaceholder';
-import AdSidebar from '@/components/ads/AdSidebar';
 import { useMediaQuery } from '@/hooks/use-mobile';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -160,17 +158,6 @@ const CustomLearning = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {isMobile && (
-                    <div className="mb-6">
-                      <AdPlaceholder 
-                        adId="custom-learning-mobile" 
-                        size="mobile-banner"
-                        className="mx-auto"
-                        location="custom-learning-mobile"
-                      />
-                    </div>
-                  )}
-                  
                   <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'surah' | 'theme')}>
                     <TabsList className="mb-4">
                       <TabsTrigger value="theme">Learn by Theme</TabsTrigger>
@@ -207,18 +194,6 @@ const CustomLearning = () => {
                           <ArrowRight className="h-4 w-4 ml-2" />
                         </Button>
                       </div>
-                    </div>
-                  )}
-                  
-                  {!isMobile && (
-                    <div className="mt-8">
-                      <AdPlaceholder 
-                        adId="custom-learning-bottom" 
-                        size="leaderboard"
-                        className="mx-auto"
-                        location="custom-learning"
-                        lazyLoad={true}
-                      />
                     </div>
                   )}
                 </CardContent>
@@ -538,8 +513,7 @@ const CustomLearning = () => {
                 </div>
               </CardContent>
             </Card>
-            
-            <AdSidebar location="custom-learning-sidebar" />
+
           </aside>
         </div>
       </div>

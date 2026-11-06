@@ -10,7 +10,6 @@ import SEO from '@/components/SEO';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { usePermissions } from '@/hooks/usePermissions';
-import AdPlaceholder from '@/components/ads/AdPlaceholder';
 
 const Collections = () => {
   const [collections, setCollections] = useState<Collection[]>([]);
@@ -99,16 +98,6 @@ const Collections = () => {
           </p>
         </div>
 
-        {/* Top Collections Ad */}
-        {isMobile && (
-          <AdPlaceholder 
-            adId="collections-top-mobile" 
-            size="mobile-banner"
-            className="mx-auto mb-6"
-            location="collections-mobile"
-          />
-        )}
-        
         <div className="flex flex-col md:flex-row md:items-center justify-between space-y-4 md:space-y-0 mb-6">
           <div className="flex-1 md:max-w-sm">
             <SearchBar
@@ -135,16 +124,6 @@ const Collections = () => {
             </Dialog>
           )}
         </div>
-        
-        {/* Desktop Collections Ad */}
-        {!isMobile && (
-          <AdPlaceholder 
-            adId="collections-top" 
-            size="leaderboard"
-            className="mx-auto mb-8"
-            location="collections"
-          />
-        )}
         
         {filteredCollections.length === 0 ? (
           <div className="text-center py-12">
@@ -184,18 +163,6 @@ const Collections = () => {
               })}
             </div>
             
-            {/* Mid-Section Ad */}
-            {filteredCollections.length > 12 && (
-              <div className="my-12">
-                <AdPlaceholder 
-                  adId="collections-middle" 
-                  size="medium-rectangle"
-                  className="mx-auto"
-                  location="collections-middle"
-                />
-              </div>
-            )}
-              
             {/* Show remaining collections */}
             {filteredCollections.length > 12 && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">

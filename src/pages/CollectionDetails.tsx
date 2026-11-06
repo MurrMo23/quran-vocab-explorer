@@ -6,8 +6,6 @@ import AudioPlayer from '@/components/AudioPlayer';
 import { getCollectionById, getWordsByCollection, Word } from '@/utils/vocabulary';
 import { toast } from 'sonner';
 import { useIsMobile } from '@/hooks/use-mobile';
-import AdPlaceholder from '@/components/ads/AdPlaceholder';
-import AdSidebar from '@/components/ads/AdSidebar';
 import { Helmet } from 'react-helmet';
 const CollectionDetails = () => {
   const {
@@ -87,10 +85,6 @@ const CollectionDetails = () => {
             <SearchBar className="w-full md:w-64" onSearch={handleSearch} placeholder="Search in this collection" />
           </div>
 
-          {isMobile && <AdPlaceholder adId="collection-top-mobile" size="mobile-banner" className="mx-auto mb-6" location="collection-detail-mobile" />}
-          
-          {!isMobile && <AdPlaceholder adId="collection-top" size="leaderboard" className="mx-auto mb-6" location="collection-detail" />}
-
           <div className="flex flex-col md:flex-row gap-8">
             <div className="w-full md:w-3/4">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -132,8 +126,7 @@ const CollectionDetails = () => {
                     Start Practice Session
                   </button>
                 </div>
-                
-                <AdSidebar location="collection-detail-sidebar" />
+
               </div>
             </aside>
           </div>
