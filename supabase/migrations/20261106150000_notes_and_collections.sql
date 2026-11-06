@@ -31,6 +31,10 @@ CREATE TABLE IF NOT EXISTS public.user_collections (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
+-- Grants first, before row-level security and policies.
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_collections TO authenticated;
+GRANT ALL ON public.user_collections TO service_role;
+
 CREATE INDEX IF NOT EXISTS idx_user_collections_user_id
   ON public.user_collections (user_id, updated_at DESC);
 
@@ -57,7 +61,6 @@ CREATE TRIGGER update_user_collections_updated_at
   BEFORE UPDATE ON public.user_collections
   FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_collections TO authenticated;
 
 -- ---------------------------------------------------------------------------
 -- user_notes hardening (table and RLS already exist)

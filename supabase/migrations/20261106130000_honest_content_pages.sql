@@ -22,6 +22,11 @@ CREATE TABLE IF NOT EXISTS public.contact_messages (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Grants first, before row-level security and policies.
+GRANT INSERT ON public.contact_messages TO anon, authenticated;
+GRANT SELECT, UPDATE, DELETE ON public.contact_messages TO authenticated;
+GRANT ALL ON public.contact_messages TO service_role;
+
 CREATE INDEX IF NOT EXISTS contact_messages_created_at_idx ON public.contact_messages (created_at DESC);
 
 ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
@@ -62,8 +67,6 @@ CREATE POLICY "Admins can delete contact messages"
     WHERE user_id = auth.uid() AND role = 'admin'
   ));
 
-GRANT INSERT ON public.contact_messages TO anon, authenticated;
-GRANT SELECT, UPDATE, DELETE ON public.contact_messages TO authenticated;
 
 -- ---------------------------------------------------------------------------
 -- 2. Content pages

@@ -72,6 +72,10 @@ CREATE TABLE IF NOT EXISTS public.review_logs (
   reviewed_at timestamptz NOT NULL DEFAULT now()
 );
 
+-- Grants first, before row-level security and policies.
+GRANT SELECT, INSERT ON public.review_logs TO authenticated;
+GRANT ALL ON public.review_logs TO service_role;
+
 CREATE INDEX IF NOT EXISTS idx_review_logs_user_reviewed_at
   ON public.review_logs (user_id, reviewed_at DESC);
 
@@ -85,6 +89,5 @@ DROP POLICY IF EXISTS "Users can insert their own review logs" ON public.review_
 CREATE POLICY "Users can insert their own review logs" ON public.review_logs
   FOR INSERT WITH CHECK (auth.uid() = user_id);
 
-GRANT SELECT, INSERT ON public.review_logs TO authenticated;
 
 -- Not added to the supabase_realtime publication on purpose.
