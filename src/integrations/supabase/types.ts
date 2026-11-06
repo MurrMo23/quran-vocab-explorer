@@ -290,6 +290,45 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_messages: {
+        Row: {
+          category: string
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          page_url: string | null
+          status: string
+          subject: string | null
+          user_id: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          page_url?: string | null
+          status?: string
+          subject?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          page_url?: string | null
+          status?: string
+          subject?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       content_pages: {
         Row: {
           content: string
@@ -932,6 +971,36 @@ export type Database = {
         }
         Relationships: []
       }
+      review_logs: {
+        Row: {
+          elapsed_ms: number | null
+          id: string
+          rating: string
+          reviewed_at: string
+          source: string | null
+          user_id: string
+          word_id: string
+        }
+        Insert: {
+          elapsed_ms?: number | null
+          id?: string
+          rating: string
+          reviewed_at?: string
+          source?: string | null
+          user_id?: string
+          word_id: string
+        }
+        Update: {
+          elapsed_ms?: number | null
+          id?: string
+          rating?: string
+          reviewed_at?: string
+          source?: string | null
+          user_id?: string
+          word_id?: string
+        }
+        Relationships: []
+      }
       search_analytics: {
         Row: {
           clicked_result_id: string | null
@@ -1137,6 +1206,36 @@ export type Database = {
           },
         ]
       }
+      user_collections: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+          word_ids: string[]
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+          user_id?: string
+          word_ids?: string[]
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+          word_ids?: string[]
+        }
+        Relationships: []
+      }
       user_learning_preferences: {
         Row: {
           adaptive_learning_enabled: boolean | null
@@ -1280,48 +1379,69 @@ export type Database = {
       }
       user_word_progress: {
         Row: {
-          collection_id: string
+          collection_id: string | null
           contextual_mastery: number | null
           created_at: string | null
+          difficulty: number
           difficulty_modifier: number | null
+          due: string
           id: string
+          lapses: number
+          last_review: string | null
           last_reviewed: string | null
           level: number | null
           next_review: string | null
           pronunciation_mastery: number | null
+          reps: number
           review_count: number | null
+          stability: number
+          state: string
           success_streak: number | null
           updated_at: string | null
           user_id: string
           word_id: string
         }
         Insert: {
-          collection_id: string
+          collection_id?: string | null
           contextual_mastery?: number | null
           created_at?: string | null
+          difficulty?: number
           difficulty_modifier?: number | null
+          due?: string
           id?: string
+          lapses?: number
+          last_review?: string | null
           last_reviewed?: string | null
           level?: number | null
           next_review?: string | null
           pronunciation_mastery?: number | null
+          reps?: number
           review_count?: number | null
+          stability?: number
+          state?: string
           success_streak?: number | null
           updated_at?: string | null
           user_id: string
           word_id: string
         }
         Update: {
-          collection_id?: string
+          collection_id?: string | null
           contextual_mastery?: number | null
           created_at?: string | null
+          difficulty?: number
           difficulty_modifier?: number | null
+          due?: string
           id?: string
+          lapses?: number
+          last_review?: string | null
           last_reviewed?: string | null
           level?: number | null
           next_review?: string | null
           pronunciation_mastery?: number | null
+          reps?: number
           review_count?: number | null
+          stability?: number
+          state?: string
           success_streak?: number | null
           updated_at?: string | null
           user_id?: string
