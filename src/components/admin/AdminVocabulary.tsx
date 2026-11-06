@@ -1,420 +1,306 @@
-
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Edit, Trash2, Save, Plus, Search, FileDown, FileUp } from 'lucide-react';
-import { getAllWords } from '@/utils/vocabulary';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ChevronLeft, ChevronRight, ExternalLink, FileDown, Info, Search } from 'lucide-react';
+import { getAllCollections, getAllWords } from '@/utils/vocabulary';
 import { Word } from '@/utils/vocabulary-types';
-import { toast } from 'sonner';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-
-const wordSchema = z.object({
-  arabic: z.string().min(1, { message: "Arabic text is required" }),
-  transliteration: z.string().min(1, { message: "Transliteration is required" }),
-  meaning: z.string().min(1, { message: "Meaning is required" }),
-  root: z.string().optional(),
-  level: z.enum(['beginner', 'intermediate', 'advanced']),
-  partOfSpeech: z.string().optional(),
-});
-
-type WordFormValues = z.infer<typeof wordSchema>;
+import { dateStamp, downloadCsv, downloadJson } from './exportUtils';
 
 interface AdminVocabularyProps {
-  onAuditLog?: (action: string, entityType: string, entityId: string | null, details?: any) => Promise<void>;
+  // Kept for API compatibility with Admin.tsx; this view is read-only so nothing is logged.
+  onAuditLog?: (action: string, entityType: string, entityId: string | null, details?: unknown) => Promise<void>;
 }
 
-const AdminVocabulary: React.FC<AdminVocabularyProps> = ({ onAuditLog }) => {
-  const [words, setWords] = useState<Word[]>(getAllWords());
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedWord, setSelectedWord] = useState<Word | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filteredWords, setFilteredWords] = useState<Word[]>(words);
+const PAGE_SIZE = 50;
+const ALL = 'all';
 
-  const form = useForm<WordFormValues>({
-    resolver: zodResolver(wordSchema),
-    defaultValues: {
-      arabic: '',
-      transliteration: '',
-      meaning: '',
-      root: '',
-      level: 'beginner',
-      partOfSpeech: 'noun',
-    }
-  });
+const formatFrequency = (word: Word) =>
+  word.frequency > 0 ? word.frequency.toLocaleString() : 'Not found verbatim';
 
-  const handleSearch = () => {
-    if (!searchQuery) {
-      setFilteredWords(words);
-      return;
-    }
-    
-    const filtered = words.filter(word => 
-      word.arabic.includes(searchQuery) ||
-      word.transliteration.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      word.meaning.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      word.root?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    
-    setFilteredWords(filtered);
-  };
+const AdminVocabulary: React.FC<AdminVocabularyProps> = () => {
+  const words = useMemo(() => getAllWords(), []);
+  const collections = useMemo(() => getAllCollections(), []);
+  const collectionNames = useMemo(
+    () => new Map(collections.map((c) => [c.id, c.name])),
+    [collections]
+  );
 
-  const handleEditWord = async (word: Word) => {
-    if (onAuditLog) {
-      await onAuditLog('EDIT_START', 'word', word.id, { wordId: word.id });
-    }
-    
-    setSelectedWord(word);
-    form.reset({
-      arabic: word.arabic,
-      transliteration: word.transliteration,
-      meaning: word.meaning,
-      root: word.root || '',
-      level: word.level as 'beginner' | 'intermediate' | 'advanced',
-      partOfSpeech: word.partOfSpeech || 'noun',
-    });
-    setIsEditing(true);
-  };
+  const [query, setQuery] = useState('');
+  const [level, setLevel] = useState<string>(ALL);
+  const [collection, setCollection] = useState<string>(ALL);
+  const [verified, setVerified] = useState<string>(ALL);
+  const [page, setPage] = useState(1);
 
-  const handleNewWord = async () => {
-    if (onAuditLog) {
-      await onAuditLog('NEW_WORD_START', 'word', null);
-    }
-    
-    setSelectedWord(null);
-    form.reset({
-      arabic: '',
-      transliteration: '',
-      meaning: '',
-      root: '',
-      level: 'beginner',
-      partOfSpeech: 'noun',
-    });
-    setIsEditing(true);
-  };
+  const stats = useMemo(
+    () => ({
+      total: words.length,
+      verified: words.filter((w) => w.frequencyVerified).length,
+      noLocation: words.filter((w) => !w.location).length,
+      noExamples: words.filter((w) => !w.examples || w.examples.length === 0).length,
+    }),
+    [words]
+  );
 
-  const handleDeleteWord = async (wordId: string) => {
-    if (onAuditLog) {
-      await onAuditLog('DELETE', 'word', wordId);
-    }
-    
-    setWords(prev => prev.filter(w => w.id !== wordId));
-    setFilteredWords(prev => prev.filter(w => w.id !== wordId));
-    toast.success('Word deleted successfully (demo only)');
-  };
-
-  const handleSaveWord = async (data: WordFormValues) => {
-    const csrfToken = await generateCSRFToken();
-    
-    if (onAuditLog) {
-      await onAuditLog(
-        selectedWord ? 'UPDATE' : 'CREATE', 
-        'word', 
-        selectedWord?.id || null, 
-        { 
-          wordData: data,
-          csrfToken
-        }
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return words.filter((w) => {
+      if (level !== ALL && w.level !== level) return false;
+      if (collection !== ALL && !w.collections.includes(collection)) return false;
+      if (verified === 'verified' && !w.frequencyVerified) return false;
+      if (verified === 'unverified' && w.frequencyVerified) return false;
+      if (!q) return true;
+      return (
+        w.arabic.includes(query.trim()) ||
+        w.transliteration.toLowerCase().includes(q) ||
+        w.meaning.toLowerCase().includes(q) ||
+        (w.root ?? '').toLowerCase().includes(q)
       );
-    }
-    
-    toast.success(selectedWord ? 'Word updated successfully (demo only)' : 'New word created successfully (demo only)');
-    setIsEditing(false);
-    
-    // Demo update UI
-    if (selectedWord) {
-      const updatedWord = { ...selectedWord, ...data };
-      setWords(prev => prev.map(w => w.id === selectedWord.id ? updatedWord : w));
-      setFilteredWords(prev => prev.map(w => w.id === selectedWord.id ? updatedWord : w));
-    } else {
-      const newWord: Word = {
-        id: Date.now().toString(),
-        arabic: data.arabic,
-        transliteration: data.transliteration,
-        meaning: data.meaning,
-        root: data.root || '',
-        level: data.level,
-        partOfSpeech: data.partOfSpeech || 'noun',
-        examples: [],
-        frequency: 1,
-        tags: [],
-        collections: []
-      };
-      setWords(prev => [...prev, newWord]);
-      setFilteredWords(prev => [...prev, newWord]);
-    }
-  };
+    });
+  }, [words, query, level, collection, verified]);
 
-  const generateCSRFToken = async (): Promise<string> => {
-    return `csrf-${Math.random().toString(36).substring(2, 15)}`;
-  };
+  // Reset to the first page whenever the filters change.
+  useEffect(() => setPage(1), [query, level, collection, verified]);
 
-  const exportWords = async () => {
-    const csrfToken = await generateCSRFToken();
-    
-    if (onAuditLog) {
-      await onAuditLog('EXPORT', 'word', null, { 
-        count: words.length,
-        csrfToken
-      });
-    }
-    
-    const dataStr = JSON.stringify(words, null, 2);
-    const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(dataStr)}`;
-    
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', 'vocabulary-words.json');
-    linkElement.click();
-    
-    toast.success(`${words.length} words exported successfully`);
-  };
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const pageWords = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+  const exportJson = () => downloadJson(`quranvocab-words-${dateStamp()}.json`, filtered);
+
+  const exportCsv = () =>
+    downloadCsv(
+      `quranvocab-words-${dateStamp()}.csv`,
+      [
+        'id', 'arabic', 'transliteration', 'meaning', 'root', 'partOfSpeech', 'level',
+        'frequency', 'frequencyVerified', 'location', 'examples', 'collections', 'tags',
+      ],
+      filtered.map((w) => [
+        w.id,
+        w.arabic,
+        w.transliteration,
+        w.meaning,
+        w.root,
+        w.partOfSpeech,
+        w.level,
+        w.frequency,
+        w.frequencyVerified ? 'yes' : 'no',
+        w.location ? `${w.location.surah}:${w.location.ayah}:${w.location.position}` : '',
+        w.examples?.length ?? 0,
+        w.collections.join('; '),
+        (w.tags ?? []).join('; '),
+      ])
+    );
+
+  const statCards = [
+    { label: 'Total words', value: stats.total },
+    { label: 'Verified frequency', value: stats.verified },
+    { label: 'Missing location (no audio)', value: stats.noLocation },
+    { label: 'No examples', value: stats.noExamples },
+  ];
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Vocabulary Management</h2>
-        <div className="flex gap-2">
-          <Button onClick={exportWords} variant="outline" className="gap-2">
-            <FileDown className="h-4 w-4" />
-            Export Words
-          </Button>
-          {!isEditing && (
-            <Button onClick={handleNewWord} className="gap-2">
-              <Plus className="h-4 w-4" />
-              Add New Word
-            </Button>
-          )}
-        </div>
+    <div className="space-y-6">
+      <Alert>
+        <Info className="h-4 w-4" />
+        <AlertDescription>
+          Words and collections are stored in the site's code (src/utils). To add or change one, edit
+          those files or ask your developer; changes go live on the next publish.
+        </AlertDescription>
+      </Alert>
+
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        {statCards.map((s) => (
+          <Card key={s.label}>
+            <CardContent className="p-4">
+              <div className="text-2xl font-semibold">{s.value.toLocaleString()}</div>
+              <div className="text-sm text-muted-foreground">{s.label}</div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
-      {isEditing ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>{selectedWord ? 'Edit Word' : 'Add New Word'}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleSaveWord)} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="arabic"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Arabic Text</FormLabel>
-                        <FormControl>
-                          <Input {...field} className="text-right" dir="rtl" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="transliteration"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Transliteration</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <FormField
-                  control={form.control}
-                  name="meaning"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Meaning</FormLabel>
-                      <FormControl>
-                        <Textarea {...field} rows={2} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+      <Card>
+        <CardHeader className="flex flex-col gap-3 space-y-0 sm:flex-row sm:items-center sm:justify-between">
+          <CardTitle>Vocabulary</CardTitle>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={exportCsv} disabled={filtered.length === 0}>
+              <FileDown className="mr-2 h-4 w-4" aria-hidden="true" />
+              Export CSV
+            </Button>
+            <Button variant="outline" size="sm" onClick={exportJson} disabled={filtered.length === 0}>
+              <FileDown className="mr-2 h-4 w-4" aria-hidden="true" />
+              Export JSON
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="space-y-1.5 sm:col-span-2 lg:col-span-1">
+              <Label htmlFor="vocab-search">Search</Label>
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                <Input
+                  id="vocab-search"
+                  type="search"
+                  placeholder="Arabic, transliteration, meaning, root"
+                  className="pl-8"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="root"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Root (Optional)</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="level"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Difficulty Level</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select level" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="beginner">Beginner</SelectItem>
-                            <SelectItem value="intermediate">Intermediate</SelectItem>
-                            <SelectItem value="advanced">Advanced</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="partOfSpeech"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Part of Speech</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select type" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="noun">Noun</SelectItem>
-                            <SelectItem value="verb">Verb</SelectItem>
-                            <SelectItem value="adjective">Adjective</SelectItem>
-                            <SelectItem value="adverb">Adverb</SelectItem>
-                            <SelectItem value="preposition">Preposition</SelectItem>
-                            <SelectItem value="pronoun">Pronoun</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                
-                <div className="flex justify-end space-x-2">
-                  <Button variant="outline" onClick={() => setIsEditing(false)} type="button">
-                    Cancel
-                  </Button>
-                  <Button className="gap-2" type="submit">
-                    <Save className="h-4 w-4" />
-                    Save Word
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
-      ) : (
-        <>
-          <div className="flex mb-6">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input
-                className="pl-10"
-                placeholder="Search words by Arabic, transliteration, meaning, or root..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              />
+              </div>
             </div>
-            <Button onClick={handleSearch} className="ml-2">Search</Button>
+            <div className="space-y-1.5">
+              <Label htmlFor="vocab-level">Level</Label>
+              <Select value={level} onValueChange={setLevel}>
+                <SelectTrigger id="vocab-level">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={ALL}>All levels</SelectItem>
+                  <SelectItem value="beginner">Beginner</SelectItem>
+                  <SelectItem value="intermediate">Intermediate</SelectItem>
+                  <SelectItem value="advanced">Advanced</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="vocab-collection">Collection</Label>
+              <Select value={collection} onValueChange={setCollection}>
+                <SelectTrigger id="vocab-collection">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={ALL}>All collections</SelectItem>
+                  {collections.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      {c.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="vocab-verified">Frequency</Label>
+              <Select value={verified} onValueChange={setVerified}>
+                <SelectTrigger id="vocab-verified">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={ALL}>All</SelectItem>
+                  <SelectItem value="verified">Verified only</SelectItem>
+                  <SelectItem value="unverified">Not verified</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow overflow-hidden">
+          <p className="text-sm text-muted-foreground" aria-live="polite">
+            {filtered.length.toLocaleString()} of {words.length.toLocaleString()} words
+          </p>
+
+          <div className="overflow-x-auto rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-24">Arabic</TableHead>
+                  <TableHead>Arabic</TableHead>
                   <TableHead>Transliteration</TableHead>
                   <TableHead>Meaning</TableHead>
-                  <TableHead>Root</TableHead>
+                  <TableHead className="hidden md:table-cell">Root</TableHead>
                   <TableHead>Level</TableHead>
-                  <TableHead>Part of Speech</TableHead>
-                  <TableHead className="w-32">Actions</TableHead>
+                  <TableHead>Frequency</TableHead>
+                  <TableHead className="hidden lg:table-cell">Collections</TableHead>
+                  <TableHead>
+                    <span className="sr-only">Open</span>
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredWords.map((word) => (
-                  <TableRow key={word.id}>
-                    <TableCell className="font-arabic text-right">{word.arabic}</TableCell>
-                    <TableCell>{word.transliteration}</TableCell>
-                    <TableCell>{word.meaning}</TableCell>
-                    <TableCell>{word.root}</TableCell>
-                    <TableCell>
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        word.level === 'beginner' ? 'bg-green-100 text-green-800' :
-                        word.level === 'intermediate' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-red-100 text-red-800'
-                      }`}>
-                        {word.level}
-                      </span>
-                    </TableCell>
-                    <TableCell>{word.partOfSpeech}</TableCell>
-                    <TableCell>
-                      <div className="flex space-x-1">
-                        <Button 
-                          variant="ghost" 
-                          size="icon"
-                          onClick={() => handleEditWord(word)}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="icon"
-                          onClick={() => handleDeleteWord(word.id)}
-                        >
-                          <Trash2 className="h-4 w-4 text-destructive" />
-                        </Button>
-                      </div>
+                {pageWords.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={8} className="py-8 text-center text-muted-foreground">
+                      No words match these filters.
                     </TableCell>
                   </TableRow>
-                ))}
+                ) : (
+                  pageWords.map((w) => (
+                    <TableRow key={w.id}>
+                      <TableCell dir="rtl" lang="ar" className="whitespace-nowrap text-right font-arabic text-lg">
+                        {w.arabic}
+                      </TableCell>
+                      <TableCell className="whitespace-nowrap">{w.transliteration}</TableCell>
+                      <TableCell className="min-w-[10rem]">{w.meaning}</TableCell>
+                      <TableCell dir="rtl" lang="ar" className="hidden whitespace-nowrap text-right md:table-cell">
+                        {w.root}
+                      </TableCell>
+                      <TableCell className="capitalize">{w.level}</TableCell>
+                      <TableCell className="whitespace-nowrap">
+                        <span className={w.frequency > 0 ? '' : 'text-muted-foreground'}>{formatFrequency(w)}</span>
+                        {w.frequencyVerified && (
+                          <Badge variant="secondary" className="ml-2">
+                            verified
+                          </Badge>
+                        )}
+                      </TableCell>
+                      <TableCell className="hidden lg:table-cell">
+                        <div className="flex flex-wrap gap-1">
+                          {w.collections.map((id) => (
+                            <Badge key={id} variant="outline">
+                              {collectionNames.get(id) ?? id}
+                            </Badge>
+                          ))}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Button asChild variant="ghost" size="icon">
+                          <Link
+                            to={`/word/${encodeURIComponent(w.id)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Open public page for ${w.transliteration}`}
+                          >
+                            <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                          </Link>
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </div>
 
-          {filteredWords.length === 0 && (
-            <div className="text-center py-8">
-              <p className="text-muted-foreground">No words found matching your search.</p>
-            </div>
-          )}
-        </>
-      )}
+          <nav className="flex items-center justify-between gap-2" aria-label="Vocabulary pagination">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setPage(currentPage - 1)}
+              disabled={currentPage <= 1}
+            >
+              <ChevronLeft className="mr-1 h-4 w-4" aria-hidden="true" />
+              Previous
+            </Button>
+            <span className="text-sm text-muted-foreground">
+              Page {currentPage} of {pageCount}
+            </span>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setPage(currentPage + 1)}
+              disabled={currentPage >= pageCount}
+            >
+              Next
+              <ChevronRight className="ml-1 h-4 w-4" aria-hidden="true" />
+            </Button>
+          </nav>
+        </CardContent>
+      </Card>
     </div>
   );
 };

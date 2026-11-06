@@ -5,7 +5,7 @@ import EnhancedQuizSetup from '@/components/quiz/EnhancedQuizSetup';
 import QuizQuestion from '@/components/quiz/QuizQuestion';
 import QuizResults from '@/components/quiz/QuizResults';
 import ProgressSaveNotice from '@/components/practice/ProgressSaveNotice';
-import { getAllCollections, getAllWords, getWordsByCollection, getWordsByLevel } from '@/utils/vocabulary';
+import { getPublishedCollections, getAllWords, getWordsByCollection, getWordsByLevel } from '@/utils/vocabulary';
 import type { Word } from '@/utils/vocabulary-types';
 import type { QuizConfiguration } from '@/utils/quiz-types';
 import { useQuizSession } from '@/hooks/useQuizSession';
@@ -161,7 +161,7 @@ const EnhancedQuiz = () => {
 
       {gameState === 'setup' && (
         <>
-          <EnhancedQuizSetup collections={getAllCollections()} onStart={startQuiz} initialCollectionId={initialCollection} />
+          <EnhancedQuizSetup collections={getPublishedCollections()} onStart={startQuiz} initialCollectionId={initialCollection} />
           <ProgressSaveNotice className="mt-4" />
         </>
       )}

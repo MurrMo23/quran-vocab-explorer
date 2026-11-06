@@ -1,381 +1,142 @@
-
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Edit, Trash2, Save, Plus, Check, FileDown, FileUp } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { collections, getWordsByCollection } from '@/utils/vocabulary';
-import { Collection } from '@/utils/vocabulary-types';
-import { toast } from 'sonner';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-
-// Define validation schema
-const collectionSchema = z.object({
-  name: z.string().min(3, { message: "Collection name must be at least 3 characters" }),
-  description: z.string().optional(),
-});
-
-type CollectionFormValues = z.infer<typeof collectionSchema>;
+import { ExternalLink, FileDown, Info } from 'lucide-react';
+import { getAllCollections, getAllWords } from '@/utils/vocabulary';
+import { dateStamp, downloadCsv, downloadJson } from './exportUtils';
 
 interface AdminCollectionsProps {
-  onAuditLog?: (action: string, entityType: string, entityId: string | null, details?: any) => Promise<void>;
+  // Kept for API compatibility with Admin.tsx; this view is read-only so nothing is logged.
+  onAuditLog?: (action: string, entityType: string, entityId: string | null, details?: unknown) => Promise<void>;
 }
 
-const AdminCollections: React.FC<AdminCollectionsProps> = ({ onAuditLog }) => {
-  const [allCollections, setAllCollections] = useState<Collection[]>(collections);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedCollection, setSelectedCollection] = useState<Collection | null>(null);
-  const [selectedCollections, setSelectedCollections] = useState<string[]>([]);
-  const [bulkActionMode, setBulkActionMode] = useState(false);
-  
-  // Initialize form
-  const form = useForm<CollectionFormValues>({
-    resolver: zodResolver(collectionSchema),
-    defaultValues: {
-      name: '',
-      description: '',
-    }
-  });
-  
-  const handleEditCollection = async (collection: Collection) => {
-    if (onAuditLog) {
-      await onAuditLog('EDIT_START', 'collection', collection.id, { collectionId: collection.id });
-    }
-    
-    setSelectedCollection(collection);
-    form.reset({
-      name: collection.name,
-      description: collection.description || '',
-    });
-    setIsEditing(true);
-  };
-  
-  const handleNewCollection = async () => {
-    if (onAuditLog) {
-      await onAuditLog('NEW_COLLECTION_START', 'collection', null);
-    }
-    
-    setSelectedCollection(null);
-    form.reset({
-      name: '',
-      description: '',
-    });
-    setIsEditing(true);
-  };
-  
-  const handleDeleteCollection = async (collectionId: string) => {
-    // In a real app, this would delete from your database
-    if (onAuditLog) {
-      await onAuditLog('DELETE', 'collection', collectionId);
-    }
-    
-    toast.success('Collection deleted successfully (demo only)');
-    setAllCollections(collections => collections.filter(c => c.id !== collectionId));
-  };
+interface CollectionRow {
+  id: string;
+  name: string;
+  description: string;
+  wordCount: number;
+  beginner: number;
+  intermediate: number;
+  advanced: number;
+  wordIds: string[];
+}
 
-  const handleBulkDelete = async () => {
-    if (selectedCollections.length === 0) {
-      toast.error('No collections selected');
-      return;
-    }
+const AdminCollections: React.FC<AdminCollectionsProps> = () => {
+  const rows = useMemo<CollectionRow[]>(() => {
+    const words = getAllWords();
+    return getAllCollections().map((c) => {
+      const inCollection = words.filter((w) => w.collections.includes(c.id));
+      return {
+        id: c.id,
+        name: c.name,
+        description: c.description,
+        wordCount: inCollection.length,
+        beginner: inCollection.filter((w) => w.level === 'beginner').length,
+        intermediate: inCollection.filter((w) => w.level === 'intermediate').length,
+        advanced: inCollection.filter((w) => w.level === 'advanced').length,
+        wordIds: inCollection.map((w) => w.id),
+      };
+    });
+  }, []);
 
-    // Generate a CSRF token for this operation
-    const csrfToken = await generateCSRFToken();
-    
-    if (onAuditLog) {
-      await onAuditLog('BULK_DELETE', 'collection', null, { 
-        collectionIds: selectedCollections,
-        csrfToken
-      });
-    }
-    
-    // In a real app, you would send the CSRF token with your request
-    // Here we're just simulating the deletion
-    setAllCollections(prevCollections => 
-      prevCollections.filter(c => !selectedCollections.includes(c.id))
+  const emptyCount = rows.filter((r) => r.wordCount === 0).length;
+
+  const exportJson = () => downloadJson(`quranvocab-collections-${dateStamp()}.json`, rows);
+
+  const exportCsv = () =>
+    downloadCsv(
+      `quranvocab-collections-${dateStamp()}.csv`,
+      ['id', 'name', 'description', 'wordCount', 'beginner', 'intermediate', 'advanced', 'wordIds'],
+      rows.map((r) => [
+        r.id, r.name, r.description, r.wordCount, r.beginner, r.intermediate, r.advanced, r.wordIds.join('; '),
+      ])
     );
-    
-    toast.success(`${selectedCollections.length} collections deleted successfully (demo only)`);
-    setSelectedCollections([]);
-    setBulkActionMode(false);
-  };
-  
-  const handleSaveCollection = async (data: CollectionFormValues) => {
-    // Generate a CSRF token for this operation
-    const csrfToken = await generateCSRFToken();
-    
-    // In a real app, you would send this token with your form submission
-    if (onAuditLog) {
-      await onAuditLog(
-        selectedCollection ? 'UPDATE' : 'CREATE', 
-        'collection', 
-        selectedCollection?.id || null, 
-        { 
-          collectionData: data,
-          csrfToken
-        }
-      );
-    }
-    
-    toast.success(selectedCollection ? 'Collection updated successfully (demo only)' : 'New collection created successfully (demo only)');
-    setIsEditing(false);
-    
-    // Demo update UI
-    if (selectedCollection) {
-      setAllCollections(prev => 
-        prev.map(c => c.id === selectedCollection.id ? {...c, ...data} : c)
-      );
-    } else if (data.name) {
-      const newId = Date.now().toString();
-      setAllCollections(prev => [...prev, {
-        id: newId,
-        name: data.name,
-        description: data.description || ''
-      }]);
-    }
-  };
-
-  const toggleCollectionSelection = (collectionId: string) => {
-    setSelectedCollections(prev => {
-      if (prev.includes(collectionId)) {
-        return prev.filter(id => id !== collectionId);
-      } else {
-        return [...prev, collectionId];
-      }
-    });
-  };
-
-  const toggleBulkActionMode = () => {
-    setBulkActionMode(!bulkActionMode);
-    if (bulkActionMode) {
-      setSelectedCollections([]);
-    }
-  };
-
-  const exportSelectedCollections = async () => {
-    if (selectedCollections.length === 0) {
-      toast.error('No collections selected');
-      return;
-    }
-
-    const csrfToken = await generateCSRFToken();
-    
-    if (onAuditLog) {
-      await onAuditLog('EXPORT', 'collection', null, { 
-        collectionIds: selectedCollections,
-        csrfToken
-      });
-    }
-    
-    // In a real app, this would generate a file for download
-    const collectionsToExport = allCollections.filter(c => 
-      selectedCollections.includes(c.id)
-    );
-    
-    const dataStr = JSON.stringify(collectionsToExport, null, 2);
-    const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(dataStr)}`;
-    
-    const exportFileDefaultName = 'collections.json';
-    
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-    
-    toast.success(`${selectedCollections.length} collections exported successfully`);
-  };
-
-  // For demo purposes - in a real app this would be handled by your backend
-  const generateCSRFToken = async (): Promise<string> => {
-    // This is a simplified example - in a real app, you would request a token from your server
-    return `csrf-${Math.random().toString(36).substring(2, 15)}`;
-  };
-
-  // Schedule backup simulation for demo purposes
-  React.useEffect(() => {
-    const simulateBackup = async () => {
-      // In a real app, this would be handled by a server-side cron job
-      console.log('Simulating automated backup...');
-      
-      // Generate a demonstration backup record
-      const backupTime = new Date().toISOString();
-      const backupId = `backup-${Date.now()}`;
-      
-      if (onAuditLog) {
-        await onAuditLog('AUTOMATED_BACKUP', 'system', backupId, {
-          timestamp: backupTime,
-          collections: allCollections.length,
-          status: 'completed'
-        });
-      }
-      
-      console.log(`Backup ${backupId} completed at ${backupTime}`);
-    };
-    
-    // Schedule a simulated backup every 30 minutes
-    const backupInterval = setInterval(simulateBackup, 30 * 60 * 1000);
-    
-    // Run once at component mount for demonstration
-    simulateBackup();
-    
-    return () => clearInterval(backupInterval);
-  }, [onAuditLog]);
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Collections</h2>
-        <div className="flex gap-2">
-          <Button onClick={toggleBulkActionMode} className={bulkActionMode ? "bg-amber-500 hover:bg-amber-600" : ""}>
-            {bulkActionMode ? "Exit Bulk Mode" : "Bulk Actions"}
-          </Button>
-          {bulkActionMode && (
-            <>
-              <Button onClick={handleBulkDelete} variant="destructive" disabled={selectedCollections.length === 0}>
-                Delete Selected
-              </Button>
-              <Button onClick={exportSelectedCollections} variant="outline" disabled={selectedCollections.length === 0} className="gap-2">
-                <FileDown className="h-4 w-4" />
-                Export
-              </Button>
-            </>
-          )}
-          {!bulkActionMode && !isEditing && (
-            <Button onClick={handleNewCollection} className="gap-2">
-              <Plus className="h-4 w-4" />
-              Add New Collection
+    <div className="space-y-6">
+      <Alert>
+        <Info className="h-4 w-4" />
+        <AlertDescription>
+          Words and collections are stored in the site's code (src/utils). To add or change one, edit
+          those files or ask your developer; changes go live on the next publish.
+        </AlertDescription>
+      </Alert>
+
+      <Card>
+        <CardHeader className="flex flex-col gap-3 space-y-0 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-1">
+            <CardTitle>Collections</CardTitle>
+            <p className="text-sm text-muted-foreground">
+              {rows.length} collections
+              {emptyCount > 0 && ` · ${emptyCount} empty`}
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={exportCsv}>
+              <FileDown className="mr-2 h-4 w-4" aria-hidden="true" />
+              Export CSV
             </Button>
-          )}
-        </div>
-      </div>
-      
-      {isEditing ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>{selectedCollection ? 'Edit Collection' : 'Add New Collection'}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleSaveCollection)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Collection Name</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description</FormLabel>
-                      <FormControl>
-                        <Textarea {...field} rows={3} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <div className="flex justify-end space-x-2">
-                  <Button variant="outline" onClick={() => setIsEditing(false)} type="button">
-                    Cancel
-                  </Button>
-                  <Button className="gap-2" type="submit">
-                    <Save className="h-4 w-4" />
-                    Save Collection
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
-      ) : bulkActionMode ? (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-12">Select</TableHead>
-              <TableHead>Collection</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Word Count</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {allCollections.map((collection) => {
-              const wordCount = getWordsByCollection(collection.id).length;
-              const isSelected = selectedCollections.includes(collection.id);
-              
-              return (
-                <TableRow key={collection.id} className={isSelected ? "bg-primary/10" : ""}>
-                  <TableCell>
-                    <Checkbox 
-                      checked={isSelected}
-                      onCheckedChange={() => toggleCollectionSelection(collection.id)}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">{collection.name}</div>
-                  </TableCell>
-                  <TableCell>{collection.description}</TableCell>
-                  <TableCell>{wordCount}</TableCell>
+            <Button variant="outline" size="sm" onClick={exportJson}>
+              <FileDown className="mr-2 h-4 w-4" aria-hidden="true" />
+              Export JSON
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto rounded-md border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Collection</TableHead>
+                  <TableHead className="text-right">Words</TableHead>
+                  <TableHead className="hidden text-right sm:table-cell">Beginner</TableHead>
+                  <TableHead className="hidden text-right sm:table-cell">Intermediate</TableHead>
+                  <TableHead className="hidden text-right sm:table-cell">Advanced</TableHead>
+                  <TableHead>
+                    <span className="sr-only">Open</span>
+                  </TableHead>
                 </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {allCollections.map((collection) => {
-            const wordCount = getWordsByCollection(collection.id).length;
-            
-            return (
-              <Card key={collection.id}>
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-semibold mb-1">{collection.name}</h3>
-                      <p className="text-muted-foreground text-sm mb-2">{collection.description}</p>
-                      <div className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full inline-block">
-                        {wordCount} words
+              </TableHeader>
+              <TableBody>
+                {rows.map((r) => (
+                  <TableRow key={r.id}>
+                    <TableCell className="min-w-[12rem]">
+                      <div className="flex flex-wrap items-center gap-2 font-medium">
+                        {r.name}
+                        {r.wordCount === 0 && <Badge variant="destructive">Empty</Badge>}
                       </div>
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button variant="ghost" size="icon" onClick={() => handleEditCollection(collection)}>
-                        <Edit className="h-4 w-4" />
+                      <div className="text-sm text-muted-foreground">{r.description}</div>
+                      <div className="mt-1 text-xs text-muted-foreground sm:hidden">
+                        {r.beginner} beginner · {r.intermediate} intermediate · {r.advanced} advanced
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right font-medium">{r.wordCount}</TableCell>
+                    <TableCell className="hidden text-right sm:table-cell">{r.beginner}</TableCell>
+                    <TableCell className="hidden text-right sm:table-cell">{r.intermediate}</TableCell>
+                    <TableCell className="hidden text-right sm:table-cell">{r.advanced}</TableCell>
+                    <TableCell>
+                      <Button asChild variant="ghost" size="icon">
+                        <Link
+                          to={`/collections/${encodeURIComponent(r.id)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Open public page for ${r.name}`}
+                        >
+                          <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                        </Link>
                       </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDeleteCollection(collection.id)}>
-                        <Trash2 className="h-4 w-4 text-destructive" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

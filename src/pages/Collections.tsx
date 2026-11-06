@@ -5,7 +5,7 @@ import SearchBar from '@/components/SearchBar';
 import CreateCollectionForm from '@/components/collections/CreateCollectionForm';
 import { Button } from '@/components/ui/button';
 import { BookOpenCheck, Plus, BookText, BookMarked } from 'lucide-react';
-import { getWordsByCollection, getAllCollections, addCustomCollection, Collection } from '@/utils/vocabulary';
+import { getWordsByCollection, getPublishedCollections, addCustomCollection, Collection } from '@/utils/vocabulary';
 import SEO from '@/components/SEO';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -26,7 +26,7 @@ const Collections = () => {
     // Load collections
     const loadCollections = () => {
       setLoading(true);
-      const allCollections = getAllCollections();
+      const allCollections = getPublishedCollections();
       setCollections(allCollections);
       setFilteredCollections(allCollections);
       setLoading(false);

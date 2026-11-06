@@ -223,7 +223,7 @@ const assignCollections = () => {
 assignCollections();
 
 // Custom collections storage - in a real app, this would be in a database
-let customCollections: Collection[] = [];
+const customCollections: Collection[] = [];
 
 // Function to add a custom collection
 export const addCustomCollection = (collection: Collection): Collection => {
@@ -252,6 +252,14 @@ export const getAllWords = (): Word[] => {
 
 // Audio is resolved at play time from real recitation sources (see src/utils/audio.ts);
 // words without a known location or example simply have no audio.
+
+// Collections that actually contain words. Public pickers and listings use this so
+// visitors never land on an empty collection (several themed collections are planned
+// but not filled yet). Admin views use getAllCollections() to show the empty ones.
+export const getPublishedCollections = (): Collection[] => {
+  const used = new Set(getAllWords().flatMap((w) => w.collections ?? []));
+  return getAllCollections().filter((c) => used.has(c.id));
+};
 
 // Get a list of words based on level
 export const getWordsByLevel = (level: 'beginner' | 'intermediate' | 'advanced'): Word[] => {

@@ -4,7 +4,7 @@ import { BookOpen, RotateCcw, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { getAllCollections, getAllWords, getWordById, getWordsByCollection } from '@/utils/vocabulary';
+import { getPublishedCollections, getAllWords, getWordById, getWordsByCollection } from '@/utils/vocabulary';
 import type { Word } from '@/utils/vocabulary-types';
 import { useProgress, upcomingWordIds, type Rating } from '@/lib/progress';
 import { useUserCollections, PRACTICE_COLLECTION_PARAM } from '@/lib/collections';
@@ -32,7 +32,7 @@ const Practice = () => {
 
   const progress = useProgress();
   const { buildSession, recordReview, previewInterval, cards, loading: progressLoading } = progress;
-  const builtInCollections = useMemo(() => getAllCollections(), []);
+  const builtInCollections = useMemo(() => getPublishedCollections(), []);
   const { items: userCollections } = useUserCollections();
   const pool = usePracticePool(selected);
 

@@ -1,7 +1,7 @@
 // Pure helpers that derive display data from the progress engine's cards and logs.
 // Everything here is computed from real review history; nothing is estimated or invented.
 import type { CardState, DailyCount, ReviewLog } from '@/lib/progress/types';
-import { getAllCollections, getWordsByCollection } from '@/utils/vocabulary';
+import { getPublishedCollections, getWordsByCollection } from '@/utils/vocabulary';
 
 /** A word counts as mastered once its FSRS stability reaches this many days. */
 export const MASTERY_STABILITY_DAYS = 21;
@@ -119,7 +119,7 @@ export interface CollectionProgressRow {
 /** Started / mastered share for every collection that has words. */
 export const collectionProgress = (cards: ReadonlyMap<string, CardState>): CollectionProgressRow[] => {
   const rows: CollectionProgressRow[] = [];
-  for (const collection of getAllCollections()) {
+  for (const collection of getPublishedCollections()) {
     const words = getWordsByCollection(collection.id);
     if (words.length === 0) continue;
     let started = 0;

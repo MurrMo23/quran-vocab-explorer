@@ -4,7 +4,7 @@ import { CheckCircle, XCircle, Target, RotateCcw, ArrowRight } from 'lucide-reac
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { getAllCollections, getAllWords, getWordById, getWordsByCollection } from '@/utils/vocabulary';
+import { getPublishedCollections, getAllWords, getWordById, getWordsByCollection } from '@/utils/vocabulary';
 import type { Word } from '@/utils/vocabulary-types';
 import { useProgress } from '@/lib/progress';
 import { useUserCollections, PRACTICE_COLLECTION_PARAM } from '@/lib/collections';
@@ -38,7 +38,7 @@ const Quiz = () => {
   }, [collectionParam]);
 
   const { recordReview, cards } = useProgress();
-  const collections = useMemo(() => getAllCollections(), []);
+  const collections = useMemo(() => getPublishedCollections(), []);
   const { items: userCollections } = useUserCollections();
   const pool = usePracticePool(selected);
 

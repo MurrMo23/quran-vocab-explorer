@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Word, getAllWords, getAllCollections } from '@/utils/vocabulary';
+import { Word, getAllWords, getPublishedCollections } from '@/utils/vocabulary';
 
 interface SearchFilters {
   collections: string[];
@@ -38,7 +38,7 @@ const SemanticSearch: React.FC<SemanticSearchProps> = ({
   const [searchMode, setSearchMode] = useState<'text' | 'semantic' | 'phonetic'>('text');
 
   const allWords = getAllWords();
-  const allCollections = getAllCollections();
+  const allCollections = getPublishedCollections();
   
   // Extract unique values for filter options
   const filterOptions = useMemo(() => {
