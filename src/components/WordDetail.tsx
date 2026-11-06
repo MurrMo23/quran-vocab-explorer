@@ -7,6 +7,7 @@ import AudioAttribution from './audio/AudioAttribution';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import WordNotesPanel from '@/components/learning/WordNotesPanel';
 
 interface WordDetailProps {
   word: Word;
@@ -113,6 +114,8 @@ const WordDetail: React.FC<WordDetailProps> = ({
         </div>
         {word.examples.length > 0 && <AudioAttribution className="mt-3" />}
       </section>
+
+      <WordNotesPanel wordId={word.id} className="border-t pt-6 mb-6" />
 
       {/* Navigation Section */}
       <nav className="border-t pt-6 mb-6" aria-label="Word navigation">

@@ -5,8 +5,10 @@ import { collections, getWordsByCollection } from '@/utils/vocabulary';
 import { Collection, Word } from '@/utils/vocabulary-types';
 import { useAuth } from '@/components/AuthProvider';
 import { toast } from 'sonner';
-import { DifficultyLevel } from '@/components/learning/LearningPathForm';
-import { commonSurahs } from '@/components/learning/SurahSelector';
+
+// Saved learning paths (public.learning_paths). The learner-facing path generator was removed;
+// this hook now only backs the admin Learning Paths view (src/components/admin/AdminLearningPaths.tsx).
+export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 
 export interface LearningPath {
   id: string;

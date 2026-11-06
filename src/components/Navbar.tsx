@@ -18,7 +18,9 @@ import {
   Target,
   HelpCircle,
   Zap,
-  Globe
+  Globe,
+  Library,
+  NotebookPen
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -51,7 +53,7 @@ const Navbar = () => {
 
   const navItems = [
     { href: '/collections', label: 'Collections', icon: BookOpen },
-    { href: '/custom-learning', label: 'Custom Learning', icon: Target },
+    { href: '/custom-learning', label: 'My collections', icon: Library },
     { href: '/practice', label: 'Practice', icon: Target },
     { href: '/quiz', label: 'Quiz', icon: HelpCircle },
     { href: '/audio-practice', label: 'Audio', icon: Volume2 },
@@ -60,7 +62,7 @@ const Navbar = () => {
 
   const userMenuItems = [
     { href: '/dashboard', label: 'Dashboard', icon: Home },
-    { href: '/notebook', label: 'Notebook', icon: BookOpen },
+    { href: '/notebook', label: 'Notebook', icon: NotebookPen },
     { href: '/settings', label: 'Settings', icon: Settings },
     { href: '/analytics', label: 'Analytics', icon: BarChart3 }
   ];

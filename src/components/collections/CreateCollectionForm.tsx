@@ -1,119 +1,109 @@
-
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
-import { Collection } from '@/utils/vocabulary-types';
-import { collections } from '@/utils/vocabulary';
 import { Label } from '@/components/ui/label';
+import type { Collection } from '@/utils/vocabulary-types';
+import {
+  COLLECTION_DESCRIPTION_MAX,
+  COLLECTION_NAME_MAX,
+  createCollection,
+  type UserCollection,
+} from '@/lib/collections';
 
 interface CreateCollectionFormProps {
-  onCreateCollection: (collection: Collection) => void;
-  onCancel: () => void;
+  /** Called with the saved collection (persisted to the account, or this browser for guests). */
+  onCreated?: (collection: UserCollection) => void;
+  /**
+   * @deprecated Legacy callback kept so existing callers compile. Receives the saved
+   * collection in the old shape; the collection is already persisted by this form.
+   */
+  onCreateCollection?: (collection: Collection) => void;
+  onCancel?: () => void;
+  /** Render without the surrounding card (e.g. inside a dialog). */
+  bare?: boolean;
 }
 
 const CreateCollectionForm: React.FC<CreateCollectionFormProps> = ({
+  onCreated,
   onCreateCollection,
-  onCancel
+  onCancel,
+  bare,
 }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [saving, setSaving] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!name.trim()) {
       toast.error('Please enter a collection name');
       return;
     }
-    
-    setLoading(true);
-    
-    // Check if collection with same name exists
-    const existingCollection = collections.find(c => 
-      c.name.toLowerCase() === name.trim().toLowerCase()
-    );
-    
-    if (existingCollection) {
-      toast.error('A collection with this name already exists');
-      setLoading(false);
-      return;
+    setSaving(true);
+    try {
+      const saved = await createCollection({ name, description });
+      toast.success(`Created "${saved.name}"`);
+      setName('');
+      setDescription('');
+      onCreated?.(saved);
+      onCreateCollection?.({ id: saved.id, name: saved.name, description: saved.description });
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not create the collection');
+    } finally {
+      setSaving(false);
     }
-    
-    // Generate a unique ID
-    const id = `custom-${Date.now()}`;
-    
-    // Create the new collection
-    const newCollection: Collection = {
-      id,
-      name: name.trim(),
-      description: description.trim()
-    };
-    
-    // Add the collection
-    onCreateCollection(newCollection);
-    
-    toast.success('Collection created successfully');
-    setLoading(false);
-    
-    // Reset form
-    setName('');
-    setDescription('');
   };
+
+  const form = (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="collection-name">Name</Label>
+        <Input
+          id="collection-name"
+          placeholder="e.g. Words from Surah Al-Mulk"
+          value={name}
+          maxLength={COLLECTION_NAME_MAX}
+          onChange={(e) => setName(e.target.value)}
+          disabled={saving}
+          autoFocus
+        />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="collection-description">Description (optional)</Label>
+        <Textarea
+          id="collection-description"
+          placeholder="What is this collection for?"
+          value={description}
+          maxLength={COLLECTION_DESCRIPTION_MAX}
+          onChange={(e) => setDescription(e.target.value)}
+          rows={3}
+          disabled={saving}
+        />
+      </div>
+      <div className="flex justify-end gap-2">
+        {onCancel && (
+          <Button type="button" variant="outline" onClick={onCancel} disabled={saving}>
+            Cancel
+          </Button>
+        )}
+        <Button type="submit" disabled={saving || !name.trim()}>
+          {saving ? 'Creating…' : 'Create collection'}
+        </Button>
+      </div>
+    </form>
+  );
+
+  if (bare) return form;
 
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle>Create New Collection</CardTitle>
+        <CardTitle>New collection</CardTitle>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Collection Name</Label>
-            <Input
-              id="name"
-              placeholder="Enter collection name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              disabled={loading}
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
-              placeholder="Enter collection description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={4}
-              disabled={loading}
-            />
-          </div>
-          
-          <div className="flex justify-end space-x-2">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={onCancel}
-              disabled={loading}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              disabled={loading}
-            >
-              Create Collection
-            </Button>
-          </div>
-        </form>
-      </CardContent>
+      <CardContent>{form}</CardContent>
     </Card>
   );
 };

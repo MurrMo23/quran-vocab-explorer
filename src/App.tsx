@@ -1,36 +1,36 @@
-
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { AuthProvider } from '@/components/AuthProvider';
 import Layout from '@/components/Layout';
 import ScrollToTop from '@/components/ScrollToTop';
+// The home page stays in the main bundle so the first paint does not wait for a chunk.
 import Index from '@/pages/Index';
-import Auth from '@/pages/Auth';
-import Dashboard from '@/pages/Dashboard';
-import Collections from '@/pages/Collections';
-import CollectionDetails from '@/pages/CollectionDetails';
-import Practice from '@/pages/Practice';
-import Quiz from '@/pages/Quiz';
-import EnhancedQuiz from '@/pages/EnhancedQuiz';
-import WordView from '@/pages/WordView';
-import Admin from '@/pages/Admin';
-import Analytics from '@/pages/Analytics';
-import Settings from '@/pages/Settings';
-import Notebook from '@/pages/Notebook';
-import CustomLearning from '@/pages/CustomLearning';
-import Community from '@/pages/Community';
-import AudioPractice from '@/pages/AudioPractice';
-import CommunityHub from '@/pages/CommunityHub';
-import Blog from '@/pages/Blog';
-import BlogCategory from '@/pages/BlogCategory';
-import BlogTag from '@/pages/BlogTag';
-import BlogPost from '@/pages/BlogPost';
-import MobileFlashcards from '@/pages/MobileFlashcards';
-import ContentPage from '@/components/ContentPage';
-import NotFound from '@/pages/NotFound';
+
+// Every other route is code-split.
+const Auth = lazy(() => import('@/pages/Auth'));
+const Dashboard = lazy(() => import('@/pages/Dashboard'));
+const Collections = lazy(() => import('@/pages/Collections'));
+const CollectionDetails = lazy(() => import('@/pages/CollectionDetails'));
+const Practice = lazy(() => import('@/pages/Practice'));
+const Quiz = lazy(() => import('@/pages/Quiz'));
+const EnhancedQuiz = lazy(() => import('@/pages/EnhancedQuiz'));
+const WordView = lazy(() => import('@/pages/WordView'));
+const Admin = lazy(() => import('@/pages/Admin'));
+const Analytics = lazy(() => import('@/pages/Analytics'));
+const Settings = lazy(() => import('@/pages/Settings'));
+const Notebook = lazy(() => import('@/pages/Notebook'));
+const CustomLearning = lazy(() => import('@/pages/CustomLearning'));
+const AudioPractice = lazy(() => import('@/pages/AudioPractice'));
+const Blog = lazy(() => import('@/pages/Blog'));
+const BlogCategory = lazy(() => import('@/pages/BlogCategory'));
+const BlogTag = lazy(() => import('@/pages/BlogTag'));
+const BlogPost = lazy(() => import('@/pages/BlogPost'));
+const MobileFlashcards = lazy(() => import('@/pages/MobileFlashcards'));
+const ContentPage = lazy(() => import('@/components/ContentPage'));
+const NotFound = lazy(() => import('@/pages/NotFound'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +40,15 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+const RouteFallback = () => (
+  <div className="flex min-h-[50vh] items-center justify-center" role="status" aria-live="polite">
+    <div className="h-8 w-8 animate-spin rounded-full border-2 border-muted border-t-primary" />
+    <span className="sr-only">Loading…</span>
+  </div>
+);
+
+const page = (el: React.ReactNode) => <Suspense fallback={<RouteFallback />}>{el}</Suspense>;
 
 function App() {
   return (
@@ -51,33 +60,34 @@ function App() {
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Index />} />
-                <Route path="auth" element={<Auth />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="collections" element={<Collections />} />
-                <Route path="collections/:id" element={<CollectionDetails />} />
-                <Route path="practice" element={<Practice />} />
-                <Route path="quiz" element={<Quiz />} />
-                <Route path="enhanced-quiz" element={<EnhancedQuiz />} />
-                <Route path="word/:id" element={<WordView />} />
-                <Route path="admin" element={<Admin />} />
-                <Route path="analytics" element={<Analytics />} />
-                <Route path="settings" element={<Settings />} />
-                <Route path="notebook" element={<Notebook />} />
-                <Route path="custom-learning" element={<CustomLearning />} />
-                <Route path="community" element={<Community />} />
-                <Route path="community-hub" element={<CommunityHub />} />
-                <Route path="audio-practice" element={<AudioPractice />} />
-                <Route path="blog" element={<Blog />} />
-                <Route path="blog/category/:category" element={<BlogCategory />} />
-                <Route path="blog/tag/:tag" element={<BlogTag />} />
-                <Route path="blog/:slug" element={<BlogPost />} />
-                <Route path="mobile-flashcards" element={<MobileFlashcards />} />
-                <Route path="help" element={<ContentPage />} />
-                <Route path="about" element={<ContentPage />} />
-                <Route path="contact" element={<ContentPage />} />
-                <Route path="privacy-policy" element={<ContentPage />} />
-                <Route path="terms-of-service" element={<ContentPage />} />
-                <Route path="*" element={<NotFound />} />
+                <Route path="auth" element={page(<Auth />)} />
+                <Route path="dashboard" element={page(<Dashboard />)} />
+                <Route path="collections" element={page(<Collections />)} />
+                <Route path="collections/:id" element={page(<CollectionDetails />)} />
+                <Route path="practice" element={page(<Practice />)} />
+                <Route path="quiz" element={page(<Quiz />)} />
+                <Route path="enhanced-quiz" element={page(<EnhancedQuiz />)} />
+                <Route path="word/:id" element={page(<WordView />)} />
+                <Route path="admin" element={page(<Admin />)} />
+                <Route path="analytics" element={page(<Analytics />)} />
+                <Route path="settings" element={page(<Settings />)} />
+                <Route path="notebook" element={page(<Notebook />)} />
+                <Route path="custom-learning" element={page(<CustomLearning />)} />
+                {/* Community features were mock-only and had no moderation; removed. */}
+                <Route path="community" element={<Navigate to="/" replace />} />
+                <Route path="community-hub" element={<Navigate to="/" replace />} />
+                <Route path="audio-practice" element={page(<AudioPractice />)} />
+                <Route path="blog" element={page(<Blog />)} />
+                <Route path="blog/category/:category" element={page(<BlogCategory />)} />
+                <Route path="blog/tag/:tag" element={page(<BlogTag />)} />
+                <Route path="blog/:slug" element={page(<BlogPost />)} />
+                <Route path="mobile-flashcards" element={page(<MobileFlashcards />)} />
+                <Route path="help" element={page(<ContentPage />)} />
+                <Route path="about" element={page(<ContentPage />)} />
+                <Route path="contact" element={page(<ContentPage />)} />
+                <Route path="privacy-policy" element={page(<ContentPage />)} />
+                <Route path="terms-of-service" element={page(<ContentPage />)} />
+                <Route path="*" element={page(<NotFound />)} />
               </Route>
             </Routes>
             <Toaster />
