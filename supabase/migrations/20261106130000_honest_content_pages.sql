@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS public.contact_messages (
     CHECK (category IN ('content-error', 'technical', 'account', 'feedback', 'general')),
   message TEXT NOT NULL CHECK (char_length(message) BETWEEN 1 AND 5000),
   page_url TEXT CHECK (page_url IS NULL OR char_length(page_url) <= 500),
-  user_id UUID REFERENCES auth.users ON DELETE SET NULL,
+  user_id UUID, -- auth user id; no FK to auth.users (project rule), RLS uses auth.uid()
   status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'in-progress', 'resolved', 'spam')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );

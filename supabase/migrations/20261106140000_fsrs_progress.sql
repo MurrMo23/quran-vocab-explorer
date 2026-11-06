@@ -64,7 +64,7 @@ CREATE POLICY "Users can delete their own progress" ON public.user_word_progress
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.review_logs (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id     uuid NOT NULL DEFAULT auth.uid() REFERENCES auth.users (id) ON DELETE CASCADE,
+  user_id     uuid NOT NULL DEFAULT auth.uid(), -- no FK to auth.users (project rule); RLS scopes rows
   word_id     text NOT NULL,
   rating      text NOT NULL CHECK (rating IN ('again', 'hard', 'good', 'easy')),
   source      text,

@@ -23,7 +23,7 @@ $$;
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.user_collections (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid NOT NULL DEFAULT auth.uid() REFERENCES auth.users(id) ON DELETE CASCADE,
+  user_id uuid NOT NULL DEFAULT auth.uid(), -- no FK to auth.users (project rule); RLS scopes rows
   name text NOT NULL CHECK (char_length(btrim(name)) BETWEEN 1 AND 80),
   description text CHECK (description IS NULL OR char_length(description) <= 500),
   word_ids text[] NOT NULL DEFAULT '{}' CHECK (cardinality(word_ids) <= 1000),
