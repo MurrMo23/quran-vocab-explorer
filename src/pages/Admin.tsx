@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,7 +8,7 @@ import AdminUsers from '@/components/admin/AdminUsers';
 import AdminCollections from '@/components/admin/AdminCollections';
 import AdminVocabulary from '@/components/admin/AdminVocabulary';
 import AdminContent from '@/components/admin/AdminContent';
-import SystemSettings from '@/components/admin/SystemSettings';
+import AdminSystem from '@/components/admin/AdminSystem';
 import SiteBranding from '@/components/admin/SiteBranding';
 import AdminInbox from '@/components/admin/AdminInbox';
 import { Badge } from '@/components/ui/badge';
@@ -17,7 +17,7 @@ import { useAdminOverviewStats } from '@/hooks/useAdminOverviewStats';
 import type { LucideIcon } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import type { Json } from '@/integrations/supabase/types';
-import { Database, Users, BookOpen, FileText, Activity, Settings, Globe, Palette, Inbox } from 'lucide-react';
+import { Database, Users, BookOpen, FileText, Activity, Globe, Palette, Inbox } from 'lucide-react';
 
 interface AuditLogEntry {
   id: string;
@@ -52,38 +52,54 @@ const Admin = () => {
   const { count: unreadCount, refresh: refreshUnread } = useUnreadContactCount(isAuthorized === true);
   const stats = useAdminOverviewStats(isAuthorized === true);
 
+  // Recent Activity shows the real audit log (admin-readable via RLS), newest first.
+  useEffect(() => {
+    if (isAuthorized !== true) return;
+    let cancelled = false;
+    void supabase
+      .from('audit_logs')
+      .select('id, action, entity_type, entity_id, details, created_at')
+      .order('created_at', { ascending: false })
+      .limit(10)
+      .then(({ data, error }) => {
+        if (cancelled || error || !data) return;
+        setAuditLogs(
+          data.map((r) => ({
+            id: r.id,
+            action: r.action,
+            entityType: r.entity_type,
+            entityId: r.entity_id,
+            details: r.details ?? undefined,
+            timestamp: r.created_at,
+          })),
+        );
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [isAuthorized]);
+
   const logAuditEvent = async (
-    action: string, 
-    entityType: string, 
-    entityId: string | null, 
+    action: string,
+    entityType: string,
+    entityId: string | null,
     details?: Json
   ) => {
     try {
-      const logEntry: AuditLogEntry = {
-        id: Date.now().toString(),
-        action,
-        entityType,
-        entityId,
-        details,
-        timestamp: new Date().toISOString()
-      };
-
-      // In a real app, you would store this in Supabase
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('audit_logs')
-        .insert({
-          action,
-          entity_type: entityType,
-          entity_id: entityId,
-          details
-        });
+        .insert({ action, entity_type: entityType, entity_id: entityId, details })
+        .select('id, created_at')
+        .single();
 
       if (error) {
         console.error('Failed to log audit event:', error);
+        return;
       }
 
-      // Update local state for demo
-      setAuditLogs(prev => [logEntry, ...prev].slice(0, 50)); // Keep last 50 entries
+      setAuditLogs((prev) =>
+        [{ id: data.id, action, entityType, entityId, details, timestamp: data.created_at }, ...prev].slice(0, 50),
+      );
     } catch (error) {
       console.error('Error logging audit event:', error);
     }
@@ -161,10 +177,6 @@ const Admin = () => {
           <TabsTrigger value="branding" className="flex items-center gap-2">
             <Palette className="h-4 w-4" />
             Branding
-          </TabsTrigger>
-          <TabsTrigger value="settings" className="flex items-center gap-2">
-            <Settings className="h-4 w-4" />
-            Settings
           </TabsTrigger>
           <TabsTrigger value="system" className="flex items-center gap-2">
             <Globe className="h-4 w-4" />
@@ -271,47 +283,8 @@ const Admin = () => {
           <SiteBranding onAuditLog={logAuditEvent} />
         </TabsContent>
 
-        <TabsContent value="settings">
-          <SystemSettings onAuditLog={logAuditEvent} />
-        </TabsContent>
-
         <TabsContent value="system">
-          <Card>
-            <CardHeader>
-              <CardTitle>System Information</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-semibold">Application Version</h4>
-                    <p className="text-muted-foreground">v2.1.0</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Database Status</h4>
-                    <p className="text-green-600">Connected</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Cache Status</h4>
-                    <p className="text-green-600">Active</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Last Backup</h4>
-                    <p className="text-muted-foreground">2 hours ago</p>
-                  </div>
-                </div>
-                
-                <div className="pt-4 border-t">
-                  <h4 className="font-semibold mb-2">Quick Actions</h4>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm">Clear Cache</Button>
-                    <Button variant="outline" size="sm">Run Backup</Button>
-                    <Button variant="outline" size="sm">System Check</Button>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <AdminSystem />
         </TabsContent>
       </Tabs>
     </div>
