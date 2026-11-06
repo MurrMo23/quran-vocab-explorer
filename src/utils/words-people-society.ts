@@ -10,7 +10,9 @@ export const peopleAndSocietyWords: Word[] = [
     root: 'أمن',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 230,
+    frequency: 202,
+    location: { surah: 23, ayah: 1, position: 3 },
+    frequencyVerified: true,
     tags: ['believers', 'faith', 'community'],
     collections: ['faith', 'community'],
     examples: [
@@ -30,7 +32,9 @@ export const peopleAndSocietyWords: Word[] = [
     root: 'سلم',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 75,
+    frequency: 39,
+    location: { surah: 3, ayah: 64, position: 31 },
+    frequencyVerified: true,
     tags: ['muslims', 'submission', 'community'],
     collections: ['faith', 'community'],
     examples: [
@@ -50,7 +54,9 @@ export const peopleAndSocietyWords: Word[] = [
     root: 'كفر',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 37,
+    frequency: 129,
+    location: { surah: 109, ayah: 1, position: 3 },
+    frequencyVerified: true,
     tags: ['disbelievers', 'denial', 'opposition'],
     collections: ['faith', 'community'],
     examples: [
@@ -71,6 +77,8 @@ export const peopleAndSocietyWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 31,
+    location: { surah: 3, ayah: 64, position: 2 },
+    frequencyVerified: true,
     tags: ['people of book', 'scripture', 'community'],
     collections: ['community', 'knowledge'],
     examples: [
@@ -91,6 +99,8 @@ export const peopleAndSocietyWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 64,
+    location: { surah: 2, ayah: 143, position: 3 },
+    frequencyVerified: true,
     tags: ['community', 'nation', 'people'],
     collections: ['community'],
     examples: [

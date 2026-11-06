@@ -10,7 +10,9 @@ export const colorsWords: Word[] = [
     root: 'بيض',
     partOfSpeech: 'adjective',
     level: 'beginner',
-    frequency: 12,
+    frequency: 8,
+    location: { surah: 2, ayah: 187, position: 37 },
+    frequencyVerified: true,
     tags: ['colors', 'description', 'purity'],
     collections: ['colors'],
     examples: [
@@ -30,7 +32,9 @@ export const colorsWords: Word[] = [
     root: 'سود',
     partOfSpeech: 'adjective',
     level: 'beginner',
-    frequency: 7,
+    frequency: 2,
+    location: { surah: 2, ayah: 187, position: 40 },
+    frequencyVerified: true,
     tags: ['colors', 'description', 'darkness'],
     collections: ['colors'],
     examples: [
@@ -51,6 +55,8 @@ export const colorsWords: Word[] = [
     partOfSpeech: 'adjective',
     level: 'beginner',
     frequency: 1,
+    location: { surah: 35, ayah: 27, position: 18 },
+    frequencyVerified: true,
     tags: ['colors', 'description'],
     collections: ['colors'],
     examples: [
@@ -70,7 +76,9 @@ export const colorsWords: Word[] = [
     root: 'خضر',
     partOfSpeech: 'adjective',
     level: 'beginner',
-    frequency: 8,
+    frequency: 6,
+    location: { surah: 55, ayah: 76, position: 4 },
+    frequencyVerified: true,
     tags: ['colors', 'description', 'nature'],
     collections: ['colors'],
     examples: [
@@ -90,7 +98,9 @@ export const colorsWords: Word[] = [
     root: 'صفر',
     partOfSpeech: 'adjective',
     level: 'beginner',
-    frequency: 5,
+    frequency: 2,
+    location: { surah: 2, ayah: 69, position: 14 },
+    frequencyVerified: true,
     tags: ['colors', 'description'],
     collections: ['colors'],
     examples: [

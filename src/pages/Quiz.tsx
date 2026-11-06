@@ -146,7 +146,7 @@ const Quiz = () => {
   const quizContent = (
     <>
       <SEO 
-        title="Arabic Vocabulary Quiz | Test Your Knowledge"
+        title="Quranic Vocabulary Quiz"
         description="Test your Arabic vocabulary knowledge with interactive quizzes and track your progress. Multiple choice questions for all levels."
         keywords={["Arabic quiz", "vocabulary test", "language assessment", "interactive learning"]}
         url="https://quranvocab.com/quiz"

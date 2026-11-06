@@ -58,7 +58,7 @@ interface SystemSettingsProps {
 
 const SystemSettings: React.FC<SystemSettingsProps> = ({ onAuditLog }) => {
   const [config, setConfig] = useState<SystemConfig>({
-    site_name: 'Arabic Learning Platform',
+    site_name: 'QuranVocab',
     site_description: 'Learn Arabic with interactive lessons and AI-powered features',
     site_url: 'https://your-domain.com',
     contact_email: 'contact@your-domain.com',

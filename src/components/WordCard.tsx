@@ -121,7 +121,7 @@ const WordCard: React.FC<WordCardProps> = ({
               /{word.transliteration}/
             </p>
             <p className="text-sm text-muted-foreground mt-4">
-              {word.partOfSpeech} • Used {word.frequency} times in the Quran
+              {word.partOfSpeech} • {word.frequency > 0 ? `Used ${word.frequency} times in the Quran` : 'Related term, not verbatim in the Quran'}
             </p>
           </div>
         ) : (

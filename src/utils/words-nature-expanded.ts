@@ -11,6 +11,8 @@ export const natureExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 190,
+    location: { surah: 2, ayah: 164, position: 4 },
+    frequencyVerified: true,
     tags: ['nature', 'creation', 'sky'],
     collections: ['nature'],
     examples: [
@@ -31,6 +33,8 @@ export const natureExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 461,
+    location: { surah: 2, ayah: 164, position: 5 },
+    frequencyVerified: true,
     tags: ['nature', 'creation', 'earth'],
     collections: ['nature'],
     examples: [
@@ -51,6 +55,8 @@ export const natureExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 33,
+    location: { surah: 91, ayah: 1, position: 1 },
+    frequencyVerified: true,
     tags: ['nature', 'celestial', 'light'],
     collections: ['nature', 'astronomy'],
     examples: [
@@ -71,6 +77,8 @@ export const natureExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 27,
+    location: { surah: 91, ayah: 2, position: 1 },
+    frequencyVerified: true,
     tags: ['nature', 'celestial', 'night'],
     collections: ['nature', 'astronomy'],
     examples: [
@@ -91,6 +99,8 @@ export const natureExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 13,
+    location: { surah: 16, ayah: 16, position: 2 },
+    frequencyVerified: true,
     tags: ['nature', 'celestial', 'guidance'],
     collections: ['nature', 'astronomy'],
     examples: [
@@ -110,7 +120,9 @@ export const natureExpandedWords: Word[] = [
     root: 'مطر',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 30,
+    frequency: 7,
+    location: { surah: 4, ayah: 102, position: 48 },
+    frequencyVerified: true,
     tags: ['nature', 'weather', 'sustenance'],
     collections: ['nature', 'weather'],
     examples: [
@@ -130,7 +142,9 @@ export const natureExpandedWords: Word[] = [
     root: 'روح',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 18,
+    frequency: 29,
+    location: { surah: 2, ayah: 164, position: 35 },
+    frequencyVerified: true,
     tags: ['nature', 'weather', 'movement'],
     collections: ['nature', 'weather'],
     examples: [
@@ -151,14 +165,16 @@ export const natureExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 39,
+    location: { surah: 78, ayah: 7, position: 1 },
+    frequencyVerified: true,
     tags: ['nature', 'geography', 'stability'],
     collections: ['nature', 'geography'],
     examples: [
       {
-        surah: 15,
-        ayah: 19,
-        arabicText: 'وَأَلْقَىٰ فِيهَا رَوَاسِيَ',
-        translation: 'And We placed within it firmly set mountains'
+        surah: 78,
+        ayah: 7,
+        arabicText: 'وَالْجِبَالَ أَوْتَادًا',
+        translation: 'And the mountains as stakes'
       }
     ]
   },
@@ -171,6 +187,8 @@ export const natureExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 41,
+    location: { surah: 55, ayah: 19, position: 2 },
+    frequencyVerified: true,
     tags: ['nature', 'water', 'creation'],
     collections: ['nature', 'geography'],
     examples: [
@@ -191,6 +209,8 @@ export const natureExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 63,
+    location: { surah: 21, ayah: 30, position: 13 },
+    frequencyVerified: true,
     tags: ['nature', 'life', 'purity'],
     collections: ['nature', 'food'],
     examples: [

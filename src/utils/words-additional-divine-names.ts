@@ -10,7 +10,9 @@ export const additionalDivineNamesWords: Word[] = [
     root: 'سمع',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 45,
+    frequency: 47,
+    location: { surah: 2, ayah: 127, position: 13 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'hearing', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -30,7 +32,9 @@ export const additionalDivineNamesWords: Word[] = [
     root: 'بصر',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 42,
+    frequency: 51,
+    location: { surah: 2, ayah: 110, position: 17 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'sight', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -50,15 +54,17 @@ export const additionalDivineNamesWords: Word[] = [
     root: 'حكم',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 1,
+    frequency: 3,
+    location: { surah: 6, ayah: 114, position: 4 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'judgment', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
       {
-        surah: 40,
-        ayah: 48,
-        arabicText: 'إِنَّ اللَّهَ هُوَ الْحَكَمُ بَيْنَ الْعِبَادِ',
-        translation: 'Indeed, Allah is the judge between [His] servants'
+        surah: 6,
+        ayah: 114,
+        arabicText: 'أَفَغَيْرَ اللَّهِ أَبْتَغِي حَكَمًا',
+        translation: '[Say], "Then is it other than Allah I should seek as judge?"'
       }
     ]
   },
@@ -71,6 +77,8 @@ export const additionalDivineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 7,
+    location: { surah: 12, ayah: 100, position: 40 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'subtlety', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -91,6 +99,8 @@ export const additionalDivineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 45,
+    location: { surah: 2, ayah: 234, position: 25 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'awareness', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -111,6 +121,8 @@ export const additionalDivineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 15,
+    location: { surah: 2, ayah: 225, position: 14 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'gentleness', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -130,7 +142,9 @@ export const additionalDivineNamesWords: Word[] = [
     root: 'عظم',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 9,
+    frequency: 120,
+    location: { surah: 2, ayah: 255, position: 50 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'greatness', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -151,12 +165,14 @@ export const additionalDivineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 91,
+    location: { surah: 2, ayah: 192, position: 5 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'forgiveness', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
       {
         surah: 2,
-        ayah: 173,
+        ayah: 192,
         arabicText: 'فَإِنَّ اللَّهَ غَفُورٌ رَّحِيمٌ',
         translation: 'Then indeed, Allah is Forgiving and Merciful'
       }
@@ -170,7 +186,9 @@ export const additionalDivineNamesWords: Word[] = [
     root: 'شكر',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 4,
+    frequency: 10,
+    location: { surah: 35, ayah: 30, position: 8 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'appreciation', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -190,7 +208,9 @@ export const additionalDivineNamesWords: Word[] = [
     root: 'علو',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 8,
+    frequency: 11,
+    location: { surah: 2, ayah: 255, position: 49 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'elevation', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [

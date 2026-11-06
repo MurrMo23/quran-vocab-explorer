@@ -11,6 +11,8 @@ export const additionalProphetsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 12,
+    location: { surah: 2, ayah: 125, position: 15 },
+    frequencyVerified: true,
     tags: ['prophets', 'patriarch', 'sacrifice'],
     collections: ['prophets'],
     examples: [
@@ -31,13 +33,15 @@ export const additionalProphetsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 17,
+    location: { surah: 11, ayah: 71, position: 5 },
+    frequencyVerified: true,
     tags: ['prophets', 'patriarch', 'blessing'],
     collections: ['prophets'],
     examples: [
       {
         surah: 11,
         ayah: 71,
-        arabicText: 'وَبَشَّرْنَاهَا بِإِسْحَاقَ',
+        arabicText: 'فَبَشَّرْنَاهَا بِإِسْحَاقَ',
         translation: 'And We gave her good tidings of Isaac'
       }
     ]
@@ -51,6 +55,8 @@ export const additionalProphetsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 16,
+    location: { surah: 2, ayah: 132, position: 5 },
+    frequencyVerified: true,
     tags: ['prophets', 'patriarch', 'israel'],
     collections: ['prophets'],
     examples: [
@@ -71,14 +77,16 @@ export const additionalProphetsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 20,
+    location: { surah: 20, ayah: 30, position: 1 },
+    frequencyVerified: true,
     tags: ['prophets', 'brother', 'spokesman'],
     collections: ['prophets'],
     examples: [
       {
         surah: 20,
         ayah: 30,
-        arabicText: 'وَاجْعَل لِّي وَزِيرًا مِّنْ أَهْلِي هَارُونَ أَخِي',
-        translation: 'And appoint for me a minister from my family - Aaron, my brother'
+        arabicText: 'هَارُونَ أَخِي',
+        translation: 'Aaron, my brother'
       }
     ]
   },
@@ -91,6 +99,8 @@ export const additionalProphetsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 17,
+    location: { surah: 2, ayah: 102, position: 7 },
+    frequencyVerified: true,
     tags: ['prophets', 'king', 'wisdom'],
     collections: ['prophets'],
     examples: [
@@ -111,6 +121,8 @@ export const additionalProphetsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 4,
+    location: { surah: 21, ayah: 83, position: 1 },
+    frequencyVerified: true,
     tags: ['prophets', 'patience', 'trial'],
     collections: ['prophets'],
     examples: [
@@ -131,6 +143,8 @@ export const additionalProphetsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 4,
+    location: { surah: 10, ayah: 98, position: 9 },
+    frequencyVerified: true,
     tags: ['prophets', 'whale', 'repentance'],
     collections: ['prophets'],
     examples: [
@@ -151,6 +165,8 @@ export const additionalProphetsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 7,
+    location: { surah: 3, ayah: 37, position: 9 },
+    frequencyVerified: true,
     tags: ['prophets', 'father', 'prayer'],
     collections: ['prophets'],
     examples: [
@@ -171,6 +187,8 @@ export const additionalProphetsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 5,
+    location: { surah: 3, ayah: 39, position: 11 },
+    frequencyVerified: true,
     tags: ['prophets', 'baptist', 'righteousness'],
     collections: ['prophets'],
     examples: [

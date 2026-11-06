@@ -118,7 +118,7 @@ const Practice = () => {
   const practiceContent = (
     <>
       <SEO 
-        title="Practice Arabic Vocabulary | Learn Words"
+        title="Practice Quranic Vocabulary"
         description="Practice Arabic vocabulary words with interactive flashcards and track your progress. Master Quranic Arabic through spaced repetition."
         keywords={["Arabic practice", "vocabulary flashcards", "language learning", "interactive study"]}
         url="https://quranvocab.com/practice"

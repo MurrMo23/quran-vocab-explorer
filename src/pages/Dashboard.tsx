@@ -49,7 +49,7 @@ const Dashboard = () => {
   return (
     <>
       <SEO 
-        title="Dashboard | Quran Vocab Explorer"
+        title="Your Dashboard"
         description="Track your Arabic vocabulary learning progress with personalized stats, daily words, and featured collections."
         keywords={["Arabic dashboard", "vocabulary progress", "Quranic learning"]}
         url="https://quranvocab.com/dashboard"

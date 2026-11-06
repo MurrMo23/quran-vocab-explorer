@@ -11,6 +11,8 @@ export const afterlifeExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 26,
+    location: { surah: 2, ayah: 8, position: 7 },
+    frequencyVerified: true,
     tags: ['afterlife', 'judgment', 'end times'],
     collections: ['afterlife', 'faith'],
     examples: [
@@ -30,7 +32,9 @@ export const afterlifeExtendedWords: Word[] = [
     root: 'دين',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 12,
+    frequency: 13,
+    location: { surah: 1, ayah: 4, position: 2 },
+    frequencyVerified: true,
     tags: ['afterlife', 'judgment', 'religion'],
     collections: ['afterlife', 'faith'],
     examples: [
@@ -51,6 +55,8 @@ export const afterlifeExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 48,
+    location: { surah: 7, ayah: 187, position: 3 },
+    frequencyVerified: true,
     tags: ['afterlife', 'end times', 'judgment'],
     collections: ['afterlife'],
     examples: [
@@ -70,7 +76,9 @@ export const afterlifeExtendedWords: Word[] = [
     root: 'بعث',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 39,
+    frequency: 4,
+    location: { surah: 22, ayah: 5, position: 8 },
+    frequencyVerified: true,
     tags: ['afterlife', 'resurrection', 'revival'],
     collections: ['afterlife'],
     examples: [
@@ -91,14 +99,16 @@ export const afterlifeExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'advanced',
     frequency: 5,
+    location: { surah: 35, ayah: 9, position: 17 },
+    frequencyVerified: true,
     tags: ['afterlife', 'resurrection', 'revival'],
     collections: ['afterlife'],
     examples: [
       {
-        surah: 17,
-        ayah: 51,
-        arabicText: 'مَّن يُحْيِينَا ۖ قُلِ الَّذِي فَطَرَكُمْ أَوَّلَ مَرَّةٍ',
-        translation: 'Who will restore us to life?" Say, "He who brought you forth the first time"'
+        surah: 35,
+        ayah: 9,
+        arabicText: 'فَأَحْيَيْنَا بِهِ الْأَرْضَ بَعْدَ مَوْتِهَا ۚ كَذَٰلِكَ النُّشُورُ',
+        translation: 'And We give life thereby to the earth after its lifelessness. Thus is the resurrection'
       }
     ]
   },
@@ -111,14 +121,16 @@ export const afterlifeExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 2,
+    location: { surah: 23, ayah: 11, position: 3 },
+    frequencyVerified: true,
     tags: ['afterlife', 'paradise', 'reward'],
     collections: ['afterlife'],
     examples: [
       {
         surah: 23,
         ayah: 11,
-        arabicText: 'أُولَٰئِكَ هُمُ الْوَارِثُونَ الَّذِينَ يَرِثُونَ الْفِرْدَوْسَ هُمْ فِيهَا خَالِدُونَ',
-        translation: 'Those are the inheritors Who will inherit al-Firdaus. They will abide therein eternally'
+        arabicText: 'الَّذِينَ يَرِثُونَ الْفِرْدَوْسَ هُمْ فِيهَا خَالِدُونَ',
+        translation: 'Who will inherit al-Firdaus. They will abide therein eternally'
       }
     ]
   },
@@ -131,6 +143,8 @@ export const afterlifeExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 11,
+    location: { surah: 13, ayah: 23, position: 2 },
+    frequencyVerified: true,
     tags: ['afterlife', 'paradise', 'garden'],
     collections: ['afterlife'],
     examples: [
@@ -151,6 +165,8 @@ export const afterlifeExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 16,
+    location: { surah: 4, ayah: 10, position: 13 },
+    frequencyVerified: true,
     tags: ['afterlife', 'hell', 'punishment'],
     collections: ['afterlife'],
     examples: [
@@ -171,6 +187,8 @@ export const afterlifeExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 26,
+    location: { surah: 26, ayah: 91, position: 2 },
+    frequencyVerified: true,
     tags: ['afterlife', 'hell', 'punishment'],
     collections: ['afterlife'],
     examples: [
@@ -191,6 +209,8 @@ export const afterlifeExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'advanced',
     frequency: 1,
+    location: { surah: 70, ayah: 15, position: 3 },
+    frequencyVerified: true,
     tags: ['afterlife', 'hell', 'fire'],
     collections: ['afterlife'],
     examples: [

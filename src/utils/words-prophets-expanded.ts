@@ -11,6 +11,8 @@ export const prophetsExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 75,
+    location: { surah: 2, ayah: 61, position: 52 },
+    frequencyVerified: true,
     tags: ['prophets', 'messenger', 'guidance'],
     collections: ['prophets'],
     examples: [
@@ -30,7 +32,9 @@ export const prophetsExpandedWords: Word[] = [
     root: 'رسل',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 513,
+    frequency: 332,
+    location: { surah: 4, ayah: 59, position: 7 },
+    frequencyVerified: true,
     tags: ['prophets', 'messenger', 'guidance'],
     collections: ['prophets'],
     examples: [
@@ -51,6 +55,8 @@ export const prophetsExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 25,
+    location: { surah: 2, ayah: 31, position: 2 },
+    frequencyVerified: true,
     tags: ['prophets', 'first human', 'creation'],
     collections: ['prophets'],
     examples: [
@@ -71,6 +77,8 @@ export const prophetsExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 43,
+    location: { surah: 71, ayah: 1, position: 3 },
+    frequencyVerified: true,
     tags: ['prophets', 'flood', 'ark'],
     collections: ['prophets'],
     examples: [
@@ -91,6 +99,8 @@ export const prophetsExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 69,
+    location: { surah: 2, ayah: 124, position: 3 },
+    frequencyVerified: true,
     tags: ['prophets', 'patriarch', 'monotheism'],
     collections: ['prophets'],
     examples: [
@@ -111,6 +121,8 @@ export const prophetsExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 136,
+    location: { surah: 2, ayah: 51, position: 3 },
+    frequencyVerified: true,
     tags: ['prophets', 'torah', 'exodus'],
     collections: ['prophets'],
     examples: [
@@ -131,6 +143,8 @@ export const prophetsExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 25,
+    location: { surah: 3, ayah: 45, position: 12 },
+    frequencyVerified: true,
     tags: ['prophets', 'messiah', 'gospel'],
     collections: ['prophets'],
     examples: [
@@ -151,6 +165,8 @@ export const prophetsExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 4,
+    location: { surah: 47, ayah: 2, position: 9 },
+    frequencyVerified: true,
     tags: ['prophets', 'final messenger', 'praise'],
     collections: ['prophets'],
     examples: [
@@ -171,6 +187,8 @@ export const prophetsExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 27,
+    location: { surah: 12, ayah: 4, position: 3 },
+    frequencyVerified: true,
     tags: ['prophets', 'dreams', 'egypt'],
     collections: ['prophets'],
     examples: [
@@ -191,6 +209,8 @@ export const prophetsExpandedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 16,
+    location: { surah: 2, ayah: 251, position: 5 },
+    frequencyVerified: true,
     tags: ['prophets', 'king', 'psalms'],
     collections: ['prophets'],
     examples: [

@@ -10,7 +10,9 @@ export const worshipExtendedWords: Word[] = [
     root: 'حسن',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 65,
+    frequency: 12,
+    location: { surah: 2, ayah: 83, position: 11 },
+    frequencyVerified: true,
     tags: ['worship', 'excellence', 'spiritual'],
     collections: ['worship', 'ethics'],
     examples: [
@@ -30,7 +32,9 @@ export const worshipExtendedWords: Word[] = [
     root: 'شرك',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 12,
+    frequency: 5,
+    location: { surah: 31, ayah: 13, position: 12 },
+    frequencyVerified: true,
     tags: ['theology', 'polytheism', 'negative'],
     collections: ['faith', 'ethics'],
     examples: [
@@ -51,6 +55,8 @@ export const worshipExtendedWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 37,
+    location: { surah: 2, ayah: 108, position: 13 },
+    frequencyVerified: true,
     tags: ['theology', 'disbelief', 'negative'],
     collections: ['faith'],
     examples: [
@@ -70,7 +76,9 @@ export const worshipExtendedWords: Word[] = [
     root: 'خشي',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 48,
+    frequency: 8,
+    location: { surah: 2, ayah: 74, position: 31 },
+    frequencyVerified: true,
     tags: ['fear', 'reverence', 'spiritual'],
     collections: ['faith', 'ethics'],
     examples: [

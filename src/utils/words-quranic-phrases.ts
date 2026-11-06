@@ -10,7 +10,10 @@ export const quranicPhrasesWords: Word[] = [
     root: 'سمي',
     partOfSpeech: 'phrase',
     level: 'beginner',
+    // Opens 113 surahs (numbered as an ayah only in 1:1) and appears within 27:30.
     frequency: 114,
+    location: { surah: 1, ayah: 1, position: 1 },
+    frequencyVerified: true,
     tags: ['phrases', 'opening', 'basmala'],
     collections: ['phrases', 'worship'],
     examples: [
@@ -30,7 +33,9 @@ export const quranicPhrasesWords: Word[] = [
     root: 'حمد',
     partOfSpeech: 'phrase',
     level: 'beginner',
-    frequency: 1,
+    frequency: 6,
+    location: { surah: 1, ayah: 2, position: 1 },
+    frequencyVerified: true,
     tags: ['phrases', 'praise', 'gratitude'],
     collections: ['phrases', 'worship'],
     examples: [
@@ -50,7 +55,9 @@ export const quranicPhrasesWords: Word[] = [
     root: 'أله',
     partOfSpeech: 'phrase',
     level: 'beginner',
-    frequency: 37,
+    frequency: 2,
+    location: { surah: 37, ayah: 35, position: 6 },
+    frequencyVerified: true,
     tags: ['phrases', 'tawheed', 'declaration'],
     collections: ['phrases', 'faith'],
     examples: [
@@ -66,12 +73,13 @@ export const quranicPhrasesWords: Word[] = [
     id: 'allahu-akbar',
     arabic: 'الله أكبر',
     transliteration: 'Allahu Akbar',
-    meaning: 'Allah is Greatest',
+    meaning: 'Allah is Greatest (this exact phrase does not occur in the Quran; the related command "and glorify Him with [great] glorification" occurs in 17:111)',
     root: 'كبر',
     partOfSpeech: 'phrase',
     level: 'beginner',
-    frequency: 37,
-    tags: ['phrases', 'takbeer', 'magnification'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['related-form', 'phrases', 'takbeer', 'magnification'],
     collections: ['phrases', 'worship'],
     examples: [
       {
@@ -90,7 +98,9 @@ export const quranicPhrasesWords: Word[] = [
     root: 'سبح',
     partOfSpeech: 'phrase',
     level: 'beginner',
-    frequency: 41,
+    frequency: 9,
+    location: { surah: 12, ayah: 108, position: 12 },
+    frequencyVerified: true,
     tags: ['phrases', 'glorification', 'praise'],
     collections: ['phrases', 'worship'],
     examples: [
@@ -110,15 +120,23 @@ export const quranicPhrasesWords: Word[] = [
     root: 'شيأ',
     partOfSpeech: 'phrase',
     level: 'beginner',
-    frequency: 17,
+    frequency: 6,
+    location: { surah: 48, ayah: 27, position: 10 },
+    frequencyVerified: true,
     tags: ['phrases', 'condition', 'will'],
     collections: ['phrases', 'faith'],
     examples: [
       {
+        surah: 48,
+        ayah: 27,
+        arabicText: 'لَتَدْخُلُنَّ الْمَسْجِدَ الْحَرَامَ إِن شَاءَ اللَّهُ آمِنِينَ',
+        translation: 'You will surely enter al-Masjid al-Haram, if Allah wills, in safety'
+      },
+      {
         surah: 18,
-        ayah: 23,
-        arabicText: 'وَلَا تَقُولَنَّ لِشَيْءٍ إِنِّي فَاعِلٌ ذَٰلِكَ غَدًا إِلَّا أَن يَشَاءَ اللَّهُ',
-        translation: 'And never say of anything, "Indeed, I will do that tomorrow," except [when adding], "If Allah wills"'
+        ayah: 24,
+        arabicText: 'إِلَّا أَن يَشَاءَ اللَّهُ',
+        translation: 'Except [when adding], "If Allah wills"'
       }
     ]
   }

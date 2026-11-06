@@ -11,6 +11,8 @@ export const religiousConceptsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 8,
+    location: { surah: 3, ayah: 19, position: 5 },
+    frequencyVerified: true,
     tags: ['religion', 'submission', 'fundamental'],
     collections: ['faith', 'worship'],
     examples: [
@@ -31,6 +33,8 @@ export const religiousConceptsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 45,
+    location: { surah: 2, ayah: 93, position: 24 },
+    frequencyVerified: true,
     tags: ['faith', 'belief', 'fundamental'],
     collections: ['faith'],
     examples: [
@@ -50,8 +54,9 @@ export const religiousConceptsWords: Word[] = [
     root: 'وحد',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 15,
-    tags: ['theology', 'monotheism', 'fundamental'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'theology', 'monotheism', 'fundamental'],
     collections: ['faith'],
     examples: [
       {
@@ -70,7 +75,9 @@ export const religiousConceptsWords: Word[] = [
     root: 'وقي',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 15,
+    frequency: 17,
+    location: { surah: 2, ayah: 197, position: 26 },
+    frequencyVerified: true,
     tags: ['piety', 'consciousness', 'virtue'],
     collections: ['faith', 'ethics'],
     examples: [
@@ -90,7 +97,9 @@ export const religiousConceptsWords: Word[] = [
     root: 'صلو',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 67,
+    frequency: 83,
+    location: { surah: 2, ayah: 3, position: 5 },
+    frequencyVerified: true,
     tags: ['worship', 'prayer', 'pillar'],
     collections: ['worship'],
     examples: [
@@ -110,7 +119,9 @@ export const religiousConceptsWords: Word[] = [
     root: 'زكو',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 30,
+    frequency: 32,
+    location: { surah: 2, ayah: 43, position: 4 },
+    frequencyVerified: true,
     tags: ['worship', 'charity', 'pillar'],
     collections: ['worship', 'ethics'],
     examples: [
@@ -130,7 +141,9 @@ export const religiousConceptsWords: Word[] = [
     root: 'صوم',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 14,
+    frequency: 1,
+    location: { surah: 19, ayah: 26, position: 14 },
+    frequencyVerified: true,
     tags: ['worship', 'fasting', 'pillar'],
     collections: ['worship'],
     examples: [
@@ -150,7 +163,9 @@ export const religiousConceptsWords: Word[] = [
     root: 'حجج',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 15,
+    frequency: 10,
+    location: { surah: 3, ayah: 97, position: 13 },
+    frequencyVerified: true,
     tags: ['worship', 'pilgrimage', 'pillar'],
     collections: ['worship'],
     examples: [
@@ -170,7 +185,9 @@ export const religiousConceptsWords: Word[] = [
     root: 'ذكر',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 292,
+    frequency: 76,
+    location: { surah: 13, ayah: 28, position: 5 },
+    frequencyVerified: true,
     tags: ['remembrance', 'worship', 'spiritual'],
     collections: ['worship', 'faith'],
     examples: [
@@ -190,15 +207,17 @@ export const religiousConceptsWords: Word[] = [
     root: 'صبر',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 103,
+    frequency: 15,
+    location: { surah: 2, ayah: 153, position: 5 },
+    frequencyVerified: true,
     tags: ['patience', 'virtue', 'character'],
     collections: ['ethics', 'faith'],
     examples: [
       {
         surah: 2,
         ayah: 153,
-        arabicText: 'وَاصْبِرُوا ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ',
-        translation: 'And be patient. Indeed, Allah is with the patient'
+        arabicText: 'اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ',
+        translation: 'Seek help through patience and prayer. Indeed, Allah is with the patient'
       }
     ]
   }

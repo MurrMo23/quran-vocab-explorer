@@ -11,6 +11,8 @@ export const afterlifeWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 115,
+    location: { surah: 2, ayah: 4, position: 10 },
+    frequencyVerified: true,
     tags: ['afterlife', 'hereafter', 'future'],
     collections: ['afterlife'],
     examples: [
@@ -31,6 +33,8 @@ export const afterlifeWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 70,
+    location: { surah: 2, ayah: 85, position: 39 },
+    frequencyVerified: true,
     tags: ['afterlife', 'resurrection', 'judgment'],
     collections: ['afterlife'],
     examples: [
@@ -51,6 +55,8 @@ export const afterlifeWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 147,
+    location: { surah: 2, ayah: 25, position: 8 },
+    frequencyVerified: true,
     tags: ['afterlife', 'paradise', 'reward'],
     collections: ['afterlife'],
     examples: [
@@ -71,6 +77,8 @@ export const afterlifeWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 145,
+    location: { surah: 2, ayah: 24, position: 7 },
+    frequencyVerified: true,
     tags: ['afterlife', 'hell', 'punishment'],
     collections: ['afterlife'],
     examples: [
@@ -91,14 +99,16 @@ export const afterlifeWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 77,
+    location: { surah: 2, ayah: 206, position: 10 },
+    frequencyVerified: true,
     tags: ['afterlife', 'hell', 'punishment'],
     collections: ['afterlife'],
     examples: [
       {
         surah: 2,
         ayah: 206,
-        arabicText: 'وَبِئْسَ الْمِهَادُ جَهَنَّمُ',
-        translation: 'And wretched is the resting place - Hell'
+        arabicText: 'فَحَسْبُهُ جَهَنَّمُ ۚ وَلَبِئْسَ الْمِهَادُ',
+        translation: 'Sufficient for him is Hell, and how wretched is the resting place'
       }
     ]
   },
@@ -110,7 +120,9 @@ export const afterlifeWords: Word[] = [
     root: 'حسب',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 52,
+    frequency: 39,
+    location: { surah: 2, ayah: 202, position: 8 },
+    frequencyVerified: true,
     tags: ['afterlife', 'judgment', 'accounting'],
     collections: ['afterlife'],
     examples: [
@@ -130,7 +142,9 @@ export const afterlifeWords: Word[] = [
     root: 'وزن',
     partOfSpeech: 'noun',
     level: 'advanced',
-    frequency: 23,
+    frequency: 16,
+    location: { surah: 7, ayah: 8, position: 6 },
+    frequencyVerified: true,
     tags: ['afterlife', 'judgment', 'balance'],
     collections: ['afterlife'],
     examples: [
@@ -146,11 +160,13 @@ export const afterlifeWords: Word[] = [
     id: 'as-sirat',
     arabic: 'الصراط',
     transliteration: 'As-Sirat',
-    meaning: 'The Bridge',
+    meaning: 'The Path, the Way',
     root: 'صرط',
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 45,
+    location: { surah: 1, ayah: 6, position: 2 },
+    frequencyVerified: true,
     tags: ['afterlife', 'bridge', 'path'],
     collections: ['afterlife'],
     examples: [

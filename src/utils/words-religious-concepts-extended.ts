@@ -10,7 +10,9 @@ export const religiousConceptsExtendedWords: Word[] = [
     root: 'نفق',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 20,
+    frequency: 3,
+    location: { surah: 9, ayah: 77, position: 2 },
+    frequencyVerified: true,
     tags: ['religion', 'hypocrisy', 'negative'],
     collections: ['faith', 'ethics'],
     examples: [
@@ -30,7 +32,9 @@ export const religiousConceptsExtendedWords: Word[] = [
     root: 'عبد',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 7,
+    frequency: 9,
+    location: { surah: 4, ayah: 172, position: 14 },
+    frequencyVerified: true,
     tags: ['worship', 'service', 'devotion'],
     collections: ['worship', 'faith'],
     examples: [
@@ -50,7 +54,9 @@ export const religiousConceptsExtendedWords: Word[] = [
     root: 'جهد',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 41,
+    frequency: 4,
+    location: { surah: 22, ayah: 78, position: 5 },
+    frequencyVerified: true,
     tags: ['struggle', 'effort', 'striving'],
     collections: ['worship', 'ethics'],
     examples: [
@@ -70,7 +76,9 @@ export const religiousConceptsExtendedWords: Word[] = [
     root: 'دعو',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 213,
+    frequency: 22,
+    location: { surah: 2, ayah: 171, position: 11 },
+    frequencyVerified: true,
     tags: ['prayer', 'supplication', 'calling'],
     collections: ['worship', 'faith'],
     examples: [
@@ -90,7 +98,9 @@ export const religiousConceptsExtendedWords: Word[] = [
     root: 'سبح',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 4,
+    frequency: 2,
+    location: { surah: 17, ayah: 44, position: 17 },
+    frequencyVerified: true,
     tags: ['glorification', 'praise', 'worship'],
     collections: ['worship', 'faith'],
     examples: [
@@ -110,8 +120,9 @@ export const religiousConceptsExtendedWords: Word[] = [
     root: 'حمد',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 68,
-    tags: ['praise', 'thanksgiving', 'worship'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'praise', 'thanksgiving', 'worship'],
     collections: ['worship', 'faith'],
     examples: [
       {
@@ -130,7 +141,9 @@ export const religiousConceptsExtendedWords: Word[] = [
     root: 'كبر',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 37,
+    frequency: 1,
+    location: { surah: 17, ayah: 111, position: 21 },
+    frequencyVerified: true,
     tags: ['magnification', 'greatness', 'worship'],
     collections: ['worship', 'faith'],
     examples: [
@@ -150,8 +163,9 @@ export const religiousConceptsExtendedWords: Word[] = [
     root: 'هلل',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 1,
-    tags: ['declaration', 'oneness', 'worship'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'declaration', 'oneness', 'worship'],
     collections: ['worship', 'faith'],
     examples: [
       {
@@ -170,7 +184,9 @@ export const religiousConceptsExtendedWords: Word[] = [
     root: 'غفر',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 234,
+    frequency: 1,
+    location: { surah: 9, ayah: 114, position: 3 },
+    frequencyVerified: true,
     tags: ['forgiveness', 'repentance', 'worship'],
     collections: ['worship', 'faith', 'ethics'],
     examples: [
@@ -190,8 +206,9 @@ export const religiousConceptsExtendedWords: Word[] = [
     root: 'رضي',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 73,
-    tags: ['contentment', 'satisfaction', 'spiritual'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'contentment', 'satisfaction', 'spiritual'],
     collections: ['faith', 'ethics'],
     examples: [
       {

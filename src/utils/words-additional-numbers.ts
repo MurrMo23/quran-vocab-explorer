@@ -10,7 +10,9 @@ export const additionalNumbersWords: Word[] = [
     root: 'ثمن',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 1,
+    frequency: 4,
+    location: { surah: 69, ayah: 7, position: 5 },
+    frequencyVerified: true,
     tags: ['numbers', 'basic'],
     collections: ['numbers'],
     examples: [
@@ -30,7 +32,9 @@ export const additionalNumbersWords: Word[] = [
     root: 'تسع',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 4,
+    frequency: 2,
+    location: { surah: 27, ayah: 48, position: 4 },
+    frequencyVerified: true,
     tags: ['numbers', 'basic'],
     collections: ['numbers'],
     examples: [
@@ -51,6 +55,8 @@ export const additionalNumbersWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 1,
+    location: { surah: 12, ayah: 4, position: 8 },
+    frequencyVerified: true,
     tags: ['numbers', 'teens'],
     collections: ['numbers'],
     examples: [
@@ -71,6 +77,8 @@ export const additionalNumbersWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 5,
+    location: { surah: 2, ayah: 60, position: 11 },
+    frequencyVerified: true,
     tags: ['numbers', 'teens'],
     collections: ['numbers'],
     examples: [
@@ -91,6 +99,8 @@ export const additionalNumbersWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 1,
+    location: { surah: 8, ayah: 65, position: 10 },
+    frequencyVerified: true,
     tags: ['numbers', 'tens'],
     collections: ['numbers'],
     examples: [

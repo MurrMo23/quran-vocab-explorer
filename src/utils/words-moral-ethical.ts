@@ -10,7 +10,9 @@ export const moralEthicalWords: Word[] = [
     root: 'برر',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 17,
+    frequency: 8,
+    location: { surah: 2, ayah: 177, position: 2 },
+    frequencyVerified: true,
     tags: ['righteousness', 'virtue', 'goodness'],
     collections: ['ethics'],
     examples: [
@@ -30,7 +32,9 @@ export const moralEthicalWords: Word[] = [
     root: 'فسد',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 50,
+    frequency: 11,
+    location: { surah: 2, ayah: 205, position: 14 },
+    frequencyVerified: true,
     tags: ['corruption', 'evil', 'negative traits'],
     collections: ['ethics'],
     examples: [
@@ -50,7 +54,9 @@ export const moralEthicalWords: Word[] = [
     root: 'ظلم',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 289,
+    frequency: 20,
+    location: { surah: 3, ayah: 108, position: 10 },
+    frequencyVerified: true,
     tags: ['injustice', 'oppression', 'negative traits'],
     collections: ['ethics'],
     examples: [
@@ -70,7 +76,9 @@ export const moralEthicalWords: Word[] = [
     root: 'غفر',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 234,
+    frequency: 28,
+    location: { surah: 2, ayah: 221, position: 33 },
+    frequencyVerified: true,
     tags: ['forgiveness', 'mercy', 'virtue'],
     collections: ['ethics', 'faith'],
     examples: [

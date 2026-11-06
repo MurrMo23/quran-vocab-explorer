@@ -11,6 +11,8 @@ export const additionalBodyPartsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 295,
+    location: { surah: 2, ayah: 54, position: 8 },
+    frequencyVerified: true,
     tags: ['body', 'soul', 'self'],
     collections: ['body', 'faith'],
     examples: [
@@ -30,7 +32,9 @@ export const additionalBodyPartsWords: Word[] = [
     root: 'فوه',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 5,
+    frequency: 13,
+    location: { surah: 9, ayah: 32, position: 6 },
+    frequencyVerified: true,
     tags: ['body', 'speech', 'eating'],
     collections: ['body'],
     examples: [
@@ -50,7 +54,9 @@ export const additionalBodyPartsWords: Word[] = [
     root: 'أنف',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 1,
+    frequency: 2,
+    location: { surah: 5, ayah: 45, position: 9 },
+    frequencyVerified: true,
     tags: ['body', 'smell', 'breathing'],
     collections: ['body'],
     examples: [
@@ -70,15 +76,17 @@ export const additionalBodyPartsWords: Word[] = [
     root: 'رجل',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 13,
+    frequency: 15,
+    location: { surah: 5, ayah: 33, position: 18 },
+    frequencyVerified: true,
     tags: ['body', 'walking', 'movement'],
     collections: ['body'],
     examples: [
       {
         surah: 5,
         ayah: 33,
-        arabicText: 'أَن تُقَطَّعَ أَيْدِيهِمْ وَأَرْجُلُهُم مِّنْ خِلَافٍ',
-        translation: 'That their hands and feet should be cut off from opposite sides'
+        arabicText: 'أَوْ تُقَطَّعَ أَيْدِيهِمْ وَأَرْجُلُهُم مِّنْ خِلَافٍ',
+        translation: 'Or that their hands and feet be cut off from opposite sides'
       }
     ]
   }

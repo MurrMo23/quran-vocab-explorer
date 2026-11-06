@@ -11,6 +11,8 @@ export const bodyPartsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 132,
+    location: { surah: 2, ayah: 7, position: 4 },
+    frequencyVerified: true,
     tags: ['body', 'emotions', 'spiritual'],
     collections: ['body'],
     examples: [
@@ -30,8 +32,9 @@ export const bodyPartsWords: Word[] = [
     root: 'عقل',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 49,
-    tags: ['body', 'intellect', 'reasoning'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'body', 'intellect', 'reasoning'],
     collections: ['body', 'knowledge'],
     examples: [
       {
@@ -51,6 +54,8 @@ export const bodyPartsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 21,
+    location: { surah: 17, ayah: 85, position: 3 },
+    frequencyVerified: true,
     tags: ['body', 'spiritual', 'essence'],
     collections: ['body', 'faith'],
     examples: [
@@ -71,6 +76,8 @@ export const bodyPartsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 57,
+    location: { surah: 2, ayah: 60, position: 13 },
+    frequencyVerified: true,
     tags: ['body', 'sight', 'perception'],
     collections: ['body'],
     examples: [
@@ -90,7 +97,9 @@ export const bodyPartsWords: Word[] = [
     root: 'أذن',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 7,
+    frequency: 18,
+    location: { surah: 2, ayah: 19, position: 12 },
+    frequencyVerified: true,
     tags: ['body', 'hearing', 'perception'],
     collections: ['body'],
     examples: [
@@ -111,6 +120,8 @@ export const bodyPartsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 25,
+    location: { surah: 16, ayah: 103, position: 8 },
+    frequencyVerified: true,
     tags: ['body', 'speech', 'language'],
     collections: ['body'],
     examples: [
@@ -131,6 +142,8 @@ export const bodyPartsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 120,
+    location: { surah: 5, ayah: 64, position: 3 },
+    frequencyVerified: true,
     tags: ['body', 'action', 'power'],
     collections: ['body'],
     examples: [
@@ -151,6 +164,8 @@ export const bodyPartsWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 72,
+    location: { surah: 2, ayah: 115, position: 7 },
+    frequencyVerified: true,
     tags: ['body', 'identity', 'direction'],
     collections: ['body'],
     examples: [

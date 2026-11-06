@@ -10,7 +10,9 @@ export const naturalPhenomenaWords: Word[] = [
     root: 'سحب',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 10,
+    frequency: 9,
+    location: { surah: 2, ayah: 164, position: 36 },
+    frequencyVerified: true,
     tags: ['nature', 'weather', 'sky'],
     collections: ['nature', 'weather'],
     examples: [
@@ -31,6 +33,8 @@ export const naturalPhenomenaWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 5,
+    location: { surah: 2, ayah: 20, position: 2 },
+    frequencyVerified: true,
     tags: ['nature', 'weather', 'light'],
     collections: ['nature', 'weather'],
     examples: [
@@ -51,6 +55,8 @@ export const naturalPhenomenaWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 2,
+    location: { surah: 13, ayah: 13, position: 2 },
+    frequencyVerified: true,
     tags: ['nature', 'weather', 'sound'],
     collections: ['nature', 'weather'],
     examples: [
@@ -70,15 +76,16 @@ export const naturalPhenomenaWords: Word[] = [
     root: 'ثلج',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 1,
-    tags: ['nature', 'weather', 'cold'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'nature', 'weather', 'cold'],
     collections: ['nature', 'weather'],
     examples: [
       {
         surah: 2,
-        ayah: 20,
-        arabicText: 'صَيِّبٍ مِّنَ السَّمَاءِ فِيهِ ظُلُمَاتٌ وَرَعْدٌ وَبَرْقٌ',
-        translation: 'Like a rainstorm from the sky within which is darkness, thunder and lightning'
+        ayah: 19,
+        arabicText: 'أَوْ كَصَيِّبٍ مِّنَ السَّمَاءِ فِيهِ ظُلُمَاتٌ وَرَعْدٌ وَبَرْقٌ',
+        translation: 'Or [it is] like a rainstorm from the sky within which is darkness, thunder and lightning'
       }
     ]
   },
@@ -91,6 +98,8 @@ export const naturalPhenomenaWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 1,
+    location: { surah: 24, ayah: 43, position: 25 },
+    frequencyVerified: true,
     tags: ['nature', 'weather', 'ice'],
     collections: ['nature', 'weather'],
     examples: [
@@ -111,6 +120,8 @@ export const naturalPhenomenaWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 17,
+    location: { surah: 3, ayah: 59, position: 10 },
+    frequencyVerified: true,
     tags: ['nature', 'earth', 'creation'],
     collections: ['nature'],
     examples: [
@@ -131,6 +142,8 @@ export const naturalPhenomenaWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 1,
+    location: { surah: 14, ayah: 43, position: 9 },
+    frequencyVerified: true,
     tags: ['nature', 'elements', 'atmosphere'],
     collections: ['nature'],
     examples: [
@@ -150,7 +163,9 @@ export const naturalPhenomenaWords: Word[] = [
     root: 'نبت',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 26,
+    frequency: 9,
+    location: { surah: 3, ayah: 37, position: 6 },
+    frequencyVerified: true,
     tags: ['nature', 'plants', 'growth'],
     collections: ['nature'],
     examples: [

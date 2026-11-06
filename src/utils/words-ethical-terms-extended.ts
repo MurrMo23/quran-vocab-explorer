@@ -10,8 +10,9 @@ export const ethicalTermsExtendedWords: Word[] = [
     root: 'صلح',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 180,
-    tags: ['righteousness', 'virtue', 'goodness'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'righteousness', 'virtue', 'goodness'],
     collections: ['ethics'],
     examples: [
       {
@@ -30,15 +31,17 @@ export const ethicalTermsExtendedWords: Word[] = [
     root: 'كذب',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 12,
+    frequency: 33,
+    location: { surah: 16, ayah: 105, position: 3 },
+    frequencyVerified: true,
     tags: ['falsehood', 'lies', 'negative traits'],
     collections: ['ethics'],
     examples: [
       {
-        surah: 2,
-        ayah: 42,
-        arabicText: 'وَلَا تَلْبِسُوا الْحَقَّ بِالْبَاطِلِ وَتَكْتُمُوا الْحَقَّ وَأَنتُمْ تَعْلَمُونَ',
-        translation: 'And do not mix the truth with falsehood or conceal the truth while you know [it]'
+        surah: 16,
+        ayah: 105,
+        arabicText: 'إِنَّمَا يَفْتَرِي الْكَذِبَ الَّذِينَ لَا يُؤْمِنُونَ بِآيَاتِ اللَّهِ',
+        translation: 'They only invent falsehood who do not believe in the verses of Allah'
       }
     ]
   },
@@ -50,15 +53,17 @@ export const ethicalTermsExtendedWords: Word[] = [
     root: 'خون',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 16,
+    frequency: 2,
+    location: { surah: 8, ayah: 58, position: 5 },
+    frequencyVerified: true,
     tags: ['betrayal', 'treachery', 'negative traits'],
     collections: ['ethics'],
     examples: [
       {
         surah: 8,
         ayah: 27,
-        arabicText: 'وَلَا تَخُونُوا اللَّهَ وَالرَّسُولَ وَتَخُونُوا أَمَانَاتِكُمْ',
-        translation: 'And do not betray Allah and the Messenger or betray your trusts'
+        arabicText: 'لَا تَخُونُوا اللَّهَ وَالرَّسُولَ وَتَخُونُوا أَمَانَاتِكُمْ',
+        translation: 'Do not betray Allah and the Messenger or betray your trusts'
       }
     ]
   },
@@ -70,8 +75,9 @@ export const ethicalTermsExtendedWords: Word[] = [
     root: 'حيي',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 1,
-    tags: ['modesty', 'shyness', 'virtue'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'modesty', 'shyness', 'virtue'],
     collections: ['ethics'],
     examples: [
       {
@@ -90,8 +96,9 @@ export const ethicalTermsExtendedWords: Word[] = [
     root: 'وضع',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 1,
-    tags: ['humility', 'modesty', 'virtue'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'humility', 'modesty', 'virtue'],
     collections: ['ethics'],
     examples: [
       {
@@ -110,13 +117,15 @@ export const ethicalTermsExtendedWords: Word[] = [
     root: 'كبر',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 14,
+    frequency: 2,
+    location: { surah: 24, ayah: 11, position: 24 },
+    frequencyVerified: true,
     tags: ['pride', 'arrogance', 'negative traits'],
     collections: ['ethics'],
     examples: [
       {
         surah: 7,
-        ayah: 13,
+        ayah: 12,
         arabicText: 'قَالَ مَا مَنَعَكَ أَلَّا تَسْجُدَ إِذْ أَمَرْتُكَ ۖ قَالَ أَنَا خَيْرٌ مِّنْهُ',
         translation: '[Allah] said, "What prevented you from prostrating when I commanded you?" [Satan] said, "I am better than him"'
       }
@@ -130,7 +139,9 @@ export const ethicalTermsExtendedWords: Word[] = [
     root: 'حسد',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 2,
+    frequency: 1,
+    location: { surah: 2, ayah: 109, position: 12 },
+    frequencyVerified: true,
     tags: ['envy', 'jealousy', 'negative traits'],
     collections: ['ethics'],
     examples: [
@@ -150,7 +161,9 @@ export const ethicalTermsExtendedWords: Word[] = [
     root: 'غضب',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 23,
+    frequency: 14,
+    location: { surah: 2, ayah: 61, position: 42 },
+    frequencyVerified: true,
     tags: ['anger', 'wrath', 'emotion'],
     collections: ['ethics', 'emotions'],
     examples: [

@@ -83,7 +83,7 @@ const Collections = () => {
   return (
     <>
       <SEO 
-        title="Word Collections | Arabic Vocabulary"
+        title="Quranic Vocabulary Collections"
         description="Browse and learn from organized collections of Arabic vocabulary words. Explore different categories and difficulty levels."
         keywords={["Arabic collections", "vocabulary categories", "organized learning", "word lists"]}
         url="https://quranvocab.com/collections"

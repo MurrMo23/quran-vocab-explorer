@@ -31,7 +31,7 @@ const InteractiveTutorial: React.FC = () => {
   const tutorialSteps: TutorialStep[] = [
     {
       id: 'welcome',
-      title: 'Welcome to Quran Vocab Explorer',
+      title: 'Welcome to QuranVocab',
       description: 'Your journey to mastering Quranic Arabic vocabulary starts here. Let\'s take a quick tour!',
       action: 'Get Started',
       component: 'intro'

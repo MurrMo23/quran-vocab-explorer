@@ -11,6 +11,8 @@ export const angelsAndSpiritualWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 88,
+    location: { surah: 2, ayah: 30, position: 4 },
+    frequencyVerified: true,
     tags: ['angels', 'spiritual beings'],
     collections: ['faith', 'community'],
     examples: [
@@ -31,6 +33,8 @@ export const angelsAndSpiritualWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 3,
+    location: { surah: 2, ayah: 97, position: 5 },
+    frequencyVerified: true,
     tags: ['angels', 'archangel', 'messenger'],
     collections: ['prophets', 'faith'],
     examples: [
@@ -51,6 +55,8 @@ export const angelsAndSpiritualWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 22,
+    location: { surah: 72, ayah: 1, position: 8 },
+    frequencyVerified: true,
     tags: ['spiritual beings', 'creation'],
     collections: ['faith', 'nature'],
     examples: [
@@ -70,7 +76,9 @@ export const angelsAndSpiritualWords: Word[] = [
     root: 'شطن',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 18,
+    frequency: 88,
+    location: { surah: 2, ayah: 14, position: 10 },
+    frequencyVerified: true,
     tags: ['spiritual beings', 'evil', 'temptation'],
     collections: ['faith'],
     examples: [
@@ -91,6 +99,8 @@ export const angelsAndSpiritualWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 11,
+    location: { surah: 2, ayah: 34, position: 8 },
+    frequencyVerified: true,
     tags: ['spiritual beings', 'evil', 'satan'],
     collections: ['faith'],
     examples: [

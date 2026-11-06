@@ -74,7 +74,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
           </div>
           <div>
             <div className="text-sm text-muted-foreground">Frequency</div>
-            <div className="font-medium">{word.frequency} occurrences</div>
+            <div className="font-medium">{word.frequency > 0 ? `${word.frequency} occurrences` : 'Not found verbatim in the Quran'}</div>
           </div>
         </div>
       </div>

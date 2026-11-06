@@ -11,6 +11,8 @@ export const importantVerbsWords: Word[] = [
     partOfSpeech: 'verb',
     level: 'beginner',
     frequency: 1358,
+    location: { surah: 2, ayah: 117, position: 10 },
+    frequencyVerified: true,
     tags: ['verbs', 'existence', 'past'],
     collections: ['verbs'],
     examples: [
@@ -30,7 +32,9 @@ export const importantVerbsWords: Word[] = [
     root: 'قول',
     partOfSpeech: 'verb',
     level: 'beginner',
-    frequency: 1722,
+    frequency: 1618,
+    location: { surah: 2, ayah: 30, position: 2 },
+    frequencyVerified: true,
     tags: ['verbs', 'speech', 'communication'],
     collections: ['verbs'],
     examples: [
@@ -50,7 +54,9 @@ export const importantVerbsWords: Word[] = [
     root: 'فعل',
     partOfSpeech: 'verb',
     level: 'beginner',
-    frequency: 107,
+    frequency: 88,
+    location: { surah: 2, ayah: 24, position: 3 },
+    frequencyVerified: true,
     tags: ['verbs', 'action', 'doing'],
     collections: ['verbs'],
     examples: [
@@ -70,7 +76,9 @@ export const importantVerbsWords: Word[] = [
     root: 'ذهب',
     partOfSpeech: 'verb',
     level: 'beginner',
-    frequency: 45,
+    frequency: 35,
+    location: { surah: 2, ayah: 17, position: 10 },
+    frequencyVerified: true,
     tags: ['verbs', 'movement', 'travel'],
     collections: ['verbs'],
     examples: [
@@ -90,14 +98,16 @@ export const importantVerbsWords: Word[] = [
     root: 'جيأ',
     partOfSpeech: 'verb',
     level: 'beginner',
-    frequency: 277,
+    frequency: 278,
+    location: { surah: 2, ayah: 87, position: 18 },
+    frequencyVerified: true,
     tags: ['verbs', 'coming', 'arrival'],
     collections: ['verbs'],
     examples: [
       {
         surah: 2,
         ayah: 87,
-        arabicText: 'فَكُلَّمَا جَاءَكُمْ رَسُولٌ بِمَا لَا تَهْوَىٰ أَنفُسُكُمُ',
+        arabicText: 'أَفَكُلَّمَا جَاءَكُمْ رَسُولٌ بِمَا لَا تَهْوَىٰ أَنفُسُكُمُ',
         translation: 'But whenever a messenger came to you, [O Children of Israel], with what your souls did not desire'
       }
     ]
@@ -110,7 +120,9 @@ export const importantVerbsWords: Word[] = [
     root: 'علم',
     partOfSpeech: 'verb',
     level: 'beginner',
-    frequency: 854,
+    frequency: 382,
+    location: { surah: 2, ayah: 13, position: 19 },
+    frequencyVerified: true,
     tags: ['verbs', 'knowledge', 'understanding'],
     collections: ['verbs', 'knowledge'],
     examples: [
@@ -130,7 +142,9 @@ export const importantVerbsWords: Word[] = [
     root: 'رأي',
     partOfSpeech: 'verb',
     level: 'beginner',
-    frequency: 328,
+    frequency: 271,
+    location: { surah: 12, ayah: 4, position: 7 },
+    frequencyVerified: true,
     tags: ['verbs', 'sight', 'perception'],
     collections: ['verbs'],
     examples: [
@@ -150,15 +164,17 @@ export const importantVerbsWords: Word[] = [
     root: 'سمع',
     partOfSpeech: 'verb',
     level: 'beginner',
-    frequency: 185,
+    frequency: 78,
+    location: { surah: 2, ayah: 93, position: 11 },
+    frequencyVerified: true,
     tags: ['verbs', 'hearing', 'perception'],
     collections: ['verbs'],
     examples: [
       {
         surah: 2,
         ayah: 93,
-        arabicText: 'وَقَالُوا سَمِعْنَا وَعَصَيْنَا',
-        translation: 'And they said, "We hear and disobey"'
+        arabicText: 'قَالُوا سَمِعْنَا وَعَصَيْنَا',
+        translation: 'They said, "We hear and disobey"'
       }
     ]
   }

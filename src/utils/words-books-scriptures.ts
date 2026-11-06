@@ -11,6 +11,8 @@ export const booksAndScripturesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 70,
+    location: { surah: 2, ayah: 185, position: 6 },
+    frequencyVerified: true,
     tags: ['book', 'scripture', 'revelation'],
     collections: ['knowledge', 'faith'],
     examples: [
@@ -30,7 +32,9 @@ export const booksAndScripturesWords: Word[] = [
     root: 'كتب',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 319,
+    frequency: 260,
+    location: { surah: 2, ayah: 2, position: 2 },
+    frequencyVerified: true,
     tags: ['book', 'scripture', 'writing'],
     collections: ['knowledge', 'faith'],
     examples: [
@@ -51,6 +55,8 @@ export const booksAndScripturesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 7,
+    location: { surah: 25, ayah: 1, position: 4 },
+    frequencyVerified: true,
     tags: ['book', 'criterion', 'distinction'],
     collections: ['knowledge', 'faith'],
     examples: [
@@ -71,6 +77,8 @@ export const booksAndScripturesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 18,
+    location: { surah: 3, ayah: 3, position: 10 },
+    frequencyVerified: true,
     tags: ['book', 'scripture', 'torah'],
     collections: ['knowledge', 'prophets'],
     examples: [
@@ -91,6 +99,8 @@ export const booksAndScripturesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 12,
+    location: { surah: 3, ayah: 3, position: 11 },
+    frequencyVerified: true,
     tags: ['book', 'scripture', 'gospel'],
     collections: ['knowledge', 'prophets'],
     examples: [

@@ -11,6 +11,8 @@ export const completeDivineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 5,
+    location: { surah: 20, ayah: 82, position: 2 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'forgiveness', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -31,6 +33,8 @@ export const completeDivineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 6,
+    location: { surah: 12, ayah: 39, position: 9 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'dominance', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -51,6 +55,8 @@ export const completeDivineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 3,
+    location: { surah: 3, ayah: 8, position: 15 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'generosity', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -71,6 +77,8 @@ export const completeDivineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 1,
+    location: { surah: 34, ayah: 26, position: 10 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'opening', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -90,14 +98,15 @@ export const completeDivineNamesWords: Word[] = [
     root: 'قبض',
     partOfSpeech: 'noun',
     level: 'advanced',
-    frequency: 1,
-    tags: ['divine attributes', 'control', 'names of allah'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'divine attributes', 'control', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
       {
         surah: 2,
         ayah: 245,
-        arabicText: 'وَاللَّهُ يَقْبِضُ وَيَبْسُطُ',
+        arabicText: 'وَاللَّهُ يَقْبِضُ وَيَبْصُۜطُ',
         translation: 'And Allah contracts and expands'
       }
     ]
@@ -110,14 +119,16 @@ export const completeDivineNamesWords: Word[] = [
     root: 'بسط',
     partOfSpeech: 'noun',
     level: 'advanced',
-    frequency: 1,
+    frequency: 4,
+    location: { surah: 5, ayah: 28, position: 8 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'expansion', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
       {
         surah: 2,
         ayah: 245,
-        arabicText: 'وَاللَّهُ يَقْبِضُ وَيَبْسُطُ',
+        arabicText: 'وَاللَّهُ يَقْبِضُ وَيَبْصُۜطُ',
         translation: 'And Allah contracts and expands'
       }
     ]
@@ -131,6 +142,8 @@ export const completeDivineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'advanced',
     frequency: 1,
+    location: { surah: 56, ayah: 3, position: 1 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'power', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -151,6 +164,8 @@ export const completeDivineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'advanced',
     frequency: 1,
+    location: { surah: 3, ayah: 55, position: 7 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'elevation', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
@@ -170,14 +185,15 @@ export const completeDivineNamesWords: Word[] = [
     root: 'عزز',
     partOfSpeech: 'noun',
     level: 'advanced',
-    frequency: 1,
-    tags: ['divine attributes', 'honor', 'names of allah'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'divine attributes', 'honor', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
       {
         surah: 3,
         ayah: 26,
-        arabicText: 'تُعِزُّ مَن تَشَاءُ وَتُذِلُّ مَن تَشَاءُ',
+        arabicText: 'وَتُعِزُّ مَن تَشَاءُ وَتُذِلُّ مَن تَشَاءُ',
         translation: 'You honor whom You will and You humble whom You will'
       }
     ]
@@ -190,14 +206,15 @@ export const completeDivineNamesWords: Word[] = [
     root: 'ذلل',
     partOfSpeech: 'noun',
     level: 'advanced',
-    frequency: 1,
-    tags: ['divine attributes', 'humility', 'names of allah'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'divine attributes', 'humility', 'names of allah'],
     collections: ['divine-names', 'faith'],
     examples: [
       {
         surah: 3,
         ayah: 26,
-        arabicText: 'تُعِزُّ مَن تَشَاءُ وَتُذِلُّ مَن تَشَاءُ',
+        arabicText: 'وَتُعِزُّ مَن تَشَاءُ وَتُذِلُّ مَن تَشَاءُ',
         translation: 'You honor whom You will and You humble whom You will'
       }
     ]

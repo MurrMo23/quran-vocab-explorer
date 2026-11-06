@@ -11,6 +11,8 @@ export const additionalBooksWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 3,
+    location: { surah: 4, ayah: 163, position: 25 },
+    frequencyVerified: true,
     tags: ['book', 'scripture', 'psalms'],
     collections: ['knowledge', 'prophets'],
     examples: [
@@ -30,7 +32,9 @@ export const additionalBooksWords: Word[] = [
     root: 'صحف',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 9,
+    frequency: 8,
+    location: { surah: 87, ayah: 18, position: 4 },
+    frequencyVerified: true,
     tags: ['book', 'scripture', 'scrolls'],
     collections: ['knowledge', 'prophets'],
     examples: [
@@ -51,14 +55,16 @@ export const additionalBooksWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'advanced',
     frequency: 1,
+    location: { surah: 85, ayah: 22, position: 2 },
+    frequencyVerified: true,
     tags: ['book', 'preserved', 'divine'],
     collections: ['knowledge', 'faith'],
     examples: [
       {
         surah: 85,
         ayah: 22,
-        arabicText: 'بَلْ هُوَ قُرْآنٌ مَّجِيدٌ فِي لَوْحٍ مَّحْفُوظٍ',
-        translation: 'But this is an honored Qur\'an [Inscribed] in a Preserved Slate'
+        arabicText: 'فِي لَوْحٍ مَّحْفُوظٍ',
+        translation: '[Inscribed] in a Preserved Slate'
       }
     ]
   },
@@ -70,7 +76,9 @@ export const additionalBooksWords: Word[] = [
     root: 'أمم',
     partOfSpeech: 'noun',
     level: 'advanced',
-    frequency: 1,
+    frequency: 3,
+    location: { surah: 43, ayah: 4, position: 3 },
+    frequencyVerified: true,
     tags: ['book', 'source', 'divine'],
     collections: ['knowledge', 'faith'],
     examples: [

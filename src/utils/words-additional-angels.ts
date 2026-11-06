@@ -4,20 +4,22 @@ import { Word } from './vocabulary-types';
 export const additionalAngelsWords: Word[] = [
   {
     id: 'mikaail',
-    arabic: 'ميكائيل',
-    transliteration: 'Mika\'il',
+    arabic: 'ميكال',
+    transliteration: 'Mikal',
     meaning: 'Michael',
     root: 'ميك',
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 1,
+    location: { surah: 2, ayah: 98, position: 8 },
+    frequencyVerified: true,
     tags: ['angels', 'archangel', 'protection'],
     collections: ['faith', 'angels'],
     examples: [
       {
         surah: 2,
         ayah: 98,
-        arabicText: 'مَن كَانَ عَدُوًّا لِّلَّهِ وَمَلَائِكَتِهِ وَرُسُلِهِ وَجِبْرِيلَ وَمِيكَالَ',
+        arabicText: 'مَن كَانَ عَدُوًّا لِّلَّهِ وَمَلَائِكَتِهِ وَرُسُلِهِ وَجِبْرِيلَ وَمِيكَىٰلَ',
         translation: 'Whoever is an enemy to Allah and His angels and His messengers and Gabriel and Michael'
       }
     ]
@@ -30,8 +32,9 @@ export const additionalAngelsWords: Word[] = [
     root: 'سرف',
     partOfSpeech: 'noun',
     level: 'advanced',
-    frequency: 1,
-    tags: ['angels', 'archangel', 'trumpet'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'angels', 'archangel', 'trumpet'],
     collections: ['faith', 'angels'],
     examples: [
       {
@@ -50,8 +53,9 @@ export const additionalAngelsWords: Word[] = [
     root: 'عزر',
     partOfSpeech: 'noun',
     level: 'advanced',
-    frequency: 1,
-    tags: ['angels', 'death', 'soul'],
+    frequency: 0,
+    frequencyVerified: true,
+    tags: ['not-in-quran', 'angels', 'death', 'soul'],
     collections: ['faith', 'angels'],
     examples: [
       {

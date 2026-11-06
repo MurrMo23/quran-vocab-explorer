@@ -11,6 +11,8 @@ export const divineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 2699,
+    location: { surah: 1, ayah: 1, position: 2 },
+    frequencyVerified: true,
     tags: ['divine', 'theology', 'fundamental'],
     collections: ['faith', 'divine-names'],
     examples: [
@@ -31,6 +33,8 @@ export const divineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'beginner',
     frequency: 57,
+    location: { surah: 1, ayah: 1, position: 3 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'mercy', 'names of allah'],
     collections: ['faith', 'divine-names'],
     examples: [
@@ -50,7 +54,9 @@ export const divineNamesWords: Word[] = [
     root: 'رحم',
     partOfSpeech: 'noun',
     level: 'beginner',
-    frequency: 114,
+    frequency: 116,
+    location: { surah: 1, ayah: 1, position: 4 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'mercy', 'names of allah'],
     collections: ['faith', 'divine-names'],
     examples: [
@@ -70,15 +76,17 @@ export const divineNamesWords: Word[] = [
     root: 'ملك',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 20,
+    frequency: 15,
+    location: { surah: 114, ayah: 2, position: 1 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'sovereignty', 'names of allah'],
     collections: ['faith', 'divine-names'],
     examples: [
       {
-        surah: 1,
-        ayah: 4,
-        arabicText: 'مَالِكِ يَوْمِ الدِّينِ',
-        translation: 'Master of the Day of Judgment'
+        surah: 114,
+        ayah: 2,
+        arabicText: 'مَلِكِ النَّاسِ',
+        translation: 'The Sovereign of mankind'
       }
     ]
   },
@@ -91,6 +99,8 @@ export const divineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'advanced',
     frequency: 2,
+    location: { surah: 62, ayah: 1, position: 10 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'purity', 'names of allah'],
     collections: ['faith', 'divine-names'],
     examples: [
@@ -110,7 +120,9 @@ export const divineNamesWords: Word[] = [
     root: 'سلم',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 1,
+    frequency: 42,
+    location: { surah: 59, ayah: 23, position: 10 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'peace', 'names of allah'],
     collections: ['faith', 'divine-names'],
     examples: [
@@ -130,7 +142,9 @@ export const divineNamesWords: Word[] = [
     root: 'خلق',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 8,
+    frequency: 12,
+    location: { surah: 59, ayah: 24, position: 3 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'creation', 'names of allah'],
     collections: ['faith', 'divine-names', 'nature'],
     examples: [
@@ -150,7 +164,9 @@ export const divineNamesWords: Word[] = [
     root: 'علم',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 157,
+    frequency: 163,
+    location: { surah: 2, ayah: 32, position: 11 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'knowledge', 'names of allah'],
     collections: ['faith', 'divine-names', 'knowledge'],
     examples: [
@@ -170,7 +186,9 @@ export const divineNamesWords: Word[] = [
     root: 'حكم',
     partOfSpeech: 'noun',
     level: 'intermediate',
-    frequency: 91,
+    frequency: 97,
+    location: { surah: 2, ayah: 32, position: 12 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'wisdom', 'names of allah'],
     collections: ['faith', 'divine-names', 'knowledge'],
     examples: [
@@ -191,6 +209,8 @@ export const divineNamesWords: Word[] = [
     partOfSpeech: 'noun',
     level: 'intermediate',
     frequency: 1,
+    location: { surah: 51, ayah: 58, position: 4 },
+    frequencyVerified: true,
     tags: ['divine attributes', 'sustenance', 'names of allah'],
     collections: ['faith', 'divine-names', 'nature'],
     examples: [
