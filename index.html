@@ -14,6 +14,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Apply the saved theme before first paint, so dark-mode users never see a light flash -->
+    <script>
+      try {
+        var t = localStorage.getItem('vite-ui-theme') || 'light';
+        if (t === 'system') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.classList.add(t);
+      } catch (e) {}
+    </script>
+    <!-- Minimal shell shown only until the app renders (normally a fraction of a second) -->
+    <style>
+      html { background: hsl(40 25% 98%); }
+      html.dark { background: hsl(240 10% 3.9%); }
+      .qv-boot { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+      .qv-boot span {
+        width: 28px; height: 28px; border-radius: 50%;
+        border: 3px solid hsl(220 13% 85%); border-top-color: hsl(195 83% 38%);
+        opacity: 0; animation: qv-in .2s ease .6s forwards, qv-spin .8s linear infinite;
+      }
+      @keyframes qv-in { to { opacity: 1; } }
+      @keyframes qv-spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) { .qv-boot span { animation: qv-in .2s ease .6s forwards; } }
+    </style>
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png">
@@ -65,8 +88,9 @@
   </head>
 
   <body>
-    <div id="root">
-      <!-- Static fallback for crawlers and no-JS visitors; replaced when the app loads -->
+    <div id="root"><div class="qv-boot" role="status" aria-label="Loading QuranVocab"><span></span></div></div>
+    <!-- Readable fallback for visitors and tools without JavaScript. Hidden whenever JS runs, so it never flashes. -->
+    <noscript>
       <header>
         <h1>QuranVocab — Learn the Words of the Quran</h1>
         <nav>
@@ -78,9 +102,9 @@
         </nav>
       </header>
       <main>
-        <p>QuranVocab is a free, independent tool for learning high-frequency Quranic Arabic vocabulary. Browse words by theme, study them with flashcards, test yourself with quizzes, and open any word to see its Arabic spelling, transliteration, root and meaning. No account is needed to start; a free account unlocks every word in each collection.</p>
+        <p>QuranVocab is a free, independent tool for learning high-frequency Quranic Arabic vocabulary. Browse words by theme, study them with flashcards, test yourself with quizzes, and open any word to see its Arabic spelling, transliteration, root and meaning. Everything works without an account; a free account keeps your progress across devices. Please enable JavaScript to use the interactive features.</p>
       </main>
-    </div>
+    </noscript>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
