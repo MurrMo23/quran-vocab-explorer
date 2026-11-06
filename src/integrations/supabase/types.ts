@@ -292,42 +292,36 @@ export type Database = {
       }
       contact_messages: {
         Row: {
-          admin_note: string | null
           category: string
           created_at: string
           email: string
           id: string
           message: string
           name: string
-          notified_at: string | null
           page_url: string | null
           status: string
           subject: string | null
           user_id: string | null
         }
         Insert: {
-          admin_note?: string | null
           category?: string
           created_at?: string
           email: string
           id?: string
           message: string
           name: string
-          notified_at?: string | null
           page_url?: string | null
           status?: string
           subject?: string | null
           user_id?: string | null
         }
         Update: {
-          admin_note?: string | null
           category?: string
           created_at?: string
           email?: string
           id?: string
           message?: string
           name?: string
-          notified_at?: string | null
           page_url?: string | null
           status?: string
           subject?: string | null
