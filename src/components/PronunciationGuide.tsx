@@ -1,13 +1,14 @@
 
-import React, { useState } from 'react';
-import { Volume2, Play, Pause, RotateCcw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React from 'react';
+import { Volume2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import AudioPlayer from '@/components/AudioPlayer';
+import SelfPracticeRecorder from '@/components/audio/SelfPracticeRecorder';
 import { Word } from '@/utils/vocabulary-types';
 
 interface PronunciationGuideProps {
   word: Word;
+  /** @deprecated Automatic scoring was removed (it was random); this is never called. */
   onPronunciationScore?: (score: number) => void;
 }
 
@@ -17,15 +18,7 @@ interface PhoneticBreakdown {
   phonemes: { symbol: string; description: string }[];
 }
 
-const PronunciationGuide: React.FC<PronunciationGuideProps> = ({ 
-  word, 
-  onPronunciationScore 
-}) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSyllable, setCurrentSyllable] = useState(-1);
-  const [userRecording, setUserRecording] = useState(false);
-  const [pronunciationScore, setPronunciationScore] = useState<number | null>(null);
-
+const PronunciationGuide: React.FC<PronunciationGuideProps> = ({ word }) => {
   // Mock phonetic breakdown - in a real app, this would come from a phonetic API
   const getPhoneticBreakdown = (word: Word): PhoneticBreakdown => {
     const syllablePatterns: { [key: string]: PhoneticBreakdown } = {
@@ -63,46 +56,6 @@ const PronunciationGuide: React.FC<PronunciationGuideProps> = ({
 
   const phoneticBreakdown = getPhoneticBreakdown(word);
 
-  const playPronunciation = async (syllableIndex?: number) => {
-    setIsPlaying(true);
-    
-    if (syllableIndex !== undefined) {
-      setCurrentSyllable(syllableIndex);
-      // Simulate syllable-by-syllable playback
-      setTimeout(() => {
-        setCurrentSyllable(-1);
-        setIsPlaying(false);
-      }, 800);
-    } else {
-      // Play full word
-      for (let i = 0; i < phoneticBreakdown.syllables.length; i++) {
-        setCurrentSyllable(i);
-        await new Promise(resolve => setTimeout(resolve, 600));
-      }
-      setCurrentSyllable(-1);
-      setIsPlaying(false);
-    }
-  };
-
-  const startRecording = () => {
-    setUserRecording(true);
-    // Mock recording and analysis
-    setTimeout(() => {
-      const mockScore = Math.floor(Math.random() * 30) + 70; // 70-100 range
-      setPronunciationScore(mockScore);
-      setUserRecording(false);
-      if (onPronunciationScore) {
-        onPronunciationScore(mockScore);
-      }
-    }, 3000);
-  };
-
-  const getScoreColor = (score: number) => {
-    if (score >= 90) return 'text-green-600';
-    if (score >= 80) return 'text-yellow-600';
-    return 'text-orange-600';
-  };
-
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
@@ -118,30 +71,25 @@ const PronunciationGuide: React.FC<PronunciationGuideProps> = ({
           <p className="text-xl text-muted-foreground">/{word.transliteration}/</p>
         </div>
 
-        {/* Syllable breakdown */}
+        <div className="flex justify-center">
+          <AudioPlayer word={word} label="Listen" size="lg" />
+        </div>
+
+        {/* Syllable breakdown (visual guide only) */}
         <div>
           <h3 className="font-semibold mb-3">Syllable Breakdown</h3>
-          <div className="flex justify-center gap-2 mb-4">
+          <div className="flex flex-wrap justify-center gap-2">
             {phoneticBreakdown.syllables.map((syllable, index) => (
-              <Button
+              <span
                 key={index}
-                variant={currentSyllable === index ? "default" : "outline"}
-                size="lg"
-                onClick={() => playPronunciation(index)}
-                className={`relative ${phoneticBreakdown.stress.includes(index) ? 'font-bold' : ''}`}
+                className={`relative rounded-md border px-4 py-2 text-lg ${phoneticBreakdown.stress.includes(index) ? 'font-bold' : ''}`}
               >
                 {syllable}
                 {phoneticBreakdown.stress.includes(index) && (
                   <span className="absolute -top-1 -right-1 text-xs">ˈ</span>
                 )}
-              </Button>
+              </span>
             ))}
-          </div>
-          <div className="flex justify-center gap-2">
-            <Button onClick={() => playPronunciation()} disabled={isPlaying}>
-              {isPlaying ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
-              Play Full Word
-            </Button>
           </div>
         </div>
 
@@ -160,59 +108,20 @@ const PronunciationGuide: React.FC<PronunciationGuideProps> = ({
           </div>
         )}
 
-        {/* Pronunciation practice */}
+        {/* Pronunciation practice: record and compare by ear (no automatic scoring) */}
         <div>
-          <h3 className="font-semibold mb-3">Practice Your Pronunciation</h3>
-          <div className="text-center space-y-4">
-            {!userRecording && !pronunciationScore && (
-              <Button onClick={startRecording} size="lg" className="w-full md:w-auto">
-                <Volume2 className="h-4 w-4 mr-2" />
-                Record Your Pronunciation
-              </Button>
-            )}
-            
-            {userRecording && (
-              <div className="space-y-2">
-                <div className="flex items-center justify-center gap-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                  <span>Recording... Speak now!</span>
-                </div>
-                <Progress value={66} className="w-full max-w-xs mx-auto" />
-              </div>
-            )}
-            
-            {pronunciationScore && (
-              <div className="space-y-2">
-                <div className={`text-2xl font-bold ${getScoreColor(pronunciationScore)}`}>
-                  {pronunciationScore}%
-                </div>
-                <p className="text-muted-foreground">
-                  {pronunciationScore >= 90 ? 'Excellent!' : 
-                   pronunciationScore >= 80 ? 'Good job!' : 'Keep practicing!'}
-                </p>
-                <Button 
-                  variant="outline" 
-                  onClick={() => {
-                    setPronunciationScore(null);
-                    setUserRecording(false);
-                  }}
-                >
-                  <RotateCcw className="h-4 w-4 mr-2" />
-                  Try Again
-                </Button>
-              </div>
-            )}
-          </div>
+          <h3 className="font-semibold mb-3">Practice: record yourself and compare</h3>
+          <SelfPracticeRecorder word={word} />
         </div>
 
         {/* Pronunciation tips */}
         <div className="bg-blue-50 p-4 rounded-lg">
           <h4 className="font-semibold text-blue-900 mb-2">💡 Pronunciation Tips</h4>
           <ul className="text-sm text-blue-800 space-y-1">
-            <li>• Listen carefully to each syllable before attempting to repeat</li>
+            <li>• Listen to the recitation several times before attempting to repeat</li>
             <li>• Pay attention to stressed syllables (marked with ˈ)</li>
             <li>• Arabic emphatic consonants are pronounced with tongue backing</li>
-            <li>• Practice in a quiet environment for better recording quality</li>
+            <li>• Compare your recording with the recitation and repeat until they sound alike</li>
           </ul>
         </div>
       </CardContent>

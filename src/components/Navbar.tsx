@@ -11,10 +11,7 @@ import {
   LogOut, 
   Settings, 
   BarChart3, 
-  Trophy,
-  Users,
   Volume2,
-  Smartphone,
   Menu,
   X,
   Home,
@@ -38,9 +35,8 @@ const Navbar = () => {
   const { session, signOut } = useAuth();
   const { hasRole } = usePermissions();
   const { settings } = useSiteSettings();
-  
-  // Debug: Log settings to see what's being loaded
-  console.log('Navbar settings:', settings);
+  // Single brand name everywhere; the DB setting is only used for the logo image.
+  const siteName = 'QuranVocab';
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
@@ -59,7 +55,6 @@ const Navbar = () => {
     { href: '/practice', label: 'Practice', icon: Target },
     { href: '/quiz', label: 'Quiz', icon: HelpCircle },
     { href: '/audio-practice', label: 'Audio', icon: Volume2 },
-    { href: '/community-hub', label: 'Community', icon: Users },
     { href: '/blog', label: 'Blog', icon: Globe }
   ];
 
@@ -85,7 +80,7 @@ const Navbar = () => {
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between mb-6">
             <Link to="/" className="text-xl font-bold">
-              {settings.site_name}
+              {siteName}
             </Link>
             <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
               <X className="h-5 w-5" />
@@ -161,19 +156,17 @@ const Navbar = () => {
             {settings.logo_url && settings.logo_url.trim() !== '' ? (
               <img 
                 src={settings.logo_url} 
-                alt={`${settings.site_name} logo`}
+                alt={siteName}
                 className="h-8 w-auto max-w-[200px] object-contain"
                 loading="lazy"
-                onLoad={() => console.log('Logo loaded successfully:', settings.logo_url)}
                 onError={(e) => {
-                  console.error('Logo failed to load:', settings.logo_url);
                   (e.target as HTMLImageElement).style.display = 'none';
                   (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
                 }}
               />
             ) : null}
             <span className={`text-xl font-bold ${settings.logo_url && settings.logo_url.trim() !== '' ? 'hidden' : ''}`}>
-              {settings.site_name}
+              {siteName}
             </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -200,19 +193,17 @@ const Navbar = () => {
               {settings.logo_url && settings.logo_url.trim() !== '' ? (
                 <img 
                   src={settings.logo_url} 
-                  alt={`${settings.site_name} logo`}
+                  alt={siteName}
                   className="h-6 w-auto max-w-[150px] object-contain"
                   loading="lazy"
-                  onLoad={() => console.log('Mobile logo loaded successfully:', settings.logo_url)}
                   onError={(e) => {
-                    console.error('Mobile logo failed to load:', settings.logo_url);
                     (e.target as HTMLImageElement).style.display = 'none';
                     (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
                   }}
                 />
               ) : null}
               <span className={`text-lg font-bold ${settings.logo_url && settings.logo_url.trim() !== '' ? 'hidden' : ''}`}>
-                {settings.site_name}
+                {siteName}
               </span>
             </Link>
           </div>

@@ -26,7 +26,7 @@ const Layout: React.FC = () => {
       
       {/* Global Search Button */}
       <div className="fixed bottom-6 right-6 z-40">
-        <Button onClick={handleSearchToggle} size="icon" className="h-12 w-12 rounded-full shadow-lg" title="Search (Ctrl+K)">
+        <Button onClick={handleSearchToggle} size="icon" className="h-12 w-12 rounded-full shadow-lg" title="Search (Ctrl+K)" aria-label="Search words">
           <Search className="h-5 w-5" />
         </Button>
       </div>

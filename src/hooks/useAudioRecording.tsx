@@ -1,9 +1,13 @@
-
-import { useState, useRef } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/components/AuthProvider';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 
+/**
+ * Microphone recording for self-practice. Recordings stay in the browser (an object URL);
+ * nothing is uploaded and no automatic "accuracy score" is produced — learners compare their
+ * own recording with the reference recitation by ear.
+ */
+
+// Row shape of the `audio_recordings` table (kept for type compatibility).
 export interface AudioRecording {
   id: string;
   user_id: string;
@@ -14,136 +18,106 @@ export interface AudioRecording {
   created_at: string;
 }
 
+export const isRecordingSupported = (): boolean =>
+  typeof navigator !== 'undefined' &&
+  !!navigator.mediaDevices?.getUserMedia &&
+  typeof window !== 'undefined' &&
+  'MediaRecorder' in window;
+
 export const useAudioRecording = () => {
-  const { session } = useAuth();
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
-  const [analysisResult, setAnalysisResult] = useState<{
-    score: number;
-    feedback: string;
-  } | null>(null);
-  const [loading, setLoading] = useState(false);
-  
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
+  const [recordingUrl, setRecordingUrl] = useState<string | null>(null);
 
-  const startRecording = async () => {
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  const urlRef = useRef<string | null>(null);
+
+  const releaseUrl = () => {
+    if (urlRef.current) {
+      URL.revokeObjectURL(urlRef.current);
+      urlRef.current = null;
+    }
+  };
+
+  const releaseStream = () => {
+    streamRef.current?.getTracks().forEach(track => track.stop());
+    streamRef.current = null;
+  };
+
+  useEffect(
+    () => () => {
+      if (mediaRecorderRef.current?.state === 'recording') mediaRecorderRef.current.stop();
+      releaseStream();
+      releaseUrl();
+    },
+    []
+  );
+
+  const startRecording = useCallback(async () => {
+    if (!isRecordingSupported()) {
+      toast.error('Recording not supported', {
+        description: 'Your browser does not support microphone recording.',
+      });
+      return;
+    }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
 
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
-        }
+      mediaRecorder.ondataavailable = event => {
+        if (event.data.size > 0) audioChunksRef.current.push(event.data);
       };
 
       mediaRecorder.onstop = () => {
-        const blob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+        const blob = new Blob(audioChunksRef.current, {
+          type: mediaRecorder.mimeType || 'audio/webm',
+        });
+        releaseUrl();
+        const url = URL.createObjectURL(blob);
+        urlRef.current = url;
         setAudioBlob(blob);
-        
-        // Stop all tracks to release microphone
-        stream.getTracks().forEach(track => track.stop());
+        setRecordingUrl(url);
+        releaseStream();
       };
 
       mediaRecorder.start();
       setIsRecording(true);
-      toast.info('Recording started. Speak clearly!');
-    } catch (error: any) {
-      console.error('Error starting recording:', error);
-      toast.error('Failed to start recording. Please check microphone permissions.');
+    } catch {
+      releaseStream();
+      toast.error('Could not start recording', {
+        description: 'Please allow microphone access and try again.',
+      });
     }
-  };
+  }, []);
 
-  const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
+  const stopRecording = useCallback(() => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
       mediaRecorderRef.current.stop();
-      setIsRecording(false);
-      toast.info('Recording stopped. Analyzing...');
     }
-  };
+    setIsRecording(false);
+  }, []);
 
-  const analyzeRecording = async (wordId: string, expectedPronunciation: string) => {
-    if (!audioBlob || !session?.user?.id) return null;
-
-    try {
-      setLoading(true);
-      
-      // Create a mock analysis since we don't have a real speech recognition API
-      // In a real implementation, you would send the audio to a speech analysis service
-      const mockScore = Math.floor(Math.random() * 30) + 70; // 70-100 range
-      const mockFeedback = mockScore >= 90 ? 
-        'Excellent pronunciation! Your accent is very clear.' :
-        mockScore >= 80 ?
-        'Good pronunciation! Try to emphasize the stressed syllables more.' :
-        'Keep practicing! Focus on the vowel sounds and consonant clarity.';
-
-      const result = {
-        score: mockScore,
-        feedback: mockFeedback
-      };
-
-      setAnalysisResult(result);
-      
-      // Save recording to database (in a real app, you'd upload to storage first)
-      await saveRecording(wordId, 'mock-url', result.score, result.feedback);
-      
-      return result;
-    } catch (error: any) {
-      console.error('Error analyzing recording:', error);
-      toast.error('Failed to analyze recording');
-      return null;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const saveRecording = async (
-    wordId: string, 
-    recordingUrl: string, 
-    accuracyScore?: number, 
-    feedback?: string
-  ) => {
-    if (!session?.user?.id) return null;
-
-    try {
-      const { data, error } = await supabase
-        .from('audio_recordings')
-        .insert({
-          user_id: session.user.id,
-          word_id: wordId,
-          recording_url: recordingUrl,
-          accuracy_score: accuracyScore,
-          feedback: feedback
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-      return data;
-    } catch (error: any) {
-      console.error('Error saving recording:', error);
-      toast.error('Failed to save recording');
-      return null;
-    }
-  };
-
-  const resetRecording = () => {
+  const resetRecording = useCallback(() => {
+    if (mediaRecorderRef.current?.state === 'recording') mediaRecorderRef.current.stop();
+    releaseStream();
+    releaseUrl();
+    setIsRecording(false);
     setAudioBlob(null);
-    setAnalysisResult(null);
+    setRecordingUrl(null);
     audioChunksRef.current = [];
-  };
+  }, []);
 
   return {
     isRecording,
     audioBlob,
-    analysisResult,
-    loading,
+    recordingUrl,
     startRecording,
     stopRecording,
-    analyzeRecording,
-    resetRecording
+    resetRecording,
   };
 };

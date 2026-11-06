@@ -44,8 +44,8 @@ const Index = () => {
     },
     {
       icon: Brain,
-      title: 'Spaced Repetition',
-      description: 'Words you find hard come back sooner, so your review time goes where it is needed',
+      title: 'Roots & Meanings',
+      description: 'See the three-letter root behind each word so related words become easier to recognise',
       color: 'text-purple-600'
     },
     {
@@ -62,8 +62,8 @@ const Index = () => {
     },
     {
       icon: Trophy,
-      title: 'Progress Tracking',
-      description: 'Sign in to save which words you have learned and pick up where you left off',
+      title: 'Full Collections, Free',
+      description: 'Try any collection without an account; create a free account to unlock every word',
       color: 'text-yellow-600'
     }
   ];
@@ -71,8 +71,8 @@ const Index = () => {
   const stats = [
     { label: 'Quranic words', value: wordCount.toLocaleString('en-US'), icon: BookOpen },
     { label: 'Themed collections', value: collectionCount.toLocaleString('en-US'), icon: Target },
-    { label: 'Free to use', value: 'Free', icon: Unlock },
-    { label: 'No account needed to start', value: 'No sign-up', icon: CheckCircle }
+    { label: 'No subscriptions, no ads', value: 'Free', icon: Unlock },
+    { label: 'Browse and try without signing up', value: 'Open', icon: CheckCircle }
   ];
 
   return (
@@ -98,8 +98,8 @@ const Index = () => {
               </h1>
               
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                QuranVocab helps you learn high-frequency Quranic Arabic vocabulary with flashcards, quizzes and
-                spaced repetition. Start right away — no account needed.
+                QuranVocab helps you learn high-frequency Quranic Arabic vocabulary with themed collections,
+                flashcards and quizzes. Browse and try it without an account; sign in for free to unlock every word.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -198,14 +198,14 @@ const Index = () => {
                     <span className="text-2xl font-bold">2</span>
                   </div>
                   <h3 className="text-xl font-semibold">Practise with Flashcards</h3>
-                  <p className="opacity-90">Review words, hear them pronounced and mark what you know</p>
+                  <p className="opacity-90">Recall each meaning, reveal the answer and mark what you knew</p>
                 </div>
                 <div className="space-y-4">
                   <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
                     <span className="text-2xl font-bold">3</span>
                   </div>
                   <h3 className="text-xl font-semibold">Test Yourself</h3>
-                  <p className="opacity-90">Take a quiz and revisit the words you missed</p>
+                  <p className="opacity-90">Take a multiple-choice quiz and see your score</p>
                 </div>
               </div>
             </div>

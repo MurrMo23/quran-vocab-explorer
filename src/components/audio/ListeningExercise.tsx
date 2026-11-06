@@ -144,8 +144,8 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
           <div className="text-2xl font-arabic mb-2">{currentQuestion.word.arabic}</div>
           <div className="flex justify-center">
             <AudioPlayer
-              text={currentQuestion.word.arabic}
-              voice="onwK4e9ZLuTAKqWW03F9"
+              key={currentQuestion.word.id}
+              word={currentQuestion.word}
               label="Play Audio"
               size="lg"
               onPlay={handleAudioPlay}

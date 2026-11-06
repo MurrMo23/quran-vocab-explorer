@@ -1,170 +1,73 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { 
-  BookOpen, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Youtube,
-  Heart
-} from 'lucide-react';
-import { toast } from 'sonner';
+import { Heart } from 'lucide-react';
+
+const learnLinks = [
+  { to: '/collections', label: 'Vocabulary Collections' },
+  { to: '/practice', label: 'Flashcard Practice' },
+  { to: '/quiz', label: 'Quiz' },
+  { to: '/blog', label: 'Blog' },
+];
+
+const siteLinks = [
+  { to: '/about', label: 'About QuranVocab' },
+  { to: '/help', label: 'Help' },
+  { to: '/contact', label: 'Contact & Report an Error' },
+];
 
 const Footer: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [isSubscribing, setIsSubscribing] = useState(false);
-
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-
-    setIsSubscribing(true);
-    try {
-      // Simulate newsletter subscription - in real app, this would call an API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast.success('Successfully subscribed to our newsletter!');
-      setEmail('');
-    } catch (error) {
-      toast.error('Failed to subscribe. Please try again.');
-    } finally {
-      setIsSubscribing(false);
-    }
-  };
-
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand & Description */}
           <div className="space-y-4">
-            <div className="flex items-center">
-              <img 
-                src="/lovable-uploads/b5c20cf5-bb83-4ad5-ac3d-308060e995d8.png" 
-                alt="Quran Vocab"
+            <Link to="/" className="flex items-center" aria-label="QuranVocab home">
+              <img
+                src="/lovable-uploads/b5c20cf5-bb83-4ad5-ac3d-308060e995d8.png"
+                alt="QuranVocab"
                 className="h-12 brightness-0 invert"
               />
-            </div>
+            </Link>
             <p className="text-sm">
-              Master Quranic Arabic vocabulary with our comprehensive learning platform. 
-              Build your understanding of Islamic texts through interactive lessons and practice.
+              Learn the words of the Quran. QuranVocab is a free, independent tool for learning high-frequency
+              Quranic Arabic vocabulary with themed collections, flashcards and quizzes.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="hover:text-primary transition-colors">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="hover:text-primary transition-colors">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="hover:text-primary transition-colors">
-                <Youtube className="h-5 w-5" />
-              </a>
-            </div>
+            <p className="text-xs text-gray-400">
+              Word data is being checked against the Quranic Arabic Corpus and Tanzil Quran text.{' '}
+              <Link to="/about" className="underline hover:text-primary">Sources</Link>
+            </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Learn */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Quick Links</h3>
+            <h3 className="text-lg font-semibold text-white">Learn</h3>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/" className="hover:text-primary transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/collections" className="hover:text-primary transition-colors">
-                  Vocabulary Collections
-                </Link>
-              </li>
-              <li>
-                <Link to="/quiz" className="hover:text-primary transition-colors">
-                  Practice Quiz
-                </Link>
-              </li>
-              <li>
-                <Link to="/practice" className="hover:text-primary transition-colors">
-                  Study Mode
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="hover:text-primary transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link to="/community" className="hover:text-primary transition-colors">
-                  Community
-                </Link>
-              </li>
+              {learnLinks.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className="hover:text-primary transition-colors">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Learning Resources */}
+          {/* Site */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Resources</h3>
+            <h3 className="text-lg font-semibold text-white">QuranVocab</h3>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/help" className="hover:text-primary transition-colors">
-                  Help & Support
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="hover:text-primary transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="hover:text-primary transition-colors">
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/analytics" className="hover:text-primary transition-colors">
-                  Learning Analytics
-                </Link>
-              </li>
-              <li>
-                <Link to="/custom-learning" className="hover:text-primary transition-colors">
-                  Custom Learning Paths
-                </Link>
-              </li>
+              {siteLinks.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className="hover:text-primary transition-colors">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
-          </div>
-
-          {/* Newsletter Signup */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Stay Updated</h3>
-            <p className="text-sm">
-              Subscribe to our newsletter for learning tips, new features, and Arabic language insights.
-            </p>
-            <form onSubmit={handleNewsletterSubmit} className="space-y-2">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
-                required
-              />
-              <Button 
-                type="submit" 
-                className="w-full"
-                disabled={isSubscribing}
-              >
-                {isSubscribing ? 'Subscribing...' : 'Subscribe'}
-              </Button>
-            </form>
           </div>
         </div>
 
@@ -174,7 +77,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6">
             <p className="text-sm">
-              © {currentYear} Arabic Vocabulary. All rights reserved.
+              © {currentYear} QuranVocab
             </p>
             <div className="flex items-center space-x-4 text-sm">
               <Link to="/privacy-policy" className="hover:text-primary transition-colors">
@@ -190,8 +93,8 @@ const Footer: React.FC = () => {
           </div>
           <div className="flex items-center space-x-1 text-sm">
             <span>Made with</span>
-            <Heart className="h-4 w-4 text-red-500" />
-            <span>for Arabic learners</span>
+            <Heart className="h-4 w-4 text-red-500" aria-label="love" />
+            <span>for learners of the Quran</span>
           </div>
         </div>
       </div>

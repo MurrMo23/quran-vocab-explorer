@@ -1,5 +1,6 @@
 
 import { Word, Collection } from './vocabulary-types';
+import { getBestAudio } from './audio';
 import { beginnerWords } from './words-beginner';
 import { intermediateWords } from './words-intermediate';
 import { advancedWords } from './words-advanced';
@@ -249,14 +250,8 @@ export const getAllWords = (): Word[] => {
   return [...sampleVocabulary, ...Array.from(customWords.values())];
 };
 
-// Add audio URLs to words that don't have them
-sampleVocabulary.forEach(word => {
-  // Only add audio URL if it doesn't already have one
-  if (!word.audioUrl) {
-    // Generate a placeholder audio URL based on the word ID
-    word.audioUrl = `https://arabic-vocabulary.com/audio/${word.id}.mp3`;
-  }
-});
+// Audio is resolved at play time from real recitation sources (see src/utils/audio.ts);
+// words without a known location or example simply have no audio.
 
 // Get a list of words based on level
 export const getWordsByLevel = (level: 'beginner' | 'intermediate' | 'advanced'): Word[] => {
@@ -342,21 +337,9 @@ export const removeWordFromCollection = (wordId: string, collectionId: string): 
   return true;
 };
 
-// Generate audio for a word using Text-to-Speech
+// Resolve real recitation audio for a word (word-by-word recitation if the word has a
+// location, otherwise the recitation of its first example ayah). No side effects; returns
+// null when no genuine recitation is available.
 export const generateAudioForWord = async (word: Word): Promise<string | null> => {
-  // In a real application, this would call a Text-to-Speech API
-  // For this demo, we'll return a placeholder URL
-  
-  console.log(`Generating audio for word: ${word.arabic}`);
-  
-  // Simulate API call delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  // Return a placeholder URL - in a real app this would be the actual audio URL
-  const audioUrl = `https://arabic-vocabulary.com/generated-audio/${word.id}.mp3`;
-  
-  // Update the word's audio URL
-  word.audioUrl = audioUrl;
-  
-  return audioUrl;
+  return getBestAudio(word)?.url ?? null;
 };

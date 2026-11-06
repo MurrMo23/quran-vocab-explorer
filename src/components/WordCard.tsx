@@ -1,9 +1,11 @@
 
-import React, { useState, useRef } from 'react';
-import { Volume2, ArrowRight, Check, X } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { Volume2, VolumeX, ArrowRight, Check, X } from 'lucide-react';
 import { Word } from '@/utils/vocabulary';
 import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
+import { useTextToSpeech } from '@/hooks/useTextToSpeech';
+import { getBestAudio, isSpeechSupported, COMPUTER_VOICE_LABEL } from '@/utils/audio';
+import AudioAttribution from '@/components/audio/AudioAttribution';
 
 interface WordCardProps {
   word: Word;
@@ -22,34 +24,24 @@ const WordCard: React.FC<WordCardProps> = ({
 }) => {
   const [flipped, setFlipped] = useState(showAnswerInitially);
   const [result, setResult] = useState<'correct' | 'incorrect' | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { playWord, speak, stop, isPlaying, isLoading, nowPlaying } = useTextToSpeech();
+  const bestAudio = useMemo(() => getBestAudio(word), [word]);
+  const canSpeak = isSpeechSupported();
+  const audioAvailable = !!bestAudio || canSpeak;
+  const audioLabel = isPlaying && nowPlaying
+    ? nowPlaying.shortLabel
+    : bestAudio?.shortLabel ?? (canSpeak ? COMPUTER_VOICE_LABEL : 'No audio available');
 
-  const playAudio = () => {
-    if (!word.audioUrl) {
-      toast.error("Audio not available", {
-        description: "Pronunciation audio is not available for this word",
-      });
+  const playAudio = async () => {
+    if (isPlaying) {
+      stop();
       return;
     }
-
-    if (audioRef.current) {
-      setIsPlaying(true);
-      audioRef.current.play()
-        .then(() => {
-          console.log('Playing audio for:', word.arabic);
-        })
-        .catch(error => {
-          console.error('Audio playback error:', error);
-          toast.error("Playback error", {
-            description: "Could not play the audio file",
-          });
-        });
+    if (bestAudio) {
+      const ok = await playWord(word);
+      if (ok || !canSpeak) return;
     }
-  };
-
-  const handleAudioEnd = () => {
-    setIsPlaying(false);
+    if (canSpeak) speak(word.arabic);
   };
 
   const handleFlip = () => {
@@ -84,13 +76,6 @@ const WordCard: React.FC<WordCardProps> = ({
         className
       )}
     >
-      <audio 
-        ref={audioRef} 
-        src={word.audioUrl} 
-        onEnded={handleAudioEnd}
-        className="hidden"
-      />
-      
       <div className="flex justify-between items-start mb-4">
         <div>
           <span className="text-xs font-medium text-primary/80 bg-primary/10 px-2 py-1 rounded-full">
@@ -100,19 +85,27 @@ const WordCard: React.FC<WordCardProps> = ({
             Root: {word.root}
           </span>
         </div>
-        <button 
-          onClick={(e) => {
-            e.stopPropagation();
-            playAudio();
-          }}
-          className={cn(
-            "text-primary hover:text-primary/80 transition-colors p-2 rounded-full",
-            isPlaying && "bg-primary/10"
+        <div className="flex flex-col items-end">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              playAudio();
+            }}
+            disabled={!audioAvailable || isLoading}
+            className={cn(
+              "text-primary hover:text-primary/80 transition-colors p-2 rounded-full disabled:opacity-40 disabled:cursor-not-allowed",
+              isPlaying && "bg-primary/10"
+            )}
+            aria-label={audioAvailable ? `Play ${audioLabel}` : 'No audio available'}
+            title={audioLabel}
+          >
+            {audioAvailable ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+          </button>
+          {audioAvailable && (
+            <span className="text-[10px] text-muted-foreground">{audioLabel}</span>
           )}
-          aria-label="Play pronunciation"
-        >
-          <Volume2 className="h-5 w-5" />
-        </button>
+        </div>
       </div>
 
       <div 
@@ -137,6 +130,8 @@ const WordCard: React.FC<WordCardProps> = ({
           </div>
         )}
       </div>
+
+      {flipped && bestAudio && <AudioAttribution className="text-center mt-2" />}
 
       {flipped && onResult && (
         <div className="flex justify-center space-x-4 mt-6 animate-slide-up">

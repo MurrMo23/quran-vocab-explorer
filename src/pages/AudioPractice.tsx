@@ -7,23 +7,22 @@ import { ArrowLeft, Volume2, Mic, Headphones } from 'lucide-react';
 import PronunciationTrainer from '@/components/audio/PronunciationTrainer';
 import ListeningExercise from '@/components/audio/ListeningExercise';
 import AdvancedAudioRecorder from '@/components/audio/AdvancedAudioRecorder';
-import AudioPlayer from '@/components/AudioPlayer';
 import { getDailyWords } from '@/utils/vocabulary';
 import { Word } from '@/utils/vocabulary-types';
 const AudioPractice = () => {
   const navigate = useNavigate();
   const [practiceWords] = useState<Word[]>(getDailyWords(15));
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [scores, setScores] = useState<number[]>([]);
+  const [practicedCount, setPracticedCount] = useState(0);
   const currentWord = practiceWords[currentWordIndex];
-  const handlePronunciationComplete = (score: number) => {
-    setScores(prev => [...prev, score]);
+  const handlePronunciationComplete = () => {
+    setPracticedCount(prev => Math.min(prev + 1, practiceWords.length));
     if (currentWordIndex < practiceWords.length - 1) {
       setCurrentWordIndex(prev => prev + 1);
     }
   };
-  const handleListeningComplete = (score: number) => {
-    console.log('Listening exercise completed with score:', score);
+  const handleListeningComplete = (_score: number) => {
+    // Listening quiz scores are shown inside the exercise itself.
   };
   return <div className="max-w-4xl mx-auto space-y-6 my-[20px]">
       <div className="flex items-center gap-4">
@@ -58,7 +57,7 @@ const AudioPractice = () => {
             <CardHeader>
               <CardTitle>Pronunciation Training</CardTitle>
               <p className="text-sm text-muted-foreground">
-                Practice pronunciation with AI feedback ({currentWordIndex + 1}/{practiceWords.length})
+                Listen to the recitation, record yourself and compare ({currentWordIndex + 1}/{practiceWords.length})
               </p>
             </CardHeader>
             <CardContent>
@@ -66,26 +65,14 @@ const AudioPractice = () => {
             </CardContent>
           </Card>
 
-          {scores.length > 0 && <Card>
+          {practicedCount > 0 && <Card>
               <CardHeader>
-                <CardTitle>Progress Summary</CardTitle>
+                <CardTitle>Progress</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span>Words Practiced:</span>
-                    <span className="font-semibold">{scores.length}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Average Score:</span>
-                    <span className="font-semibold">
-                      {Math.round(scores.reduce((a, b) => a + b, 0) / scores.length)}%
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Best Score:</span>
-                    <span className="font-semibold">{Math.max(...scores)}%</span>
-                  </div>
+                <div className="flex justify-between">
+                  <span>Words practised:</span>
+                  <span className="font-semibold">{practicedCount} / {practiceWords.length}</span>
                 </div>
               </CardContent>
             </Card>}
@@ -98,13 +85,13 @@ const AudioPractice = () => {
         <TabsContent value="recording" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Advanced Recording Practice</CardTitle>
+              <CardTitle>Recording Practice</CardTitle>
               <p className="text-sm text-muted-foreground">
-                Advanced pronunciation analysis with detailed feedback
+                Record yourself and compare with the recitation — recordings stay on your device
               </p>
             </CardHeader>
             <CardContent>
-              {currentWord && <AdvancedAudioRecorder word={currentWord} onScoreUpdate={score => console.log('Recording score:', score)} />}
+              {currentWord && <AdvancedAudioRecorder word={currentWord} />}
             </CardContent>
           </Card>
         </TabsContent>

@@ -4,10 +4,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Volume2, RotateCcw, ArrowLeft, ArrowRight } from 'lucide-react';
+import { RotateCcw, ArrowLeft, ArrowRight } from 'lucide-react';
 import TouchGestures from './TouchGestures';
 import { Word } from '@/utils/vocabulary-types';
-import { useTextToSpeech } from '@/hooks/useTextToSpeech';
+import AudioPlayer from '@/components/AudioPlayer';
+import AudioAttribution from '@/components/audio/AudioAttribution';
+import { getBestAudio, isSpeechSupported, COMPUTER_VOICE_LABEL } from '@/utils/audio';
 
 interface MobileFlashcardsProps {
   words: Word[];
@@ -18,7 +20,6 @@ const MobileFlashcards: React.FC<MobileFlashcardsProps> = ({ words, onComplete }
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [results, setResults] = useState({ easy: 0, difficult: 0 });
-  const { generateSpeech, playAudio, isLoading } = useTextToSpeech();
 
   const currentWord = words[currentIndex];
   const progress = ((currentIndex + 1) / words.length) * 100;
@@ -55,13 +56,6 @@ const MobileFlashcards: React.FC<MobileFlashcardsProps> = ({ words, onComplete }
     if (currentIndex > 0) {
       setCurrentIndex(prev => prev - 1);
       setShowAnswer(false);
-    }
-  };
-
-  const playPronunciation = async () => {
-    const audioUrl = await generateSpeech(currentWord.arabic, 'Aria');
-    if (audioUrl) {
-      playAudio(audioUrl);
     }
   };
 
@@ -114,15 +108,14 @@ const MobileFlashcards: React.FC<MobileFlashcardsProps> = ({ words, onComplete }
 
       {/* Controls */}
       <div className="flex justify-center gap-2">
-        <Button
-          variant="outline"
+        <AudioPlayer
+          key={currentWord.id}
+          word={currentWord}
+          label=""
           size="sm"
-          onClick={playPronunciation}
-          disabled={isLoading}
-        >
-          <Volume2 className="h-4 w-4" />
-        </Button>
-        
+          showAttribution={false}
+        />
+
         <Button
           variant="outline"
           size="sm"
@@ -147,6 +140,14 @@ const MobileFlashcards: React.FC<MobileFlashcardsProps> = ({ words, onComplete }
         >
           <ArrowRight className="h-4 w-4" />
         </Button>
+      </div>
+
+      <div className="text-center space-y-1">
+        <p className="text-xs text-muted-foreground">
+          {getBestAudio(currentWord)?.shortLabel ??
+            (isSpeechSupported() ? COMPUTER_VOICE_LABEL : 'No audio available')}
+        </p>
+        {getBestAudio(currentWord) && <AudioAttribution />}
       </div>
 
       {/* Mobile-specific rating buttons */}

@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /analytics
+Disallow: /notebook
+Disallow: /custom-learning
 
 Sitemap: https://quranvocab.com/sitemap.xml

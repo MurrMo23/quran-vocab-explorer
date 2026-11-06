@@ -3,6 +3,7 @@ import React from 'react';
 import { Book, AlignLeft, BookOpen, Hash, ArrowLeft, ArrowRight, Search, Users } from 'lucide-react';
 import { Word } from '@/utils/vocabulary';
 import AudioPlayer from './AudioPlayer';
+import AudioAttribution from './audio/AudioAttribution';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -39,11 +40,10 @@ const WordDetail: React.FC<WordDetailProps> = ({
           <h2 className="text-2xl font-medium">{word.meaning}</h2>
         </div>
         
-        <AudioPlayer 
-          text={word.arabic}
-          voice="CwhRBWXzGAHq8TQ4Fs17"
-          label="Listen to pronunciation" 
-          className="flex items-center gap-2 mt-4 md:mt-0"
+        <AudioPlayer
+          word={word}
+          label="Listen"
+          className="mt-4 md:mt-0"
         />
       </header>
       
@@ -101,14 +101,17 @@ const WordDetail: React.FC<WordDetailProps> = ({
               </div>
               <div className="mt-3">
                 <AudioPlayer
-                  text={example.arabicText}
-                  voice="CwhRBWXzGAHq8TQ4Fs17"
+                  surah={example.surah}
+                  ayah={example.ayah}
+                  allowComputerVoice={false}
                   label="Listen to verse"
+                  showAttribution={false}
                 />
               </div>
             </div>
           ))}
         </div>
+        {word.examples.length > 0 && <AudioAttribution className="mt-3" />}
       </section>
 
       {/* Navigation Section */}

@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -9,7 +10,7 @@ import SEO from '@/components/SEO';
 import ContentPageNavigation from '@/components/ContentPageNavigation';
 import ContactForm from '@/components/ContactForm';
 import { toast } from 'sonner';
-import { ArrowLeft, Clock } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 interface ContentPageData {
   id: string;
@@ -25,6 +26,13 @@ interface ContentPageData {
   updated_at: string;
 }
 
+// Content is stored as HTML in the DB. Older rows were plain text with line breaks,
+// so only convert newlines to <br> when the content contains no block-level HTML.
+const renderContent = (content: string) =>
+  /<(p|h[1-6]|ul|ol|li|div|section|table)[\s>]/i.test(content)
+    ? content
+    : content.replace(/\n/g, '<br>');
+
 const ContentPage: React.FC = () => {
   const location = useLocation();
   const [page, setPage] = useState<ContentPageData | null>(null);
@@ -32,9 +40,12 @@ const ContentPage: React.FC = () => {
 
   useEffect(() => {
     // Extract slug from pathname (remove leading slash)
-    const slug = location.pathname.replace('/', '');
+    const slug = location.pathname.replace(/^\/+|\/+$/g, '');
     if (slug) {
       fetchPage(slug);
+    } else {
+      setPage(null);
+      setLoading(false);
     }
   }, [location.pathname]);
 
@@ -46,21 +57,15 @@ const ContentPage: React.FC = () => {
         .select('*')
         .eq('slug', pageSlug)
         .eq('is_published', true)
-        .single();
+        .maybeSingle();
 
-      if (error) {
-        if (error.code === 'PGRST116') {
-          // Page not found
-          setPage(null);
-        } else {
-          throw error;
-        }
-        return;
-      }
+      if (error) throw error;
 
+      // null => no published page with this slug; rendered as a noindex 404 below
       setPage(data);
     } catch (error) {
       console.error('Error fetching page:', error);
+      setPage(null);
       toast.error('Failed to load page');
     } finally {
       setLoading(false);
@@ -104,6 +109,11 @@ const ContentPage: React.FC = () => {
 
   if (!page) {
     return (
+      <>
+      <Helmet>
+        <title>Page not found | QuranVocab</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -115,7 +125,7 @@ const ContentPage: React.FC = () => {
                 <CardContent className="p-8 text-center">
                   <h1 className="text-3xl font-bold mb-4">Page Not Found</h1>
                   <p className="text-muted-foreground mb-6">
-                    The page you're looking for doesn't exist or has been moved.
+                    This page couldn't be loaded. It may not exist, or there may be a temporary connection problem.
                   </p>
                   <Button asChild>
                     <Link to="/">
@@ -129,18 +139,19 @@ const ContentPage: React.FC = () => {
           </div>
         </div>
       </div>
+      </>
     );
   }
 
-  const currentSlug = location.pathname.replace('/', '');
+  const currentSlug = location.pathname.replace(/^\/+|\/+$/g, '');
   const isContactPage = currentSlug === 'contact';
 
   return (
     <>
       <SEO
         title={page.seo_title || page.title}
-        description={page.seo_description || page.excerpt || `${page.title} - Arabic Vocabulary Learning Platform`}
-        keywords={page.seo_keywords || ['Arabic', 'vocabulary', 'learning']}
+        description={page.seo_description || page.excerpt || `${page.title} — QuranVocab`}
+        keywords={page.seo_keywords || ['QuranVocab', 'Quranic Arabic', 'vocabulary']}
       />
       
       <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
@@ -170,12 +181,6 @@ const ContentPage: React.FC = () => {
                     <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                       {page.title}
                     </CardTitle>
-                    {page.page_type === 'legal' && (
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <Clock className="mr-1 h-4 w-4" />
-                        Updated {new Date(page.updated_at).toLocaleDateString()}
-                      </div>
-                    )}
                   </div>
                   {page.excerpt && (
                     <p className="mt-2 text-lg text-muted-foreground">{page.excerpt}</p>
@@ -187,7 +192,7 @@ const ContentPage: React.FC = () => {
                     <div className="space-y-8">
                       {/* Enhanced Contact Content */}
                       <div 
-                        dangerouslySetInnerHTML={{ __html: page.content.replace(/\n/g, '<br>') }}
+                        dangerouslySetInnerHTML={{ __html: renderContent(page.content) }}
                         className="prose prose-lg max-w-none text-foreground"
                       />
                       
@@ -199,7 +204,7 @@ const ContentPage: React.FC = () => {
                   ) : (
                     <div className="prose prose-lg max-w-none text-foreground">
                       <div 
-                        dangerouslySetInnerHTML={{ __html: page.content.replace(/\n/g, '<br>') }}
+                        dangerouslySetInnerHTML={{ __html: renderContent(page.content) }}
                         className="leading-relaxed"
                       />
                     </div>
@@ -220,8 +225,8 @@ const ContentPage: React.FC = () => {
                       {currentSlug !== 'about' && (
                         <Button asChild variant="outline" className="justify-start h-auto p-4">
                           <Link to="/about" className="flex flex-col items-start space-y-1">
-                            <span className="font-medium">About Us</span>
-                            <span className="text-sm text-muted-foreground">Learn about our mission</span>
+                            <span className="font-medium">About QuranVocab</span>
+                            <span className="text-sm text-muted-foreground">What it is and where the data comes from</span>
                           </Link>
                         </Button>
                       )}
@@ -237,7 +242,7 @@ const ContentPage: React.FC = () => {
                         <Button asChild variant="outline" className="justify-start h-auto p-4">
                           <Link to="/privacy-policy" className="flex flex-col items-start space-y-1">
                             <span className="font-medium">Privacy Policy</span>
-                            <span className="text-sm text-muted-foreground">How we protect your data</span>
+                            <span className="text-sm text-muted-foreground">What data we collect and why</span>
                           </Link>
                         </Button>
                       )}
@@ -247,14 +252,10 @@ const ContentPage: React.FC = () => {
                   {page.page_type === 'legal' && (
                     <div className="mt-8 pt-6 border-t bg-muted/30 -mx-8 px-8 pb-8">
                       <div className="text-sm text-muted-foreground space-y-2">
-                        <p className="flex items-center">
-                          <Clock className="mr-2 h-4 w-4" />
-                          Last updated: {new Date(page.updated_at).toLocaleDateString()}
-                        </p>
                         <p>
                           If you have any questions about this {page.title.toLowerCase()}, 
-                          please <Link to="/contact" className="text-primary hover:underline">contact us</Link> or 
-                          email support@arabicvocabulary.com
+                          please <Link to="/contact" className="text-primary hover:underline">contact us</Link> using
+                          the form on our contact page.
                         </p>
                       </div>
                     </div>
