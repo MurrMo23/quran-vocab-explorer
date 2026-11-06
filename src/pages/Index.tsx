@@ -63,7 +63,7 @@ const Index = () => {
     {
       icon: Trophy,
       title: 'Full Collections, Free',
-      description: 'Try any collection without an account; create a free account to unlock every word',
+      description: 'Use every collection without an account; create a free account to keep your progress across devices',
       color: 'text-yellow-600'
     }
   ];
@@ -99,7 +99,7 @@ const Index = () => {
               
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 QuranVocab helps you learn high-frequency Quranic Arabic vocabulary with themed collections,
-                flashcards and quizzes. Browse and try it without an account; sign in for free to unlock every word.
+                flashcards and quizzes. Use it all without an account; sign in for free to keep your progress across devices.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
