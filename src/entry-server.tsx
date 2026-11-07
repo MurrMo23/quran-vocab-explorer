@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet';
 import App from './App';
 import { ProgressProvider } from '@/lib/progress';
 import { getAllWords, getPublishedCollections } from '@/utils/vocabulary';
+import { SURAH_PAGES, getAllRoots, rootPath, surahPath } from '@/utils/quran-pages';
 
 export interface RenderResult {
   html: string;
@@ -59,5 +60,6 @@ export function routes(): string[] {
   const statics = ['/collections'];
   const collections = getPublishedCollections().map((c) => `/collections/${c.id}`);
   const words = getAllWords().map((w) => `/word/${encodeURIComponent(w.id)}`);
-  return [...statics, ...collections, ...words];
+  const quran = ['/roots', ...getAllRoots().map((r) => rootPath(r.slug)), '/surahs', ...SURAH_PAGES.map(surahPath)];
+  return [...statics, ...collections, ...words, ...quran];
 }

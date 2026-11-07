@@ -6,10 +6,11 @@ import AudioPlayer from './AudioPlayer';
 import AudioAttribution from './audio/AudioAttribution';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import WordNotesPanel from '@/components/learning/WordNotesPanel';
 import { Badge } from '@/components/ui/badge';
 import { getQuranicUsage } from '@/utils/word-usage';
+import { getWordRootSlug, getWordSurahPages, rootPath, surahPath } from '@/utils/quran-pages';
 
 interface WordDetailProps {
   word: Word;
@@ -31,6 +32,8 @@ const WordDetail: React.FC<WordDetailProps> = ({
   const navigate = useNavigate();
   const usage = getQuranicUsage(word);
   const related = word.quranicForm;
+  const rootSlug = getWordRootSlug(word.id);
+  const surahPages = getWordSurahPages(word.id);
 
   const handleWordNavigation = (wordId: string) => {
     navigate(`/word/${wordId}`);
@@ -70,6 +73,11 @@ const WordDetail: React.FC<WordDetailProps> = ({
           <div>
             <div className="text-sm text-muted-foreground">Root</div>
             <div className="font-medium font-arabic">{word.root}</div>
+            {rootSlug && (
+              <Link to={rootPath(rootSlug)} className="text-sm text-primary underline-offset-4 hover:underline">
+                Root family
+              </Link>
+            )}
           </div>
         </div>
         
@@ -100,6 +108,25 @@ const WordDetail: React.FC<WordDetailProps> = ({
             </p>
           )}
         </aside>
+      )}
+
+      {surahPages.length > 0 && (
+        <nav className="mb-6" aria-label="Juz Amma surahs containing this word">
+          <h3 className="mb-2 text-sm text-muted-foreground">Appears in (Juz Amma)</h3>
+          <ul className="flex flex-wrap gap-1.5">
+            {surahPages.map(({ surah, count }) => (
+              <li key={surah.number}>
+                <Link
+                  to={surahPath(surah.number)}
+                  className="inline-block rounded-full border px-2.5 py-0.5 text-xs hover:border-primary/40 hover:bg-muted"
+                  title={`${count}× in Surah ${surah.name}`}
+                >
+                  {surah.number}. {surah.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       )}
 
       <section className="mb-6">

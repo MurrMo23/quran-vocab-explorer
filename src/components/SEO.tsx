@@ -31,6 +31,8 @@ interface SEOProps {
     partOfSpeech: string;
     tags: string[];
   };
+  /** Trail for a BreadcrumbList (Home is added first); the last item is this page. */
+  breadcrumbs?: { name: string; path: string }[];
 }
 
 const SITE_NAME = 'QuranVocab';
@@ -118,7 +120,8 @@ const SEO: React.FC<SEOProps> = ({
   type = 'website',
   noindex = false,
   article,
-  word
+  word,
+  breadcrumbs
 }) => {
   React.useEffect(() => {
     removeStaticHeadDuplicates();
@@ -217,6 +220,18 @@ const SEO: React.FC<SEOProps> = ({
       description: finalDescription,
       url: canonical,
       isPartOf: { '@id': `${SITE_URL}/#website` }
+    });
+  }
+
+  if (!word && breadcrumbs?.length) {
+    graph.push({
+      '@type': 'BreadcrumbList',
+      itemListElement: [{ name: 'Home', path: '/' }, ...breadcrumbs].map((b, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: b.name,
+        item: b.path === '/' ? `${SITE_URL}/` : `${SITE_URL}${b.path}`
+      }))
     });
   }
 
