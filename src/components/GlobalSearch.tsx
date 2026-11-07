@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { getWordPath } from '@/utils/word-slugs';
 
 interface SearchResult {
   id: string;
@@ -96,7 +97,7 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) => {
             title: word.arabic,
             subtitle: word.transliteration,
             description: word.meaning,
-            url: `/word/${word.id}`
+            url: getWordPath(word.id)
           });
         });
       }

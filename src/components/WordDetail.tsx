@@ -11,6 +11,7 @@ import WordNotesPanel from '@/components/learning/WordNotesPanel';
 import { Badge } from '@/components/ui/badge';
 import { getQuranicUsage } from '@/utils/word-usage';
 import { getWordRootSlug, getWordSurahPages, rootPath, surahPath } from '@/utils/quran-pages';
+import { getWordPath } from '@/utils/word-slugs';
 
 interface WordDetailProps {
   word: Word;
@@ -36,7 +37,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
   const surahPages = getWordSurahPages(word.id);
 
   const handleWordNavigation = (wordId: string) => {
-    navigate(`/word/${wordId}`);
+    navigate(getWordPath(wordId));
   };
 
   return (

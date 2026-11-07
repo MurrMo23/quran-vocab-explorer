@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { searchWords, Word } from '@/utils/vocabulary';
+import { getWordPath } from '@/utils/word-slugs';
 
 interface SearchBarProps {
   className?: string;
@@ -86,7 +87,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   const handleSelect = (wordId: string) => {
-    navigate(`/word/${wordId}`);
+    navigate(getWordPath(wordId));
     setIsOpen(false);
     setQuery('');
     if (onChange) {

@@ -7,6 +7,7 @@ import AudioPlayer from '@/components/AudioPlayer';
 import { getCollectionById, getWordsByCollection, Word } from '@/utils/vocabulary';
 import { toast } from 'sonner';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { getWordPath } from '@/utils/word-slugs';
 const CollectionDetails = () => {
   const {
     id
@@ -50,7 +51,7 @@ const CollectionDetails = () => {
     }
   }, [searchQuery, words]);
   const handleWordClick = (wordId: string) => {
-    navigate(`/word/${wordId}`);
+    navigate(getWordPath(wordId));
   };
   const handleSearch = (query: string) => {
     setSearchQuery(query);

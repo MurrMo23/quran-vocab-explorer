@@ -2,11 +2,12 @@
 // Quranic Arabic Corpus by scripts/vocab/gen-pages.py.
 import { LEMMAS, ROOTS, SURAHS, SURAH_NAMES, SURAH_PAGES, WORD_LEMMA, WORD_ROOT } from './generated/quran-index';
 import { getWordById, type Word } from './vocabulary';
+import { getWordPath } from './word-slugs';
 
 export { SURAH_PAGES };
 
-/** Link to a word page. */
-export const wordPath = (id: string) => `/word/${encodeURIComponent(id)}`;
+/** Link to a word page (/word/<slug>). */
+export const wordPath = (id: string) => getWordPath(id);
 export const surahPath = (n: number) => `/surah/${n}`;
 export const rootPath = (slug: string) => `/root/${slug}`;
 

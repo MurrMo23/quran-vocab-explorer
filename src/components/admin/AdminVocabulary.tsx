@@ -13,6 +13,7 @@ import { getAllCollections, getAllWords } from '@/utils/vocabulary';
 import { Word } from '@/utils/vocabulary-types';
 import { dateStamp, downloadCsv, downloadJson } from './exportUtils';
 import { getQuranicUsage } from '@/utils/word-usage';
+import { getWordPath } from '@/utils/word-slugs';
 
 interface AdminVocabularyProps {
   // Kept for API compatibility with Admin.tsx; this view is read-only so nothing is logged.
@@ -263,7 +264,7 @@ const AdminVocabulary: React.FC<AdminVocabularyProps> = () => {
                       <TableCell>
                         <Button asChild variant="ghost" size="icon">
                           <Link
-                            to={`/word/${encodeURIComponent(w.id)}`}
+                            to={getWordPath(w.id)}
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={`Open public page for ${w.transliteration}`}

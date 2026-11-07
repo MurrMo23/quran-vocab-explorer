@@ -8,6 +8,11 @@ import App from './App';
 import { ProgressProvider } from '@/lib/progress';
 import { getAllWords, getPublishedCollections } from '@/utils/vocabulary';
 import { SURAH_PAGES, getAllRoots, rootPath, surahPath } from '@/utils/quran-pages';
+import { getWordPath } from '@/utils/word-slugs';
+
+// Build-time data for scripts/generate-sitemap.mjs and the legacy /word/<id> redirect pages.
+export { getAllWords, getPublishedCollections };
+export { getWordSlug, getLegacyWordRedirects } from '@/utils/word-slugs';
 
 export interface RenderResult {
   html: string;
@@ -53,13 +58,17 @@ export function render(url: string): Promise<RenderResult> {
   });
 }
 
+/** Root and surah vocabulary pages (prerendered and in the sitemap). */
+export function quranPages(): string[] {
+  return ['/roots', ...getAllRoots().map((r) => rootPath(r.slug)), '/surahs', ...SURAH_PAGES.map(surahPath)];
+}
+
 /** Public routes worth prerendering (everything that is in the sitemap and needs no account). */
 export function routes(): string[] {
   // '/' is not prerendered: dist/index.html must stay the clean SPA shell the host serves for every
   // other route (auth, dashboard, ...). Interactive pages that depend on saved progress stay client-only.
   const statics = ['/collections'];
   const collections = getPublishedCollections().map((c) => `/collections/${c.id}`);
-  const words = getAllWords().map((w) => `/word/${encodeURIComponent(w.id)}`);
-  const quran = ['/roots', ...getAllRoots().map((r) => rootPath(r.slug)), '/surahs', ...SURAH_PAGES.map(surahPath)];
-  return [...statics, ...collections, ...words, ...quran];
+  const words = getAllWords().map((w) => getWordPath(w));
+  return [...statics, ...collections, ...words, ...quranPages()];
 }
