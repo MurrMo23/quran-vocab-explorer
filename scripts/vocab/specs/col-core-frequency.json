@@ -1,0 +1,1056 @@
+{
+ "collection": "verbs",
+ "existing": [],
+ "new": [
+  {
+   "id": "rabb",
+   "lemma": "rab~",
+   "location": "87:1:3",
+   "transliteration": "rabb",
+   "meaning": "Lord, Sustainer",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "faith",
+    "essential"
+   ],
+   "collection": "faith"
+  },
+  {
+   "id": "illa",
+   "lemma": "<il~aA",
+   "location": "78:25:1",
+   "transliteration": "illā",
+   "meaning": "Except, but",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "exception"
+   ],
+   "extraCollections": [
+    "grammar"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "kalla",
+   "lemma": "kal~aA",
+   "location": "78:4:1",
+   "transliteration": "kallā",
+   "meaning": "No! Nay! (strong rejection)",
+   "partOfSpeech": "particle",
+   "level": "intermediate",
+   "tags": [
+    "particles",
+    "rebuke"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "yawmaidhin",
+   "lemma": "yawoma}i*",
+   "location": "80:38:2",
+   "transliteration": "yawma'idhin",
+   "meaning": "On that Day",
+   "partOfSpeech": "adverb",
+   "level": "intermediate",
+   "tags": [
+    "time",
+    "day of judgment"
+   ],
+   "arabic": "يَوْمَئِذٍ",
+   "extraCollections": [
+    "afterlife"
+   ],
+   "collection": "time"
+  },
+  {
+   "id": "khalaqa",
+   "lemma": "xalaqa",
+   "location": "96:1:5",
+   "transliteration": "khalaqa",
+   "meaning": "To create",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "creation"
+   ],
+   "extraCollections": [
+    "nature"
+   ]
+  },
+  {
+   "id": "amma",
+   "lemma": ">am~aA",
+   "location": "80:5:1",
+   "transliteration": "ammā",
+   "meaning": "As for",
+   "partOfSpeech": "particle",
+   "level": "intermediate",
+   "tags": [
+    "particles",
+    "contrast"
+   ],
+   "extraCollections": [
+    "grammar"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "kadhdhaba",
+   "lemma": "ka*~aba",
+   "location": "92:9:1",
+   "transliteration": "kadhdhaba",
+   "meaning": "To deny, reject as a lie",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "denial"
+   ],
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "dhu",
+   "lemma": "*uw",
+   "location": "89:10:2",
+   "transliteration": "dhū",
+   "meaning": "Possessor of, owner of",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "grammar",
+    "possession"
+   ],
+   "extraCollections": [
+    "particles"
+   ],
+   "collection": "grammar"
+  },
+  {
+   "id": "din",
+   "lemma": "diyn",
+   "location": "109:6:2",
+   "transliteration": "dīn",
+   "meaning": "Religion, way of life; judgment, recompense",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "faith",
+    "religion"
+   ],
+   "extraCollections": [
+    "afterlife"
+   ],
+   "collection": "faith"
+  },
+  {
+   "id": "adra",
+   "lemma": ">adoraY`",
+   "location": "83:8:2",
+   "transliteration": "adrā",
+   "meaning": "To make (someone) know, inform",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "verbs",
+    "knowledge"
+   ],
+   "extraCollections": [
+    "knowledge"
+   ]
+  },
+  {
+   "id": "an-that",
+   "lemma": ">an",
+   "location": "90:7:2",
+   "transliteration": "an",
+   "meaning": "That; to (before a verb)",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "conjunction"
+   ],
+   "arabic": "أَنْ",
+   "extraCollections": [
+    "grammar"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "jaala",
+   "lemma": "jaEala",
+   "location": "78:10:1",
+   "transliteration": "ja'ala",
+   "meaning": "To make, place, appoint",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "essential"
+   ]
+  },
+  {
+   "id": "kull",
+   "lemma": "kul~",
+   "location": "104:1:2",
+   "transliteration": "kull",
+   "meaning": "Every, all",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "quantity",
+    "essential"
+   ],
+   "extraCollections": [
+    "particles"
+   ],
+   "collection": "numbers"
+  },
+  {
+   "id": "amila",
+   "lemma": "Eamila",
+   "location": "99:7:2",
+   "transliteration": "'amila",
+   "meaning": "To do, work",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "deeds"
+   ],
+   "extraCollections": [
+    "actions"
+   ]
+  },
+  {
+   "id": "kafara",
+   "lemma": "kafara",
+   "location": "88:23:4",
+   "transliteration": "kafara",
+   "meaning": "To disbelieve; to be ungrateful",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "disbelief"
+   ],
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "aw",
+   "lemma": ">aw",
+   "location": "96:12:1",
+   "transliteration": "aw",
+   "meaning": "Or",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "conjunction"
+   ],
+   "arabic": "أَوْ",
+   "extraCollections": [
+    "grammar"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "nazara",
+   "lemma": "n~aZara",
+   "location": "80:24:1",
+   "transliteration": "naẓara",
+   "meaning": "To look, observe",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "verbs",
+    "perception"
+   ],
+   "arabic": "نَظَرَ"
+  },
+  {
+   "id": "sawfa",
+   "lemma": "sawof",
+   "location": "102:3:2",
+   "transliteration": "sawfa",
+   "meaning": "Will, shall (future)",
+   "partOfSpeech": "particle",
+   "level": "intermediate",
+   "tags": [
+    "particles",
+    "future"
+   ],
+   "arabic": "سَوْفَ",
+   "extraCollections": [
+    "grammar"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "khashiya",
+   "lemma": "xa$iYa",
+   "location": "87:10:3",
+   "transliteration": "khashiya",
+   "meaning": "To fear, be in awe of",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "verbs",
+    "fear"
+   ],
+   "arabic": "خَشِيَ",
+   "extraCollections": [
+    "emotions"
+   ]
+  },
+  {
+   "id": "saliya",
+   "lemma": "yaSolaY",
+   "location": "84:12:1",
+   "transliteration": "ṣaliya",
+   "meaning": "To burn in, enter (the Fire)",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "verbs",
+    "hellfire"
+   ],
+   "arabic": "صَلِيَ",
+   "extraCollections": [
+    "afterlife"
+   ]
+  },
+  {
+   "id": "anna",
+   "lemma": ">an~",
+   "location": "99:5:1",
+   "transliteration": "anna",
+   "meaning": "That (introducing a statement)",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "conjunction"
+   ],
+   "arabic": "أَنَّ",
+   "extraCollections": [
+    "grammar"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "aata",
+   "lemma": "A^taY",
+   "location": "92:18:2",
+   "transliteration": "ātā",
+   "meaning": "To give",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "giving"
+   ],
+   "arabic": "آتَىٰ"
+  },
+  {
+   "id": "ata",
+   "lemma": ">ataY",
+   "location": "79:15:2",
+   "transliteration": "atā",
+   "meaning": "To come; to come to, reach",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "movement"
+   ],
+   "arabic": "أَتَىٰ"
+  },
+  {
+   "id": "ulaika",
+   "lemma": ">uwla`^}ik",
+   "location": "90:18:1",
+   "transliteration": "ulā'ika",
+   "meaning": "Those",
+   "partOfSpeech": "pronoun",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "demonstrative"
+   ],
+   "arabic": "أُولَٰئِكَ",
+   "extraCollections": [
+    "particles"
+   ],
+   "collection": "grammar"
+  },
+  {
+   "id": "ahl",
+   "lemma": ">ahol",
+   "location": "84:9:3",
+   "transliteration": "ahl",
+   "meaning": "Family, household; people (of)",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "people"
+   ],
+   "extraCollections": [
+    "people"
+   ],
+   "allowSharedLemma": true,
+   "collection": "family"
+  },
+  {
+   "id": "akhraja",
+   "lemma": ">axoraja",
+   "location": "87:4:2",
+   "transliteration": "akhraja",
+   "meaning": "To bring out, bring forth",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "verbs",
+    "movement"
+   ],
+   "extraCollections": [
+    "nature"
+   ]
+  },
+  {
+   "id": "awwal",
+   "lemma": ">aw~al",
+   "location": "87:18:5",
+   "transliteration": "awwal",
+   "meaning": "First; former",
+   "partOfSpeech": "adjective",
+   "level": "intermediate",
+   "tags": [
+    "numbers",
+    "order"
+   ],
+   "arabic": "أَوَّل",
+   "extraCollections": [
+    "time"
+   ],
+   "collection": "numbers"
+  },
+  {
+   "id": "salihat",
+   "lemma": "S~a`liHa`t",
+   "location": "103:3:5",
+   "transliteration": "ṣāliḥāt",
+   "meaning": "Righteous deeds, good works",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "actions",
+    "deeds"
+   ],
+   "arabic": "صَٰلِحَٰت",
+   "extraCollections": [
+    "ethics"
+   ],
+   "collection": "actions"
+  },
+  {
+   "id": "balad",
+   "lemma": "balad",
+   "location": "95:3:2",
+   "transliteration": "balad",
+   "meaning": "Land, town, city",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "geography",
+    "places"
+   ],
+   "collection": "geography"
+  },
+  {
+   "id": "sawwa",
+   "lemma": "saw~aY`",
+   "location": "91:7:3",
+   "transliteration": "sawwā",
+   "meaning": "To fashion, proportion",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "verbs",
+    "creation"
+   ],
+   "extraCollections": [
+    "nature"
+   ]
+  },
+  {
+   "id": "tazakka",
+   "lemma": "tazak~aY`",
+   "location": "87:14:4",
+   "transliteration": "tazakkā",
+   "meaning": "To purify oneself",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "verbs",
+    "purification"
+   ],
+   "extraCollections": [
+    "spiritual-states"
+   ]
+  },
+  {
+   "id": "shay",
+   "lemma": "$aYo'",
+   "location": "78:29:2",
+   "transliteration": "shay'",
+   "meaning": "Thing",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "daily-life",
+    "essential"
+   ],
+   "arabic": "شَيْء",
+   "collection": "daily-life"
+  },
+  {
+   "id": "ashab",
+   "lemma": ">aSoHa`b",
+   "location": "90:18:2",
+   "transliteration": "aṣḥāb",
+   "meaning": "Companions; people (of), inhabitants",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "people",
+    "companions"
+   ],
+   "extraCollections": [
+    "community"
+   ],
+   "collection": "people"
+  },
+  {
+   "id": "tawalla",
+   "lemma": "tawal~aY`",
+   "location": "80:1:2",
+   "transliteration": "tawallā",
+   "meaning": "To turn away",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "verbs",
+    "turning away"
+   ]
+  },
+  {
+   "id": "tadhakkara",
+   "lemma": "ta*ak~ara",
+   "location": "87:10:1",
+   "transliteration": "tadhakkara",
+   "meaning": "To take heed, be reminded",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "verbs",
+    "remembrance"
+   ],
+   "extraCollections": [
+    "knowledge"
+   ]
+  },
+  {
+   "id": "wayl",
+   "lemma": "wayol",
+   "location": "83:1:1",
+   "transliteration": "wayl",
+   "meaning": "Woe",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "afterlife",
+    "warning"
+   ],
+   "collection": "afterlife"
+  },
+  {
+   "id": "radiya",
+   "lemma": "r~aDiYa",
+   "location": "92:21:2",
+   "transliteration": "raḍiya",
+   "meaning": "To be pleased, satisfied",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "verbs",
+    "contentment"
+   ],
+   "arabic": "رَضِيَ",
+   "extraCollections": [
+    "emotions"
+   ]
+  },
+  {
+   "id": "karim",
+   "lemma": "kariym",
+   "location": "82:11:1",
+   "transliteration": "karīm",
+   "meaning": "Noble, generous",
+   "partOfSpeech": "adjective",
+   "level": "intermediate",
+   "tags": [
+    "ethics",
+    "character"
+   ],
+   "collection": "ethics"
+  },
+  {
+   "id": "dhikra",
+   "lemma": "*ikoraY`",
+   "location": "80:4:4",
+   "transliteration": "dhikrā",
+   "meaning": "Reminder, remembrance",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "knowledge",
+    "remembrance"
+   ],
+   "extraCollections": [
+    "worship"
+   ],
+   "collection": "knowledge"
+  },
+  {
+   "id": "naim",
+   "lemma": "naEiym",
+   "location": "82:13:4",
+   "transliteration": "na'īm",
+   "meaning": "Bliss, delight",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "afterlife",
+    "paradise"
+   ],
+   "collection": "afterlife"
+  },
+  {
+   "id": "tagha",
+   "lemma": "TagaY`",
+   "location": "79:37:3",
+   "transliteration": "ṭaghā",
+   "meaning": "To transgress, exceed all bounds",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "verbs",
+    "transgression"
+   ],
+   "extraCollections": [
+    "morality"
+   ]
+  },
+  {
+   "id": "yassara",
+   "lemma": "yas~ara",
+   "location": "92:7:1",
+   "transliteration": "yassara",
+   "meaning": "To make easy, ease",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "verbs",
+    "ease"
+   ]
+  },
+  {
+   "id": "hamd",
+   "lemma": "Hamod",
+   "location": "110:3:2",
+   "transliteration": "ḥamd",
+   "meaning": "Praise",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "worship",
+    "praise"
+   ],
+   "extraCollections": [
+    "faith"
+   ],
+   "allowSharedLemma": true,
+   "collection": "worship"
+  },
+  {
+   "id": "qadr",
+   "lemma": "qador",
+   "location": "97:1:5",
+   "transliteration": "qadr",
+   "meaning": "Decree, power; value (Laylat al-Qadr)",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "faith",
+    "decree"
+   ],
+   "extraCollections": [
+    "time"
+   ],
+   "collection": "faith"
+  },
+  {
+   "id": "laylah",
+   "lemma": "layolap",
+   "location": "97:3:1",
+   "transliteration": "laylah",
+   "meaning": "A night",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "time",
+    "night"
+   ],
+   "collection": "time"
+  },
+  {
+   "id": "walada",
+   "lemma": "walada",
+   "location": "112:3:2",
+   "transliteration": "walada",
+   "meaning": "To beget, give birth",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "verbs",
+    "birth"
+   ],
+   "extraCollections": [
+    "family"
+   ]
+  },
+  {
+   "id": "bayna",
+   "lemma": "bayon",
+   "location": "86:7:3",
+   "transliteration": "bayna",
+   "meaning": "Between, among",
+   "partOfSpeech": "preposition",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "place"
+   ],
+   "arabic": "بَيْنَ",
+   "extraCollections": [
+    "directions"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "idh",
+   "lemma": "<i*",
+   "location": "91:12:1",
+   "transliteration": "idh",
+   "meaning": "When (in the past)",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "time"
+   ],
+   "arabic": "إِذْ",
+   "extraCollections": [
+    "time"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "inda",
+   "lemma": "Eind",
+   "location": "81:20:3",
+   "transliteration": "'inda",
+   "meaning": "With, near, in the presence of",
+   "partOfSpeech": "preposition",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "place"
+   ],
+   "arabic": "عِندَ",
+   "collection": "particles"
+  },
+  {
+   "id": "anzala",
+   "lemma": ">anzala",
+   "location": "78:14:1",
+   "transliteration": "anzala",
+   "meaning": "To send down, reveal",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "revelation"
+   ],
+   "extraCollections": [
+    "books"
+   ]
+  },
+  {
+   "id": "daa",
+   "lemma": "daEaA",
+   "location": "96:17:1",
+   "transliteration": "da'ā",
+   "meaning": "To call, invoke, supplicate",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "supplication"
+   ],
+   "extraCollections": [
+    "worship"
+   ]
+  },
+  {
+   "id": "ittaqa",
+   "lemma": "{t~aqaY`",
+   "location": "92:5:4",
+   "transliteration": "ittaqā",
+   "meaning": "To fear (Allah), be mindful of Him",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "piety"
+   ],
+   "extraCollections": [
+    "ethics"
+   ]
+  },
+  {
+   "id": "bad-some",
+   "lemma": "baEoD",
+   "location": "37:27:2",
+   "transliteration": "ba'ḍ",
+   "meaning": "Some, part; one another",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "quantity",
+    "essential"
+   ],
+   "collection": "numbers"
+  },
+  {
+   "id": "lamma",
+   "lemma": "lam~aA",
+   "location": "20:11:1",
+   "transliteration": "lammā",
+   "meaning": "When (after it happened)",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "time"
+   ],
+   "extraCollections": [
+    "time"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "ayyuha",
+   "lemma": ">ay~uhaA",
+   "location": "109:1:2",
+   "transliteration": "ayyuhā",
+   "meaning": "O (calling someone, with yā)",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "vocative"
+   ],
+   "extraCollections": [
+    "grammar"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "ghayr",
+   "lemma": "gayor",
+   "location": "95:6:8",
+   "transliteration": "ghayr",
+   "meaning": "Other than; not, un-",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "negation"
+   ],
+   "extraCollections": [
+    "grammar"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "ilah",
+   "lemma": "<ila`h",
+   "location": "114:3:1",
+   "transliteration": "ilāh",
+   "meaning": "God, deity",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "faith",
+    "theology"
+   ],
+   "collection": "faith"
+  },
+  {
+   "id": "duna",
+   "lemma": "duwn",
+   "location": "37:86:3",
+   "transliteration": "dūna",
+   "meaning": "Besides, other than; below",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "exclusion"
+   ],
+   "arabic": "دُونَ",
+   "collection": "particles"
+  },
+  {
+   "id": "hatta",
+   "lemma": "Hat~aY`",
+   "location": "102:2:1",
+   "transliteration": "ḥattā",
+   "meaning": "Until; even",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "time"
+   ],
+   "extraCollections": [
+    "time"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "arada",
+   "lemma": ">araAda",
+   "location": "85:16:3",
+   "transliteration": "arāda",
+   "meaning": "To want, intend, will",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "will"
+   ]
+  },
+  {
+   "id": "am",
+   "lemma": ">am",
+   "location": "79:27:4",
+   "transliteration": "am",
+   "meaning": "Or (in questions); or rather",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "particles",
+    "question"
+   ],
+   "arabic": "أَمْ",
+   "extraCollections": [
+    "grammar"
+   ],
+   "collection": "particles"
+  },
+  {
+   "id": "ittabaa",
+   "lemma": "{t~abaEa",
+   "location": "26:224:2",
+   "transliteration": "ittaba'a",
+   "meaning": "To follow",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "following"
+   ]
+  },
+  {
+   "id": "arsala",
+   "lemma": ">arosala",
+   "location": "105:3:1",
+   "transliteration": "arsala",
+   "meaning": "To send",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "sending"
+   ],
+   "extraCollections": [
+    "prophets"
+   ]
+  },
+  {
+   "id": "zalim",
+   "lemma": "ZaAlim",
+   "location": "37:63:4",
+   "transliteration": "ẓālim",
+   "meaning": "Wrongdoer, unjust",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "morality",
+    "injustice"
+   ],
+   "extraCollections": [
+    "people"
+   ],
+   "collection": "morality"
+  },
+  {
+   "id": "akhadha",
+   "lemma": ">axa*a",
+   "location": "79:25:1",
+   "transliteration": "akhadha",
+   "meaning": "To take, seize",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "taking"
+   ]
+  },
+  {
+   "id": "ittakhadha",
+   "lemma": "{t~axa*a",
+   "location": "19:88:2",
+   "transliteration": "ittakhadha",
+   "meaning": "To take (for oneself), adopt",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "verbs",
+    "taking"
+   ]
+  }
+ ]
+}

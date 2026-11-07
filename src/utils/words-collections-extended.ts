@@ -3512,6 +3512,2096 @@ export const collectionsExtendedWords: Word[] = [
     ]
   },
   {
+    "id": "rabb",
+    "arabic": "رَبّ",
+    "transliteration": "rabb",
+    "meaning": "Lord, Sustainer",
+    "root": "ر ب ب",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 975,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 87,
+      "ayah": 1,
+      "position": 3
+    },
+    "tags": [
+      "faith",
+      "essential"
+    ],
+    "collections": [
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 87,
+        "ayah": 1,
+        "arabicText": "سَبِّحِ ٱسْمَ رَبِّكَ ٱلْأَعْلَى",
+        "translation": "Exalt the name of your Lord, the Most High"
+      }
+    ]
+  },
+  {
+    "id": "illa",
+    "arabic": "إِلَّا",
+    "transliteration": "illā",
+    "meaning": "Except, but",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "beginner",
+    "frequency": 663,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 78,
+      "ayah": 25,
+      "position": 1
+    },
+    "tags": [
+      "particles",
+      "exception"
+    ],
+    "collections": [
+      "particles",
+      "grammar"
+    ],
+    "examples": [
+      {
+        "surah": 78,
+        "ayah": 25,
+        "arabicText": "إِلَّا حَمِيمًا وَغَسَّاقًا",
+        "translation": "Except scalding water and [foul] purulence"
+      }
+    ]
+  },
+  {
+    "id": "kalla",
+    "arabic": "كَلَّا",
+    "transliteration": "kallā",
+    "meaning": "No! Nay! (strong rejection)",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "intermediate",
+    "frequency": 33,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 78,
+      "ayah": 4,
+      "position": 1
+    },
+    "tags": [
+      "particles",
+      "rebuke"
+    ],
+    "collections": [
+      "particles"
+    ],
+    "examples": [
+      {
+        "surah": 78,
+        "ayah": 4,
+        "arabicText": "كَلَّا سَيَعْلَمُونَ",
+        "translation": "No! They are going to know"
+      }
+    ]
+  },
+  {
+    "id": "yawmaidhin",
+    "arabic": "يَوْمَئِذٍ",
+    "transliteration": "yawma'idhin",
+    "meaning": "On that Day",
+    "root": "",
+    "partOfSpeech": "adverb",
+    "level": "intermediate",
+    "frequency": 70,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 80,
+      "ayah": 38,
+      "position": 2
+    },
+    "tags": [
+      "time",
+      "day of judgment"
+    ],
+    "collections": [
+      "time",
+      "afterlife"
+    ],
+    "examples": [
+      {
+        "surah": 80,
+        "ayah": 38,
+        "arabicText": "وُجُوهٌ يَوْمَئِذٍ مُّسْفِرَةٌ",
+        "translation": "[Some] faces, that Day, will be bright"
+      }
+    ]
+  },
+  {
+    "id": "khalaqa",
+    "arabic": "خَلَقَ",
+    "transliteration": "khalaqa",
+    "meaning": "To create",
+    "root": "خ ل ق",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 184,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 96,
+      "ayah": 1,
+      "position": 5
+    },
+    "tags": [
+      "verbs",
+      "creation"
+    ],
+    "collections": [
+      "verbs",
+      "nature"
+    ],
+    "examples": [
+      {
+        "surah": 96,
+        "ayah": 1,
+        "arabicText": "ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَقَ",
+        "translation": "Recite in the name of your Lord who created"
+      }
+    ]
+  },
+  {
+    "id": "amma",
+    "arabic": "أَمَّا",
+    "transliteration": "ammā",
+    "meaning": "As for",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "intermediate",
+    "frequency": 55,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 80,
+      "ayah": 5,
+      "position": 1
+    },
+    "tags": [
+      "particles",
+      "contrast"
+    ],
+    "collections": [
+      "particles",
+      "grammar"
+    ],
+    "examples": [
+      {
+        "surah": 80,
+        "ayah": 5,
+        "arabicText": "أَمَّا مَنِ ٱسْتَغْنَىٰ",
+        "translation": "As for he who thinks himself without need"
+      }
+    ]
+  },
+  {
+    "id": "kadhdhaba",
+    "arabic": "كَذَّبَ",
+    "transliteration": "kadhdhaba",
+    "meaning": "To deny, reject as a lie",
+    "root": "ك ذ ب",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 176,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 92,
+      "ayah": 9,
+      "position": 1
+    },
+    "tags": [
+      "verbs",
+      "denial"
+    ],
+    "collections": [
+      "verbs",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 92,
+        "ayah": 9,
+        "arabicText": "وَكَذَّبَ بِٱلْحُسْنَىٰ",
+        "translation": "And denies the best [reward]"
+      }
+    ]
+  },
+  {
+    "id": "dhu",
+    "arabic": "ذُو",
+    "transliteration": "dhū",
+    "meaning": "Possessor of, owner of",
+    "root": "",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 93,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 89,
+      "ayah": 10,
+      "position": 2
+    },
+    "tags": [
+      "grammar",
+      "possession"
+    ],
+    "collections": [
+      "grammar",
+      "particles"
+    ],
+    "examples": [
+      {
+        "surah": 89,
+        "ayah": 10,
+        "arabicText": "وَفِرْعَوْنَ ذِى ٱلْأَوْتَادِ",
+        "translation": "And [with] Pharaoh, owner of the stakes"
+      }
+    ]
+  },
+  {
+    "id": "din",
+    "arabic": "دِين",
+    "transliteration": "dīn",
+    "meaning": "Religion, way of life; judgment, recompense",
+    "root": "د ي ن",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 92,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 109,
+      "ayah": 6,
+      "position": 2
+    },
+    "tags": [
+      "faith",
+      "religion"
+    ],
+    "collections": [
+      "faith",
+      "afterlife"
+    ],
+    "examples": [
+      {
+        "surah": 109,
+        "ayah": 6,
+        "arabicText": "لَكُمْ دِينُكُمْ وَلِىَ دِينِ",
+        "translation": "For you is your religion, and for me is my religion"
+      }
+    ]
+  },
+  {
+    "id": "adra",
+    "arabic": "أَدْرَىٰ",
+    "transliteration": "adrā",
+    "meaning": "To make (someone) know, inform",
+    "root": "د ر ي",
+    "partOfSpeech": "verb",
+    "level": "advanced",
+    "frequency": 17,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 83,
+      "ayah": 8,
+      "position": 2
+    },
+    "tags": [
+      "verbs",
+      "knowledge"
+    ],
+    "collections": [
+      "verbs",
+      "knowledge"
+    ],
+    "examples": [
+      {
+        "surah": 83,
+        "ayah": 8,
+        "arabicText": "وَمَآ أَدْرَىٰكَ مَا سِجِّينٌ",
+        "translation": "And what can make you know what is sijjeen"
+      }
+    ]
+  },
+  {
+    "id": "an-that",
+    "arabic": "أَنْ",
+    "transliteration": "an",
+    "meaning": "That; to (before a verb)",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "beginner",
+    "frequency": 625,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 90,
+      "ayah": 7,
+      "position": 2
+    },
+    "tags": [
+      "particles",
+      "conjunction"
+    ],
+    "collections": [
+      "particles",
+      "grammar"
+    ],
+    "examples": [
+      {
+        "surah": 90,
+        "ayah": 7,
+        "arabicText": "أَيَحْسَبُ أَن لَّمْ يَرَهُۥٓ أَحَدٌ",
+        "translation": "Does he think that no one has seen him"
+      }
+    ]
+  },
+  {
+    "id": "jaala",
+    "arabic": "جَعَلَ",
+    "transliteration": "ja'ala",
+    "meaning": "To make, place, appoint",
+    "root": "ج ع ل",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 340,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 78,
+      "ayah": 10,
+      "position": 1
+    },
+    "tags": [
+      "verbs",
+      "essential"
+    ],
+    "collections": [
+      "verbs"
+    ],
+    "examples": [
+      {
+        "surah": 78,
+        "ayah": 10,
+        "arabicText": "وَجَعَلْنَا ٱلَّيْلَ لِبَاسًا",
+        "translation": "And made the night as clothing"
+      }
+    ]
+  },
+  {
+    "id": "kull",
+    "arabic": "كُلّ",
+    "transliteration": "kull",
+    "meaning": "Every, all",
+    "root": "ك ل ل",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 359,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 104,
+      "ayah": 1,
+      "position": 2
+    },
+    "tags": [
+      "quantity",
+      "essential"
+    ],
+    "collections": [
+      "numbers",
+      "particles"
+    ],
+    "examples": [
+      {
+        "surah": 104,
+        "ayah": 1,
+        "arabicText": "وَيْلٌ لِّكُلِّ هُمَزَةٍ لُّمَزَةٍ",
+        "translation": "Woe to every scorner and mocker"
+      }
+    ]
+  },
+  {
+    "id": "amila",
+    "arabic": "عَمِلَ",
+    "transliteration": "'amila",
+    "meaning": "To do, work",
+    "root": "ع م ل",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 276,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 99,
+      "ayah": 7,
+      "position": 2
+    },
+    "tags": [
+      "verbs",
+      "deeds"
+    ],
+    "collections": [
+      "verbs",
+      "actions"
+    ],
+    "examples": [
+      {
+        "surah": 99,
+        "ayah": 7,
+        "arabicText": "فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُۥ",
+        "translation": "So whoever does an atom's weight of good will see it"
+      }
+    ]
+  },
+  {
+    "id": "kafara",
+    "arabic": "كَفَرَ",
+    "transliteration": "kafara",
+    "meaning": "To disbelieve; to be ungrateful",
+    "root": "ك ف ر",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 289,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 88,
+      "ayah": 23,
+      "position": 4
+    },
+    "tags": [
+      "verbs",
+      "disbelief"
+    ],
+    "collections": [
+      "verbs",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 88,
+        "ayah": 23,
+        "arabicText": "إِلَّا مَن تَوَلَّىٰ وَكَفَرَ",
+        "translation": "However, he who turns away and disbelieves"
+      }
+    ]
+  },
+  {
+    "id": "aw",
+    "arabic": "أَوْ",
+    "transliteration": "aw",
+    "meaning": "Or",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "beginner",
+    "frequency": 280,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 96,
+      "ayah": 12,
+      "position": 1
+    },
+    "tags": [
+      "particles",
+      "conjunction"
+    ],
+    "collections": [
+      "particles",
+      "grammar"
+    ],
+    "examples": [
+      {
+        "surah": 96,
+        "ayah": 12,
+        "arabicText": "أَوْ أَمَرَ بِٱلتَّقْوَىٰٓ",
+        "translation": "Or enjoins righteousness"
+      }
+    ]
+  },
+  {
+    "id": "nazara",
+    "arabic": "نَظَرَ",
+    "transliteration": "naẓara",
+    "meaning": "To look, observe",
+    "root": "ن ظ ر",
+    "partOfSpeech": "verb",
+    "level": "intermediate",
+    "frequency": 87,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 80,
+      "ayah": 24,
+      "position": 1
+    },
+    "tags": [
+      "verbs",
+      "perception"
+    ],
+    "collections": [
+      "verbs"
+    ],
+    "examples": [
+      {
+        "surah": 80,
+        "ayah": 24,
+        "arabicText": "فَلْيَنظُرِ ٱلْإِنسَـٰنُ إِلَىٰ طَعَامِهِۦٓ",
+        "translation": "Then let mankind look at his food"
+      }
+    ]
+  },
+  {
+    "id": "sawfa",
+    "arabic": "سَوْفَ",
+    "transliteration": "sawfa",
+    "meaning": "Will, shall (future)",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "intermediate",
+    "frequency": 42,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 102,
+      "ayah": 3,
+      "position": 2
+    },
+    "tags": [
+      "particles",
+      "future"
+    ],
+    "collections": [
+      "particles",
+      "grammar"
+    ],
+    "examples": [
+      {
+        "surah": 102,
+        "ayah": 3,
+        "arabicText": "كَلَّا سَوْفَ تَعْلَمُونَ",
+        "translation": "No! You are going to know"
+      }
+    ]
+  },
+  {
+    "id": "khashiya",
+    "arabic": "خَشِيَ",
+    "transliteration": "khashiya",
+    "meaning": "To fear, be in awe of",
+    "root": "خ ش ي",
+    "partOfSpeech": "verb",
+    "level": "intermediate",
+    "frequency": 40,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 87,
+      "ayah": 10,
+      "position": 3
+    },
+    "tags": [
+      "verbs",
+      "fear"
+    ],
+    "collections": [
+      "verbs",
+      "emotions"
+    ],
+    "examples": [
+      {
+        "surah": 87,
+        "ayah": 10,
+        "arabicText": "سَيَذَّكَّرُ مَن يَخْشَىٰ",
+        "translation": "He who fears [Allah] will be reminded"
+      }
+    ]
+  },
+  {
+    "id": "saliya",
+    "arabic": "صَلِيَ",
+    "transliteration": "ṣaliya",
+    "meaning": "To burn in, enter (the Fire)",
+    "root": "ص ل ي",
+    "partOfSpeech": "verb",
+    "level": "advanced",
+    "frequency": 13,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 84,
+      "ayah": 12,
+      "position": 1
+    },
+    "tags": [
+      "verbs",
+      "hellfire"
+    ],
+    "collections": [
+      "verbs",
+      "afterlife"
+    ],
+    "examples": [
+      {
+        "surah": 84,
+        "ayah": 12,
+        "arabicText": "وَيَصْلَىٰ سَعِيرًا",
+        "translation": "And [enter to] burn in a Blaze"
+      }
+    ]
+  },
+  {
+    "id": "anna",
+    "arabic": "أَنَّ",
+    "transliteration": "anna",
+    "meaning": "That (introducing a statement)",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "beginner",
+    "frequency": 362,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 99,
+      "ayah": 5,
+      "position": 1
+    },
+    "tags": [
+      "particles",
+      "conjunction"
+    ],
+    "collections": [
+      "particles",
+      "grammar"
+    ],
+    "examples": [
+      {
+        "surah": 99,
+        "ayah": 5,
+        "arabicText": "بِأَنَّ رَبَّكَ أَوْحَىٰ لَهَا",
+        "translation": "Because your Lord has commanded it"
+      }
+    ]
+  },
+  {
+    "id": "aata",
+    "arabic": "آتَىٰ",
+    "transliteration": "ātā",
+    "meaning": "To give",
+    "root": "ا ت ي",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 271,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 92,
+      "ayah": 18,
+      "position": 2
+    },
+    "tags": [
+      "verbs",
+      "giving"
+    ],
+    "collections": [
+      "verbs"
+    ],
+    "examples": [
+      {
+        "surah": 92,
+        "ayah": 18,
+        "arabicText": "ٱلَّذِى يُؤْتِى مَالَهُۥ يَتَزَكَّىٰ",
+        "translation": "[He] who gives [from] his wealth to purify himself"
+      }
+    ]
+  },
+  {
+    "id": "ata",
+    "arabic": "أَتَىٰ",
+    "transliteration": "atā",
+    "meaning": "To come; to come to, reach",
+    "root": "ا ت ي",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 264,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 79,
+      "ayah": 15,
+      "position": 2
+    },
+    "tags": [
+      "verbs",
+      "movement"
+    ],
+    "collections": [
+      "verbs"
+    ],
+    "examples": [
+      {
+        "surah": 79,
+        "ayah": 15,
+        "arabicText": "هَلْ أَتَىٰكَ حَدِيثُ مُوسَىٰٓ",
+        "translation": "Has there reached you the story of Moses"
+      }
+    ]
+  },
+  {
+    "id": "ulaika",
+    "arabic": "أُولَٰئِكَ",
+    "transliteration": "ulā'ika",
+    "meaning": "Those",
+    "root": "",
+    "partOfSpeech": "pronoun",
+    "level": "beginner",
+    "frequency": 204,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 90,
+      "ayah": 18,
+      "position": 1
+    },
+    "tags": [
+      "grammar",
+      "demonstrative"
+    ],
+    "collections": [
+      "grammar",
+      "particles"
+    ],
+    "examples": [
+      {
+        "surah": 90,
+        "ayah": 18,
+        "arabicText": "أُو۟لَـٰٓئِكَ أَصْحَـٰبُ ٱلْمَيْمَنَةِ",
+        "translation": "Those are the companions of the right"
+      }
+    ]
+  },
+  {
+    "id": "ahl",
+    "arabic": "أَهْل",
+    "transliteration": "ahl",
+    "meaning": "Family, household; people (of)",
+    "root": "ا ه ل",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 127,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 84,
+      "ayah": 9,
+      "position": 3
+    },
+    "tags": [
+      "family",
+      "people"
+    ],
+    "collections": [
+      "family",
+      "people"
+    ],
+    "examples": [
+      {
+        "surah": 84,
+        "ayah": 9,
+        "arabicText": "وَيَنقَلِبُ إِلَىٰٓ أَهْلِهِۦ مَسْرُورًا",
+        "translation": "And return to his people in happiness"
+      }
+    ]
+  },
+  {
+    "id": "akhraja",
+    "arabic": "أَخْرَجَ",
+    "transliteration": "akhraja",
+    "meaning": "To bring out, bring forth",
+    "root": "خ ر ج",
+    "partOfSpeech": "verb",
+    "level": "intermediate",
+    "frequency": 99,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 87,
+      "ayah": 4,
+      "position": 2
+    },
+    "tags": [
+      "verbs",
+      "movement"
+    ],
+    "collections": [
+      "verbs",
+      "nature"
+    ],
+    "examples": [
+      {
+        "surah": 87,
+        "ayah": 4,
+        "arabicText": "وَٱلَّذِىٓ أَخْرَجَ ٱلْمَرْعَىٰ",
+        "translation": "And who brings out the pasture"
+      }
+    ]
+  },
+  {
+    "id": "awwal",
+    "arabic": "أَوَّل",
+    "transliteration": "awwal",
+    "meaning": "First; former",
+    "root": "ا و ل",
+    "partOfSpeech": "adjective",
+    "level": "intermediate",
+    "frequency": 82,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 87,
+      "ayah": 18,
+      "position": 5
+    },
+    "tags": [
+      "numbers",
+      "order"
+    ],
+    "collections": [
+      "numbers",
+      "time"
+    ],
+    "examples": [
+      {
+        "surah": 87,
+        "ayah": 18,
+        "arabicText": "إِنَّ هَـٰذَا لَفِى ٱلصُّحُفِ ٱلْأُولَىٰ",
+        "translation": "Indeed, this is in the former scriptures"
+      }
+    ]
+  },
+  {
+    "id": "salihat",
+    "arabic": "صَٰلِحَٰت",
+    "transliteration": "ṣāliḥāt",
+    "meaning": "Righteous deeds, good works",
+    "root": "ص ل ح",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 62,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 103,
+      "ayah": 3,
+      "position": 5
+    },
+    "tags": [
+      "actions",
+      "deeds"
+    ],
+    "collections": [
+      "actions",
+      "ethics"
+    ],
+    "examples": [
+      {
+        "surah": 103,
+        "ayah": 3,
+        "arabicText": "إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ وَتَوَاصَوْا۟ بِٱلْحَقِّ وَتَوَاصَوْا۟ بِٱلصَّبْرِ",
+        "translation": "Except for those who have believed and done righteous deeds and advised each other to truth and advised each other to patience"
+      }
+    ]
+  },
+  {
+    "id": "balad",
+    "arabic": "بَلَد",
+    "transliteration": "balad",
+    "meaning": "Land, town, city",
+    "root": "ب ل د",
+    "partOfSpeech": "noun",
+    "level": "advanced",
+    "frequency": 14,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 95,
+      "ayah": 3,
+      "position": 2
+    },
+    "tags": [
+      "geography",
+      "places"
+    ],
+    "collections": [
+      "geography"
+    ],
+    "examples": [
+      {
+        "surah": 95,
+        "ayah": 3,
+        "arabicText": "وَهَـٰذَا ٱلْبَلَدِ ٱلْأَمِينِ",
+        "translation": "And [by] this secure city [Makkah]"
+      }
+    ]
+  },
+  {
+    "id": "sawwa",
+    "arabic": "سَوَّىٰ",
+    "transliteration": "sawwā",
+    "meaning": "To fashion, proportion",
+    "root": "س و ي",
+    "partOfSpeech": "verb",
+    "level": "advanced",
+    "frequency": 13,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 91,
+      "ayah": 7,
+      "position": 3
+    },
+    "tags": [
+      "verbs",
+      "creation"
+    ],
+    "collections": [
+      "verbs",
+      "nature"
+    ],
+    "examples": [
+      {
+        "surah": 91,
+        "ayah": 7,
+        "arabicText": "وَنَفْسٍ وَمَا سَوَّىٰهَا",
+        "translation": "And [by] the soul and He who proportioned it"
+      }
+    ]
+  },
+  {
+    "id": "tazakka",
+    "arabic": "تَزَكَّىٰ",
+    "transliteration": "tazakkā",
+    "meaning": "To purify oneself",
+    "root": "ز ك و",
+    "partOfSpeech": "verb",
+    "level": "advanced",
+    "frequency": 8,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 87,
+      "ayah": 14,
+      "position": 4
+    },
+    "tags": [
+      "verbs",
+      "purification"
+    ],
+    "collections": [
+      "verbs",
+      "spiritual-states"
+    ],
+    "examples": [
+      {
+        "surah": 87,
+        "ayah": 14,
+        "arabicText": "قَدْ أَفْلَحَ مَن تَزَكَّىٰ",
+        "translation": "He has certainly succeeded who purifies himself"
+      }
+    ]
+  },
+  {
+    "id": "shay",
+    "arabic": "شَيْء",
+    "transliteration": "shay'",
+    "meaning": "Thing",
+    "root": "ش ي ا",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 283,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 78,
+      "ayah": 29,
+      "position": 2
+    },
+    "tags": [
+      "daily-life",
+      "essential"
+    ],
+    "collections": [
+      "daily-life"
+    ],
+    "examples": [
+      {
+        "surah": 78,
+        "ayah": 29,
+        "arabicText": "وَكُلَّ شَىْءٍ أَحْصَيْنَـٰهُ كِتَـٰبًا",
+        "translation": "But all things We have enumerated in writing"
+      }
+    ]
+  },
+  {
+    "id": "ashab",
+    "arabic": "أَصْحَٰب",
+    "transliteration": "aṣḥāb",
+    "meaning": "Companions; people (of), inhabitants",
+    "root": "ص ح ب",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 78,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 90,
+      "ayah": 18,
+      "position": 2
+    },
+    "tags": [
+      "people",
+      "companions"
+    ],
+    "collections": [
+      "people",
+      "community"
+    ],
+    "examples": [
+      {
+        "surah": 90,
+        "ayah": 18,
+        "arabicText": "أُو۟لَـٰٓئِكَ أَصْحَـٰبُ ٱلْمَيْمَنَةِ",
+        "translation": "Those are the companions of the right"
+      }
+    ]
+  },
+  {
+    "id": "tawalla",
+    "arabic": "تَوَلَّىٰ",
+    "transliteration": "tawallā",
+    "meaning": "To turn away",
+    "root": "و ل ي",
+    "partOfSpeech": "verb",
+    "level": "intermediate",
+    "frequency": 78,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 80,
+      "ayah": 1,
+      "position": 2
+    },
+    "tags": [
+      "verbs",
+      "turning away"
+    ],
+    "collections": [
+      "verbs"
+    ],
+    "examples": [
+      {
+        "surah": 80,
+        "ayah": 1,
+        "arabicText": "عَبَسَ وَتَوَلَّىٰٓ",
+        "translation": "The Prophet frowned and turned away"
+      }
+    ]
+  },
+  {
+    "id": "tadhakkara",
+    "arabic": "تَذَكَّرَ",
+    "transliteration": "tadhakkara",
+    "meaning": "To take heed, be reminded",
+    "root": "ذ ك ر",
+    "partOfSpeech": "verb",
+    "level": "intermediate",
+    "frequency": 51,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 87,
+      "ayah": 10,
+      "position": 1
+    },
+    "tags": [
+      "verbs",
+      "remembrance"
+    ],
+    "collections": [
+      "verbs",
+      "knowledge"
+    ],
+    "examples": [
+      {
+        "surah": 87,
+        "ayah": 10,
+        "arabicText": "سَيَذَّكَّرُ مَن يَخْشَىٰ",
+        "translation": "He who fears [Allah] will be reminded"
+      }
+    ]
+  },
+  {
+    "id": "wayl",
+    "arabic": "وَيْل",
+    "transliteration": "wayl",
+    "meaning": "Woe",
+    "root": "",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 40,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 83,
+      "ayah": 1,
+      "position": 1
+    },
+    "tags": [
+      "afterlife",
+      "warning"
+    ],
+    "collections": [
+      "afterlife"
+    ],
+    "examples": [
+      {
+        "surah": 83,
+        "ayah": 1,
+        "arabicText": "وَيْلٌ لِّلْمُطَفِّفِينَ",
+        "translation": "Woe to those who give less [than due]"
+      }
+    ]
+  },
+  {
+    "id": "radiya",
+    "arabic": "رَضِيَ",
+    "transliteration": "raḍiya",
+    "meaning": "To be pleased, satisfied",
+    "root": "ر ض و",
+    "partOfSpeech": "verb",
+    "level": "intermediate",
+    "frequency": 38,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 92,
+      "ayah": 21,
+      "position": 2
+    },
+    "tags": [
+      "verbs",
+      "contentment"
+    ],
+    "collections": [
+      "verbs",
+      "emotions"
+    ],
+    "examples": [
+      {
+        "surah": 92,
+        "ayah": 21,
+        "arabicText": "وَلَسَوْفَ يَرْضَىٰ",
+        "translation": "And he is going to be satisfied"
+      }
+    ]
+  },
+  {
+    "id": "karim",
+    "arabic": "كَرِيم",
+    "transliteration": "karīm",
+    "meaning": "Noble, generous",
+    "root": "ك ر م",
+    "partOfSpeech": "adjective",
+    "level": "intermediate",
+    "frequency": 30,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 82,
+      "ayah": 11,
+      "position": 1
+    },
+    "tags": [
+      "ethics",
+      "character"
+    ],
+    "collections": [
+      "ethics"
+    ],
+    "examples": [
+      {
+        "surah": 82,
+        "ayah": 11,
+        "arabicText": "كِرَامًا كَـٰتِبِينَ",
+        "translation": "Noble and recording"
+      }
+    ]
+  },
+  {
+    "id": "dhikra",
+    "arabic": "ذِكْرَىٰ",
+    "transliteration": "dhikrā",
+    "meaning": "Reminder, remembrance",
+    "root": "ذ ك ر",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 23,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 80,
+      "ayah": 4,
+      "position": 4
+    },
+    "tags": [
+      "knowledge",
+      "remembrance"
+    ],
+    "collections": [
+      "knowledge",
+      "worship"
+    ],
+    "examples": [
+      {
+        "surah": 80,
+        "ayah": 4,
+        "arabicText": "أَوْ يَذَّكَّرُ فَتَنفَعَهُ ٱلذِّكْرَىٰٓ",
+        "translation": "Or be reminded and the remembrance would benefit him"
+      }
+    ]
+  },
+  {
+    "id": "naim",
+    "arabic": "نَعِيم",
+    "transliteration": "na'īm",
+    "meaning": "Bliss, delight",
+    "root": "ن ع م",
+    "partOfSpeech": "noun",
+    "level": "advanced",
+    "frequency": 17,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 82,
+      "ayah": 13,
+      "position": 4
+    },
+    "tags": [
+      "afterlife",
+      "paradise"
+    ],
+    "collections": [
+      "afterlife"
+    ],
+    "examples": [
+      {
+        "surah": 82,
+        "ayah": 13,
+        "arabicText": "إِنَّ ٱلْأَبْرَارَ لَفِى نَعِيمٍ",
+        "translation": "Indeed, the righteous will be in pleasure"
+      }
+    ]
+  },
+  {
+    "id": "tagha",
+    "arabic": "طَغَىٰ",
+    "transliteration": "ṭaghā",
+    "meaning": "To transgress, exceed all bounds",
+    "root": "ط غ ي",
+    "partOfSpeech": "verb",
+    "level": "advanced",
+    "frequency": 12,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 79,
+      "ayah": 37,
+      "position": 3
+    },
+    "tags": [
+      "verbs",
+      "transgression"
+    ],
+    "collections": [
+      "verbs",
+      "morality"
+    ],
+    "examples": [
+      {
+        "surah": 79,
+        "ayah": 37,
+        "arabicText": "فَأَمَّا مَن طَغَىٰ",
+        "translation": "So as for he who transgressed"
+      }
+    ]
+  },
+  {
+    "id": "yassara",
+    "arabic": "يَسَّرَ",
+    "transliteration": "yassara",
+    "meaning": "To make easy, ease",
+    "root": "ي س ر",
+    "partOfSpeech": "verb",
+    "level": "advanced",
+    "frequency": 11,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 92,
+      "ayah": 7,
+      "position": 1
+    },
+    "tags": [
+      "verbs",
+      "ease"
+    ],
+    "collections": [
+      "verbs"
+    ],
+    "examples": [
+      {
+        "surah": 92,
+        "ayah": 7,
+        "arabicText": "فَسَنُيَسِّرُهُۥ لِلْيُسْرَىٰ",
+        "translation": "We will ease him toward ease"
+      }
+    ]
+  },
+  {
+    "id": "hamd",
+    "arabic": "حَمْد",
+    "transliteration": "ḥamd",
+    "meaning": "Praise",
+    "root": "ح م د",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 43,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 110,
+      "ayah": 3,
+      "position": 2
+    },
+    "tags": [
+      "worship",
+      "praise"
+    ],
+    "collections": [
+      "worship",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 110,
+        "ayah": 3,
+        "arabicText": "فَسَبِّحْ بِحَمْدِ رَبِّكَ وَٱسْتَغْفِرْهُ إِنَّهُۥ كَانَ تَوَّابًۢا",
+        "translation": "Then exalt [Him] with praise of your Lord and ask forgiveness of Him. Indeed, He is ever Accepting of repentance"
+      }
+    ]
+  },
+  {
+    "id": "qadr",
+    "arabic": "قَدْر",
+    "transliteration": "qadr",
+    "meaning": "Decree, power; value (Laylat al-Qadr)",
+    "root": "ق د ر",
+    "partOfSpeech": "noun",
+    "level": "advanced",
+    "frequency": 7,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 97,
+      "ayah": 1,
+      "position": 5
+    },
+    "tags": [
+      "faith",
+      "decree"
+    ],
+    "collections": [
+      "faith",
+      "time"
+    ],
+    "examples": [
+      {
+        "surah": 97,
+        "ayah": 1,
+        "arabicText": "إِنَّآ أَنزَلْنَـٰهُ فِى لَيْلَةِ ٱلْقَدْرِ",
+        "translation": "Indeed, We sent the Qur'an down during the Night of Decree"
+      }
+    ]
+  },
+  {
+    "id": "laylah",
+    "arabic": "لَيْلَة",
+    "transliteration": "laylah",
+    "meaning": "A night",
+    "root": "ل ي ل",
+    "partOfSpeech": "noun",
+    "level": "advanced",
+    "frequency": 8,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 97,
+      "ayah": 3,
+      "position": 1
+    },
+    "tags": [
+      "time",
+      "night"
+    ],
+    "collections": [
+      "time"
+    ],
+    "examples": [
+      {
+        "surah": 97,
+        "ayah": 3,
+        "arabicText": "لَيْلَةُ ٱلْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ",
+        "translation": "The Night of Decree is better than a thousand months"
+      }
+    ]
+  },
+  {
+    "id": "walada",
+    "arabic": "وَلَدَ",
+    "transliteration": "walada",
+    "meaning": "To beget, give birth",
+    "root": "و ل د",
+    "partOfSpeech": "verb",
+    "level": "advanced",
+    "frequency": 9,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 112,
+      "ayah": 3,
+      "position": 2
+    },
+    "tags": [
+      "verbs",
+      "birth"
+    ],
+    "collections": [
+      "verbs",
+      "family"
+    ],
+    "examples": [
+      {
+        "surah": 112,
+        "ayah": 3,
+        "arabicText": "لَمْ يَلِدْ وَلَمْ يُولَدْ",
+        "translation": "He neither begets nor is born"
+      }
+    ]
+  },
+  {
+    "id": "bayna",
+    "arabic": "بَيْنَ",
+    "transliteration": "bayna",
+    "meaning": "Between, among",
+    "root": "ب ي ن",
+    "partOfSpeech": "preposition",
+    "level": "beginner",
+    "frequency": 266,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 86,
+      "ayah": 7,
+      "position": 3
+    },
+    "tags": [
+      "particles",
+      "place"
+    ],
+    "collections": [
+      "particles",
+      "directions"
+    ],
+    "examples": [
+      {
+        "surah": 86,
+        "ayah": 7,
+        "arabicText": "يَخْرُجُ مِنۢ بَيْنِ ٱلصُّلْبِ وَٱلتَّرَآئِبِ",
+        "translation": "Emerging from between the backbone and the ribs"
+      }
+    ]
+  },
+  {
+    "id": "idh",
+    "arabic": "إِذْ",
+    "transliteration": "idh",
+    "meaning": "When (in the past)",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "beginner",
+    "frequency": 239,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 91,
+      "ayah": 12,
+      "position": 1
+    },
+    "tags": [
+      "particles",
+      "time"
+    ],
+    "collections": [
+      "particles",
+      "time"
+    ],
+    "examples": [
+      {
+        "surah": 91,
+        "ayah": 12,
+        "arabicText": "إِذِ ٱنۢبَعَثَ أَشْقَىٰهَا",
+        "translation": "When the most wretched of them was sent forth"
+      }
+    ]
+  },
+  {
+    "id": "inda",
+    "arabic": "عِندَ",
+    "transliteration": "'inda",
+    "meaning": "With, near, in the presence of",
+    "root": "ع ن د",
+    "partOfSpeech": "preposition",
+    "level": "beginner",
+    "frequency": 197,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 81,
+      "ayah": 20,
+      "position": 3
+    },
+    "tags": [
+      "particles",
+      "place"
+    ],
+    "collections": [
+      "particles"
+    ],
+    "examples": [
+      {
+        "surah": 81,
+        "ayah": 20,
+        "arabicText": "ذِى قُوَّةٍ عِندَ ذِى ٱلْعَرْشِ مَكِينٍ",
+        "translation": "[Who is] possessed of power and with the Owner of the Throne, secure [in position]"
+      }
+    ]
+  },
+  {
+    "id": "anzala",
+    "arabic": "أَنزَلَ",
+    "transliteration": "anzala",
+    "meaning": "To send down, reveal",
+    "root": "ن ز ل",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 183,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 78,
+      "ayah": 14,
+      "position": 1
+    },
+    "tags": [
+      "verbs",
+      "revelation"
+    ],
+    "collections": [
+      "verbs",
+      "books"
+    ],
+    "examples": [
+      {
+        "surah": 78,
+        "ayah": 14,
+        "arabicText": "وَأَنزَلْنَا مِنَ ٱلْمُعْصِرَٰتِ مَآءً ثَجَّاجًا",
+        "translation": "And sent down, from the rain clouds, pouring water"
+      }
+    ]
+  },
+  {
+    "id": "daa",
+    "arabic": "دَعَا",
+    "transliteration": "da'ā",
+    "meaning": "To call, invoke, supplicate",
+    "root": "د ع و",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 170,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 96,
+      "ayah": 17,
+      "position": 1
+    },
+    "tags": [
+      "verbs",
+      "supplication"
+    ],
+    "collections": [
+      "verbs",
+      "worship"
+    ],
+    "examples": [
+      {
+        "surah": 96,
+        "ayah": 17,
+        "arabicText": "فَلْيَدْعُ نَادِيَهُۥ",
+        "translation": "Then let him call his associates"
+      }
+    ]
+  },
+  {
+    "id": "ittaqa",
+    "arabic": "ٱتَّقَىٰ",
+    "transliteration": "ittaqā",
+    "meaning": "To fear (Allah), be mindful of Him",
+    "root": "و ق ي",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 166,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 92,
+      "ayah": 5,
+      "position": 4
+    },
+    "tags": [
+      "verbs",
+      "piety"
+    ],
+    "collections": [
+      "verbs",
+      "ethics"
+    ],
+    "examples": [
+      {
+        "surah": 92,
+        "ayah": 5,
+        "arabicText": "فَأَمَّا مَنْ أَعْطَىٰ وَٱتَّقَىٰ",
+        "translation": "As for he who gives and fears Allah"
+      }
+    ]
+  },
+  {
+    "id": "bad-some",
+    "arabic": "بَعْض",
+    "transliteration": "ba'ḍ",
+    "meaning": "Some, part; one another",
+    "root": "ب ع ض",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 157,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 37,
+      "ayah": 27,
+      "position": 2
+    },
+    "tags": [
+      "quantity",
+      "essential"
+    ],
+    "collections": [
+      "numbers"
+    ],
+    "examples": [
+      {
+        "surah": 37,
+        "ayah": 27,
+        "arabicText": "وَأَقْبَلَ بَعْضُهُمْ عَلَىٰ بَعْضٍ يَتَسَآءَلُونَ",
+        "translation": "And they will approach one another blaming each other"
+      }
+    ]
+  },
+  {
+    "id": "lamma",
+    "arabic": "لَمَّا",
+    "transliteration": "lammā",
+    "meaning": "When (after it happened)",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "beginner",
+    "frequency": 156,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 20,
+      "ayah": 11,
+      "position": 1
+    },
+    "tags": [
+      "particles",
+      "time"
+    ],
+    "collections": [
+      "particles",
+      "time"
+    ],
+    "examples": [
+      {
+        "surah": 20,
+        "ayah": 11,
+        "arabicText": "فَلَمَّآ أَتَىٰهَا نُودِىَ يَـٰمُوسَىٰٓ",
+        "translation": "And when he came to it, he was called, \"O Moses"
+      }
+    ]
+  },
+  {
+    "id": "ayyuha",
+    "arabic": "أَيُّهَا",
+    "transliteration": "ayyuhā",
+    "meaning": "O (calling someone, with yā)",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "beginner",
+    "frequency": 153,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 109,
+      "ayah": 1,
+      "position": 2
+    },
+    "tags": [
+      "particles",
+      "vocative"
+    ],
+    "collections": [
+      "particles",
+      "grammar"
+    ],
+    "examples": [
+      {
+        "surah": 109,
+        "ayah": 1,
+        "arabicText": "قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ",
+        "translation": "Say, \"O disbelievers"
+      }
+    ]
+  },
+  {
+    "id": "ghayr",
+    "arabic": "غَيْر",
+    "transliteration": "ghayr",
+    "meaning": "Other than; not, un-",
+    "root": "غ ي ر",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 147,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 95,
+      "ayah": 6,
+      "position": 8
+    },
+    "tags": [
+      "particles",
+      "negation"
+    ],
+    "collections": [
+      "particles",
+      "grammar"
+    ],
+    "examples": [
+      {
+        "surah": 95,
+        "ayah": 6,
+        "arabicText": "إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ فَلَهُمْ أَجْرٌ غَيْرُ مَمْنُونٍ",
+        "translation": "Except for those who believe and do righteous deeds, for they will have a reward uninterrupted"
+      }
+    ]
+  },
+  {
+    "id": "ilah",
+    "arabic": "إِلَٰه",
+    "transliteration": "ilāh",
+    "meaning": "God, deity",
+    "root": "ا ل ه",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 147,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 114,
+      "ayah": 3,
+      "position": 1
+    },
+    "tags": [
+      "faith",
+      "theology"
+    ],
+    "collections": [
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 114,
+        "ayah": 3,
+        "arabicText": "إِلَـٰهِ ٱلنَّاسِ",
+        "translation": "The God of mankind"
+      }
+    ]
+  },
+  {
+    "id": "duna",
+    "arabic": "دُونَ",
+    "transliteration": "dūna",
+    "meaning": "Besides, other than; below",
+    "root": "د و ن",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 144,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 37,
+      "ayah": 86,
+      "position": 3
+    },
+    "tags": [
+      "particles",
+      "exclusion"
+    ],
+    "collections": [
+      "particles"
+    ],
+    "examples": [
+      {
+        "surah": 37,
+        "ayah": 86,
+        "arabicText": "أَئِفْكًا ءَالِهَةً دُونَ ٱللَّهِ تُرِيدُونَ",
+        "translation": "Is it falsehood [as] gods other than Allah you desire"
+      }
+    ]
+  },
+  {
+    "id": "hatta",
+    "arabic": "حَتَّىٰ",
+    "transliteration": "ḥattā",
+    "meaning": "Until; even",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "beginner",
+    "frequency": 142,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 102,
+      "ayah": 2,
+      "position": 1
+    },
+    "tags": [
+      "particles",
+      "time"
+    ],
+    "collections": [
+      "particles",
+      "time"
+    ],
+    "examples": [
+      {
+        "surah": 102,
+        "ayah": 2,
+        "arabicText": "حَتَّىٰ زُرْتُمُ ٱلْمَقَابِرَ",
+        "translation": "Until you visit the graveyards"
+      }
+    ]
+  },
+  {
+    "id": "arada",
+    "arabic": "أَرَادَ",
+    "transliteration": "arāda",
+    "meaning": "To want, intend, will",
+    "root": "ر و د",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 139,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 85,
+      "ayah": 16,
+      "position": 3
+    },
+    "tags": [
+      "verbs",
+      "will"
+    ],
+    "collections": [
+      "verbs"
+    ],
+    "examples": [
+      {
+        "surah": 85,
+        "ayah": 16,
+        "arabicText": "فَعَّالٌ لِّمَا يُرِيدُ",
+        "translation": "Effecter of what He intends"
+      }
+    ]
+  },
+  {
+    "id": "am",
+    "arabic": "أَمْ",
+    "transliteration": "am",
+    "meaning": "Or (in questions); or rather",
+    "root": "",
+    "partOfSpeech": "particle",
+    "level": "beginner",
+    "frequency": 137,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 79,
+      "ayah": 27,
+      "position": 4
+    },
+    "tags": [
+      "particles",
+      "question"
+    ],
+    "collections": [
+      "particles",
+      "grammar"
+    ],
+    "examples": [
+      {
+        "surah": 79,
+        "ayah": 27,
+        "arabicText": "ءَأَنتُمْ أَشَدُّ خَلْقًا أَمِ ٱلسَّمَآءُ بَنَىٰهَا",
+        "translation": "Are you a more difficult creation or is the heaven? Allah constructed it"
+      }
+    ]
+  },
+  {
+    "id": "ittabaa",
+    "arabic": "ٱتَّبَعَ",
+    "transliteration": "ittaba'a",
+    "meaning": "To follow",
+    "root": "ت ب ع",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 136,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 26,
+      "ayah": 224,
+      "position": 2
+    },
+    "tags": [
+      "verbs",
+      "following"
+    ],
+    "collections": [
+      "verbs"
+    ],
+    "examples": [
+      {
+        "surah": 26,
+        "ayah": 224,
+        "arabicText": "وَٱلشُّعَرَآءُ يَتَّبِعُهُمُ ٱلْغَاوُۥنَ",
+        "translation": "And the poets - [only] the deviators follow them"
+      }
+    ]
+  },
+  {
+    "id": "arsala",
+    "arabic": "أَرْسَلَ",
+    "transliteration": "arsala",
+    "meaning": "To send",
+    "root": "ر س ل",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 130,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 105,
+      "ayah": 3,
+      "position": 1
+    },
+    "tags": [
+      "verbs",
+      "sending"
+    ],
+    "collections": [
+      "verbs",
+      "prophets"
+    ],
+    "examples": [
+      {
+        "surah": 105,
+        "ayah": 3,
+        "arabicText": "وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ",
+        "translation": "And He sent against them birds in flocks"
+      }
+    ]
+  },
+  {
+    "id": "zalim",
+    "arabic": "ظَالِم",
+    "transliteration": "ẓālim",
+    "meaning": "Wrongdoer, unjust",
+    "root": "ظ ل م",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 129,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 37,
+      "ayah": 63,
+      "position": 4
+    },
+    "tags": [
+      "morality",
+      "injustice"
+    ],
+    "collections": [
+      "morality",
+      "people"
+    ],
+    "examples": [
+      {
+        "surah": 37,
+        "ayah": 63,
+        "arabicText": "إِنَّا جَعَلْنَـٰهَا فِتْنَةً لِّلظَّـٰلِمِينَ",
+        "translation": "Indeed, We have made it a torment for the wrongdoers"
+      }
+    ]
+  },
+  {
+    "id": "akhadha",
+    "arabic": "أَخَذَ",
+    "transliteration": "akhadha",
+    "meaning": "To take, seize",
+    "root": "ا خ ذ",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 127,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 79,
+      "ayah": 25,
+      "position": 1
+    },
+    "tags": [
+      "verbs",
+      "taking"
+    ],
+    "collections": [
+      "verbs"
+    ],
+    "examples": [
+      {
+        "surah": 79,
+        "ayah": 25,
+        "arabicText": "فَأَخَذَهُ ٱللَّهُ نَكَالَ ٱلْـَٔاخِرَةِ وَٱلْأُولَىٰٓ",
+        "translation": "So Allah seized him in exemplary punishment for the last and the first [transgression]"
+      }
+    ]
+  },
+  {
+    "id": "ittakhadha",
+    "arabic": "ٱتَّخَذَ",
+    "transliteration": "ittakhadha",
+    "meaning": "To take (for oneself), adopt",
+    "root": "ا خ ذ",
+    "partOfSpeech": "verb",
+    "level": "beginner",
+    "frequency": 124,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 19,
+      "ayah": 88,
+      "position": 2
+    },
+    "tags": [
+      "verbs",
+      "taking"
+    ],
+    "collections": [
+      "verbs"
+    ],
+    "examples": [
+      {
+        "surah": 19,
+        "ayah": 88,
+        "arabicText": "وَقَالُوا۟ ٱتَّخَذَ ٱلرَّحْمَـٰنُ وَلَدًا",
+        "translation": "And they say, \"The Most Merciful has taken [for Himself] a son"
+      }
+    ]
+  },
+  {
     "id": "hadid",
     "arabic": "حَدِيد",
     "transliteration": "hadid",
