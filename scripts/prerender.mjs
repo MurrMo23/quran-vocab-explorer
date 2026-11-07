@@ -29,8 +29,8 @@ const stripDefaults = (html) =>
     .replace(/<title>[\s\S]*?<\/title>/, '')
     .replace(/<meta name="description"[^>]*>/, '')
     .replace(/<link rel="canonical"[^>]*>/, '')
-    .replace(/<meta property="og:(title|description|url|type)"[^>]*>/g, '')
-    .replace(/<meta name="twitter:(title|description)"[^>]*>/g, '');
+    .replace(/<meta property="og:(title|description|url|type|image)"[^>]*>/g, '')
+    .replace(/<meta name="twitter:(title|description|image)"[^>]*>/g, '');
 
 const BOOT = /<div id="root">[\s\S]*?<\/div><\/div>/;
 let ok = 0;

@@ -4,6 +4,7 @@ import { CalendarClock, Loader2, Sparkles, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import SEO from '@/components/SEO';
+import { ogImage } from '@/utils/og-image';
 import { getPublishedCollections, getWordById } from '@/utils/vocabulary';
 import { useProgress, upcomingWordIds, type Rating } from '@/lib/progress';
 import { useUserCollections, PRACTICE_COLLECTION_PARAM } from '@/lib/collections';
@@ -306,6 +307,7 @@ const Review = () => {
         description="One short daily review of Quranic Arabic words: hear the recitation, recall the meaning, see it in a verse. Spaced repetition schedules each word just before you would forget it."
         keywords={['Quranic Arabic', 'Quran vocabulary review', 'spaced repetition', 'Arabic flashcards']}
         url="https://quranvocab.com/review"
+        image={ogImage('pages', 'review')}
         type="website"
       />
 

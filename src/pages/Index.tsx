@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import SEO from '@/components/SEO';
+import { ogImage } from '@/utils/og-image';
 import { sampleVocabulary, collections, getWordsByCollection } from '@/utils/vocabulary';
 import GoalChooser from '@/components/onboarding/GoalChooser';
 import RamadanPromo from '@/components/RamadanPromo';
@@ -83,6 +84,7 @@ const Index = () => {
         title="QuranVocab — Learn the Words of the Quran"
         description={`Learn ${wordCount} common words of the Quran with flashcards, quizzes and word pages showing root and meaning. Free, no account needed to start.`}
         keywords={["Quranic Arabic", "Quran vocabulary", "Quranic words", "Arabic flashcards", "Quran study"]}
+        image={ogImage('pages', 'home')}
         type="website"
       />
 

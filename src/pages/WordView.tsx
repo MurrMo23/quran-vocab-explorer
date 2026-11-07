@@ -4,8 +4,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import WordDetail from '@/components/WordDetail';
 import SEO from '@/components/SEO';
+import { ogImage } from '@/utils/og-image';
 import { Word, getAllWords } from '@/utils/vocabulary';
-import { getWordBySlugOrId, getWordPath } from '@/utils/word-slugs';
+import { getWordBySlugOrId, getWordPath, getWordSlug } from '@/utils/word-slugs';
 import { toast } from 'sonner';
 import { getQuranicUsage } from '@/utils/word-usage';
 import { publicId, track } from '@/lib/analytics';
@@ -72,6 +73,7 @@ const WordView = () => {
         <SEO
           type="vocabulary"
           url={canonicalPath ?? undefined}
+          image={ogImage('words', getWordSlug(word))}
           word={{
             arabic: word.arabic,
             transliteration: word.transliteration,

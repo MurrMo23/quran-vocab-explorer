@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Repeat, Search } from 'lucide-react';
 import SEO from '@/components/SEO';
+import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
 import AudioPlayer from '@/components/AudioPlayer';
 import { Button } from '@/components/ui/button';
@@ -116,6 +117,8 @@ const NamesOfAllah = () => {
         title="99 Names of Allah: Meanings, Arabic & Where They Appear in the Quran"
         description={`All 99 Names of Allah (Asma ul Husna) in Arabic with transliteration and meaning. See which ${inQuran} names are used of Allah in the Quran, read the verses, listen to the recitation and review them.`}
         url={NAMES_HUB_PATH}
+        image={ogImage('pages', 'names-of-allah')}
+        imageAlt="الأسماء الحسنى: the 99 Names of Allah"
         keywords={['99 names of Allah', 'Asma ul Husna', 'names of Allah meaning', 'al-asma al-husna', 'names of Allah in the Quran']}
         breadcrumbs={[{ name: '99 Names of Allah', path: NAMES_HUB_PATH }]}
         jsonLd={[termSet]}

@@ -1,4 +1,5 @@
 import SEO from '@/components/SEO';
+import { ogImage } from '@/utils/og-image';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, BookOpen } from 'lucide-react';
@@ -64,6 +65,7 @@ const CollectionDetails = () => {
           ? `${collection.description}. Learn ${words.length} Quranic Arabic words with meanings, roots, example verses and recitation audio.`
           : 'Browse a collection of Quranic Arabic vocabulary.'}
         url={collection ? `/collections/${collection.id}` : undefined}
+        image={ogImage('collections', collection?.id)}
         noindex={!collection}
       />
 

@@ -6,7 +6,10 @@ interface SEOProps {
   title?: string;
   description?: string;
   keywords?: string[];
+  /** Share image (site path or absolute URL), 1200x630. Defaults to the site card. */
   image?: string;
+  /** Alt text for the share image. */
+  imageAlt?: string;
   url?: string;
   type?: 'website' | 'article' | 'vocabulary';
   /** Set true on pages that must not be indexed (404s, private pages). */
@@ -41,6 +44,10 @@ const SITE_NAME = 'QuranVocab';
 const SITE_URL = 'https://quranvocab.com';
 const SITE_TAGLINE = 'Learn the words of the Quran';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
+const DEFAULT_IMAGE_ALT = 'QuranVocab: learn the words of the Quran';
+// Every share image we ship (the default and public/og/**) is 1200x630.
+const IMAGE_WIDTH = '1200';
+const IMAGE_HEIGHT = '630';
 
 /**
  * Canonical origin: the production domain unless we are actually being served
@@ -118,6 +125,7 @@ const SEO: React.FC<SEOProps> = ({
   description = 'Learn high-frequency Quranic Arabic vocabulary with themed collections, flashcards and quizzes. Free, with word pages showing root and meaning.',
   keywords = ['Quranic Arabic', 'Quran vocabulary', 'Arabic words', 'Quran study', 'Arabic flashcards'],
   image = DEFAULT_IMAGE,
+  imageAlt,
   url,
   type = 'website',
   noindex = false,
@@ -134,7 +142,9 @@ const SEO: React.FC<SEOProps> = ({
   const origin = getCanonicalOrigin();
   const { pathname } = useLocation();
   const canonical = buildCanonical(pathname, url);
-  const absoluteImage = toAbsolute(image || DEFAULT_IMAGE, origin);
+  // Share images always point at production: preview hosts are not reachable by social crawlers.
+  const absoluteImage = toAbsolute(image || DEFAULT_IMAGE, SITE_URL);
+  const imageType = /\.jpe?g$/i.test(absoluteImage) ? 'image/jpeg' : /\.png$/i.test(absoluteImage) ? 'image/png' : undefined;
 
   // Generate word-specific SEO data if word prop is provided
   const wordTitle = word ? `${word.transliteration} (${word.arabic}) — meaning: ${word.meaning}` : title;
@@ -148,6 +158,8 @@ const SEO: React.FC<SEOProps> = ({
   const finalTitle = word ? wordTitle : title;
   const finalDescription = word ? wordDescription : description;
   const finalKeywords = word ? wordKeywords : keywords;
+  const finalImageAlt =
+    imageAlt ?? (word ? `${word.arabic} (${word.transliteration}): ${word.meaning}` : image && image !== DEFAULT_IMAGE ? finalTitle : DEFAULT_IMAGE_ALT);
   const fullTitle =
     finalTitle.includes(siteTitle)
       ? finalTitle
@@ -260,6 +272,11 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={finalDescription} />
       <meta property="og:image" content={absoluteImage} />
+      <meta property="og:image:secure_url" content={absoluteImage} />
+      {imageType && <meta property="og:image:type" content={imageType} />}
+      <meta property="og:image:width" content={IMAGE_WIDTH} />
+      <meta property="og:image:height" content={IMAGE_HEIGHT} />
+      <meta property="og:image:alt" content={finalImageAlt} />
       <meta property="og:url" content={canonical} />
       <meta property="og:site_name" content={siteTitle} />
       <meta property="og:locale" content="en_US" />
@@ -274,6 +291,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={finalDescription} />
       <meta name="twitter:image" content={absoluteImage} />
+      <meta name="twitter:image:alt" content={finalImageAlt} />
 
       {/* Article specific tags */}
       {article?.publishedTime && <meta property="article:published_time" content={article.publishedTime} />}

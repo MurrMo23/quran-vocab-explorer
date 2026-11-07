@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CalendarPlus, CheckCircle2, Moon, Play } from 'lucide-react';
 import SEO from '@/components/SEO';
+import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -183,6 +184,8 @@ const Ramadan = () => {
         title={TITLE}
         description={description}
         url={PATH}
+        image={ogImage('pages', 'ramadan')}
+        imageAlt="رمضان: 30-day Ramadan Quran vocabulary plan"
         keywords={['Ramadan Quran plan', 'Ramadan vocabulary', 'taraweeh', 'Quranic Arabic words', 'Ramadan 2027', 'learn Quran Arabic in Ramadan']}
         type="website"
         breadcrumbs={[{ name: 'Ramadan plan', path: PATH }]}

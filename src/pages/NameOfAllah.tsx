@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, BookOpen, ExternalLink, Repeat } from 'lucide-react';
 import SEO from '@/components/SEO';
+import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
 import AudioPlayer from '@/components/AudioPlayer';
 import { Badge } from '@/components/ui/badge';
@@ -140,6 +141,8 @@ const NameOfAllah = () => {
         title={title}
         description={description}
         url={path}
+        image={ogImage('names', name.slug)}
+        imageAlt={`${name.ar} (${name.tr}): ${name.en}`}
         keywords={[`${name.tr} meaning`, `${arPlain}`, `${name.tr} in the Quran`, '99 names of Allah', 'Asma ul Husna']}
         breadcrumbs={[
           { name: '99 Names of Allah', path: NAMES_HUB_PATH },

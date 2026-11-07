@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Target } from 'lucide-react';
 import SEO from '@/components/SEO';
+import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
 import { Button } from '@/components/ui/button';
 import { getSurahVocabulary, isJuzAmma, surahPath, wordPath } from '@/utils/quran-pages';
@@ -57,6 +58,8 @@ const SurahVocabulary = () => {
         title={title}
         description={description}
         url={surahPath(surah.number)}
+        image={ogImage('surah', surah.number)}
+        imageAlt={`Surah ${surah.name} (${surah.arabic}): ${surah.meaning}`}
         keywords={[
           `Surah ${surah.name}`,
           `${surah.name} vocabulary`,
