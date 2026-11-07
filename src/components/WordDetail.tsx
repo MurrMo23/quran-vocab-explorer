@@ -96,7 +96,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
               Related Quranic form:{' '}
               <span className="font-arabic text-base text-foreground" lang="ar">{related.arabic}</span>
               {' '}({related.location.surah}:{related.location.ayah}
-              {related.occurrences ? `, ${related.occurrences}× in the Quran` : ''}). The recitation below is of this form.
+              {related.occurrences ? `, ${related.occurrences}× in the Quran` : ''}). The word recitation on this page plays this form.
             </p>
           )}
         </aside>
