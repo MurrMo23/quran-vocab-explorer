@@ -166,10 +166,6 @@
   .glass-card {
     @apply bg-card text-card-foreground border border-border rounded-3xl shadow-sm;
   }
-  /* Tactile surfaces (Duolingo-style): a thicker bottom border reads as a pressable edge. */
-  .card-tactile {
-    @apply bg-card text-card-foreground border-2 border-border border-b-[5px] rounded-3xl;
-  }
 
   .highlight-text {
     @apply text-primary font-medium;
@@ -208,4 +204,11 @@
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary/50;
+}
+
+@layer components {
+  /* Tactile surfaces (Duolingo-style): a thicker bottom border reads as a pressable edge. */
+  .card-tactile {
+    @apply bg-card text-card-foreground border-2 border-border border-b-[5px] rounded-3xl;
+  }
 }
