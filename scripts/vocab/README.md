@@ -36,3 +36,13 @@ Root slugs: one token per radical joined by `-`, e.g. ك ت ب -> `k-t-b`. Plain
 (ب b, ت t, ث th, ج j, خ kh, د d, ذ dh, ر r, ز z, س s, ش sh, ف f, ق q, ك k, ل l, م m, ن n, ه h, و w, ي y);
 the dotted "emphatic" letters double it (ح hh, ص ss, ض dd, ط tt, ظ zz); ء (any hamza radical) is `a`, ع is `e`,
 غ is `gh`. So ر ح م -> `r-hh-m`, ء م ن -> `a-m-n`, ع ل م -> `e-l-m`.
+
+## Salah words (`gen-salah.py`)
+
+`gen-salah.py` writes `src/utils/generated/salah-words.ts`: the site words of Al-Fatiha (1) and Al-Ikhlas (112) in
+reading order, for the "The words in my salah" learning goal (`src/lib/learning-goals.ts`) and Day 1 of the Ramadan plan
+(`src/lib/ramadan-plan.ts`). It is separate from `gen-pages.py` on purpose: `quran-index.ts` only covers surahs with a
+`/surah` page (`SURAH_PAGES`), and widening that list would add pages. Same inputs and lemma matching as `gen-pages.py`;
+re-run it whenever words are added (e.g. after `rabb`, `ahad` or `samad` join the site):
+
+    QV_CORPUS=<folder with build/idx.pkl> QV_WORDS=current.json python3 scripts/vocab/gen-salah.py

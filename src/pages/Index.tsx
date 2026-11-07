@@ -20,6 +20,8 @@ import {
 import { useAuth } from '@/components/AuthProvider';
 import SEO from '@/components/SEO';
 import { sampleVocabulary, collections, getWordsByCollection } from '@/utils/vocabulary';
+import GoalChooser from '@/components/onboarding/GoalChooser';
+import RamadanPromo from '@/components/RamadanPromo';
 
 // Computed once from the bundled data so the numbers on the page are always true.
 const wordCount = sampleVocabulary.length;
@@ -123,6 +125,12 @@ const Index = () => {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* First-visit goal chooser and the Ramadan plan */}
+        <section className="container mx-auto max-w-4xl space-y-4 px-4 py-8">
+          <GoalChooser />
+          <RamadanPromo />
         </section>
 
         {/* Stats Section */}

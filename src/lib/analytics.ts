@@ -25,6 +25,11 @@ export interface AnalyticsEvents {
   collection_create: Record<string, never>;
   note_create: Record<string, never>;
   contact_submit: Record<string, never>;
+  /** Learning goal picked in the onboarding chooser or the Review settings. */
+  goal_selected: { goal: string };
+  /** "Start Day N" on /ramadan. */
+  ramadan_day_start: { day: number };
+  ramadan_calendar_download: Record<string, never>;
   /** GA4's built-in exception event (sent by src/lib/error-reporting.ts). */
   exception: { description: string; fatal: boolean };
 }

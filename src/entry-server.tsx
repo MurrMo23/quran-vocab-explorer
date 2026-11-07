@@ -67,7 +67,7 @@ export function quranPages(): string[] {
 export function routes(): string[] {
   // '/' is not prerendered: dist/index.html must stay the clean SPA shell the host serves for every
   // other route (auth, dashboard, ...). Interactive pages that depend on saved progress stay client-only.
-  const statics = ['/collections'];
+  const statics = ['/collections', '/ramadan'];
   const collections = getPublishedCollections().map((c) => `/collections/${c.id}`);
   const words = getAllWords().map((w) => getWordPath(w));
   return [...statics, ...collections, ...words, ...quranPages()];

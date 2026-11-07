@@ -19,7 +19,8 @@ import {
   Zap,
   Globe,
   Library,
-  NotebookPen
+  NotebookPen,
+  Moon
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -54,6 +55,7 @@ const Navbar = () => {
     { href: '/collections', label: 'Collections', icon: BookOpen },
     { href: '/custom-learning', label: 'My collections', icon: Library },
     { href: '/review', label: 'Review', icon: Target },
+    { href: '/ramadan', label: 'Ramadan', icon: Moon },
     { href: '/audio-practice', label: 'Audio', icon: Volume2 },
     { href: '/blog', label: 'Blog', icon: Globe }
   ];
