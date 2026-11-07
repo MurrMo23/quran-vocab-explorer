@@ -144,20 +144,20 @@ const GoalChooser: React.FC<GoalChooserProps> = ({ className, variant = 'panel' 
 
   return (
     <section
-      className={cn('relative rounded-xl border bg-card p-4 text-left shadow-sm sm:p-5', className)}
+      className={cn('card-tactile relative p-4 text-left sm:p-5', className)}
       aria-labelledby="goal-chooser-heading"
       data-testid="goal-chooser"
     >
       <Button
         variant="ghost"
         size="icon"
-        className="absolute right-2 top-2 h-8 w-8"
+        className="absolute right-2 top-2 h-10 w-10"
         onClick={dismiss}
         aria-label="Dismiss"
       >
         <X className="h-4 w-4" />
       </Button>
-      <h2 id="goal-chooser-heading" className="pr-8 text-lg font-semibold">
+      <h2 id="goal-chooser-heading" className="pr-10 text-lg font-extrabold">
         What do you want to understand?
       </h2>
       <p className="mt-1 text-sm text-muted-foreground">
@@ -172,11 +172,11 @@ const GoalChooser: React.FC<GoalChooserProps> = ({ className, variant = 'panel' 
               type="button"
               onClick={() => choose(g.id)}
               data-testid={`goal-${g.id}`}
-              className="flex items-start gap-3 rounded-lg border bg-background p-3 text-left transition-colors hover:border-primary hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex min-h-[44px] items-start gap-3 rounded-2xl border-2 border-b-4 border-border bg-background p-3 text-left transition-colors hover:border-primary hover:bg-secondary active:translate-y-[2px] active:border-b-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <Icon className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
               <span>
-                <span className="block font-medium">{g.title}</span>
+                <span className="block font-bold">{g.title}</span>
                 <span className="mt-0.5 block text-xs text-muted-foreground">
                   {g.description} {goalWordIds(g.id).length} words.
                 </span>
