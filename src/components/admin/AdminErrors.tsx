@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import type { Json, Tables } from '@/integrations/supabase/types';
+import { clientErrorsClient, type ClientError } from '@/integrations/supabase/client-errors';
+import type { Json } from '@/integrations/supabase/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -18,8 +18,6 @@ import {
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
 import { Bug, ChevronDown, ChevronRight, RefreshCw, Trash2 } from 'lucide-react';
-
-type ClientError = Tables<'client_errors'>;
 
 const LATEST = 100;
 const RETENTION_DAYS = 30;
@@ -71,7 +69,7 @@ const AdminErrors: React.FC<AdminErrorsProps> = ({ onAuditLog }) => {
   const load = useCallback(async () => {
     setLoading(true);
     setLoadError(null);
-    const { data, error } = await supabase
+    const { data, error } = await clientErrorsClient
       .from('client_errors')
       .select('*')
       .order('created_at', { ascending: false })
@@ -107,7 +105,7 @@ const AdminErrors: React.FC<AdminErrorsProps> = ({ onAuditLog }) => {
     setDeleting(true);
     try {
       const cutoff = new Date(Date.now() - RETENTION_DAYS * 86_400_000).toISOString();
-      const { error, count } = await supabase
+      const { error, count } = await clientErrorsClient
         .from('client_errors')
         .delete({ count: 'exact' })
         .lt('created_at', cutoff);

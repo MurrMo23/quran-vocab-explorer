@@ -9,7 +9,7 @@
 // is dropped (ResizeObserver loop warnings, browser-extension frames, fetch failures while
 // offline, opaque cross-origin "Script error."). Messages are scrubbed of emails, UUIDs and
 // tokens; URLs lose their query string and hash. Nothing here ever throws.
-import { supabase } from '@/integrations/supabase/client';
+import { clientErrorsClient } from '@/integrations/supabase/client-errors';
 import { track } from '@/lib/analytics';
 
 const MAX_REPORTS = 5;
@@ -110,7 +110,7 @@ export function reportError(error: unknown, options: ErrorReportOptions = {}, fi
     track('exception', { description: clip(message, LIMITS.gaDescription), fatal });
 
     const userAgent = typeof navigator !== 'undefined' ? clip(navigator.userAgent || '', LIMITS.userAgent) : '';
-    void supabase
+    void clientErrorsClient
       .from('client_errors')
       .insert({
         message,
