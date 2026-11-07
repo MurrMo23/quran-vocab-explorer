@@ -1,0 +1,671 @@
+{
+ "collection": "divine-names",
+ "existing": [],
+ "new": [
+  {
+   "id": "al-kabir",
+   "lemma": "kabiyr",
+   "location": "13:9:4",
+   "transliteration": "Al-Kabir",
+   "meaning": "The Most Great",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْكَبِير",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-hafiz",
+   "lemma": "HafiyZ",
+   "location": "42:6:7",
+   "transliteration": "Al-Hafiz",
+   "meaning": "The Preserver, Guardian",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْحَفِيظ",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-muqit",
+   "lemma": "m~uqiyt",
+   "location": "4:85:22",
+   "transliteration": "Al-Muqit",
+   "meaning": "The Sustainer, Keeper",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْمُقِيت",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-hasib",
+   "lemma": "Hasiyb",
+   "location": "33:39:13",
+   "transliteration": "Al-Hasib",
+   "meaning": "The Reckoner",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْحَسِيب",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-karim",
+   "lemma": "kariym",
+   "location": "82:6:6",
+   "transliteration": "Al-Karim",
+   "meaning": "The Most Generous",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْكَرِيم",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "ar-raqib",
+   "lemma": "raqiyb",
+   "location": "4:1:28",
+   "transliteration": "Ar-Raqib",
+   "meaning": "The Watchful",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الرَّقِيب",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-mujib",
+   "lemma": "m~ujiyb",
+   "location": "11:61:27",
+   "transliteration": "Al-Mujib",
+   "meaning": "The Responsive (who answers prayer)",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْمُجِيب",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-wasi",
+   "lemma": "wa`siE",
+   "location": "2:115:11",
+   "transliteration": "Al-Wasi'",
+   "meaning": "The All-Encompassing",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْوَاسِع",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-wadud",
+   "lemma": "waduwd",
+   "location": "85:14:3",
+   "transliteration": "Al-Wadud",
+   "meaning": "The Most Loving",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْوَدُود",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-majid",
+   "lemma": "m~ajiyd",
+   "location": "11:73:14",
+   "transliteration": "Al-Majid",
+   "meaning": "The Most Glorious",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْمَجِيد",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "ash-shahid",
+   "lemma": "$ahiyd",
+   "location": "85:9:10",
+   "transliteration": "Ash-Shahid",
+   "meaning": "The Witness",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الشَّهِيد",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-wakil",
+   "lemma": "wakiyl",
+   "location": "33:3:6",
+   "transliteration": "Al-Wakil",
+   "meaning": "The Trustee, Disposer of affairs",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْوَكِيل",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-qawiyy",
+   "lemma": "qawiY~",
+   "location": "42:19:8",
+   "transliteration": "Al-Qawiyy",
+   "meaning": "The All-Strong",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْقَوِيُ",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-matin",
+   "lemma": "matiyn",
+   "location": "51:58:7",
+   "transliteration": "Al-Matin",
+   "meaning": "The Firm",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْمَتِين",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-waliyy",
+   "lemma": "waliY~",
+   "location": "42:9:8",
+   "transliteration": "Al-Waliyy",
+   "meaning": "The Protecting Friend",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْوَلِيُ",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-hamid",
+   "lemma": "Hamiyd",
+   "location": "35:15:10",
+   "transliteration": "Al-Hamid",
+   "meaning": "The Praiseworthy",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْحَمِيد",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-muhyi",
+   "lemma": "muHoY",
+   "location": "30:50:13",
+   "transliteration": "Al-Muhyi",
+   "meaning": "The Giver of Life",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْمُحْيِي",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-hayy",
+   "lemma": "Hay~",
+   "location": "3:2:6",
+   "transliteration": "Al-Hayy",
+   "meaning": "The Ever-Living",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْحَيُ",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-qayyum",
+   "lemma": "qay~uwm",
+   "location": "3:2:7",
+   "transliteration": "Al-Qayyum",
+   "meaning": "The Self-Subsisting Sustainer",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْقَيُّوم",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-ahad",
+   "lemma": ">aHad",
+   "location": "112:1:4",
+   "transliteration": "Al-Ahad",
+   "meaning": "The One, the Unique",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْأَحَد",
+   "extraCollections": [
+    "faith"
+   ],
+   "allowSharedLemma": true
+  },
+  {
+   "id": "as-samad",
+   "lemma": "S~amad",
+   "location": "112:2:2",
+   "transliteration": "As-Samad",
+   "meaning": "The Eternal Refuge",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الصَّمَد",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-qadir",
+   "lemma": "qaAdir",
+   "location": "86:8:4",
+   "transliteration": "Al-Qadir",
+   "meaning": "The All-Capable",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْقَادِر",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-muqtadir",
+   "lemma": "m~uqotadir",
+   "location": "54:55:6",
+   "transliteration": "Al-Muqtadir",
+   "meaning": "The Perfect in Ability",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْمُقْتَدِر",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-awwal",
+   "lemma": ">aw~al",
+   "location": "57:3:2",
+   "transliteration": "Al-Awwal",
+   "meaning": "The First",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْأَوَّل",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-akhir",
+   "lemma": "A^xir",
+   "location": "57:3:3",
+   "transliteration": "Al-Akhir",
+   "meaning": "The Last",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْآخِر",
+   "extraCollections": [
+    "faith"
+   ],
+   "allowSharedLemma": true
+  },
+  {
+   "id": "az-zahir",
+   "lemma": "Za`hir",
+   "location": "57:3:4",
+   "transliteration": "Az-Zahir",
+   "meaning": "The Manifest",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الظَّاهِر",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-batin",
+   "lemma": "baATin",
+   "location": "57:3:5",
+   "transliteration": "Al-Batin",
+   "meaning": "The Hidden",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْبَاطِن",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-mutaali",
+   "lemma": "mutaEaAl",
+   "location": "13:9:5",
+   "transliteration": "Al-Muta'ali",
+   "meaning": "The Most Exalted",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْمُتَعَالِي",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-barr",
+   "lemma": "bar~",
+   "location": "52:28:8",
+   "transliteration": "Al-Barr",
+   "meaning": "The Source of Goodness",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْبَرُ",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "at-tawwab",
+   "lemma": "taw~aAb",
+   "location": "110:3:7",
+   "transliteration": "At-Tawwab",
+   "meaning": "The Accepter of Repentance",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "التَّوَّاب",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-muntaqim",
+   "lemma": "muntaqimuwn",
+   "location": "44:16:6",
+   "transliteration": "Al-Muntaqim",
+   "meaning": "The Avenger",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْمُنْتَقِم",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-afuww",
+   "lemma": "Eafuw~",
+   "location": "4:99:9",
+   "transliteration": "Al-'Afuww",
+   "meaning": "The Pardoner",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْعَفُوُ",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "ar-rauf",
+   "lemma": "ra'uwf",
+   "location": "2:207:10",
+   "transliteration": "Ar-Ra'uf",
+   "meaning": "The Most Kind",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الرَّءُوف",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "malik-al-mulk",
+   "lemma": "ma`lik",
+   "location": "3:26:3",
+   "transliteration": "Malik al-Mulk",
+   "meaning": "Owner of All Sovereignty",
+   "partOfSpeech": "phrase",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "مَالِكُ الْمُلْكِ",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "dhul-jalali-wal-ikram",
+   "lemma": "jala`l",
+   "location": "55:78:5",
+   "transliteration": "Dhul-Jalali wal-Ikram",
+   "meaning": "Possessor of Majesty and Honour",
+   "partOfSpeech": "phrase",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "ذُو الْجَلَالِ وَالْإِكْرَامِ",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-jami",
+   "lemma": "jaAmiE",
+   "location": "3:9:3",
+   "transliteration": "Al-Jami'",
+   "meaning": "The Gatherer",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْجَامِع",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-hadi",
+   "lemma": "haAdiy",
+   "location": "25:31:10",
+   "transliteration": "Al-Hadi",
+   "meaning": "The Guide",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْهَادِي",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-badi",
+   "lemma": "badiyE",
+   "location": "2:117:1",
+   "transliteration": "Al-Badi'",
+   "meaning": "The Incomparable Originator",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْبَدِيع",
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-warith",
+   "lemma": "waAriv",
+   "location": "15:23:6",
+   "transliteration": "Al-Warith",
+   "meaning": "The Inheritor",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "divine-names",
+    "names-of-allah"
+   ],
+   "arabic": "الْوَارِث",
+   "extraCollections": [
+    "faith"
+   ]
+  }
+ ]
+}

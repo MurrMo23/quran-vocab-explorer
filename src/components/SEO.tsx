@@ -33,6 +33,8 @@ interface SEOProps {
   };
   /** Trail for a BreadcrumbList (Home is added first); the last item is this page. */
   breadcrumbs?: { name: string; path: string }[];
+  /** Extra schema.org nodes for the page's @graph (e.g. DefinedTerm / DefinedTermSet). */
+  jsonLd?: Record<string, unknown>[];
 }
 
 const SITE_NAME = 'QuranVocab';
@@ -121,7 +123,8 @@ const SEO: React.FC<SEOProps> = ({
   noindex = false,
   article,
   word,
-  breadcrumbs
+  breadcrumbs,
+  jsonLd
 }) => {
   React.useEffect(() => {
     removeStaticHeadDuplicates();
@@ -234,6 +237,8 @@ const SEO: React.FC<SEOProps> = ({
       }))
     });
   }
+
+  if (jsonLd?.length) graph.push(...jsonLd);
 
   graph.push(website, organization);
 
