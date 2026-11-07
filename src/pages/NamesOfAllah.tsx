@@ -51,17 +51,15 @@ const NameCard: React.FC<{ name: DivineName }> = ({ name }) => {
     <li className="relative">
       <Link
         to={namePath(name.slug)}
-        className="flex h-full flex-col rounded-xl border bg-card p-4 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex h-full flex-col rounded-xl border bg-card p-3 sm:p-4 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
-        <span className="flex items-start justify-between gap-2">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-            {name.n}
-          </span>
-          <span className="min-w-0 text-right font-arabic text-2xl leading-relaxed sm:text-3xl" lang="ar" dir="rtl">
-            {name.ar}
-          </span>
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
+          {name.n}
         </span>
-        <span className="mt-2 block font-semibold">{name.tr}</span>
+        <span className="mt-1 block text-center font-arabic text-2xl leading-relaxed sm:text-3xl" lang="ar" dir="rtl">
+          {name.ar}
+        </span>
+        <span className="mt-1 block font-semibold leading-snug">{name.tr}</span>
         <span className="block text-sm text-muted-foreground">{name.en}</span>
         {name.status !== 'quran' && (
           <span className="mt-2 block text-xs text-muted-foreground">{STATUS_LABEL[name.status]}</span>
@@ -75,7 +73,7 @@ const NameCard: React.FC<{ name: DivineName }> = ({ name }) => {
           size="sm"
           label=""
           allowComputerVoice={false}
-          className="absolute bottom-4 left-4"
+          className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4"
         />
       )}
     </li>
@@ -190,7 +188,7 @@ const NamesOfAllah = () => {
         </div>
 
         {shown.length > 0 ? (
-          <ul className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <ul className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-3 lg:grid-cols-4">
             {shown.map((n) => (
               <NameCard key={n.slug} name={n} />
             ))}

@@ -71,23 +71,6 @@
    ]
   },
   {
-   "id": "al-karim",
-   "lemma": "kariym",
-   "location": "82:6:6",
-   "transliteration": "Al-Karim",
-   "meaning": "The Most Generous",
-   "partOfSpeech": "noun",
-   "level": "intermediate",
-   "tags": [
-    "divine-names",
-    "names-of-allah"
-   ],
-   "arabic": "الْكَرِيم",
-   "extraCollections": [
-    "faith"
-   ]
-  },
-  {
    "id": "ar-raqib",
    "lemma": "raqiyb",
    "location": "4:1:28",
@@ -390,23 +373,6 @@
     "names-of-allah"
    ],
    "arabic": "الْمُقْتَدِر",
-   "extraCollections": [
-    "faith"
-   ]
-  },
-  {
-   "id": "al-awwal",
-   "lemma": ">aw~al",
-   "location": "57:3:2",
-   "transliteration": "Al-Awwal",
-   "meaning": "The First",
-   "partOfSpeech": "noun",
-   "level": "intermediate",
-   "tags": [
-    "divine-names",
-    "names-of-allah"
-   ],
-   "arabic": "الْأَوَّل",
    "extraCollections": [
     "faith"
    ]

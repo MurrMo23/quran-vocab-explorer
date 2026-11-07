@@ -7,6 +7,7 @@ const learnLinks = [
   { to: '/collections', label: 'Vocabulary Collections' },
   { to: '/surahs', label: 'Surah vocabulary' },
   { to: '/roots', label: 'Roots' },
+  { to: '/names-of-allah', label: '99 Names of Allah' },
   { to: '/review', label: 'Daily Review' },
   { to: '/blog', label: 'Blog' },
 ];

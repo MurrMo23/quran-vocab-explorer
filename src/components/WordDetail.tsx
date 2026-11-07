@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { getQuranicUsage } from '@/utils/word-usage';
 import { getWordRootSlug, getWordSurahPages, rootPath, surahPath } from '@/utils/quran-pages';
 import { getWordPath } from '@/utils/word-slugs';
+import { getNameForWord, namePath } from '@/utils/names-of-allah';
 
 interface WordDetailProps {
   word: Word;
@@ -35,6 +36,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
   const related = word.quranicForm;
   const rootSlug = getWordRootSlug(word.id);
   const surahPages = getWordSurahPages(word.id);
+  const divineName = getNameForWord(word.id);
 
   const handleWordNavigation = (wordId: string) => {
     navigate(getWordPath(wordId));
@@ -109,6 +111,14 @@ const WordDetail: React.FC<WordDetailProps> = ({
             </p>
           )}
         </aside>
+      )}
+
+      {divineName && (
+        <p className="mb-6 text-sm">
+          <Link to={namePath(divineName.slug)} className="text-primary underline-offset-4 hover:underline">
+            {divineName.tr} is name {divineName.n} of the 99 Names of Allah →
+          </Link>
+        </p>
       )}
 
       {surahPages.length > 0 && (

@@ -9,6 +9,7 @@ import { ProgressProvider } from '@/lib/progress';
 import { getAllWords, getPublishedCollections } from '@/utils/vocabulary';
 import { SURAH_PAGES, getAllRoots, rootPath, surahPath } from '@/utils/quran-pages';
 import { getWordPath } from '@/utils/word-slugs';
+import { NAMES_HUB_PATH, getAllNames, namePath } from '@/utils/names-of-allah';
 
 // Build-time data for scripts/generate-sitemap.mjs and the legacy /word/<id> redirect pages.
 export { getAllWords, getPublishedCollections };
@@ -63,6 +64,11 @@ export function quranPages(): string[] {
   return ['/roots', ...getAllRoots().map((r) => rootPath(r.slug)), '/surahs', ...SURAH_PAGES.map(surahPath)];
 }
 
+/** The 99 Names of Allah hub and one page per name (prerendered and in the sitemap). */
+export function namesPages(): string[] {
+  return [NAMES_HUB_PATH, ...getAllNames().map((n) => namePath(n.slug))];
+}
+
 /** Public routes worth prerendering (everything that is in the sitemap and needs no account). */
 export function routes(): string[] {
   // '/' is not prerendered: dist/index.html must stay the clean SPA shell the host serves for every
@@ -70,5 +76,5 @@ export function routes(): string[] {
   const statics = ['/collections'];
   const collections = getPublishedCollections().map((c) => `/collections/${c.id}`);
   const words = getAllWords().map((w) => getWordPath(w));
-  return [...statics, ...collections, ...words, ...quranPages()];
+  return [...statics, ...collections, ...words, ...quranPages(), ...namesPages()];
 }

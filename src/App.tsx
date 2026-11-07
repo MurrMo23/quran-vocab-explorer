@@ -18,6 +18,8 @@ import Roots from '@/pages/Roots';
 import RootDetails from '@/pages/RootDetails';
 import Surahs from '@/pages/Surahs';
 import SurahVocabulary from '@/pages/SurahVocabulary';
+import NamesOfAllah from '@/pages/NamesOfAllah';
+import NameOfAllah from '@/pages/NameOfAllah';
 
 // Every other route is code-split.
 const Auth = lazy(() => import('@/pages/Auth'));
@@ -84,6 +86,8 @@ function App() {
                 <Route path="root/:root" element={page(<RootDetails />)} />
                 <Route path="surahs" element={page(<Surahs />)} />
                 <Route path="surah/:number" element={page(<SurahVocabulary />)} />
+                <Route path="names-of-allah" element={page(<NamesOfAllah />)} />
+                <Route path="names-of-allah/:slug" element={page(<NameOfAllah />)} />
                 <Route path="admin" element={page(<Admin />)} />
                 <Route path="analytics" element={page(<Analytics />)} />
                 <Route path="settings" element={page(<Settings />)} />
