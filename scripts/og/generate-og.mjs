@@ -74,6 +74,7 @@ const uniqueArabic = (list) => {
 
 const jobs = {
   words: data.words.map((w) => ({
+    art: 'word',
     slug: w.slug,
     kind: 'Quranic word',
     arabic: w.arabic,
@@ -82,6 +83,7 @@ const jobs = {
     stat: `Appears ${fmt(w.frequency)} ${w.frequency === 1 ? 'time' : 'times'} in the Quran`,
   })),
   names: data.names.map((n) => ({
+    art: 'names',
     slug: n.slug,
     kind: '99 Names of Allah',
     badge: `${n.n} / 99`,
@@ -96,6 +98,7 @@ const jobs = {
           : 'From the Hadith list',
   })),
   surah: data.surahs.map((s) => ({
+    art: 'surah',
     slug: s.slug,
     kind: 'Surah vocabulary',
     badge: `Surah ${s.number}`,
@@ -105,6 +108,7 @@ const jobs = {
     stat: s.count ? `${fmt(s.count)} words · ${s.coveragePercent}% of the surah` : `${s.ayahs} ayahs`,
   })),
   collections: data.collections.map((c) => ({
+    art: 'collections',
     slug: c.slug,
     kind: 'Word collection',
     arabic: uniqueArabic(c.arabic).slice(0, 3).join('  ·  '),
@@ -116,6 +120,8 @@ const jobs = {
   pages: [
     {
       slug: 'home',
+      layout: 'illus',
+      art: 'home',
       kind: 'Learn Quranic Arabic',
       arabic: 'كَلِمَاتُ الْقُرْآنِ',
       title: 'Learn the words of the Quran',
@@ -124,6 +130,9 @@ const jobs = {
     },
     {
       slug: 'names-of-allah',
+      layout: 'illus',
+      art: 'names',
+      theme: 'dark',
       kind: '99 Names of Allah',
       arabic: 'الْأَسْمَاءُ الْحُسْنَىٰ',
       title: 'The 99 Names of Allah',
@@ -132,6 +141,9 @@ const jobs = {
     },
     {
       slug: 'ramadan',
+      layout: 'illus',
+      art: 'ramadan',
+      theme: 'dark',
       kind: 'Ramadan plan',
       arabic: 'رَمَضَانُ',
       title: `${data.ramadan.days}-day Ramadan vocabulary plan`,
@@ -140,11 +152,40 @@ const jobs = {
     },
     {
       slug: 'review',
+      layout: 'illus',
+      art: 'review',
       kind: 'Daily review',
       arabic: 'مُرَاجَعَةٌ',
       title: 'Review Quranic vocabulary',
       subtitle: 'Hear the recitation, recall the meaning, see it in a verse.',
       stat: 'Spaced repetition · a few minutes a day',
+    },
+    {
+      slug: 'collections',
+      layout: 'illus',
+      art: 'collections',
+      kind: 'Word collections',
+      title: 'Quranic words by theme',
+      subtitle: 'Nature, faith, family, the afterlife and more, each with recitation audio.',
+      stat: `${fmt(data.collections.length)} collections · ${fmt(data.totalWords)} words`,
+    },
+    {
+      slug: 'surahs',
+      layout: 'illus',
+      art: 'surah',
+      kind: 'Surah vocabulary',
+      title: 'The words of every surah',
+      subtitle: 'A word list for all 114 surahs, most frequent words first.',
+      stat: '114 surahs · free',
+    },
+    {
+      slug: 'roots',
+      layout: 'illus',
+      art: 'roots',
+      kind: 'Arabic roots',
+      title: 'Learn words by their roots',
+      subtitle: 'See how one three-letter root grows into a family of Quranic words.',
+      stat: 'Root families with Quranic examples',
     },
   ],
 };
@@ -154,6 +195,13 @@ const font = (f) => `data:font/woff2;base64,${readFileSync(join(here, 'fonts', f
 const siteFont = (f) => `data:font/woff2;base64,${readFileSync(join(root, 'src/assets/fonts', f)).toString('base64')}`;
 // The new brand logo (book mark + wordmark), inline SVG with the dark-ink wordmark for the sand background.
 const logo = `data:image/svg+xml;base64,${readFileSync(join(root, 'public/brand/quranvocab-logo.svg')).toString('base64')}`;
+const logoDark = `data:image/svg+xml;base64,${readFileSync(join(root, 'public/brand/quranvocab-logo-dark.svg')).toString('base64')}`;
+// Brand illustrations (made with Higgsfield, palette-matched), one per page type: scripts/og/art/<name>.jpg
+const art = Object.fromEntries(
+  readdirSync(join(here, 'art'))
+    .filter((f) => f.endsWith('.jpg'))
+    .map((f) => [f.slice(0, -4), `data:image/jpeg;base64,${readFileSync(join(here, 'art', f)).toString('base64')}`]),
+);
 const LATIN = 'U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD';
 const LATIN_EXT = 'U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF';
 const faces = [
@@ -193,6 +241,21 @@ body{font-family:JakartaOG,sans-serif;background:#FBF8F1;color:#10231F;-webkit-f
 /* Amiri Quran colours its marks (COLR palette: red/green/orange/blue); draw them in the text colour. */
 @font-palette-values --sand{font-family:QuranOG;override-colors:0 #FBF8F1,1 #FBF8F1,2 #FBF8F1,3 #FBF8F1}
 .ar{position:relative;font-family:QuranOG,ArabicOG,serif;font-palette:--sand;font-weight:400;color:#FBF8F1;text-align:center;direction:rtl;line-height:1.75;width:520px;max-height:400px;padding:0 18px}
+/* Item cards: the type's illustration, tinted teal, under the Arabic. */
+.right .tint{position:absolute;inset:0;background-size:cover;background-position:70% 50%;opacity:.1;filter:blur(2px);mix-blend-mode:luminosity}
+/* Hub pages: full-bleed illustration with the text on the empty left side. */
+.illus{display:none;position:relative;width:1200px;height:630px;overflow:hidden}
+.illus .art{position:absolute;right:0;bottom:0;height:92%;width:auto;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%),linear-gradient(180deg,transparent 0,#000 16%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 24%),linear-gradient(180deg,transparent 0,#000 16%);mask-composite:intersect}
+body.is-illus .card{display:none}
+body.is-illus .illus{display:block}
+.illus .txt{position:absolute;left:0;top:0;bottom:0;width:600px;padding:52px 0 52px 60px;display:flex;flex-direction:column}
+.illus .txt img{height:52px;width:auto;align-self:flex-start}
+.illus .ititle{font-weight:800;font-size:68px;line-height:1.04;letter-spacing:-.03em;color:#10231F;text-wrap:balance}
+.illus .isub{max-width:500px;font-size:28px;line-height:1.38;font-weight:500;color:#51615C;text-wrap:pretty}
+.illus.dark .ititle{color:#FBF8F1}
+.illus.dark .isub{color:#C9D6D1}
+.illus.dark .kind{background:#1F3832;color:#8FE0CC}
+.illus.dark .stat{background:#1F3832;border-bottom-color:#E3B455;color:#E3B455}
 .dots{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:10px}
 .dots i{width:10px;height:10px;border-radius:50%;background:#E3B455;display:block;opacity:.9}
 .dots i:nth-child(2){opacity:.55}.dots i:nth-child(3){opacity:.3}
@@ -208,6 +271,7 @@ body{font-family:JakartaOG,sans-serif;background:#FBF8F1;color:#10231F;-webkit-f
     <div class="foot"><span class="stat" id="stat"></span></div>
   </div>
   <div class="right">
+    <div class="tint" id="tint"></div>
     <svg class="pat" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="p" width="84" height="84" patternUnits="userSpaceOnUse">
       <g fill="none" stroke="#FBF8F1" stroke-width="1.5"><rect x="22" y="22" width="40" height="40"/><rect x="22" y="22" width="40" height="40" transform="rotate(45 42 42)"/></g>
     </pattern></defs><rect width="100%" height="100%" fill="url(#p)"/></svg>
@@ -216,7 +280,17 @@ body{font-family:JakartaOG,sans-serif;background:#FBF8F1;color:#10231F;-webkit-f
     <div class="dots"><i></i><i></i><i></i></div>
   </div>
 </div>
+<div class="illus" id="illus">
+  <img class="art" id="iart" alt="">
+  <div class="txt">
+    <img id="ilogo" src="${logo}" alt="">
+    <div class="chips"><span class="chip kind" id="ikind"></span></div>
+    <div class="body"><div class="ititle" id="ititle"></div><div class="isub" id="isub"></div></div>
+    <div class="foot"><span class="stat" id="istat"></span></div>
+  </div>
+</div>
 <script>
+const LOGO = ${JSON.stringify(logo)}, LOGO_DARK = ${JSON.stringify(logoDark)};
 // Shrink an element's font until it fits its box (width and max-height).
 function fit(el, max, min, maxH) {
   let size = max;
@@ -228,6 +302,31 @@ function fit(el, max, min, maxH) {
   return size;
 }
 window.renderCard = async (d) => {
+  if (d.artUrl) await new Promise((r) => { const i = new Image(); i.onload = r; i.onerror = r; i.src = d.artUrl; });
+  if (d.layout === 'illus') {
+    document.body.classList.add('is-illus');
+    const box = document.getElementById('illus');
+    box.className = 'illus' + (d.theme === 'dark' ? ' dark' : '');
+    document.getElementById('iart').src = d.artUrl;
+    document.getElementById('ilogo').src = d.theme === 'dark' ? LOGO_DARK : LOGO;
+    // Fill the space the illustration doesn't cover with its own top-left colour, so there is no seam.
+    const img = new Image(); img.src = d.artUrl; await img.decode();
+    const c = document.createElement('canvas'); c.width = 4; c.height = 4;
+    const cx = c.getContext('2d'); cx.drawImage(img, 0, 0, 40, 40, 0, 0, 4, 4);
+    const [r, g, b] = cx.getImageData(0, 0, 1, 1).data;
+    const fill = 'rgb(' + r + ',' + g + ',' + b + ')';
+    box.style.backgroundColor = fill;
+    document.getElementById('ikind').textContent = d.kind;
+    for (const [id, k] of [['ititle', 'title'], ['isub', 'subtitle'], ['istat', 'stat']]) document.getElementById(id).textContent = d[k] || '';
+    await document.fonts.ready;
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    fit(document.getElementById('ititle'), 68, 40, 220);
+    fit(document.getElementById('isub'), 28, 20, 160);
+    fit(document.getElementById('istat'), 21, 14, 48);
+    return true;
+  }
+  document.body.classList.remove('is-illus');
+  document.getElementById('tint').style.backgroundImage = d.artUrl ? 'url(' + d.artUrl + ')' : 'none';
   document.getElementById('kind').textContent = d.kind;
   document.getElementById('badge').textContent = d.badge || '';
   for (const k of ['title', 'subtitle', 'stat']) document.getElementById(k).textContent = d[k] || '';
@@ -278,7 +377,7 @@ for (const [type, list] of Object.entries(jobs)) {
   // Remove images for pages that no longer exist (e.g. a word dropped out of the top N).
   if (limit === Infinity) for (const f of readdirSync(dir)) if (f.endsWith('.jpg') && !wanted.has(f.slice(0, -4))) rmSync(join(dir, f));
   for (const job of list.slice(0, limit)) {
-    await page.evaluate((d) => window.renderCard(d), job);
+    await page.evaluate((d) => window.renderCard(d), { ...job, artUrl: job.art ? art[job.art] : '' });
     const shot = await page.screenshot(sharp ? { type: 'png' } : { type: 'jpeg', quality: QUALITY });
     const file = join(dir, `${job.slug}.jpg`);
     const size = await saveJpeg(shot, file);

@@ -39,3 +39,10 @@ A full run removes images for pages that no longer exist, then rewrites the mani
   - **Amiri Quran** (`src/assets/fonts`, the site's headword face) for the Arabic. The upstream font colours some marks with a COLR palette (red, green, orange, blue); the site's subset has that table removed, and the template also overrides the palette with `@font-palette-values`, so marks always draw in the text colour. **Scheherazade New** (`fonts/`) is the fallback for any character outside the Amiri subset.
   - **Plus Jakarta Sans** (`src/assets/fonts`, variable weight) for Latin text.
 - Total size is about 18 MB (about 33 KB per image).
+
+## Illustrations
+
+`scripts/og/art/*.jpg` are brand illustrations made with Higgsfield (palette-matched, no text). Hub pages
+(home, collections, surahs, roots, 99 Names, Ramadan, review) use them full-bleed on the right with the text on
+the left; item pages (words, names, surahs, collections) show the matching illustration as a faint texture behind
+the Arabic. To change one, replace its file (same name, 16:9, subject on the right half) and regenerate.

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { ogImage } from '@/utils/og-image';
 import { Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import SEO from '@/components/SEO';
@@ -54,6 +55,7 @@ const Surahs = () => {
         url="/surahs"
         keywords={['surah vocabulary', 'surah word list', 'Quran words by surah', 'Juz Amma vocabulary', 'Quranic Arabic']}
         breadcrumbs={[{ name: 'Surah vocabulary', path: '/surahs' }]}
+        image={ogImage('pages', 'surahs')}
       />
 
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">

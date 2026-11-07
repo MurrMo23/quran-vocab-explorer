@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { ogImage } from '@/utils/og-image';
 import CollectionCard from '@/components/CollectionCard';
 import SearchBar from '@/components/SearchBar';
 import CreateCollectionForm from '@/components/collections/CreateCollectionForm';
@@ -102,6 +103,7 @@ const Collections = () => {
         keywords={["Arabic collections", "vocabulary categories", "organized learning", "word lists"]}
         url="https://quranvocab.com/collections"
         type="website"
+        image={ogImage('pages', 'collections')}
       />
       
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-16 pt-8 sm:gap-8 sm:px-6 sm:pt-10">

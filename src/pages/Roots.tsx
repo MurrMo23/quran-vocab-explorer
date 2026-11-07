@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { ogImage } from '@/utils/og-image';
 import { Link } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import PageTrail from '@/components/quran/PageTrail';
@@ -26,6 +27,7 @@ const Roots = () => {
         url="/roots"
         keywords={['Quranic Arabic roots', 'Arabic root words', 'trilateral roots', 'Quran vocabulary by root']}
         breadcrumbs={[{ name: 'Roots', path: '/roots' }]}
+        image={ogImage('pages', 'roots')}
       />
 
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
