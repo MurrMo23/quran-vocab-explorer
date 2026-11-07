@@ -13,6 +13,7 @@ import NoteForm from '@/components/learning/NoteForm';
 import WordSearchPicker from '@/components/collections/WordSearchPicker';
 import { createNote, NOTE_TYPES, NOTE_TYPE_LABELS, useNotes, type Note, type NoteType } from '@/lib/notes';
 import { getWordById, type Word } from '@/utils/vocabulary';
+import { getWordPath } from '@/utils/word-slugs';
 
 type Filter = 'all' | NoteType;
 
@@ -146,7 +147,7 @@ const Notebook = () => {
               <Card key={g.wordId}>
                 <CardHeader className="pb-3">
                   {g.word ? (
-                    <Link to={`/word/${g.wordId}`} className="group flex items-baseline gap-3 flex-wrap">
+                    <Link to={getWordPath(g.wordId)} className="group flex items-baseline gap-3 flex-wrap">
                       <span className="font-arabic text-2xl" lang="ar">
                         {g.word.arabic}
                       </span>

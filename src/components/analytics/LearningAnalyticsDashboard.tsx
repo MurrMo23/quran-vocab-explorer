@@ -17,6 +17,7 @@ import {
   upcomingReviews,
   weekdayLabel,
 } from './progress-utils';
+import { getWordPath } from '@/utils/word-slugs';
 
 /** Detailed analytics, all computed from the learner's review logs and FSRS cards. */
 const LearningAnalyticsDashboard: React.FC = () => {
@@ -156,7 +157,7 @@ const LearningAnalyticsDashboard: React.FC = () => {
                   const word = getWordById(h.wordId);
                   return (
                     <li key={h.wordId} className="flex items-center justify-between gap-3 py-2">
-                      <Link to={`/word/${h.wordId}`} className="min-w-0 hover:underline">
+                      <Link to={getWordPath(h.wordId)} className="min-w-0 hover:underline">
                         <span className="font-arabic text-lg" dir="rtl">
                           {word?.arabic ?? h.wordId}
                         </span>

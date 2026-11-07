@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { NOTE_TYPE_LABELS, useNotes } from '@/lib/notes';
 import { getWordById } from '@/utils/vocabulary';
+import { getWordPath } from '@/utils/word-slugs';
 
 /** Compact "recent notes" card (e.g. for a dashboard). Full management lives at /notebook. */
 const PersonalVocabularyNotebook: React.FC<{ limit?: number }> = ({ limit = 5 }) => {
@@ -38,7 +39,7 @@ const PersonalVocabularyNotebook: React.FC<{ limit?: number }> = ({ limit = 5 })
                 <li key={n.id} className="text-sm">
                   <div className="flex items-center gap-2 mb-1">
                     {word ? (
-                      <Link to={`/word/${n.wordId}`} className="font-medium hover:underline underline-offset-4">
+                      <Link to={getWordPath(n.wordId)} className="font-medium hover:underline underline-offset-4">
                         <span className="font-arabic mr-1" lang="ar">
                           {word.arabic}
                         </span>
