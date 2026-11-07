@@ -5,6 +5,8 @@ import { Heart } from 'lucide-react';
 
 const learnLinks = [
   { to: '/collections', label: 'Vocabulary Collections' },
+  { to: '/surahs', label: 'Surah vocabulary' },
+  { to: '/roots', label: 'Roots' },
   { to: '/practice', label: 'Flashcard Practice' },
   { to: '/quiz', label: 'Quiz' },
   { to: '/blog', label: 'Blog' },
