@@ -6780,7 +6780,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "al-qawiyy",
-    "arabic": "الْقَوِيُ",
+    "arabic": "الْقَوِيّ",
     "transliteration": "Al-Qawiyy",
     "meaning": "The All-Strong",
     "root": "ق و ي",
@@ -6844,7 +6844,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "al-waliyy",
-    "arabic": "الْوَلِيُ",
+    "arabic": "الْوَلِيّ",
     "transliteration": "Al-Waliyy",
     "meaning": "The Protecting Friend",
     "root": "و ل ي",
@@ -6940,7 +6940,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "al-hayy",
-    "arabic": "الْحَيُ",
+    "arabic": "الْحَيّ",
     "transliteration": "Al-Hayy",
     "meaning": "The Ever-Living",
     "root": "ح ي ي",
@@ -7260,7 +7260,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "al-barr",
-    "arabic": "الْبَرُ",
+    "arabic": "الْبَرّ",
     "transliteration": "Al-Barr",
     "meaning": "The Source of Goodness",
     "root": "ب ر ر",
@@ -7356,7 +7356,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "al-afuww",
-    "arabic": "الْعَفُوُ",
+    "arabic": "الْعَفُوّ",
     "transliteration": "Al-'Afuww",
     "meaning": "The Pardoner",
     "root": "ع ف و",
