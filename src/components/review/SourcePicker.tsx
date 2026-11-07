@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import type { Collection } from '@/utils/vocabulary-types';
 import type { UserCollection } from '@/lib/collections';
+import { LEARNING_GOALS, isLearningGoalId, type LearningGoalId } from '@/lib/learning-goals';
 import { NEW_PER_DAY_MAX, NEW_PER_DAY_MIN, SOURCE_DUE, SOURCE_WORDS, collectionSourceValue } from './review-session';
 
 interface SourcePickerProps {
@@ -19,6 +20,9 @@ interface SourcePickerProps {
   unknownCollection?: { value: string; label: string };
   newPerDay: number;
   onNewPerDayChange: (value: number) => void;
+  /** Learning goal whose words "Due & new" introduces first. */
+  goal: LearningGoalId | null;
+  onGoalChange: (value: LearningGoalId | null) => void;
 }
 
 /** Compact "what am I reviewing" bar: source select plus a settings popover. */
@@ -31,6 +35,8 @@ const SourcePicker: React.FC<SourcePickerProps> = ({
   unknownCollection,
   newPerDay,
   onNewPerDayChange,
+  goal,
+  onGoalChange,
 }) => {
   const [draft, setDraft] = useState(String(newPerDay));
   useEffect(() => setDraft(String(newPerDay)), [newPerDay]);
@@ -106,6 +112,24 @@ const SourcePicker: React.FC<SourcePickerProps> = ({
               Used by “Due &amp; new”. Due words always come first. Saved in this browser.
             </p>
           </form>
+          <div className="mt-4 space-y-2 border-t pt-4">
+            <Label htmlFor="learning-goal">Change goal</Label>
+            <select
+              id="learning-goal"
+              value={goal ?? ''}
+              onChange={(e) => onGoalChange(isLearningGoalId(e.target.value) ? e.target.value : null)}
+              className="h-10 w-full rounded-md border bg-background px-2 text-sm"
+              data-testid="goal-select"
+            >
+              <option value="">No goal (most common words)</option>
+              {LEARNING_GOALS.map((g) => (
+                <option key={g.id} value={g.id}>
+                  {g.title}
+                </option>
+              ))}
+            </select>
+            <p className="text-xs text-muted-foreground">New words in “Due &amp; new” come from your goal first.</p>
+          </div>
         </PopoverContent>
       </Popover>
     </div>

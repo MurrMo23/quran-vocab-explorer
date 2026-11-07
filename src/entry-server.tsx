@@ -1,8 +1,7 @@
 /// <reference types="node" />
 // Server entry used only at build time to prerender public pages (scripts/prerender.mjs).
-import { renderToPipeableStream } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
-import { Writable } from 'node:stream';
 import { Helmet } from 'react-helmet';
 import App from './App';
 import { ProgressProvider } from '@/lib/progress';
@@ -22,41 +21,27 @@ export interface RenderResult {
 }
 
 export function render(url: string): Promise<RenderResult> {
-  return new Promise((resolve, reject) => {
-    let html = '';
-    const sink = new Writable({
-      write(chunk, _enc, cb) {
-        html += chunk.toString();
-        cb();
-      },
-    });
-    sink.on('finish', () => {
-      const h = Helmet.renderStatic();
-      resolve({
-        html,
-        head: [h.title, h.meta, h.link, h.script].map((x) => x.toString()).join(''),
-        htmlAttributes: h.htmlAttributes.toString(),
-      });
-    });
-    const stream = renderToPipeableStream(
+  // renderToString, not renderToPipeableStream: React 18.3's streaming renderer can corrupt
+  // multi-byte UTF-8 (Arabic) at its internal chunk boundaries, leaving NUL bytes in the HTML.
+  // Every prerendered page is imported eagerly (no lazy boundaries), so a synchronous render
+  // produces the complete page.
+  try {
+    const html = renderToString(
       <StaticRouter location={url}>
         <ProgressProvider>
           <App />
         </ProgressProvider>
       </StaticRouter>,
-      {
-        // Wait for lazy routes so the full page is in the HTML.
-        onAllReady() {
-          stream.pipe(sink);
-        },
-        onShellError: reject,
-        onError(err) {
-          console.error(`[prerender] ${url}:`, err);
-        },
-      },
     );
-    setTimeout(() => stream.abort(), 15000);
-  });
+    const h = Helmet.renderStatic();
+    return Promise.resolve({
+      html,
+      head: [h.title, h.meta, h.link, h.script].map((x) => x.toString()).join(''),
+      htmlAttributes: h.htmlAttributes.toString(),
+    });
+  } catch (err) {
+    return Promise.reject(err);
+  }
 }
 
 /** Root and surah vocabulary pages (prerendered and in the sitemap). */
@@ -73,7 +58,7 @@ export function namesPages(): string[] {
 export function routes(): string[] {
   // '/' is not prerendered: dist/index.html must stay the clean SPA shell the host serves for every
   // other route (auth, dashboard, ...). Interactive pages that depend on saved progress stay client-only.
-  const statics = ['/collections'];
+  const statics = ['/collections', '/ramadan'];
   const collections = getPublishedCollections().map((c) => `/collections/${c.id}`);
   const words = getAllWords().map((w) => getWordPath(w));
   return [...statics, ...collections, ...words, ...quranPages(), ...namesPages()];

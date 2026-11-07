@@ -20,7 +20,8 @@ import {
   Globe,
   Library,
   NotebookPen,
-  Sparkles
+  Sparkles,
+  Moon
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -56,6 +57,7 @@ const Navbar = () => {
     { href: '/names-of-allah', label: '99 Names', icon: Sparkles },
     { href: '/custom-learning', label: 'My collections', icon: Library },
     { href: '/review', label: 'Review', icon: Target },
+    { href: '/ramadan', label: 'Ramadan', icon: Moon },
     { href: '/audio-practice', label: 'Audio', icon: Volume2 },
     { href: '/blog', label: 'Blog', icon: Globe }
   ];

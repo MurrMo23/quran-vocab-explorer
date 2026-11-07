@@ -20,6 +20,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://quranvocab.com/ramadan</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://quranvocab.com/blog</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>

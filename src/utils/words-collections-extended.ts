@@ -4158,8 +4158,8 @@ export const collectionsExtendedWords: Word[] = [
     "frequency": 362,
     "frequencyVerified": true,
     "location": {
-      "surah": 99,
-      "ayah": 5,
+      "surah": 53,
+      "ayah": 42,
       "position": 1
     },
     "tags": [
@@ -4172,10 +4172,10 @@ export const collectionsExtendedWords: Word[] = [
     ],
     "examples": [
       {
-        "surah": 99,
-        "ayah": 5,
-        "arabicText": "بِأَنَّ رَبَّكَ أَوْحَىٰ لَهَا",
-        "translation": "Because your Lord has commanded it"
+        "surah": 53,
+        "ayah": 42,
+        "arabicText": "وَأَنَّ إِلَىٰ رَبِّكَ ٱلْمُنتَهَىٰ",
+        "translation": "And that to your Lord is the finality"
       }
     ]
   },

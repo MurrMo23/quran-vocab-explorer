@@ -39,6 +39,7 @@ const staticPages = [
   ['/', 'weekly', '1.0'],
   ['/collections', 'weekly', '0.9'],
   ['/review', 'monthly', '0.8'],
+  ['/ramadan', 'weekly', '0.8'],
   ['/blog', 'weekly', '0.7'],
   ['/about', 'yearly', '0.5'],
   ['/contact', 'yearly', '0.4'],

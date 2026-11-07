@@ -113,6 +113,18 @@ export function defaultNewWordOrder(): string[] {
     .map(({ w }) => w.id);
 }
 
+/**
+ * New-word order for "Due & new" with a learning goal: the goal's words first (in goal order), then
+ * every other word in the default order.
+ */
+export function preferredNewWordOrder(preferred: readonly string[] | undefined): string[] {
+  const base = defaultNewWordOrder();
+  if (!preferred || preferred.length === 0) return base;
+  const head = [...new Set(preferred)];
+  const inHead = new Set(head);
+  return [...head, ...base.filter((id) => !inHead.has(id))];
+}
+
 /** Soonest due date among started cards (optionally only those in `pool`), or null. */
 export function nextDueAt(cards: ReadonlyMap<string, CardState>, pool?: readonly string[]): Date | null {
   const allowed = pool && pool.length > 0 ? new Set(pool) : null;
@@ -132,6 +144,8 @@ export interface BuildQueueInput {
   pool?: readonly string[];
   /** Max new words to add. In "Due & new" mode this is what is left of today's limit. */
   newLimit: number;
+  /** "Due & new" only: words to introduce before the default order (the learner's goal list). */
+  preferredNew?: readonly string[];
   /** Include only new words (the "Learn new words" button). */
   newOnly?: boolean;
   /** Review words that are not due yet, soonest first (when nothing is due). */
@@ -146,6 +160,7 @@ export function buildReviewQueue({
   cards,
   pool,
   newLimit,
+  preferredNew,
   newOnly = false,
   ahead = false,
   size = SESSION_MAX,
@@ -160,7 +175,7 @@ export function buildReviewQueue({
   } else {
     const due = newOnly ? [] : dueWordIds(cards, now, hasPool ? pool : undefined).filter(exists).slice(0, size);
     const room = Math.max(0, Math.min(size - due.length, newLimit));
-    const fresh = room > 0 ? newWordIds(cards, hasPool ? pool! : defaultNewWordOrder()).filter(exists).slice(0, room) : [];
+    const fresh = room > 0 ? newWordIds(cards, hasPool ? pool! : preferredNewWordOrder(preferredNew)).filter(exists).slice(0, room) : [];
     ids = [...due, ...fresh];
   }
 

@@ -9,6 +9,7 @@ const learnLinks = [
   { to: '/roots', label: 'Roots' },
   { to: '/names-of-allah', label: '99 Names of Allah' },
   { to: '/review', label: 'Daily Review' },
+  { to: '/ramadan', label: 'Ramadan 30-day plan' },
   { to: '/blog', label: 'Blog' },
 ];
 
