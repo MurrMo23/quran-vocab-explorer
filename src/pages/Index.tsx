@@ -1,86 +1,67 @@
-
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { 
-  BookOpen, 
-  Target, 
-  Trophy, 
-  Volume2, 
-  Brain,
-  Play,
-  ArrowRight,
-  CheckCircle,
-  Layers,
-  Unlock,
-  Database
-} from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
 import { sampleVocabulary, collections, getWordsByCollection } from '@/utils/vocabulary';
+import { SURAH_PAGES } from '@/utils/quran-pages';
 import GoalChooser from '@/components/onboarding/GoalChooser';
 import RamadanPromo from '@/components/RamadanPromo';
+import SampleWordCard from '@/components/home/SampleWordCard';
 
 // Computed once from the bundled data so the numbers on the page are always true.
 const wordCount = sampleVocabulary.length;
 const collectionCount = collections.filter((c) => getWordsByCollection(c.id).length > 0).length;
+const surahCount = SURAH_PAGES.length;
+// The 99 Names hub always has 99 entries; importing the generated names data (~97 KB) into the home
+// chunk only to count it is not worth it.
+const NAMES_COUNT = 99;
+
+const stats = [
+  { value: wordCount.toLocaleString('en-US'), label: 'Quranic words' },
+  { value: String(surahCount), label: 'surah word lists' },
+  { value: String(collectionCount), label: 'themed collections' },
+  { value: String(NAMES_COUNT), label: 'Names of Allah' },
+];
+
+const steps = [
+  { title: 'Hear it', body: 'Every word is recited exactly as it sounds in its verse, word by word.' },
+  { title: 'Recall it', body: 'Quick meaning checks and flashcards, with the root family to connect words.' },
+  { title: 'Keep it', body: 'Spaced repetition brings each word back just before you would forget it.' },
+];
+
+const audiences = [
+  {
+    eyebrow: 'For families',
+    title: 'Learn together at home',
+    points: [
+      'Short sessions you can do together after Maghrib',
+      'Recitation audio for every word, so children hear it right',
+      'Works on any phone or tablet, with nothing to install',
+    ],
+  },
+  {
+    eyebrow: 'For teachers and masjids',
+    title: 'Share it with your class',
+    points: [
+      'Link any collection, surah or word page in your class notes',
+      'Nothing for students to sign up for',
+      'Free, ad-free, with sources shown on every word',
+    ],
+  },
+];
+
+const container = 'mx-auto max-w-6xl px-4 sm:px-6';
+const h2 = 'text-[28px] font-extrabold leading-tight tracking-[-0.02em] sm:text-4xl';
 
 const Index = () => {
-  const navigate = useNavigate();
   const { session } = useAuth();
-
-  const features = [
-    {
-      icon: BookOpen,
-      title: 'Themed Collections',
-      description: 'Browse Quranic vocabulary grouped by theme: faith, prophets, worship, the afterlife, nature and more',
-      color: 'text-blue-600'
-    },
-    {
-      icon: Volume2,
-      title: 'Audio Pronunciation',
-      description: 'Listen to each word pronounced in Arabic as you study it',
-      color: 'text-green-600'
-    },
-    {
-      icon: Brain,
-      title: 'Roots & Meanings',
-      description: 'See the three-letter root behind each word so related words become easier to recognise',
-      color: 'text-purple-600'
-    },
-    {
-      icon: Target,
-      title: 'One Daily Review',
-      description: 'Hear each word, recall its meaning, and answer quick multiple-choice checks in one short session',
-      color: 'text-orange-600'
-    },
-    {
-      icon: Layers,
-      title: 'Word Pages',
-      description: 'Every word has its own page with Arabic spelling, transliteration, root and meaning',
-      color: 'text-pink-600'
-    },
-    {
-      icon: Trophy,
-      title: 'Full Collections, Free',
-      description: 'Use every collection without an account; create a free account to keep your progress across devices',
-      color: 'text-yellow-600'
-    }
-  ];
-
-  const stats = [
-    { label: 'Quranic words', value: wordCount.toLocaleString('en-US'), icon: BookOpen },
-    { label: 'Themed collections', value: collectionCount.toLocaleString('en-US'), icon: Target },
-    { label: 'No subscriptions, no ads', value: 'Free', icon: Unlock },
-    { label: 'Browse and try without signing up', value: 'Open', icon: CheckCircle }
-  ];
+  const startHref = session ? '/dashboard' : '/review';
 
   return (
     <>
-      <SEO 
+      <SEO
         title="QuranVocab — Learn the Words of the Quran"
         description={`Learn ${wordCount} common words of the Quran with flashcards, quizzes and word pages showing root and meaning. Free, no account needed to start.`}
         keywords={["Quranic Arabic", "Quran vocabulary", "Quranic words", "Arabic flashcards", "Quran study"]}
@@ -88,202 +69,119 @@ const Index = () => {
         type="website"
       />
 
-      <div className="min-h-screen">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-20">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-4xl mx-auto space-y-8">
-              <Badge variant="secondary" className="mb-4">
-                Free · {wordCount} words · {collectionCount} collections
-              </Badge>
-              
-              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Learn the Words of the Quran
-              </h1>
-              
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                QuranVocab helps you learn high-frequency Quranic Arabic vocabulary with themed collections,
-                flashcards and quizzes. Use it all without an account; sign in for free to keep your progress across devices.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  onClick={() => navigate(session ? '/dashboard' : '/review')}
-                  className="text-lg px-8 py-3"
-                >
-                  <Play className="mr-2 h-5 w-5" />
-                  {session ? 'Continue Learning' : 'Start Learning'}
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  onClick={() => navigate('/collections')}
-                  className="text-lg px-8 py-3"
-                >
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  Browse Collections
-                </Button>
-              </div>
-            </div>
+      {/* Hero */}
+      <section className={`${container} grid items-center gap-10 pb-12 pt-10 sm:pb-14 sm:pt-[72px] lg:grid-cols-[1.15fr_1fr] lg:gap-14`}>
+        <div className="flex min-w-0 flex-col gap-6">
+          <span className="self-start rounded-full bg-secondary px-3.5 py-2 text-sm font-bold text-secondary-foreground">
+            Free · No ads · No account needed
+          </span>
+          <h1 className="text-[40px] font-extrabold leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-[60px]">
+            Understand the Quran you recite.
+          </h1>
+          <p className="max-w-[540px] text-[17px] leading-relaxed text-muted-foreground sm:text-[19px]">
+            Learn the Quran’s most frequent words with word-by-word recitation, root families and a few minutes of
+            review a day. Every word is checked against the Quranic Arabic Corpus.
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Button asChild size="lg" className="px-[26px] text-[17px] font-extrabold">
+              <Link to={startHref}>{session ? 'Continue learning' : 'Start learning free'}</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="px-6 text-[17px] font-extrabold">
+              <Link to="/collections">Browse collections</Link>
+            </Button>
           </div>
-        </section>
+          <dl className="grid grid-cols-2 gap-x-7 gap-y-4 pt-2 sm:flex sm:flex-wrap">
+            {stats.map((s) => (
+              <div key={s.label} className="flex flex-col-reverse">
+                <dt className="text-sm text-muted-foreground">{s.label}</dt>
+                <dd className="text-[26px] font-extrabold leading-tight">{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div className="flex min-w-0 justify-center">
+          <SampleWordCard startHref={startHref} />
+        </div>
+      </section>
 
-        {/* First-visit goal chooser and the Ramadan plan */}
-        <section className="container mx-auto max-w-4xl space-y-4 px-4 py-8">
-          <GoalChooser />
-          <RamadanPromo />
-        </section>
+      {/* Goals */}
+      <GoalChooser variant="cards" />
 
-        {/* Stats Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                    <stat.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
+      {/* How it works */}
+      <section className="border-y border-border bg-card" aria-labelledby="how-heading">
+        <div className={`${container} flex flex-col gap-8 py-14 sm:py-16`}>
+          <h2 id="how-heading" className={`${h2} text-center`}>
+            A few minutes a day
+          </h2>
+          <ol className="grid gap-8 md:grid-cols-3 md:gap-6">
+            {steps.map((s, i) => (
+              <li key={s.title} className="flex flex-col items-center gap-2.5 px-4 py-2 text-center">
+                <span
+                  className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-[22px] font-extrabold text-primary-foreground"
+                  aria-hidden="true"
+                >
+                  {i + 1}
+                </span>
+                <h3 className="text-[21px] font-extrabold">{s.title}</h3>
+                <p className="max-w-sm text-base leading-relaxed text-muted-foreground">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Ramadan plan */}
+      <RamadanPromo />
+
+      {/* Families, teachers and masjids */}
+      <section className={`${container} grid gap-6 py-12 sm:py-16 md:grid-cols-2`}>
+        {audiences.map((a) => (
+          <div key={a.title} className="flex flex-col gap-3.5 rounded-[28px] border border-border bg-card p-6 sm:p-8">
+            <span className="text-[13px] font-extrabold uppercase tracking-[0.06em] text-gold-text">{a.eyebrow}</span>
+            <h2 className="text-2xl font-extrabold sm:text-[28px]">{a.title}</h2>
+            <ul className="list-disc space-y-1 pl-5 text-base leading-relaxed text-foreground/80 marker:text-muted-foreground">
+              {a.points.map((p) => (
+                <li key={p}>{p}</li>
               ))}
-            </div>
+            </ul>
           </div>
-        </section>
+        ))}
+      </section>
 
-        {/* Features Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Everything You Need to Learn
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Simple tools focused on one goal: recognising the words you hear and read in the Quran
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {features.map((feature, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader>
-                    <div className={`w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center mb-4`}>
-                      <feature.icon className={`h-6 w-6 ${feature.color}`} />
-                    </div>
-                    <CardTitle className="text-xl">{feature.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base">
-                      {feature.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+      {/* Sign up */}
+      <section className={container} aria-labelledby="signup-heading">
+        <div className="flex flex-wrap items-center justify-between gap-6 rounded-[28px] bg-secondary p-6 sm:p-10">
+          <div className="min-w-0 flex-[1_1_420px]">
+            <h2 id="signup-heading" className="text-[26px] font-extrabold leading-tight tracking-[-0.02em] sm:text-[32px]">
+              Keep your progress on every device
+            </h2>
+            <p className="mt-2 text-base leading-relaxed text-foreground/80 sm:text-[17px]">
+              Create a free account to sync your streak and reviews. Everything else works without one.
+            </p>
           </div>
-        </section>
-
-        {/* Learning Path Section */}
-        <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center space-y-8">
-              <h2 className="text-3xl md:text-4xl font-bold">
-                How It Works
-              </h2>
-              <p className="text-xl opacity-90">
-                Start with the most common words, practise a little every day, and build from there
-              </p>
-              
-              <div className="grid md:grid-cols-3 gap-8 mt-12">
-                <div className="space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold">1</span>
-                  </div>
-                  <h3 className="text-xl font-semibold">Pick a Collection</h3>
-                  <p className="opacity-90">Begin with a themed set of frequent Quranic words</p>
-                </div>
-                <div className="space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold">2</span>
-                  </div>
-                  <h3 className="text-xl font-semibold">Practise with Flashcards</h3>
-                  <p className="opacity-90">Recall each meaning, reveal the answer and mark what you knew</p>
-                </div>
-                <div className="space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold">3</span>
-                  </div>
-                  <h3 className="text-xl font-semibold">Come Back Daily</h3>
-                  <p className="opacity-90">Each word returns just before you would forget it, with quick checks mixed in</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Sources Section */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center space-y-6">
-              <div className="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                <Database className="h-6 w-6 text-primary" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold">
-                An Independent, Open Project
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                QuranVocab is a free, independent project. Word data is being checked against the Quranic Arabic
-                Corpus and the Tanzil Quran text. If you spot a mistake, please let us know through the contact page
-                so we can correct it.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="outline" onClick={() => navigate('/about')}>
-                  About QuranVocab &amp; sources
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
+            {session ? (
+              <Button asChild size="lg" className="px-[26px] text-[17px] font-extrabold">
+                <Link to="/dashboard">Continue learning</Link>
+              </Button>
+            ) : (
+              <>
+                <Button asChild size="lg" className="px-[26px] text-[17px] font-extrabold">
+                  <Link to="/auth">Create free account</Link>
                 </Button>
-                <Button variant="ghost" onClick={() => navigate('/contact')}>
-                  Report an error
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-br from-purple-600 to-pink-600 text-white">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-3xl mx-auto space-y-8">
-              <h2 className="text-3xl md:text-4xl font-bold">
-                Ready to Begin?
-              </h2>
-              <p className="text-xl opacity-90">
-                Open a collection and start learning your first Quranic words today
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  variant="secondary"
-                  onClick={() => navigate(session ? '/dashboard' : '/review')}
-                  className="text-lg px-8 py-3"
+                <Button
+                  asChild
+                  size="lg"
+                  variant="ghost"
+                  className="px-[22px] text-[17px] font-extrabold text-secondary-foreground hover:bg-background/60 hover:text-secondary-foreground"
                 >
-                  <CheckCircle className="mr-2 h-5 w-5" />
-                  {session ? 'Continue Learning' : 'Start Practising Free'}
+                  <Link to="/review">Try without one</Link>
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  onClick={() => navigate('/collections')}
-                  className="text-lg px-8 py-3 border-white text-white hover:bg-white hover:text-purple-600"
-                >
-                  Explore Content
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
-            </div>
+              </>
+            )}
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </>
   );
 };
