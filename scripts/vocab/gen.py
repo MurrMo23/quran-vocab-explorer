@@ -11,6 +11,7 @@ Collection spec (specs/col-<collectionId>.json):
             "transliteration": "baqarah", "meaning": "Cow", "partOfSpeech": "noun",
             "level": "beginner", "tags": ["animals"], "arabic": "(optional headword override)",
             "extraCollections": ["(optional other collection ids)"],
+            "collection": "(optional; this word's home collection when it differs from the file's)",
             "allowSharedLemma": "(optional, true when an existing entry uses the lemma in a different sense)"}]}
 
 Related-form spec (specs/related.json): a list of
@@ -25,7 +26,8 @@ import qv  # noqa: E402
 from load import bw2ar  # noqa: E402
 
 BASE = os.path.join(HERE, '..', '..')
-CUR = json.load(open(os.path.join(BASE, 'current.json')))
+# Word dump WITHOUT the generated words (see README); $QV_CUR overrides the default location.
+CUR = json.load(open(os.environ.get('QV_CUR') or os.path.join(BASE, 'current.json')))
 EXIST = {w['id']: w for w in CUR['words']}
 COLS = {c['id'] for c in CUR['collections']}
 EXIST_LEMMAS = {}
@@ -104,6 +106,9 @@ def check_collection_spec(spec, seen_ids, seen_lemmas):
             errs.append(f'{tag}: level must be one of {sorted(LEVELS)}')
         if n.get('partOfSpeech') not in POS:
             errs.append(f'{tag}: partOfSpeech must be one of {sorted(POS)}')
+        for c in [n['collection']] if 'collection' in n else []:
+            if c not in COLS:
+                errs.append(f'{tag}: unknown collection {c}')
         for c in n.get('extraCollections', []):
             if c not in COLS:
                 errs.append(f'{tag}: unknown extra collection {c}')
@@ -182,7 +187,8 @@ def build(specdir, outdir):
                 'frequencyVerified': True,
                 'location': {'surah': sa, 'ayah': aa, 'position': ww},
                 'tags': n.get('tags', []),
-                'collections': [cid] + [c for c in n.get('extraCollections', []) if c != cid],
+                'collections': [n.get('collection', cid)] + [c for c in n.get('extraCollections', [])
+                                                             if c != n.get('collection', cid)],
                 'examples': [{
                     'surah': sa, 'ayah': aa,
                     'arabicText': ' '.join(qv.tokens(sa, aa)),

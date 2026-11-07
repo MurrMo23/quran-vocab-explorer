@@ -12,7 +12,9 @@ Uthmani verse with its Saheeh International translation.
 Setup (data is not committed because of its licences): place `morph.txt` (Quranic Arabic Corpus v0.4 morphology,
 GPL) and `uthmani.txt` (Tanzil Uthmani, `S|A|text`) in `data/`, run `python3 index.py . build/idx.pkl`, unpack the
 `quran-json@3.1.2` npm package to `../qjson/package` (Saheeh International via Tanzil, CC BY 4.0 packaging), and
-dump the current word list to `../current.json`. Then: `python3 gen.py build specs ../../src/utils`.
+dump the current word list to `../current.json` (or point `$QV_CUR` at it). That dump must leave out the generated
+words themselves (`collectionsExtendedWords`), otherwise every generated id is reported as already used.
+Then: `python3 gen.py build specs ../../src/utils`.
 
 ## Surah and root pages (`gen-pages.py`)
 
