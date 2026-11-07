@@ -11,13 +11,14 @@ import AdminContent from '@/components/admin/AdminContent';
 import AdminSystem from '@/components/admin/AdminSystem';
 import SiteBranding from '@/components/admin/SiteBranding';
 import AdminInbox from '@/components/admin/AdminInbox';
+import AdminErrors from '@/components/admin/AdminErrors';
 import { Badge } from '@/components/ui/badge';
 import { useUnreadContactCount } from '@/hooks/useUnreadContactCount';
 import { useAdminOverviewStats } from '@/hooks/useAdminOverviewStats';
 import type { LucideIcon } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import type { Json } from '@/integrations/supabase/types';
-import { Database, Users, BookOpen, FileText, Activity, Globe, Palette, Inbox } from 'lucide-react';
+import { Database, Users, BookOpen, FileText, Activity, Globe, Palette, Inbox, Bug } from 'lucide-react';
 
 interface AuditLogEntry {
   id: string;
@@ -178,6 +179,10 @@ const Admin = () => {
             <Palette className="h-4 w-4" />
             Branding
           </TabsTrigger>
+          <TabsTrigger value="errors" className="flex items-center gap-2">
+            <Bug className="h-4 w-4" />
+            Errors
+          </TabsTrigger>
           <TabsTrigger value="system" className="flex items-center gap-2">
             <Globe className="h-4 w-4" />
             System
@@ -281,6 +286,10 @@ const Admin = () => {
 
         <TabsContent value="branding">
           <SiteBranding onAuditLog={logAuditEvent} />
+        </TabsContent>
+
+        <TabsContent value="errors">
+          <AdminErrors onAuditLog={logAuditEvent} />
         </TabsContent>
 
         <TabsContent value="system">
