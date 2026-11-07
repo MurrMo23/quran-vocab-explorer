@@ -39,9 +39,9 @@ const CollectionProgressTracker: React.FC<CollectionProgressTrackerProps> = ({
   const visible = showAll ? rows : rows.slice(0, initialCount);
 
   return (
-    <div className="rounded-xl border bg-card p-4 sm:p-6">
+    <div className="rounded-3xl border bg-card p-5 sm:p-7">
       <div className="mb-4 flex items-baseline justify-between gap-2">
-        <h2 className="text-lg font-semibold">Collections</h2>
+        <h2 className="text-lg font-extrabold">Collections</h2>
         <div className="flex items-center gap-3 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
             <span className="inline-block h-2 w-2 rounded-full bg-primary/40" /> started
@@ -77,7 +77,7 @@ const CollectionProgressTracker: React.FC<CollectionProgressTrackerProps> = ({
                     </span>
                   </div>
                   <div
-                    className="relative h-2 overflow-hidden rounded-full bg-muted"
+                    className="relative h-2 overflow-hidden rounded-full bg-track"
                     role="img"
                     aria-label={`${startedPct}% started, ${masteredPct}% mastered`}
                   >

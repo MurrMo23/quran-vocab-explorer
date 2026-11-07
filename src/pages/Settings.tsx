@@ -35,15 +35,15 @@ interface DeleteRowProps {
 const DeleteRow: React.FC<DeleteRowProps> = ({ icon, title, description, count, noun, onConfirm }) => (
   <div className="flex items-center justify-between gap-4">
     <div className="flex items-center">
-      <div className="bg-destructive/10 p-2 rounded-lg mr-3">{icon}</div>
+      <div className="mr-3 rounded-xl bg-destructive/10 p-2.5">{icon}</div>
       <div>
-        <h3 className="font-medium">{title}</h3>
+        <h3 className="font-bold">{title}</h3>
         <p className="text-sm text-muted-foreground">{description}</p>
       </div>
     </div>
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" size="sm" disabled={count === 0}>
+        <Button variant="destructive" disabled={count === 0}>
           Delete
         </Button>
       </AlertDialogTrigger>
@@ -83,17 +83,17 @@ const Settings = () => {
   return (
     <>
       <SEO title="Settings" url="https://quranvocab.com/settings" noindex />
-      <div className="max-w-3xl mx-auto py-8">
-        <h1 className="text-2xl font-bold mb-8">Settings</h1>
+      <div className="mx-auto max-w-3xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
+        <h1 className="mb-8 text-3xl font-extrabold tracking-tight sm:text-4xl">Settings</h1>
 
-        <div className="glass-card rounded-xl overflow-hidden mb-8">
+        <div className="card-tactile mb-8 overflow-hidden">
           <div className="px-6 py-4 border-b border-border">
-            <h2 className="text-lg font-medium">Appearance</h2>
+            <h2 className="text-lg font-extrabold">Appearance</h2>
           </div>
           <div className="p-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h3 className="font-medium">Theme</h3>
+                <h3 className="font-bold">Theme</h3>
                 <p className="text-sm text-muted-foreground">Saved in this browser</p>
               </div>
               <ToggleGroup
@@ -102,13 +102,13 @@ const Settings = () => {
                 onValueChange={(v) => v && setTheme(v as ThemeChoice)}
                 aria-label="Theme"
               >
-                <ToggleGroupItem value="light" aria-label="Light" className="gap-2">
+                <ToggleGroupItem value="light" aria-label="Light" className="h-11 gap-2 rounded-xl px-3 font-bold data-[state=on]:bg-secondary data-[state=on]:text-secondary-foreground">
                   <Sun className="h-4 w-4" /> Light
                 </ToggleGroupItem>
-                <ToggleGroupItem value="dark" aria-label="Dark" className="gap-2">
+                <ToggleGroupItem value="dark" aria-label="Dark" className="h-11 gap-2 rounded-xl px-3 font-bold data-[state=on]:bg-secondary data-[state=on]:text-secondary-foreground">
                   <Moon className="h-4 w-4" /> Dark
                 </ToggleGroupItem>
-                <ToggleGroupItem value="system" aria-label="Match system" className="gap-2">
+                <ToggleGroupItem value="system" aria-label="Match system" className="h-11 gap-2 rounded-xl px-3 font-bold data-[state=on]:bg-secondary data-[state=on]:text-secondary-foreground">
                   <Monitor className="h-4 w-4" /> System
                 </ToggleGroupItem>
               </ToggleGroup>
@@ -116,16 +116,16 @@ const Settings = () => {
           </div>
         </div>
 
-        <div className="glass-card rounded-xl overflow-hidden">
+        <div className="card-tactile overflow-hidden">
           <div className="px-6 py-4 border-b border-border">
-            <h2 className="text-lg font-medium">Your data</h2>
+            <h2 className="text-lg font-extrabold">Your data</h2>
             <p className="text-sm text-muted-foreground mt-1">
               {session
                 ? 'Notes and collections are stored in your account.'
                 : (
                   <>
                     You're not signed in, so notes and collections live in this browser only.{' '}
-                    <Link to="/auth" className="underline">Sign in</Link> to keep them.
+                    <Link to="/auth" className="font-bold text-primary underline underline-offset-4">Sign in</Link> to keep them.
                   </>
                 )}
             </p>

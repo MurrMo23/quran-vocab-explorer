@@ -22,50 +22,50 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({ stats, loading = false })
       label: 'Words started',
       value: String(stats.wordsStarted),
       hint: 'Reviewed at least once',
-      icon: <BookOpen className="h-4 w-4 text-sky-600" />,
+      icon: <BookOpen className="h-4 w-4 text-primary" />,
     },
     {
       label: 'Words mastered',
       value: String(stats.wordsMastered),
       hint: 'Remembered for 21+ days',
-      icon: <CheckCircle2 className="h-4 w-4 text-emerald-600" />,
+      icon: <CheckCircle2 className="h-4 w-4 text-primary" />,
     },
     {
       label: 'Due now',
       value: String(stats.dueNow),
       hint: 'Ready for review',
-      icon: <Clock className="h-4 w-4 text-amber-600" />,
+      icon: <Clock className="h-4 w-4 text-gold-text" />,
     },
     {
       label: 'Reviews today',
       value: String(stats.reviewsToday),
       hint: 'Answers given today',
-      icon: <Repeat className="h-4 w-4 text-violet-600" />,
+      icon: <Repeat className="h-4 w-4 text-primary" />,
     },
     {
       label: 'Current streak',
       value: `${stats.currentStreak} day${stats.currentStreak === 1 ? '' : 's'}`,
       hint: 'Consecutive days reviewing',
-      icon: <Flame className="h-4 w-4 text-orange-500" />,
+      icon: <Flame className="h-4 w-4 text-gold-text" />,
     },
     {
       label: 'Longest streak',
       value: `${stats.longestStreak} day${stats.longestStreak === 1 ? '' : 's'}`,
       hint: 'Your best run',
-      icon: <Trophy className="h-4 w-4 text-yellow-600" />,
+      icon: <Trophy className="h-4 w-4 text-gold-text" />,
     },
     {
       label: '7-day accuracy',
       value: stats.accuracy7d === null ? '—' : `${Math.round(stats.accuracy7d * 100)}%`,
       hint: stats.accuracy7d === null ? 'No reviews this week' : "Answers not rated 'again'",
-      icon: <Target className="h-4 w-4 text-rose-600" />,
+      icon: <Target className="h-4 w-4 text-primary" />,
     },
   ];
 
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
       {tiles.map((tile) => (
-        <div key={tile.label} className="rounded-xl border bg-card p-4">
+        <div key={tile.label} className="rounded-[1.375rem] border-2 border-b-4 bg-card p-4">
           <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
             {tile.icon}
             <span>{tile.label}</span>
@@ -73,7 +73,7 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({ stats, loading = false })
           {loading ? (
             <Skeleton className="h-8 w-16" />
           ) : (
-            <div className="text-2xl font-semibold tabular-nums">{tile.value}</div>
+            <div className="text-3xl font-extrabold tabular-nums">{tile.value}</div>
           )}
           <div className="mt-1 text-xs text-muted-foreground">{tile.hint}</div>
         </div>

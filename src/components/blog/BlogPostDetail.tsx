@@ -35,16 +35,16 @@ const BlogPostDetail = ({ slug }: BlogPostDetailProps) => {
 
   if (error || !post) {
     return (
-      <Card className="p-6 text-center">
+      <Card className="rounded-3xl shadow-none p-6 text-center">
         <div className="flex flex-col items-center">
-          <AlertTriangle className="h-12 w-12 text-amber-500 mb-4" />
-          <h2 className="text-xl font-semibold mb-2">Post Not Found</h2>
+          <AlertTriangle className="h-12 w-12 text-gold-text mb-4" />
+          <h2 className="mb-2 text-xl font-extrabold">Post Not Found</h2>
           <p className="text-muted-foreground mb-4">
             The blog post you're looking for doesn't exist or is no longer available.
           </p>
           <Link 
             to="/blog" 
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+            className="inline-flex h-11 items-center rounded-2xl border-b-4 border-primary-shade bg-primary px-5 font-bold text-primary-foreground hover:bg-primary/95"
           >
             Back to Blog
           </Link>
@@ -83,7 +83,7 @@ const BlogPostDetail = ({ slug }: BlogPostDetailProps) => {
 
       <article className="space-y-6">
         <header className="space-y-4">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{post.title}</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight md:text-4xl">{post.title}</h1>
           
           <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
             <div className="flex items-center">
@@ -102,7 +102,7 @@ const BlogPostDetail = ({ slug }: BlogPostDetailProps) => {
             <div className="flex flex-wrap gap-2">
               {post.categories.map(category => (
                 <Link to={`/blog/category/${category.slug}`} key={category.id}>
-                  <Badge className="flex items-center bg-primary/10 text-primary hover:bg-primary/20">
+                  <Badge className="flex items-center border-transparent bg-secondary text-secondary-foreground hover:bg-secondary">
                     <Folder className="h-3 w-3 mr-1" />
                     {category.name}
                   </Badge>
@@ -113,7 +113,7 @@ const BlogPostDetail = ({ slug }: BlogPostDetailProps) => {
         </header>
 
         {post.featured_image && (
-          <div className="relative h-64 md:h-96 overflow-hidden rounded-lg">
+          <div className="relative h-64 overflow-hidden rounded-3xl md:h-96">
             <img 
               src={post.featured_image} 
               alt={post.title} 
@@ -122,13 +122,13 @@ const BlogPostDetail = ({ slug }: BlogPostDetailProps) => {
           </div>
         )}
 
-        <div className="prose prose-lg max-w-none">
+        <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-extrabold prose-a:text-primary">
           {/* Render the post content - in a real app you might want to use a markdown renderer */}
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
 
         {post.tags && post.tags.length > 0 && (
-          <Card className="mt-8">
+          <Card className="rounded-3xl shadow-none mt-8">
             <CardContent className="pt-6">
               <div className="flex flex-wrap gap-2 items-center">
                 <span className="font-medium">Tags:</span>

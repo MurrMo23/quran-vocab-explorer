@@ -64,10 +64,10 @@ const Notebook = () => {
   return (
     <>
       <SEO title="My Notebook" description="Your personal notes on Quranic vocabulary." url="https://quranvocab.com/notebook" noindex />
-      <div className="container mx-auto py-8 max-w-4xl">
+      <div className="mx-auto max-w-5xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold flex items-center gap-2">
+            <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
               <NotebookPen className="h-7 w-7 text-primary" />
               My notebook
             </h1>
@@ -80,11 +80,11 @@ const Notebook = () => {
         </div>
 
         {(isGuest || offlineFallback) && (
-          <div className="rounded-lg border bg-muted/40 p-3 text-sm mb-6">
+          <div className="mb-6 rounded-2xl bg-secondary p-4 text-sm text-secondary-foreground">
             {isGuest ? (
               <>
                 Notes are saved in this browser.{' '}
-                <Link to="/auth" className="underline">
+                <Link to="/auth" className="font-bold underline underline-offset-4">
                   Sign in
                 </Link>{' '}
                 to keep them; they'll be moved into your account automatically.
@@ -97,17 +97,17 @@ const Notebook = () => {
 
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search notes or words"
-              className="pl-9"
+              className="h-12 rounded-2xl border-2 bg-card pl-11 text-base md:text-base"
               aria-label="Search notes"
             />
           </div>
           <Select value={filter} onValueChange={(v) => setFilter(v as Filter)}>
-            <SelectTrigger className="sm:w-48" aria-label="Filter by note type">
+            <SelectTrigger className="h-12 rounded-2xl border-2 bg-card sm:w-52" aria-label="Filter by note type">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -124,13 +124,13 @@ const Notebook = () => {
         {loading ? (
           <div className="space-y-4">
             {[0, 1, 2].map((i) => (
-              <div key={i} className="h-32 rounded-lg bg-muted animate-pulse" />
+              <div key={i} className="h-32 animate-pulse rounded-3xl bg-muted" />
             ))}
           </div>
         ) : items.length === 0 ? (
-          <div className="text-center py-16 border rounded-lg">
+          <div className="card-tactile px-6 py-16 text-center">
             <NotebookPen className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <h2 className="text-lg font-medium">No notes yet</h2>
+            <h2 className="text-xl font-extrabold">No notes yet</h2>
             <p className="text-muted-foreground mt-1 mb-6 max-w-md mx-auto">
               Add a note from any word page, or start here. Notes are private to you.
             </p>
@@ -148,10 +148,10 @@ const Notebook = () => {
                 <CardHeader className="pb-3">
                   {g.word ? (
                     <Link to={getWordPath(g.wordId)} className="group flex items-baseline gap-3 flex-wrap">
-                      <span className="font-arabic text-2xl" lang="ar">
+                      <span className="font-quran text-3xl leading-[1.8]" lang="ar" dir="rtl">
                         {g.word.arabic}
                       </span>
-                      <span className="font-medium group-hover:underline underline-offset-4">{g.word.meaning}</span>
+                      <span className="font-extrabold underline-offset-4 group-hover:underline">{g.word.meaning}</span>
                       <span className="text-sm text-muted-foreground">{g.word.transliteration}</span>
                     </Link>
                   ) : (

@@ -179,7 +179,7 @@ const NameOfAllah = () => {
           )}
         </header>
 
-        <div className="mb-8 flex flex-wrap justify-center gap-3">
+        <div className="mb-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
             {word && (
               <Button asChild size="lg">
                 <Link to={reviewHref([word.id])}>

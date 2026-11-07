@@ -110,18 +110,18 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-muted/50 px-4">
+    <div className="flex min-h-[70vh] items-center justify-center px-4 py-10 sm:py-16">
       <div className="w-full max-w-md">
-        <Card>
+        <Card className="rounded-3xl border-2 border-b-[5px] shadow-none">
           <CardHeader className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <div className="bg-primary/10 p-3 rounded-full">
+              <div className="rounded-2xl bg-secondary p-3.5">
                 {mode === 'login' ? <Mail className="h-6 w-6 text-primary" /> :
                  mode === 'signup' ? <User className="h-6 w-6 text-primary" /> :
                  <Lock className="h-6 w-6 text-primary" />}
               </div>
             </div>
-            <CardTitle className="text-2xl">
+            <CardTitle className="text-2xl font-extrabold sm:text-3xl">
               {mode === 'login' ? 'Welcome Back' :
                mode === 'signup' ? 'Create Account' :
                'Reset Password'}
@@ -138,6 +138,9 @@ const Auth = () => {
                 <Input
                   type="email"
                   placeholder="Email"
+                  aria-label="Email"
+                  autoComplete="email"
+                  className="h-12 rounded-2xl border-2 bg-background text-base md:text-base"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -148,6 +151,9 @@ const Auth = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
+                    aria-label="Password"
+                    autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
+                    className="h-12 rounded-2xl border-2 bg-background pr-12 text-base md:text-base"
                     value={password}
                     onChange={(e) => {
                       setPassword(e.target.value);
@@ -163,8 +169,9 @@ const Auth = () => {
                   <Button
                     type="button"
                     variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    size="icon"
+                    className="absolute right-0.5 top-0.5 h-11 w-11 hover:bg-transparent"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -187,6 +194,9 @@ const Auth = () => {
                   <Input
                     type="password"
                     placeholder="Confirm Password"
+                    aria-label="Confirm password"
+                    autoComplete="new-password"
+                    className="h-12 rounded-2xl border-2 bg-background text-base md:text-base"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
@@ -195,6 +205,7 @@ const Auth = () => {
               )}
               <Button
                 type="submit"
+                size="lg"
                 className="w-full"
                 disabled={loading}
               >
@@ -212,7 +223,7 @@ const Auth = () => {
                     <span className="w-full border-t" />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">
+                    <span className="bg-card px-2 font-semibold text-muted-foreground">
                       Or continue with
                     </span>
                   </div>
@@ -220,6 +231,7 @@ const Auth = () => {
 
                 <Button
                   variant="outline"
+                  size="lg"
                   onClick={handleGoogleAuth}
                   disabled={googleLoading}
                   className="w-full"
@@ -247,18 +259,18 @@ const Auth = () => {
               </>
             )}
 
-            <div className="mt-6 space-y-2">
+            <div className="mt-4 space-y-0.5">
               {mode === 'login' && (
                 <>
                   <button
                     onClick={() => setMode('signup')}
-                    className="w-full text-sm text-muted-foreground hover:text-primary"
+                    className="min-h-11 w-full text-sm font-semibold text-muted-foreground hover:text-primary"
                   >
                     Don't have an account? Sign up
                   </button>
                   <button
                     onClick={() => setMode('reset')}
-                    className="w-full text-sm text-muted-foreground hover:text-primary"
+                    className="min-h-11 w-full text-sm font-semibold text-muted-foreground hover:text-primary"
                   >
                     Forgot your password?
                   </button>
@@ -267,7 +279,7 @@ const Auth = () => {
               {mode === 'signup' && (
                 <button
                   onClick={() => setMode('login')}
-                  className="w-full text-sm text-muted-foreground hover:text-primary"
+                  className="min-h-11 w-full text-sm font-semibold text-muted-foreground hover:text-primary"
                 >
                   Already have an account? Sign in
                 </button>
@@ -275,7 +287,7 @@ const Auth = () => {
               {mode === 'reset' && (
                 <button
                   onClick={() => setMode('login')}
-                  className="w-full text-sm text-muted-foreground hover:text-primary flex items-center justify-center"
+                  className="flex min-h-11 w-full items-center justify-center text-sm font-semibold text-muted-foreground hover:text-primary"
                 >
                   <ArrowLeft className="h-4 w-4 mr-1" />
                   Back to sign in
@@ -286,7 +298,7 @@ const Auth = () => {
             <div className="mt-4 text-center">
               <button
                 onClick={() => navigate('/')}
-                className="text-sm text-muted-foreground hover:text-primary"
+                className="min-h-11 px-3 text-sm font-semibold text-muted-foreground hover:text-primary"
               >
                 Continue as guest
               </button>

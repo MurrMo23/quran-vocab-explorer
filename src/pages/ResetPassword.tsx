@@ -80,15 +80,15 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-background to-muted/50 px-4">
-      <Card className="w-full max-w-md">
+    <div className="flex min-h-[70vh] items-center justify-center px-4 py-10 sm:py-16">
+      <Card className="rounded-3xl border-2 border-b-[5px] w-full max-w-md shadow-none">
         <CardHeader className="text-center">
           <div className="mb-4 flex justify-center">
-            <div className="rounded-full bg-primary/10 p-3">
+            <div className="rounded-2xl bg-secondary p-3.5">
               <Lock className="h-6 w-6 text-primary" />
             </div>
           </div>
-          <CardTitle className="text-2xl">Choose a new password</CardTitle>
+          <CardTitle className="text-2xl font-extrabold">Choose a new password</CardTitle>
         </CardHeader>
         <CardContent>
           {status === 'checking' && (
@@ -102,7 +102,7 @@ const ResetPassword = () => {
               <p className="text-muted-foreground">
                 This reset link has expired or has already been used. Request a new one and use the most recent email.
               </p>
-              <Button asChild className="w-full">
+              <Button asChild size="lg" className="w-full">
                 <Link to="/auth">Back to sign in</Link>
               </Button>
             </div>
@@ -119,6 +119,7 @@ const ResetPassword = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  className="h-12 rounded-2xl border-2 bg-background text-base md:text-base"
                 />
               </div>
               <div className="space-y-2">
@@ -130,6 +131,7 @@ const ResetPassword = () => {
                   value={confirm}
                   onChange={(e) => setConfirm(e.target.value)}
                   required
+                  className="h-12 rounded-2xl border-2 bg-background text-base md:text-base"
                 />
               </div>
               {errors.length > 0 && (
@@ -139,7 +141,7 @@ const ResetPassword = () => {
                   ))}
                 </ul>
               )}
-              <Button type="submit" className="w-full" disabled={saving}>
+              <Button type="submit" size="lg" className="w-full" disabled={saving}>
                 {saving ? 'Saving…' : 'Save new password'}
               </Button>
             </form>

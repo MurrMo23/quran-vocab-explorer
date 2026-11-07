@@ -29,9 +29,9 @@ const ProgressReport: React.FC<ProgressReportProps> = ({
   const total = data.reduce((sum, d) => sum + d.count, 0);
 
   return (
-    <div className="rounded-xl border bg-card p-4 sm:p-6">
+    <div className="rounded-3xl border bg-card p-5 sm:p-7">
       <div className="mb-4 flex items-baseline justify-between gap-2">
-        <h2 className="text-lg font-semibold">{title}</h2>
+        <h2 className="text-lg font-extrabold">{title}</h2>
         {!loading && (
           <span className="text-sm text-muted-foreground tabular-nums">
             {total} review{total === 1 ? '' : 's'}

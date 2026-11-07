@@ -31,10 +31,10 @@ const Dashboard = () => {
         url="https://quranvocab.com/dashboard"
         type="website"
       />
-      <div className="mx-auto max-w-4xl space-y-6">
+      <div className="mx-auto max-w-5xl space-y-6 px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="mb-1 text-2xl font-bold">Dashboard</h1>
+            <h1 className="mb-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Dashboard</h1>
             {loading ? (
               <Skeleton className="h-6 w-28" />
             ) : (
@@ -54,7 +54,7 @@ const Dashboard = () => {
         </div>
 
         {isGuest && (
-          <Alert>
+          <Alert className="rounded-2xl border-0 bg-secondary text-secondary-foreground">
             <Info className="h-4 w-4" />
             <AlertDescription className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <span>Your progress is saved in this browser. Sign in to keep it across devices.</span>
@@ -75,7 +75,7 @@ const Dashboard = () => {
         )}
 
         {isAdmin && (
-          <Card className="border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10">
+          <Card className="rounded-3xl border-primary/25 bg-secondary/50 shadow-none">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-primary">
                 <Settings className="h-5 w-5" />
@@ -95,13 +95,13 @@ const Dashboard = () => {
         )}
 
         {isNewLearner ? (
-          <Card className="border-dashed">
+          <Card className="rounded-3xl border-2 border-b-[5px] shadow-none">
             <CardContent className="flex flex-col items-center gap-4 py-12 text-center">
-              <div className="rounded-full bg-primary/10 p-4">
+              <div className="rounded-2xl bg-secondary p-4">
                 <Sparkles className="h-8 w-8 text-primary" />
               </div>
               <div className="space-y-1">
-                <h2 className="text-xl font-semibold">Your journey starts with one word</h2>
+                <h2 className="text-2xl font-extrabold">Your journey starts with one word</h2>
                 <p className="mx-auto max-w-md text-muted-foreground">
                   Review a few words and this page will track what you've learned, what's due, and your daily
                   streak. A few minutes a day is all it takes.
@@ -125,12 +125,12 @@ const Dashboard = () => {
           </Card>
         ) : (
           <>
-            <div className="flex flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div className="card-tactile flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
               {loading ? (
                 <Skeleton className="h-6 w-56" />
               ) : (
                 <div>
-                  <div className="text-lg font-semibold">
+                  <div className="text-xl font-extrabold">
                     {stats.dueNow > 0
                       ? `${stats.dueNow} word${stats.dueNow === 1 ? '' : 's'} ready for review`
                       : "You're all caught up"}

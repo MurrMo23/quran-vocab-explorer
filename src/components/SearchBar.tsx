@@ -108,7 +108,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           value={query}
           onChange={handleInputChange}
           placeholder={placeholder}
-          className="w-full bg-white/70 border border-gray-200 rounded-full pl-10 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20"
+          className="h-11 w-full rounded-full border-2 border-border bg-card pl-10 pr-10 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/40"
         />
         {query && (
           <button 
@@ -121,11 +121,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
       </div>
 
       {isOpen && results.length > 0 && (
-        <div className="absolute z-10 mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-100 max-h-80 overflow-y-auto">
+        <div className="absolute z-10 mt-2 w-full rounded-2xl border bg-popover text-popover-foreground shadow-lg max-h-80 overflow-y-auto">
           {results.map((word) => (
             <button
               key={word.id}
-              className="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-none flex items-start"
+              className="w-full text-left px-4 py-3 border-b hover:bg-muted last:border-none flex items-start"
               onClick={() => handleSelect(word.id)}
             >
               <div>
@@ -141,7 +141,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       )}
 
       {isOpen && query.length >= 2 && results.length === 0 && (
-        <div className="absolute z-10 mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-100 p-4 text-center">
+        <div className="absolute z-10 mt-2 w-full rounded-2xl border bg-popover text-popover-foreground shadow-lg p-4 text-center">
           <p className="text-muted-foreground">No results found for "{query}"</p>
         </div>
       )}

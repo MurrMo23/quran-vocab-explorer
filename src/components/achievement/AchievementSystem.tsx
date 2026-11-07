@@ -17,7 +17,7 @@ const AchievementSystem: React.FC<{ className?: string }> = ({ className }) => {
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center justify-between text-lg">
           <span className="flex items-center gap-2">
-            <Trophy className="h-5 w-5 text-amber-500" />
+            <Trophy className="h-5 w-5 text-gold-text" />
             Milestones
           </span>
           {!loading && (
@@ -34,7 +34,7 @@ const AchievementSystem: React.FC<{ className?: string }> = ({ className }) => {
               key={a.id}
               className={cn(
                 'flex items-start gap-3 rounded-lg border p-3',
-                a.unlocked ? 'border-amber-300 bg-amber-50/60 dark:bg-amber-950/20' : 'opacity-80',
+                a.unlocked ? 'border-gold bg-gold/15' : 'opacity-80',
               )}
             >
               <span className={cn('text-2xl leading-none', !a.unlocked && 'grayscale')} aria-hidden>

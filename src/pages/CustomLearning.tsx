@@ -46,10 +46,10 @@ const CustomLearning = () => {
         url="https://quranvocab.com/custom-learning"
         noindex
       />
-      <div className="container mx-auto py-8 max-w-5xl">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold">My collections</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">My collections</h1>
             <p className="text-muted-foreground mt-1">
               Group the words you want to focus on, then practise just those words.
             </p>
@@ -61,11 +61,11 @@ const CustomLearning = () => {
         </div>
 
         {(isGuest || offlineFallback) && (
-          <div className="rounded-lg border bg-muted/40 p-3 text-sm mb-6">
+          <div className="mb-6 rounded-2xl bg-secondary p-4 text-sm text-secondary-foreground">
             {isGuest ? (
               <>
                 Your collections are saved in this browser.{' '}
-                <Link to="/auth" className="underline">
+                <Link to="/auth" className="font-bold underline underline-offset-4">
                   Sign in
                 </Link>{' '}
                 to keep them in your account; they'll be moved over automatically.
@@ -78,16 +78,16 @@ const CustomLearning = () => {
 
         {loading ? (
           <div className="grid md:grid-cols-[240px_1fr] gap-6">
-            <div className="h-40 rounded-lg bg-muted animate-pulse" />
-            <div className="h-72 rounded-lg bg-muted animate-pulse" />
+            <div className="h-40 animate-pulse rounded-3xl bg-muted" />
+            <div className="h-72 animate-pulse rounded-3xl bg-muted" />
           </div>
         ) : items.length === 0 ? (
-          <div className="text-center py-16 border rounded-lg">
+          <div className="card-tactile px-6 py-16 text-center">
             <Library className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <h2 className="text-lg font-medium">No collections yet</h2>
+            <h2 className="text-xl font-extrabold">No collections yet</h2>
             <p className="text-muted-foreground mt-1 mb-6">
               Create one, then search the vocabulary to add words. You can also browse the{' '}
-              <Link to="/collections" className="underline">
+              <Link to="/collections" className="font-bold text-primary underline underline-offset-4">
                 built-in collections
               </Link>
               .
@@ -105,12 +105,12 @@ const CustomLearning = () => {
                   key={c.id}
                   onClick={() => select(c.id)}
                   className={cn(
-                    'w-full text-left rounded-md px-3 py-2 transition-colors',
-                    c.id === selectedId ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'
+                    'min-h-11 w-full rounded-2xl border-2 px-4 py-2.5 text-left transition-colors',
+                    c.id === selectedId ? 'border-primary bg-primary text-primary-foreground' : 'border-transparent hover:border-border hover:bg-card'
                   )}
                   aria-current={c.id === selectedId ? 'true' : undefined}
                 >
-                  <div className="font-medium truncate">{c.name}</div>
+                  <div className="truncate font-extrabold">{c.name}</div>
                   <div className={cn('text-xs', c.id === selectedId ? 'opacity-80' : 'text-muted-foreground')}>
                     {c.wordIds.length} {c.wordIds.length === 1 ? 'word' : 'words'}
                   </div>

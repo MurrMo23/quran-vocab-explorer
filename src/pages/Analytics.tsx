@@ -23,21 +23,21 @@ const Analytics = () => {
         url="https://quranvocab.com/analytics"
         type="website"
       />
-      <div className="mx-auto max-w-4xl space-y-6">
+      <div className="mx-auto max-w-5xl space-y-6 px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <div className="flex flex-col gap-2">
-          <Button asChild variant="ghost" size="sm" className="-ml-2 w-fit">
+          <Button asChild variant="ghost" className="-ml-3 w-fit">
             <Link to="/dashboard">
               <ChevronLeft className="mr-1 h-4 w-4" />
               Dashboard
             </Link>
           </Button>
-          <h1 className="text-2xl font-bold">Learning analytics</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Learning analytics</h1>
           <p className="text-muted-foreground">A detailed look at your reviews over the last 30 days.</p>
         </div>
 
         {isAdmin ? (
           <Tabs defaultValue="personal" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid h-12 w-full grid-cols-2 rounded-2xl">
               <TabsTrigger value="personal" className="gap-2">
                 <User className="h-4 w-4" />
                 Personal

@@ -36,9 +36,9 @@ const BlogTag = () => {
         />
       </Helmet>
 
-      <div className="container mx-auto py-8">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <div className="mb-6">
-          <Link to="/blog" className="flex items-center text-primary hover:underline">
+          <Link to="/blog" className="inline-flex min-h-11 items-center font-bold text-primary hover:underline">
             <ChevronLeft className="h-4 w-4 mr-1" />
             Back to Blog
           </Link>
@@ -47,7 +47,7 @@ const BlogTag = () => {
         <div className="flex flex-col md:flex-row gap-8">
           <div className="w-full md:w-3/4">
             <header className="mb-8">
-              <h1 className="text-3xl font-bold mb-2 flex items-center">
+              <h1 className="mb-2 text-3xl font-extrabold tracking-tight sm:text-4xl flex items-center">
                 <Tag className="h-6 w-6 mr-2" />
                 {decodedTag}
               </h1>
@@ -68,8 +68,8 @@ const BlogTag = () => {
                 ))}
               </div>
             ) : filteredPosts.length === 0 ? (
-              <div className="flex flex-col items-center justify-center p-12 text-center border rounded-lg">
-                <AlertTriangle className="h-12 w-12 text-amber-500 mb-4" />
+              <div className="card-tactile flex flex-col items-center justify-center p-12 text-center">
+                <AlertTriangle className="h-12 w-12 text-gold-text mb-4" />
                 <h2 className="text-xl font-semibold mb-2">No Posts Found</h2>
                 <p className="text-muted-foreground">
                   No posts with the tag "{decodedTag}" were found.

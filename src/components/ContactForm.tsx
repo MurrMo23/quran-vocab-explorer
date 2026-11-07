@@ -123,13 +123,13 @@ const ContactForm: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <Card>
+      <Card className="rounded-3xl shadow-none">
         <CardContent className="p-8 text-center">
           <div className="flex flex-col items-center space-y-4">
-            <div className="p-3 rounded-full bg-green-100">
-              <CheckCircle className="h-12 w-12 text-green-600" />
+            <div className="rounded-2xl bg-secondary p-3">
+              <CheckCircle className="h-12 w-12 text-primary" />
             </div>
-            <h3 className="text-xl font-semibold">Message sent</h3>
+            <h3 className="text-xl font-extrabold">Message sent</h3>
             <p className="text-muted-foreground max-w-md">
               Thank you for getting in touch. QuranVocab is run by a small independent team, so replies can take a
               few days. We will reply to the email address you gave us.
@@ -147,9 +147,9 @@ const ContactForm: React.FC = () => {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       {/* What to include */}
       <div className="space-y-6">
-        <Card>
+        <Card className="rounded-3xl shadow-none">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+            <CardTitle className="flex items-center space-x-2 font-extrabold">
               <Info className="h-5 w-5" />
               <span>Before you write</span>
             </CardTitle>
@@ -171,9 +171,9 @@ const ContactForm: React.FC = () => {
 
       {/* Contact Form */}
       <div className="lg:col-span-2">
-        <Card>
+        <Card className="rounded-3xl shadow-none">
           <CardHeader>
-            <CardTitle>Send us a message</CardTitle>
+            <CardTitle className="font-extrabold">Send us a message</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6" noValidate>
@@ -181,6 +181,7 @@ const ContactForm: React.FC = () => {
                 <div className="space-y-2">
                   <Label htmlFor="name">Name *</Label>
                   <Input
+                    className="h-12 rounded-2xl border-2 bg-background text-base md:text-base"
                     id="name"
                     type="text"
                     autoComplete="name"
@@ -194,6 +195,7 @@ const ContactForm: React.FC = () => {
                 <div className="space-y-2">
                   <Label htmlFor="email">Email address *</Label>
                   <Input
+                    className="h-12 rounded-2xl border-2 bg-background text-base md:text-base"
                     id="email"
                     type="email"
                     autoComplete="email"
@@ -209,7 +211,7 @@ const ContactForm: React.FC = () => {
               <div className="space-y-2">
                 <Label htmlFor="category">Topic</Label>
                 <Select value={formData.category} onValueChange={(value) => handleInputChange('category', value)}>
-                  <SelectTrigger id="category">
+                  <SelectTrigger id="category" className="h-12 rounded-2xl border-2 bg-background">
                     <SelectValue placeholder="Choose a topic" />
                   </SelectTrigger>
                   <SelectContent>
@@ -223,6 +225,7 @@ const ContactForm: React.FC = () => {
               <div className="space-y-2">
                 <Label htmlFor="subject">Subject</Label>
                 <Input
+                  className="h-12 rounded-2xl border-2 bg-background text-base md:text-base"
                   id="subject"
                   type="text"
                   maxLength={300}
@@ -235,6 +238,7 @@ const ContactForm: React.FC = () => {
               <div className="space-y-2">
                 <Label htmlFor="message">Message *</Label>
                 <Textarea
+                  className="rounded-2xl border-2 bg-background text-base md:text-base"
                   id="message"
                   maxLength={5000}
                   value={formData.message}
@@ -266,6 +270,7 @@ const ContactForm: React.FC = () => {
               <Button
                 type="submit"
                 disabled={isSubmitting}
+                size="lg"
                 className="w-full md:w-auto"
               >
                 {isSubmitting ? (
@@ -282,7 +287,7 @@ const ContactForm: React.FC = () => {
               </Button>
               <p className="text-xs text-muted-foreground">
                 We use your name and email only to reply to this message. See our{' '}
-                <a href="/privacy-policy" className="underline hover:text-primary">privacy policy</a>.
+                <a href="/privacy-policy" className="font-semibold text-primary underline underline-offset-4">privacy policy</a>.
               </p>
             </form>
           </CardContent>
