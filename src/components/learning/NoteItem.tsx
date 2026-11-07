@@ -15,7 +15,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { deleteNote, NOTE_TYPE_LABELS, updateNote, type Note } from '@/lib/notes';
-import NoteForm from './NoteForm';
+import NoteForm from './LazyNoteForm';
 
 const formatDate = (iso: string) => {
   try {

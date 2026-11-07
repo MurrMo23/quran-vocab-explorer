@@ -31,8 +31,32 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { Avatar, AvatarFallback } from './ui/avatar';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+
+// The site name shows until the configured logo has actually loaded, then the logo replaces it
+// in one step (no empty box while it downloads, and no swap at all if it fails).
+const Brand = ({ url, name, imgClass, height, textClass }: {
+  url: string; name: string; imgClass: string; height: number; textClass: string;
+}) => {
+  const src = url?.trim();
+  const [loadedSrc, setLoadedSrc] = useState('');
+  const loaded = !!src && loadedSrc === src;
+  return (
+    <>
+      {src ? (
+        <img
+          src={src}
+          alt={name}
+          height={height}
+          decoding="async"
+          className={`${imgClass} w-auto object-contain ${loaded ? '' : 'hidden'}`}
+          onLoad={() => setLoadedSrc(src)}
+        />
+      ) : null}
+      {!loaded && <span className={textClass}>{name}</span>}
+    </>
+  );
+};
 
 const Navbar = () => {
   const { session, signOut } = useAuth();
@@ -42,7 +66,6 @@ const Navbar = () => {
   const siteName = 'QuranVocab';
   const location = useLocation();
   const navigate = useNavigate();
-  const isMobile = useIsMobile();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isAdmin = hasRole('admin');
@@ -157,21 +180,7 @@ const Navbar = () => {
       <div className="container mx-auto flex h-14 items-center px-4">
         <div className="mr-4 hidden md:flex">
           <Link to="/" className="mr-6 flex items-center">
-            {settings.logo_url && settings.logo_url.trim() !== '' ? (
-              <img 
-                src={settings.logo_url} 
-                alt={siteName}
-                className="h-8 w-auto max-w-[200px] object-contain"
-                loading="lazy"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                  (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-                }}
-              />
-            ) : null}
-            <span className={`text-xl font-bold ${settings.logo_url && settings.logo_url.trim() !== '' ? 'hidden' : ''}`}>
-              {siteName}
-            </span>
+            <Brand url={settings.logo_url} name={siteName} imgClass="h-8 max-w-[200px]" height={32} textClass="text-xl font-bold" />
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {navItems.map((item) => (
@@ -190,28 +199,13 @@ const Navbar = () => {
           </nav>
         </div>
         
-        {isMobile && (
-          <div className="flex items-center">
-            <MobileMenu />
-            <Link to="/" className="ml-4 flex items-center">
-              {settings.logo_url && settings.logo_url.trim() !== '' ? (
-                <img 
-                  src={settings.logo_url} 
-                  alt={siteName}
-                  className="h-6 w-auto max-w-[150px] object-contain"
-                  loading="lazy"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                    (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-                  }}
-                />
-              ) : null}
-              <span className={`text-lg font-bold ${settings.logo_url && settings.logo_url.trim() !== '' ? 'hidden' : ''}`}>
-                {siteName}
-              </span>
-            </Link>
-          </div>
-        )}
+        {/* Shown by CSS, not JS, so the prerendered HTML already has the mobile header. */}
+        <div className="flex items-center md:hidden">
+          <MobileMenu />
+          <Link to="/" className="ml-4 flex items-center">
+            <Brand url={settings.logo_url} name={siteName} imgClass="h-6 max-w-[150px]" height={24} textClass="text-lg font-bold" />
+          </Link>
+        </div>
         
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">

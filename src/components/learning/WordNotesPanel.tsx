@@ -4,7 +4,7 @@ import { NotebookPen, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { createNote, useWordNotes } from '@/lib/notes';
-import NoteForm from './NoteForm';
+import NoteForm from './LazyNoteForm';
 import NoteItem from './NoteItem';
 
 /** Compact "My notes" panel for one word. */

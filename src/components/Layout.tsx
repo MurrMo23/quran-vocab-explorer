@@ -3,9 +3,13 @@ import { Outlet } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import GlobalSearch from './GlobalSearch';
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/sonner';
+
+// Loaded the first time search opens (closed, it rendered nothing anyway), so it stays out of
+// the main bundle and hydration is unaffected.
+const GlobalSearch = React.lazy(() => import('./GlobalSearch'));
+
 const Layout: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const handleSearchToggle = () => {
@@ -32,7 +36,11 @@ const Layout: React.FC = () => {
       </div>
 
       {/* Global Search Modal */}
-      <GlobalSearch isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      {isSearchOpen && (
+        <React.Suspense fallback={null}>
+          <GlobalSearch isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+        </React.Suspense>
+      )}
       
       <main className="flex-1 px-0 mx-[10px]">
         <Outlet />

@@ -66,7 +66,7 @@ export default {
 			},
 			fontFamily: {
 				sans: ['Inter var', 'sans-serif'],
-				arabic: ['Amiri', 'serif'],
+				arabic: ['"Scheherazade New"', 'serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
