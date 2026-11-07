@@ -1,6 +1,8 @@
 // Audio sources for QuranVocab.
 //
 // Strategy (in priority order):
+//   0. The word clipped from Mishary Alafasy's recitation of its ayah (Quran.com timings), so every word
+//      is heard in ONE voice, at the occurrence whose spelling best matches the headword (WORD_AUDIO).
 //   1. Word-by-word recitation from Quran.com's CDN, when the word has a verified `location`.
 //   2. A trusted recitation URL already stored on the word (`audioUrl`, e.g. Quran.com CDN ayah audio).
 //   3. Ayah recitation (Mishary Alafasy via EveryAyah) for the word's first Quranic example.
@@ -10,11 +12,14 @@
 // always labelled as an approximate computer voice.
 
 import type { Word, WordLocation } from './vocabulary-types';
+import { WORD_AUDIO } from './generated/word-audio';
 
 export type AudioKind = 'word' | 'ayah';
 
 export interface AudioSource {
   url: string;
+  /** Play only this part of the file (milliseconds), e.g. one word inside an ayah recitation. */
+  clip?: { start: number; end: number };
   kind: AudioKind;
   /** Descriptive label, e.g. "Recitation of 2:2 (Mishary Alafasy)". */
   label: string;
@@ -24,8 +29,7 @@ export interface AudioSource {
 
 export const DEFAULT_RECITER = 'Alafasy_128kbps';
 export const COMPUTER_VOICE_LABEL = 'Computer voice (approximate)';
-export const RECITATION_ATTRIBUTION =
-  'Recitation audio: Quran.com (word-by-word) / EveryAyah (Mishary Alafasy)';
+export const RECITATION_ATTRIBUTION = 'Recitation: Mishary Alafasy (audio and word timings via Quran.com)';
 
 const RECITER_NAMES: Record<string, string> = {
   Alafasy_128kbps: 'Mishary Alafasy',
@@ -100,12 +104,76 @@ const getStoredAudioSource = (audioUrl?: string): AudioSource | null => {
   return { url: audioUrl, kind: 'ayah', label: 'Quran recitation', shortLabel: 'Recitation' };
 };
 
+const AR_MARKS = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g;
+/** Arabic letters only, with alif/hamza/ta-marbuta variants unified: used to compare spellings. */
+export const arabicSkeleton = (s: string): string =>
+  s
+    // Uthmani spellings: wāw or a dagger alif written for a long ā (ٱلصَّلَوٰة, ٱلْكِتَـٰب).
+    .replace(/\u0640/g, '')
+    .replace(/وٰ/g, 'ا')
+    .replace(/\u0670/g, 'ا')
+    .replace(AR_MARKS, '')
+    .replace(/ءا|آ/g, 'ا')
+    .replace(/[ٱأإآ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه')
+    .replace(/[^\u0621-\u064A ]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+export interface RecitedForm {
+  /** The exact Uthmani text that is recited. */
+  text: string;
+  surah: number;
+  ayah: number;
+  position: number;
+  /** True when the recited spelling differs from the headword (prefix, ending or another form). */
+  differs: boolean;
+}
+
+/** What the word's recitation actually says, and where in the Quran it comes from. */
+export const getRecitedForm = (word: Pick<Word, 'id' | 'arabic'>): RecitedForm | null => {
+  const e = WORD_AUDIO[word.id];
+  if (!e) return null;
+  const [surah, ayah, position, , , , text] = e;
+  // A dagger alif may or may not be written as a full alif in the headword (ٱلرَّحْمَـٰن vs الرحمن,
+  // ٱلْكِتَـٰب vs الكتاب), so the spellings match if either reading matches.
+  const plain = (x: string) => arabicSkeleton(x.replace(/\u0670/g, ''));
+  const same =
+    arabicSkeleton(text) === arabicSkeleton(word.arabic) || plain(text) === plain(word.arabic);
+  return { text, surah, ayah, position, differs: !same };
+};
+
+const ALAFASY_AYAH = (surah: number, ayah: number) => `https://verses.quran.com/Alafasy/mp3/${pad3(surah)}${pad3(ayah)}.mp3`;
+
 /**
  * All genuine recitation sources for a word, best first. Players try them in order so a
  * missing file (404) on one CDN falls through to the next.
  */
 export const getAudioSources = (word: Word): AudioSource[] => {
   const sources: AudioSource[] = [];
+  const entry = WORD_AUDIO[word.id];
+  if (entry) {
+    const [surah, ayah, position, count, start, end] = entry;
+    if (start !== null && end !== null) {
+      sources.push({
+        url: ALAFASY_AYAH(surah, ayah),
+        clip: { start, end },
+        kind: 'word',
+        label: `Recited by Mishary Alafasy (${surah}:${ayah})`,
+        shortLabel: 'Word recitation',
+      });
+    }
+    // Same occurrence from Quran.com's word-by-word files (single words only), if the clip fails.
+    if (count === 1) {
+      sources.push({
+        url: getWordAudioUrl({ location: { surah, ayah, position } })!,
+        kind: 'word',
+        label: `Word-by-word recitation (${surah}:${ayah}, word ${position}) from Quran.com`,
+        shortLabel: 'Word recitation',
+      });
+    }
+  }
   const wordUrl = getWordAudioUrl(word);
   if (wordUrl && word.location) {
     const { surah, ayah, position } = word.location;
@@ -172,7 +240,7 @@ export const stopAllAudio = () => {
  * Play a URL. Resolves with the playing element once playback has started; rejects with an
  * AudioPlaybackError ('unavailable' for 404/decode errors, 'blocked' for autoplay policy).
  */
-export const playAudioUrl = (url: string): Promise<HTMLAudioElement> => {
+export const playAudioUrl = (url: string, clip?: { start: number; end: number }): Promise<HTMLAudioElement> => {
   stopAllAudio();
   return new Promise((resolve, reject) => {
     if (typeof Audio === 'undefined') {
@@ -189,7 +257,33 @@ export const playAudioUrl = (url: string): Promise<HTMLAudioElement> => {
       reject(new AudioPlaybackError(reason));
     };
     audio.addEventListener('error', () => fail('unavailable'), { once: true });
-    audio.src = url;
+    if (clip) {
+      // Media fragment (#t=start,end) makes the browser seek and stop by itself; the timeupdate
+      // guard stops it too, in case a browser ignores the end time.
+      const endSec = clip.end / 1000;
+      const stopAtEnd = () => {
+        if (audio.currentTime >= endSec) {
+          audio.pause();
+          audio.removeEventListener('timeupdate', stopAtEnd);
+        }
+      };
+      audio.addEventListener('timeupdate', stopAtEnd);
+      // timeupdate fires only ~4 times a second; a timer stops it on the word boundary.
+      audio.addEventListener(
+        'playing',
+        () => {
+          const ms = Math.max(0, (endSec - audio.currentTime) * 1000);
+          window.setTimeout(() => {
+            if (!audio.paused && audio.currentTime >= endSec - 0.15) audio.pause();
+            else if (!audio.paused) window.setTimeout(() => audio.pause(), Math.max(0, (endSec - audio.currentTime) * 1000));
+          }, ms);
+        },
+        { once: true },
+      );
+      audio.src = `${url}#t=${(clip.start / 1000).toFixed(2)},${endSec.toFixed(2)}`;
+    } else {
+      audio.src = url;
+    }
     currentAudio = audio;
     audio
       .play()

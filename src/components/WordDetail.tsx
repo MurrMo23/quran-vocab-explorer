@@ -13,6 +13,7 @@ import { getNameForWord, namePath } from '@/utils/names-of-allah';
 import { getAudioSources } from '@/utils/audio';
 import { reviewWordsUrl } from '@/components/review/review-session';
 import WordAudioButton from '@/components/word/WordAudioButton';
+import { getRecitedForm } from '@/utils/audio';
 import { highlightWordInVerse } from '@/components/word/verse-highlight';
 
 /** At most this many "Appears in" surah links; more common words show the surahs where they occur most. */
@@ -81,6 +82,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
   recommendedWords = [],
 }) => {
   const usage = getQuranicUsage(word);
+  const recited = getRecitedForm(word);
   const related = word.quranicForm;
   const rootSlug = getWordRootSlug(word.id);
   const rootFamily = rootSlug ? getRootBySlug(rootSlug) : undefined;
@@ -174,6 +176,15 @@ const WordDetail: React.FC<WordDetailProps> = ({
               </Link>
             </Button>
           </div>
+          {recited && (
+            <p className="text-[15px] text-muted-foreground">
+              {recited.differs ? 'Recited in the Quran as ' : 'Recited as '}
+              <bdi lang="ar" className="font-quran text-[22px] leading-none text-foreground">
+                {recited.text}
+              </bdi>{' '}
+              ({recited.surah}:{recited.ayah})
+            </p>
+          )}
           {hasWordRecitation ? (
             <AudioAttribution />
           ) : (

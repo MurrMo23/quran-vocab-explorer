@@ -75,7 +75,7 @@ export const useTextToSpeech = () => {
       try {
         for (const source of sources) {
           try {
-            const audio = await playAudioUrl(source.url);
+            const audio = await playAudioUrl(source.url, source.clip);
             if (!mountedRef.current) {
               audio.pause();
               return false;
