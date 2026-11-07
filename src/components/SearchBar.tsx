@@ -108,12 +108,15 @@ const SearchBar: React.FC<SearchBarProps> = ({
           value={query}
           onChange={handleInputChange}
           placeholder={placeholder}
-          className="w-full bg-white/70 border border-gray-200 rounded-full pl-10 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20"
+          aria-label={placeholder || "Search words"}
+          className="h-11 w-full rounded-full border-2 border-border bg-card pl-10 pr-11 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/30"
         />
         {query && (
           <button 
+            type="button"
             onClick={handleClear}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2"
+            aria-label="Clear search"
+            className="absolute right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full"
           >
             <X className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
           </button>
@@ -121,11 +124,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
       </div>
 
       {isOpen && results.length > 0 && (
-        <div className="absolute z-10 mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-100 max-h-80 overflow-y-auto">
+        <div className="absolute z-10 mt-2 w-full bg-popover text-popover-foreground rounded-2xl shadow-lg border border-border max-h-80 overflow-y-auto">
           {results.map((word) => (
             <button
               key={word.id}
-              className="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-none flex items-start"
+              className="w-full text-left px-4 py-3 hover:bg-muted border-b border-border last:border-none flex items-start"
               onClick={() => handleSelect(word.id)}
             >
               <div>
@@ -141,7 +144,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       )}
 
       {isOpen && query.length >= 2 && results.length === 0 && (
-        <div className="absolute z-10 mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-100 p-4 text-center">
+        <div className="absolute z-10 mt-2 w-full bg-popover text-popover-foreground rounded-2xl shadow-lg border border-border p-4 text-center">
           <p className="text-muted-foreground">No results found for "{query}"</p>
         </div>
       )}

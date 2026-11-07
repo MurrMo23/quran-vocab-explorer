@@ -41,7 +41,8 @@ interface AudioPlayerProps {
 }
 
 const sizeConfig = {
-  sm: { button: 'w-8 h-8', icon: 'h-4 w-4' },
+  // The small button stays 32px visually but gets a 44px tap target via an invisible ::after.
+  sm: { button: "w-8 h-8 relative after:absolute after:-inset-1.5 after:content-['']", icon: 'h-4 w-4' },
   md: { button: 'w-10 h-10', icon: 'h-5 w-5' },
   lg: { button: 'w-12 h-12', icon: 'h-6 w-6' },
 };
