@@ -1,11 +1,11 @@
 
 import React, { useEffect, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import WordDetail from '@/components/WordDetail';
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
-import { Word, getAllWords } from '@/utils/vocabulary';
+import { Word, getAllWords, getCollectionById, getWordsByCollection } from '@/utils/vocabulary';
 import { getWordBySlugOrId, getWordPath, getWordSlug } from '@/utils/word-slugs';
 import { toast } from 'sonner';
 import { getQuranicUsage } from '@/utils/word-usage';
@@ -45,8 +45,15 @@ const WordView = () => {
       recommendedWords: recommended,
     };
   }, [id]);
-  const loading = false;
   const canonicalPath = word ? getWordPath(word) : null;
+  // First collection that holds this word (deterministic, so prerender and hydration agree).
+  const breadcrumbCollection = useMemo(() => {
+    for (const cid of word?.collections ?? []) {
+      const c = getCollectionById(cid);
+      if (c && getWordsByCollection(c.id).length > 0) return { id: c.id, name: c.name };
+    }
+    return null;
+  }, [word]);
 
   // Legacy ids and non-canonical spellings move to the slug URL (the page itself already
   // renders with the slug canonical, so crawlers consolidate either way).
@@ -87,46 +94,51 @@ const WordView = () => {
         />
       )}
       
-      <div className="mb-6">
-        <button 
-          onClick={() => navigate(-1)}
-          className="text-muted-foreground hover:text-foreground flex items-center transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4 mr-1" />
-          <span>Back</span>
-        </button>
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-16 pt-6 sm:px-6 sm:pt-7">
+        {word ? (
+          <>
+            <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
+              <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <li>
+                  <Link to="/collections" className="inline-flex min-h-6 items-center hover:text-foreground hover:underline underline-offset-4">
+                    Collections
+                  </Link>
+                </li>
+                {breadcrumbCollection && (
+                  <>
+                    <li aria-hidden="true">›</li>
+                    <li>
+                      <Link
+                        to={`/collections/${breadcrumbCollection.id}`}
+                        className="inline-flex min-h-6 items-center hover:text-foreground hover:underline underline-offset-4"
+                      >
+                        {breadcrumbCollection.name}
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li aria-hidden="true">›</li>
+                <li aria-current="page" className="font-bold text-foreground">
+                  {word.meaning}
+                </li>
+              </ol>
+            </nav>
+            <WordDetail
+              word={word}
+              nextWord={nextWord || undefined}
+              previousWord={previousWord || undefined}
+              relatedWords={relatedWords}
+              recommendedWords={recommendedWords}
+            />
+          </>
+        ) : (
+          <div className="card-tactile mx-auto flex max-w-lg flex-col items-center gap-3 p-8 text-center">
+            <h1 className="text-xl font-extrabold">Word not found</h1>
+            <p className="text-muted-foreground">Sorry, we couldn't find the word you're looking for.</p>
+            <Button onClick={() => navigate('/review')}>Go to Review</Button>
+          </div>
+        )}
       </div>
-
-      {loading ? (
-        <div className="animate-pulse flex flex-col items-center justify-center py-10">
-          <div className="w-2/3 h-8 bg-gray-200 rounded-lg mb-4"></div>
-          <div className="w-1/2 h-6 bg-gray-200 rounded-lg mb-8"></div>
-          <div className="w-full h-40 bg-gray-200 rounded-lg"></div>
-        </div>
-      ) : word ? (
-        <div>
-          <WordDetail 
-            word={word} 
-            nextWord={nextWord || undefined}
-            previousWord={previousWord || undefined}
-            relatedWords={relatedWords}
-            recommendedWords={recommendedWords}
-          />
-        </div>
-      ) : (
-        <div className="text-center py-10">
-          <h2 className="text-xl font-semibold mb-2">Word Not Found</h2>
-          <p className="text-muted-foreground mb-4">
-            Sorry, we couldn't find the word you're looking for.
-          </p>
-          <button
-            onClick={() => navigate('/review')}
-            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            Go to Review
-          </button>
-        </div>
-      )}
     </>
   );
 };

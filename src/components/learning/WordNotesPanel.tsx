@@ -14,18 +14,18 @@ const WordNotesPanel: React.FC<{ wordId: string; className?: string }> = ({ word
 
   return (
     <section className={className} aria-labelledby="my-notes-heading">
-      <div className="flex items-center justify-between mb-3">
-        <h3 id="my-notes-heading" className="text-lg font-medium flex items-center">
-          <NotebookPen className="h-5 w-5 mr-2 text-primary" />
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <h2 id="my-notes-heading" className="text-[22px] font-extrabold flex items-center">
+          <NotebookPen className="h-5 w-5 mr-2 text-primary" aria-hidden="true" />
           <span>My notes</span>
-        </h3>
-        <div className="flex items-center gap-2">
-          <Link to="/notebook" className="text-sm text-muted-foreground hover:text-foreground underline-offset-4 hover:underline">
+        </h2>
+        <div className="flex items-center gap-3">
+          <Link to="/notebook" className="inline-flex min-h-11 items-center text-sm font-semibold text-muted-foreground hover:text-foreground underline-offset-4 hover:underline">
             All notes
           </Link>
           {!adding && (
-            <Button size="sm" variant="outline" onClick={() => setAdding(true)}>
-              <Plus className="h-4 w-4 mr-1" />
+            <Button variant="outline" onClick={() => setAdding(true)}>
+              <Plus aria-hidden="true" />
               Add note
             </Button>
           )}
@@ -45,7 +45,7 @@ const WordNotesPanel: React.FC<{ wordId: string; className?: string }> = ({ word
       )}
 
       {adding && (
-        <div className="rounded-lg border p-3 mb-3">
+        <div className="rounded-2xl border border-border p-3 mb-3">
           <NoteForm
             autoFocus
             onCancel={() => setAdding(false)}
@@ -63,9 +63,9 @@ const WordNotesPanel: React.FC<{ wordId: string; className?: string }> = ({ word
       )}
 
       {loading ? (
-        <div className="h-12 rounded-lg bg-muted animate-pulse" />
+        <div className="h-12 rounded-2xl bg-muted animate-pulse" />
       ) : notes.length === 0 ? (
-        !adding && <p className="text-sm text-muted-foreground">No notes for this word yet.</p>
+        !adding && <p className="text-[15px] text-muted-foreground">No notes for this word yet.</p>
       ) : (
         <div className="space-y-2">
           {notes.map((n) => (
