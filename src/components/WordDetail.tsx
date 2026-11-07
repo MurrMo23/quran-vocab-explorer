@@ -14,6 +14,16 @@ import { getWordRootSlug, getWordSurahPages, rootPath, surahPath } from '@/utils
 import { getWordPath } from '@/utils/word-slugs';
 import { getNameForWord, namePath } from '@/utils/names-of-allah';
 
+/** At most this many "Appears in" surah links; more common words show the surahs where they occur most. */
+const SURAH_CHIPS = 12;
+const topSurahPages = <T extends { surah: { number: number }; count: number }>(pages: T[]): T[] =>
+  pages.length <= SURAH_CHIPS
+    ? pages
+    : [...pages]
+        .sort((a, b) => b.count - a.count || a.surah.number - b.surah.number)
+        .slice(0, SURAH_CHIPS)
+        .sort((a, b) => a.surah.number - b.surah.number);
+
 interface WordDetailProps {
   word: Word;
   className?: string;
@@ -122,10 +132,14 @@ const WordDetail: React.FC<WordDetailProps> = ({
       )}
 
       {surahPages.length > 0 && (
-        <nav className="mb-6" aria-label="Juz Amma surahs containing this word">
-          <h3 className="mb-2 text-sm text-muted-foreground">Appears in (Juz Amma)</h3>
+        <nav className="mb-6" aria-label="Surahs containing this word">
+          <h3 className="mb-2 text-sm text-muted-foreground">
+            {surahPages.length > SURAH_CHIPS
+              ? `Appears in ${surahPages.length} surahs, most often in`
+              : `Appears in ${surahPages.length === 1 ? '1 surah' : `${surahPages.length} surahs`}`}
+          </h3>
           <ul className="flex flex-wrap gap-1.5">
-            {surahPages.map(({ surah, count }) => (
+            {topSurahPages(surahPages).map(({ surah, count }) => (
               <li key={surah.number}>
                 <Link
                   to={surahPath(surah.number)}

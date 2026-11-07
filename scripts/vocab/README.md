@@ -30,7 +30,13 @@ Then: `python3 gen.py build specs ../../src/utils`.
 a word's lemma is the corpus lemma at its `location`; multi-word phrases and words not found verbatim get no
 occurrence data (related forms still join their root family); a surah's word count is its corpus word tokens and a
 token is "covered" when its lemma is a site word's lemma; a root total counts corpus tokens derived from the root.
-Surahs with pages are set by `SURAH_PAGES` at the top of the script (Juz Amma, 78-114, for now).
+Surahs with pages are set by `SURAH_PAGES` at the top of the script (all 114).
+
+The file stores per-surah numbers only (`SURAH_STATS`: ayahs, tokens, covered tokens), not per-surah word lists:
+`LEMMAS` already holds every site lemma's count in every surah, so the app derives a surah's word list from it
+(`surahWordCounts` in `src/utils/word-lists.ts`, same canonical word per lemma and same ordering as the script).
+That keeps the main bundle small while every surah page still renders synchronously (prerender and hydration).
+To check the two agree, write the script's lists with `--surah-lists lists.json` and compare.
 
 Root slugs: one token per radical joined by `-`, e.g. ك ت ب -> `k-t-b`. Plain letters use their usual Latin letter
 (ب b, ت t, ث th, ج j, خ kh, د d, ذ dh, ر r, ز z, س s, ش sh, ف f, ق q, ك k, ل l, م m, ن n, ه h, و w, ي y);
@@ -41,8 +47,8 @@ the dotted "emphatic" letters double it (ح hh, ص ss, ض dd, ط tt, ظ zz); ء 
 
 `gen-salah.py` writes `src/utils/generated/salah-words.ts`: the site words of Al-Fatiha (1) and Al-Ikhlas (112) in
 reading order, for the "The words in my salah" learning goal (`src/lib/learning-goals.ts`) and Day 1 of the Ramadan plan
-(`src/lib/ramadan-plan.ts`). It is separate from `gen-pages.py` on purpose: `quran-index.ts` only covers surahs with a
-`/surah` page (`SURAH_PAGES`), and widening that list would add pages. Same inputs and lemma matching as `gen-pages.py`;
+(`src/lib/ramadan-plan.ts`). It is separate from `gen-pages.py` because those lists are in reading order, while the
+surah word lists derived from `quran-index.ts` are ordered by frequency. Same inputs and lemma matching as `gen-pages.py`;
 re-run it whenever words are added (e.g. after `rabb`, `ahad` or `samad` join the site):
 
     QV_CORPUS=<folder with build/idx.pkl> QV_WORDS=current.json python3 scripts/vocab/gen-salah.py

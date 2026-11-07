@@ -15,12 +15,16 @@ Every number written comes from the Quranic Arabic Corpus morphology (v0.4):
     words related to a Quranic form (quranicForm.status == 'related') join that form's root family;
   * a surah's word count is its number of corpus word tokens (the unnumbered basmala is not a token);
     a token is "covered" when its stem lemma is the lemma of a site word;
+  * a surah page's word list is not written out: the app derives it from LEMMAS (per-surah counts)
+    and WORD_LEMMA (see surahWordCounts in src/utils/word-lists.ts), choosing one canonical site word
+    per lemma exactly as `canonical` below does. `--surah-lists <file.json>` writes the lists computed
+    here so the two can be compared;
   * a root's total is the number of corpus word tokens with a segment derived from that root.
 """
 import argparse, collections, json, os, pickle, re, sys
 
-# Surahs that get a /surah/<n> vocabulary page. Juz Amma for now; widen this to add more surahs.
-SURAH_PAGES = list(range(78, 115))
+# Surahs that get a /surah/<n> vocabulary page: all 114.
+SURAH_PAGES = list(range(1, 115))
 
 # (Arabic name, common English transliteration, English meaning) for surahs 1-114.
 SURAH_NAMES = [
@@ -161,6 +165,7 @@ def main():
     ap.add_argument('--words', default=os.environ.get('QV_WORDS'))
     repo = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
     ap.add_argument('--out', default=os.path.join(repo, 'src', 'utils', 'generated', 'quran-index.ts'))
+    ap.add_argument('--surah-lists', help='also write {surah: [[word id, count], ...]} as JSON (for checking)')
     a = ap.parse_args()
     if not a.corpus or not a.words:
         ap.error('--corpus and --words (or $QV_CORPUS / $QV_WORDS) are required')
@@ -228,7 +233,7 @@ def main():
 
     site_lemmas = set(word_lemma.values())
     surahs = {}
-    for s in SURAH_PAGES:
+    for s in range(1, 115):
         per = collections.Counter()
         for L in site_lemmas:
             n = sum(1 for k in lem_locs[L] if k[0] == s)
@@ -285,10 +290,10 @@ def main():
         '/** Site word id -> index into LEMMAS (only words that occur verbatim in the Quran). */',
         f'export const WORD_LEMMA: Record<string, number> = {js({k: lidx[v] for k, v in word_lemma.items()})};',
         '',
-        '/** Per surah page: ayah count, corpus word tokens, tokens whose lemma is a site word, and the',
-        ' *  site words in the surah (one per lemma) with their counts there, most frequent first. */',
-        'export const SURAHS: Record<number, { ayahs: number; total: number; covered: number; words: string[]; counts: number[] }> = '
-        + js({str(k): v for k, v in surahs.items()}) + ';',
+        '/** Surah n at index n - 1: [ayahs, corpus word tokens, tokens whose lemma is a site word]. The surah\'s',
+        ' *  word list is derived from LEMMAS (surahWordCounts in src/utils/word-lists.ts), not stored. */',
+        'export const SURAH_STATS: [number, number, number][] = '
+        + js([[surahs[k]['ayahs'], surahs[k]['total'], surahs[k]['covered']] for k in range(1, 115)]) + ';',
         '',
         '/** Roots with at least one site word, in Arabic alphabetical order. `total` = corpus word tokens',
         ' *  derived from the root; `words` = site word ids (verbatim words by frequency, then related forms). */',
@@ -298,6 +303,9 @@ def main():
         f'export const WORD_ROOT: Record<string, string> = {js({k: "-".join(ROOT_LETTERS[c][1] for c in v) for k, v in word_root.items()})};',
         '',
     ]
+    if a.surah_lists:
+        with open(a.surah_lists, 'w', encoding='utf-8') as f:
+            json.dump({k: [[w, c] for w, c in zip(v['words'], v['counts'])] for k, v in surahs.items()}, f)
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     with open(a.out, 'w', encoding='utf-8') as f:
         f.write('\n'.join(out))

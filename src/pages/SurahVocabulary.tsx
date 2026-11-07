@@ -1,25 +1,34 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Target } from 'lucide-react';
 import SEO from '@/components/SEO';
 import PageTrail from '@/components/quran/PageTrail';
 import { Button } from '@/components/ui/button';
-import { getSurahVocabulary, surahPath, wordPath } from '@/utils/quran-pages';
+import { getSurahVocabulary, isJuzAmma, surahPath, wordPath } from '@/utils/quran-pages';
 
 const pct = (n: number) => `${n.toLocaleString('en-US', { maximumFractionDigits: 1 })}%`;
+
+/** Long surahs list this many words until "Show all" is pressed. */
+const INITIAL_WORDS = 50;
+/** The Review button practises at most this many words (the most frequent ones). */
+const REVIEW_WORDS = 20;
+
+const juzLabel = (a: number, b: number) => (a === b ? `Juz ${a}` : `Juz ${a}–${b}`);
 
 const SurahVocabulary = () => {
   const { number } = useParams<{ number: string }>();
   const n = Number(number);
   const surah = useMemo(() => (/^\d+$/.test(number ?? '') ? getSurahVocabulary(n) : undefined), [number, n]);
+  // Keyed by surah so moving to the next surah collapses the list again.
+  const [expandedFor, setExpandedFor] = useState<number | null>(null);
 
   if (!surah) {
     return (
       <>
         <SEO title="Surah vocabulary not found" noindex />
         <div className="py-16 text-center">
-          <h1 className="mb-2 text-xl font-semibold">No vocabulary page for this surah yet</h1>
-          <p className="mb-6 text-muted-foreground">Vocabulary pages currently cover Juz Amma (surahs 78–114).</p>
+          <h1 className="mb-2 text-xl font-semibold">Surah not found</h1>
+          <p className="mb-6 text-muted-foreground">The Quran has 114 surahs; every one has a vocabulary page.</p>
           <Button asChild>
             <Link to="/surahs">Browse surah vocabulary</Link>
           </Button>
@@ -35,7 +44,12 @@ const SurahVocabulary = () => {
     count > 0
       ? `${count} Quranic Arabic ${count === 1 ? 'word' : 'words'} from Surah ${surah.name} (${surah.arabic}, "${surah.meaning}"), most frequent first: ${topWords}. Learning them covers ${pct(surah.coveragePercent)} of the surah's ${surah.totalWords} words.`
       : `Vocabulary of Surah ${surah.name} (${surah.arabic}, "${surah.meaning}"), ${surah.ayahs} ayahs and ${surah.totalWords} words.`;
-  const practiceHref = `/review?words=${surah.words.map((w) => encodeURIComponent(w.word.id)).join(',')}`;
+  const reviewWords = surah.words.slice(0, REVIEW_WORDS);
+  const practiceHref = `/review?words=${reviewWords.map((w) => encodeURIComponent(w.word.id)).join(',')}`;
+  const reviewLabel = count > REVIEW_WORDS ? `Review the ${REVIEW_WORDS} most frequent words` : 'Review these words';
+  const showAll = expandedFor === surah.number || count <= INITIAL_WORDS;
+  const shownWords = showAll ? surah.words : surah.words.slice(0, INITIAL_WORDS);
+  const juz = juzLabel(surah.juzStart, surah.juzEnd);
 
   return (
     <>
@@ -43,7 +57,14 @@ const SurahVocabulary = () => {
         title={title}
         description={description}
         url={surahPath(surah.number)}
-        keywords={[`Surah ${surah.name}`, `${surah.name} vocabulary`, `${surah.name} words meaning`, surah.arabic, 'Juz Amma vocabulary', 'Quranic Arabic']}
+        keywords={[
+          `Surah ${surah.name}`,
+          `${surah.name} vocabulary`,
+          `${surah.name} words meaning`,
+          surah.arabic,
+          ...(isJuzAmma(surah.number) ? ['Juz Amma vocabulary'] : []),
+          'Quranic Arabic',
+        ]}
         breadcrumbs={[
           { name: 'Surah vocabulary', path: '/surahs' },
           { name: `Surah ${surah.name}`, path: surahPath(surah.number) },
@@ -59,7 +80,7 @@ const SurahVocabulary = () => {
           </p>
           <h1 className="mt-2 text-2xl font-bold sm:text-3xl">{title}</h1>
           <p className="mt-1 text-muted-foreground">
-            “{surah.meaning}” · {surah.ayahs} ayahs · {surah.totalWords} words
+            “{surah.meaning}” · {surah.ayahs} ayahs · {surah.totalWords.toLocaleString('en-US')} words · {juz}
           </p>
         </header>
 
@@ -81,12 +102,13 @@ const SurahVocabulary = () => {
               <div className="h-full rounded-full bg-primary" style={{ width: `${surah.coveragePercent}%` }} />
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
-              {surah.coveredWords} of the {surah.totalWords} words in the surah are forms of these words.
+              {surah.coveredWords.toLocaleString('en-US')} of the {surah.totalWords.toLocaleString('en-US')} words in the
+              surah are forms of these words.
             </p>
             <Button asChild className="mt-4 w-full sm:w-auto">
               <Link to={practiceHref}>
                 <Target className="mr-2 h-4 w-4" aria-hidden="true" />
-                Review these words
+                {reviewLabel}
               </Link>
             </Button>
           </section>
@@ -99,8 +121,13 @@ const SurahVocabulary = () => {
             <h2 id="words-heading" className="mb-3 text-lg font-semibold">
               Words in Surah {surah.name}, most frequent first
             </h2>
-            <ol className="divide-y rounded-xl border">
-              {surah.words.map(({ word, count: c }) => (
+            {!showAll && (
+              <p className="mb-3 text-sm text-muted-foreground">
+                Showing the {INITIAL_WORDS} most frequent of {count} words.
+              </p>
+            )}
+            <ol className="divide-y rounded-xl border" id="surah-word-list">
+              {shownWords.map(({ word, count: c }) => (
                 <li key={word.id}>
                   <Link
                     to={wordPath(word.id)}
@@ -120,6 +147,16 @@ const SurahVocabulary = () => {
                 </li>
               ))}
             </ol>
+            {!showAll && (
+              <Button
+                variant="outline"
+                className="mt-3 w-full"
+                aria-controls="surah-word-list"
+                onClick={() => setExpandedFor(surah.number)}
+              >
+                Show all {count} words
+              </Button>
+            )}
             <p className="mt-3 text-xs text-muted-foreground">
               Counts are from the Quranic Arabic Corpus: every form of a word (its dictionary form, or lemma) counts,
               while attached pronouns and one-letter prefixes such as “wa” are not counted as separate words.
