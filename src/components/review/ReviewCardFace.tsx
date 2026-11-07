@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AudioPlayer from '@/components/AudioPlayer';
+import { ArrowRight } from 'lucide-react';
 import type { Word } from '@/utils/vocabulary-types';
 import { cn } from '@/lib/utils';
 import { getWordPath } from '@/utils/word-slugs';
+import HearItButton from './HearItButton';
 
 interface ReviewCardFaceProps {
   word: Word;
@@ -30,75 +31,75 @@ const ReviewCardFace: React.FC<ReviewCardFaceProps> = ({ word, revealed, isNew, 
   return (
     <div
       className={cn(
-        'relative rounded-2xl border bg-card px-4 py-8 text-center shadow-sm sm:px-8',
+        'card-tactile relative flex flex-col items-center rounded-[2rem] px-5 pb-8 pt-9 text-center sm:px-10 sm:pb-9',
         tappable && 'cursor-pointer select-none',
       )}
       onClick={handleClick}
       data-testid="review-card"
     >
       {isNew && (
-        <span className="absolute left-3 top-3 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+        <span className="absolute left-4 top-4 rounded-full bg-gold/20 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-gold-text">
           New word
         </span>
       )}
 
       <p
-        className="arabic-text text-center text-5xl font-bold leading-relaxed text-primary sm:text-6xl"
+        className="font-quran text-[4.5rem] leading-[1.6] text-foreground sm:text-[6.5rem]"
         lang="ar"
         dir="rtl"
         data-testid="review-arabic"
       >
         {word.arabic}
       </p>
-      <div className="mt-3 flex justify-center">
-        <AudioPlayer key={word.id} word={word} label="Listen" size="lg" showAttribution={false} />
-      </div>
+      <HearItButton key={word.id} word={word} className="mt-2" />
 
       {!revealed ? (
-        <p className="mt-6 text-sm text-muted-foreground">{prompt ?? 'Recall the meaning, then tap to check'}</p>
+        <p className="mt-6 text-sm font-semibold text-muted-foreground">{prompt ?? 'Recall the meaning, then tap to check'}</p>
       ) : (
-        <div className="mt-6 space-y-4 text-left" data-testid="review-answer">
-          <div className="text-center">
-            <p className="text-2xl font-semibold">{word.meaning}</p>
-            <p className="mt-1 text-muted-foreground">{word.transliteration}</p>
-            <p className="mt-1 text-sm text-muted-foreground">
+        <div className="mt-7 w-full space-y-5 border-t-2 border-border pt-6" data-testid="review-answer">
+          <div>
+            <p className="text-[1.75rem] font-extrabold leading-tight text-foreground">{word.meaning}</p>
+            <p className="mt-1.5 text-base font-semibold text-muted-foreground">
+              {word.transliteration}
+              {(word.root || word.partOfSpeech) && <span aria-hidden> · </span>}
               {word.root && (
                 <>
-                  Root{' '}
-                  <span className="arabic-text text-base" lang="ar" dir="rtl">
+                  root{' '}
+                  <span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">
                     {word.root}
                   </span>
                 </>
               )}
-              {word.root && word.partOfSpeech ? ' · ' : ''}
+              {word.root && word.partOfSpeech ? ', ' : ''}
               {word.partOfSpeech}
             </p>
           </div>
 
           {example && (example.arabicText || example.translation) && (
-            <figure className="rounded-xl bg-muted p-4">
+            <figure className="rounded-2xl bg-secondary/60 px-4 py-4 text-left dark:bg-secondary/50 sm:px-5">
               {example.arabicText && (
-                <p className="arabic-text text-xl leading-loose" lang="ar" dir="rtl">
+                <p className="font-arabic text-right text-2xl leading-loose text-foreground" lang="ar" dir="rtl">
                   {example.arabicText}
                 </p>
               )}
               {example.translation && (
-                <figcaption className="mt-2 text-sm text-muted-foreground">
+                <figcaption className="mt-2 text-sm leading-relaxed text-foreground/80">
                   “{example.translation}”
                   {example.surah > 0 && example.ayah > 0 && (
-                    <span className="whitespace-nowrap"> — {example.surah}:{example.ayah}</span>
+                    <span className="whitespace-nowrap font-semibold text-muted-foreground"> {example.surah}:{example.ayah}</span>
                   )}
                 </figcaption>
               )}
             </figure>
           )}
 
-          <p className="text-center">
+          <p>
             <Link
               to={getWordPath(word)}
-              className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-xl px-2 text-sm font-bold text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Word details
+              <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </p>
         </div>

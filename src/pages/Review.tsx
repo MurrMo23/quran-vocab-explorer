@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { CalendarClock, Loader2, Sparkles, X } from 'lucide-react';
+import { CalendarClock, Loader2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
 import { getPublishedCollections, getWordById } from '@/utils/vocabulary';
@@ -11,6 +10,7 @@ import { useUserCollections, PRACTICE_COLLECTION_PARAM } from '@/lib/collections
 import { usePracticePool } from '@/components/practice/usePracticePool';
 import ProgressSaveNotice from '@/components/practice/ProgressSaveNotice';
 import { RATING_OPTIONS } from '@/components/practice/rating-options';
+import { ChoiceOptions, FeedbackBar, SessionTopBar, type FeedbackState } from '@/components/review/SessionParts';
 import SourcePicker from '@/components/review/SourcePicker';
 import ReviewCardFace from '@/components/review/ReviewCardFace';
 import ReviewSummary, { type ReviewAnswer } from '@/components/review/ReviewSummary';
@@ -39,7 +39,6 @@ import {
   collectionSourceValue,
   type SessionItem,
 } from '@/components/review/review-session';
-import { cn } from '@/lib/utils';
 
 type Phase = 'loading' | 'session' | 'summary' | 'empty';
 type BuildMode = 'normal' | 'newOnly' | 'ahead';
@@ -59,7 +58,7 @@ const Review = () => {
   const kind: 'due' | 'words' | 'collection' = wordsParam !== null ? 'words' : collectionParam ? 'collection' : 'due';
 
   const progress = useProgress();
-  const { recordReview, previewInterval, cards, logs, loading: progressLoading } = progress;
+  const { recordReview, previewInterval, cards, logs, stats, loading: progressLoading } = progress;
   const collections = useMemo(() => getPublishedCollections(), []);
   const { items: userCollections } = useUserCollections();
   const collectionPool = usePracticePool(kind === 'collection' ? collectionParam : null);
@@ -299,6 +298,42 @@ const Review = () => {
   }, [phase, kind, pool.ids, cards, logs]);
 
   const total = items.length;
+  const answeredCurrent = current?.mode === 'choice' && chosen !== null;
+
+  const feedback: FeedbackState | null =
+    phase === 'session' && current && word
+      ? current.mode === 'flip'
+        ? revealed
+          ? { kind: 'flip-back', word, previewInterval }
+          : { kind: 'flip-front' }
+        : chosen === null
+          ? { kind: 'choice-idle' }
+          : chosen === word.meaning
+            ? { kind: 'correct', word }
+            : { kind: 'wrong', word }
+      : null;
+
+  const sourcePicker = (
+    <SourcePicker
+      value={pickerValue}
+      onChange={chooseSource}
+      collections={collections}
+      userCollections={userCollections}
+      wordListCount={wordList.length}
+      unknownCollection={
+        knownCollection
+          ? undefined
+          : { value: pickerValue, label: pool.loading ? 'Loading collection…' : 'Collection not found' }
+      }
+      newPerDay={newPerDay}
+      onNewPerDayChange={changeNewPerDay}
+      goal={goal}
+      onGoalChange={changeGoal}
+    />
+  );
+
+  // The shared goal card, restyled to the session's tactile surfaces.
+  const goalCardClass = 'rounded-3xl border-2 border-b-[5px] shadow-none sm:p-6';
 
   return (
     <>
@@ -311,199 +346,134 @@ const Review = () => {
         type="website"
       />
 
-      <div className={cn('mx-auto w-full max-w-xl py-4 sm:py-8', phase === 'session' && (current?.mode === 'choice' ? 'pb-[22rem] sm:pb-8' : 'pb-48 sm:pb-8'))}>
-        <h1 className="sr-only">Review</h1>
+      <div className="w-full">
+        <div className="mx-auto w-full max-w-3xl px-4 pb-10 pt-5 sm:px-6 sm:pt-8">
+          <h1 className="sr-only">Review</h1>
 
-        <SourcePicker
-          value={pickerValue}
-          onChange={chooseSource}
-          collections={collections}
-          userCollections={userCollections}
-          wordListCount={wordList.length}
-          unknownCollection={
-            knownCollection
-              ? undefined
-              : { value: pickerValue, label: pool.loading ? 'Loading collection…' : 'Collection not found' }
-          }
-          newPerDay={newPerDay}
-          onNewPerDayChange={changeNewPerDay}
-          goal={goal}
-          onGoalChange={changeGoal}
-        />
+          {phase !== 'session' && <div className="mb-6">{sourcePicker}</div>}
 
-        {/* First visit: offer a goal before the default "Due & new" words. */}
-        {kind === 'due' && phase === 'session' && cards.size === 0 && answers.length === 0 && (
-          <GoalChooser className="mt-4" />
-        )}
+          {phase === 'loading' && (
+            <p className="flex items-center justify-center gap-2 py-16 text-sm font-semibold text-muted-foreground" role="status">
+              <Loader2 className="h-4 w-4 motion-safe:animate-spin" aria-hidden /> Loading your progress…
+            </p>
+          )}
 
-        {phase === 'loading' && (
-          <p className="flex items-center justify-center gap-2 py-16 text-sm text-muted-foreground" role="status">
-            <Loader2 className="h-4 w-4 animate-spin" /> Loading your progress…
-          </p>
-        )}
+          {phase === 'session' && current && word && (
+            <div className="space-y-6 sm:space-y-7">
+              <SessionTopBar
+                done={position + (answeredCurrent ? 1 : 0)}
+                total={total}
+                streak={stats.currentStreak}
+                onClose={endSession}
+                closeLabel={answers.length > 0 ? 'End session' : 'Close review'}
+              />
 
-        {phase === 'session' && current && word && (
-          <div className="mt-4 space-y-4">
-            <div>
-              <div className="mb-1.5 flex items-center justify-between text-sm text-muted-foreground">
-                <span data-testid="review-position">
-                  {position + 1} / {total}
-                  {current.mode === 'choice' && ' · Quick check'}
+              {/* First visit: offer a goal before the default "Due & new" words. */}
+              {kind === 'due' && cards.size === 0 && answers.length === 0 && <GoalChooser className={goalCardClass} />}
+
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h2 className="text-[1.5rem] font-extrabold leading-tight sm:text-[1.625rem]">
+                  {current.mode === 'choice'
+                    ? 'What does this word mean?'
+                    : revealed
+                      ? 'Here is the meaning'
+                      : 'Do you remember this word?'}
+                </h2>
+                <span className="text-sm font-bold text-muted-foreground" data-testid="review-position">
+                  Word {position + 1} of {total}
+                  <span className="hidden sm:inline"> · {pool.name}</span>
                 </span>
-                <Button variant="ghost" size="sm" className="h-8 px-2" onClick={endSession}>
-                  <X className="mr-1 h-4 w-4" />
-                  {answers.length > 0 ? 'End' : 'Close'}
-                </Button>
               </div>
-              <Progress value={(position / Math.max(1, total)) * 100} className="h-1.5" aria-label="Session progress" />
+
+              <ReviewCardFace
+                key={`${position}-${word.id}`}
+                word={word}
+                revealed={revealed}
+                isNew={current.isNew}
+                prompt={current.mode === 'choice' ? 'Pick the meaning below' : undefined}
+                onReveal={current.mode === 'flip' ? reveal : undefined}
+              />
+
+              {current.mode === 'choice' && (
+                <ChoiceOptions options={current.options ?? []} answer={word.meaning} chosen={chosen} onChoose={choose} />
+              )}
+
+              <div className="space-y-3 border-t-2 border-border pt-6">
+                {sourcePicker}
+                <ProgressSaveNotice />
+              </div>
             </div>
+          )}
 
-            <ReviewCardFace
-              key={`${position}-${word.id}`}
-              word={word}
-              revealed={revealed}
-              isNew={current.isNew}
-              prompt={current.mode === 'choice' ? 'Choose the meaning' : undefined}
-              onReveal={current.mode === 'flip' ? reveal : undefined}
-            />
+          {phase === 'summary' && <ReviewSummary answers={answers} onReviewMore={() => startRound('normal')} />}
 
-            {/* Answer controls: fixed to the bottom on phones (thumb reach), inline on larger screens. */}
-            <div
-              className="fixed inset-x-0 bottom-0 z-50 border-t bg-background/95 px-3 pt-3 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:static sm:z-auto sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none"
-              style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
-            >
-              <div className="mx-auto max-w-xl">
-                {current.mode === 'flip' && !revealed && (
+          {phase === 'empty' && emptyInfo && (
+            <section className="space-y-6" data-testid="review-empty">
+              <div className="card-tactile flex flex-col items-center px-5 py-9 text-center sm:px-10">
+                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
+                  <CalendarClock className="h-8 w-8" aria-hidden />
+                </span>
+                {pool.notFound ? (
                   <>
-                    <Button size="lg" className="h-14 w-full text-base" onClick={reveal}>
-                      Show answer
-                    </Button>
-                    <p className="mt-2 hidden text-center text-xs text-muted-foreground sm:block">Space to reveal · 1–4 to rate</p>
+                    <h2 className="mt-4 text-[1.5rem] font-extrabold leading-tight">
+                      {kind === 'words' ? 'None of these words were found' : 'That collection could not be found'}
+                    </h2>
+                    <p className="mt-2 text-muted-foreground">Pick something else to review above.</p>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="mt-4 text-[1.5rem] font-extrabold leading-tight">
+                      {kind === 'due' ? "You're all caught up" : `Nothing due in ${pool.name}`}
+                    </h2>
+                    <p className="mt-2 max-w-md text-muted-foreground">
+                      {emptyInfo.next
+                        ? `Your next review is due ${formatUntil(emptyInfo.next)}.`
+                        : 'Nothing is scheduled yet.'}
+                      {kind === 'due' && emptyInfo.introduced > 0 && newPerDay > 0 && emptyInfo.introduced >= newPerDay && (
+                        <> You've started today's {newPerDay} new words.</>
+                      )}
+                    </p>
                   </>
                 )}
-
-                {current.mode === 'flip' && revealed && (
-                  <div className="grid grid-cols-4 gap-2" role="group" aria-label="How well did you remember it?">
-                    {RATING_OPTIONS.map((o) => (
-                      <Button
-                        key={o.rating}
-                        variant="outline"
-                        className={cn('h-16 flex-col gap-0.5 px-1', o.className)}
-                        onClick={() => rate(o.rating)}
-                        aria-keyshortcuts={o.key}
-                        data-testid={`rate-${o.rating}`}
-                      >
-                        <span className="text-base font-semibold">{o.label}</span>
-                        <span className="text-xs opacity-80">{previewInterval(word.id, o.rating)}</span>
-                      </Button>
-                    ))}
-                  </div>
-                )}
-
-                {current.mode === 'choice' && (
-                  <div className="space-y-2">
-                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2" role="group" aria-label="Choose the meaning">
-                      {(current.options ?? []).map((opt, i) => {
-                        const isCorrect = opt === word.meaning;
-                        const picked = chosen === opt;
-                        return (
-                          <Button
-                            key={opt}
-                            variant="outline"
-                            disabled={chosen !== null}
-                            onClick={() => choose(opt)}
-                            aria-keyshortcuts={String(i + 1)}
-                            data-testid="choice-option"
-                            className={cn(
-                              'h-auto min-h-12 justify-start whitespace-normal py-2 text-left text-base disabled:opacity-100',
-                              chosen !== null && isCorrect && 'border-2 border-green-600 bg-green-100 font-semibold text-green-800 dark:bg-green-950/40 dark:text-green-200',
-                              picked && !isCorrect && 'border-2 border-red-600 bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-200',
-                              chosen !== null && !isCorrect && !picked && 'opacity-60',
-                            )}
-                          >
-                            <span className="mr-2 hidden text-xs text-muted-foreground sm:inline">{i + 1}</span>
-                            {opt}
-                          </Button>
-                        );
-                      })}
-                    </div>
-                    {chosen !== null && (
-                      <Button size="lg" className="h-14 w-full text-base" onClick={continueAfterChoice} autoFocus>
-                        {chosen === word.meaning ? 'Correct — continue' : 'Continue'}
-                      </Button>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <ProgressSaveNotice className="hidden sm:flex" />
-          </div>
-        )}
-
-        {phase === 'summary' && (
-          <div className="mt-4">
-            <ReviewSummary answers={answers} onReviewMore={() => startRound('normal')} />
-          </div>
-        )}
-
-        {phase === 'empty' && emptyInfo && (
-          <section className="mt-8 space-y-5 text-center" data-testid="review-empty">
-            <CalendarClock className="mx-auto h-10 w-10 text-primary" aria-hidden />
-            {pool.notFound ? (
-              <>
-                <h2 className="text-xl font-semibold">
-                  {kind === 'words' ? 'None of these words were found' : 'That collection could not be found'}
-                </h2>
-                <p className="text-muted-foreground">Pick something else to review above.</p>
-              </>
-            ) : (
-              <>
-                <h2 className="text-xl font-semibold">
-                  {kind === 'due' ? "You're all caught up" : `Nothing due in ${pool.name}`}
-                </h2>
-                <p className="text-muted-foreground">
-                  {emptyInfo.next
-                    ? `Your next review is due ${formatUntil(emptyInfo.next)}.`
-                    : 'Nothing is scheduled yet.'}
-                  {kind === 'due' && emptyInfo.introduced > 0 && newPerDay > 0 && emptyInfo.introduced >= newPerDay && (
-                    <> You've started today's {newPerDay} new words.</>
+                <div className="mt-7 flex w-full max-w-sm flex-col gap-3">
+                  {kind === 'due' && emptyInfo.newLeft && (
+                    <Button size="lg" variant="gold" onClick={() => startRound('newOnly')}>
+                      <Sparkles aria-hidden />
+                      Learn new words
+                    </Button>
                   )}
-                </p>
-              </>
-            )}
-            <div className="mx-auto flex max-w-sm flex-col gap-3">
-              {kind === 'due' && emptyInfo.newLeft && (
-                <Button size="lg" className="h-14 text-base" onClick={() => startRound('newOnly')}>
-                  <Sparkles className="mr-2 h-4 w-4" />
-                  Learn new words
-                </Button>
-              )}
-              {!pool.notFound && emptyInfo.next && emptyInfo.next.getTime() <= Date.now() ? (
-                // A card became due while this screen was open.
-                <Button size="lg" variant="outline" className="h-14 text-base" onClick={() => startRound('normal')}>
-                  Review now
-                </Button>
-              ) : (
-                emptyInfo.ahead &&
-                !pool.notFound && (
-                  <Button size="lg" variant="outline" className="h-14 text-base" onClick={() => startRound('ahead')}>
-                    Review ahead
+                  {!pool.notFound && emptyInfo.next && emptyInfo.next.getTime() <= Date.now() ? (
+                    // A card became due while this screen was open.
+                    <Button size="lg" onClick={() => startRound('normal')}>
+                      Review now
+                    </Button>
+                  ) : (
+                    emptyInfo.ahead &&
+                    !pool.notFound && (
+                      <Button size="lg" variant="outline" onClick={() => startRound('ahead')}>
+                        Review ahead
+                      </Button>
+                    )
+                  )}
+                  {kind !== 'due' && (
+                    <Button size="lg" variant="outline" onClick={() => chooseSource(SOURCE_DUE)}>
+                      Review due &amp; new instead
+                    </Button>
+                  )}
+                  <Button size="lg" variant="ghost" className="text-primary hover:text-primary" asChild>
+                    <Link to="/collections">Pick a collection</Link>
                   </Button>
-                )
-              )}
-              {kind !== 'due' && (
-                <Button size="lg" variant="outline" className="h-14 text-base" onClick={() => chooseSource(SOURCE_DUE)}>
-                  Review due &amp; new instead
-                </Button>
-              )}
-              <Button size="lg" variant="ghost" asChild>
-                <Link to="/collections">Pick a collection</Link>
-              </Button>
-            </div>
-            {kind === 'due' && <GoalChooser className="mx-auto max-w-xl" />}
-            <ProgressSaveNotice />
-          </section>
+                </div>
+              </div>
+              {kind === 'due' && <GoalChooser className={goalCardClass} />}
+              <ProgressSaveNotice />
+            </section>
+          )}
+        </div>
+
+        {/* Sticks to the bottom of the viewport while the session is on screen; mobile and desktop alike. */}
+        {feedback && (
+          <FeedbackBar state={feedback} onReveal={reveal} onRate={rate} onContinue={continueAfterChoice} />
         )}
       </div>
     </>

@@ -1,9 +1,10 @@
 import type { Rating } from '@/lib/progress';
+import { WRONG_OUTLINE, WRONG_SURFACE, WRONG_TEXT } from '@/components/review/feedback-styles';
 
-/** FSRS rating buttons: label, keyboard shortcut and colour classes. */
+/** FSRS rating buttons: label, keyboard shortcut and tactile colour classes (used by /review). */
 export const RATING_OPTIONS: { rating: Rating; label: string; key: string; className: string }[] = [
-  { rating: 'again', label: 'Again', key: '1', className: 'border-red-300 text-red-700 hover:bg-red-50 dark:border-red-800 dark:text-red-300 dark:hover:bg-red-950/30' },
-  { rating: 'hard', label: 'Hard', key: '2', className: 'border-amber-300 text-amber-700 hover:bg-amber-50 dark:border-amber-800 dark:text-amber-300 dark:hover:bg-amber-950/30' },
-  { rating: 'good', label: 'Good', key: '3', className: 'border-green-300 text-green-700 hover:bg-green-50 dark:border-green-800 dark:text-green-300 dark:hover:bg-green-950/30' },
-  { rating: 'easy', label: 'Easy', key: '4', className: 'border-blue-300 text-blue-700 hover:bg-blue-50 dark:border-blue-800 dark:text-blue-300 dark:hover:bg-blue-950/30' },
+  { rating: 'again', label: 'Again', key: '1', className: `${WRONG_SURFACE} ${WRONG_OUTLINE} ${WRONG_TEXT}` },
+  { rating: 'hard', label: 'Hard', key: '2', className: 'border-gold-shade bg-gold/15 text-gold-text dark:bg-gold/10' },
+  { rating: 'good', label: 'Good', key: '3', className: 'border-primary bg-secondary text-secondary-foreground' },
+  { rating: 'easy', label: 'Easy', key: '4', className: 'border-primary-shade bg-primary text-primary-foreground' },
 ];
