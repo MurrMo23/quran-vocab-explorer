@@ -21,7 +21,7 @@ globalThis.sessionStorage ??= new MemoryStorage();
 const dist = resolve('dist');
 const ssrDir = resolve('dist-ssr');
 const template = readFileSync(join(dist, 'index.html'), 'utf8');
-const { render, routes } = await import(pathToFileURL(join(ssrDir, 'entry-server.js')).href);
+const { render, routes, getLegacyWordRedirects } = await import(pathToFileURL(join(ssrDir, 'entry-server.js')).href);
 
 // Tags the page itself provides via Helmet replace the generic ones in the template.
 const stripDefaults = (html) =>
@@ -34,6 +34,7 @@ const stripDefaults = (html) =>
 
 const BOOT = /<div id="root">[\s\S]*?<\/div><\/div>/;
 let ok = 0;
+let redirectsWritten = 0;
 const failed = [];
 for (const url of routes()) {
   try {
@@ -50,8 +51,24 @@ for (const url of routes()) {
     failed.push(`${url}: ${e.message}`);
   }
 }
+// Legacy word URLs (/word/<id>) -> tiny redirect pages to /word/<slug>. The host has no real 301s,
+// so these send visitors on and let crawlers consolidate on the slug URL.
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+for (const { id, slug } of getLegacyWordRedirects?.() ?? []) {
+  try {
+    const to = `/word/${encodeURIComponent(slug)}`;
+    const abs = `https://quranvocab.com${to}`;
+    const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Redirecting…</title><link rel="canonical" href="${esc(abs)}"><meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0; url=${esc(to)}"><script>location.replace(${JSON.stringify(to)}+location.search+location.hash)</script></head><body><p>This page has moved to <a href="${esc(to)}">${esc(abs)}</a>.</p></body></html>\n`;
+    const out = join(dist, 'word', id, 'index.html');
+    mkdirSync(dirname(out), { recursive: true });
+    writeFileSync(out, page);
+    redirectsWritten++;
+  } catch (e) {
+    failed.push(`/word/${id} (redirect): ${e.message}`);
+  }
+}
 rmSync(ssrDir, { recursive: true, force: true });
-console.log(`[prerender] ${ok} pages written, ${failed.length} failed`);
+console.log(`[prerender] ${ok} pages written, ${redirectsWritten} legacy redirects, ${failed.length} failed`);
 if (failed.length) {
   console.log(failed.slice(0, 20).join('\n'));
   // A partial prerender still leaves a working SPA for the failed routes; only fail the build
