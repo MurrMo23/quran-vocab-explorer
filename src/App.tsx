@@ -8,17 +8,22 @@ import Layout from '@/components/Layout';
 import ScrollToTop from '@/components/ScrollToTop';
 // The home page stays in the main bundle so the first paint does not wait for a chunk.
 import Index from '@/pages/Index';
+// Prerendered pages (scripts/prerender.mjs) are bundled eagerly: hydrating a lazy route lets an
+// early state update (auth, site settings) discard the server HTML and flash a spinner.
+import Collections from '@/pages/Collections';
+import CollectionDetails from '@/pages/CollectionDetails';
+import WordView from '@/pages/WordView';
 
 // Every other route is code-split.
 const Auth = lazy(() => import('@/pages/Auth'));
 const ResetPassword = lazy(() => import('@/pages/ResetPassword'));
 const Dashboard = lazy(() => import('@/pages/Dashboard'));
-const Collections = lazy(() => import('@/pages/Collections'));
-const CollectionDetails = lazy(() => import('@/pages/CollectionDetails'));
+
+
 const Practice = lazy(() => import('@/pages/Practice'));
 const Quiz = lazy(() => import('@/pages/Quiz'));
 const EnhancedQuiz = lazy(() => import('@/pages/EnhancedQuiz'));
-const WordView = lazy(() => import('@/pages/WordView'));
+
 const Admin = lazy(() => import('@/pages/Admin'));
 const Analytics = lazy(() => import('@/pages/Analytics'));
 const Settings = lazy(() => import('@/pages/Settings'));
