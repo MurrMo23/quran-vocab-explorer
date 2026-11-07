@@ -65,7 +65,7 @@ const SampleWordCard: React.FC<SampleWordCardProps> = ({ startHref }) => {
       </div>
 
       <div className="text-center">
-        <p lang="ar" dir="rtl" className="font-quran text-[60px] leading-[1.6] sm:text-[72px]">
+        <p lang="ar" dir="rtl" className="font-quran text-[60px] leading-[1.9] sm:text-[72px]">
           {HEADWORD_UTHMANI}
         </p>
         <p className="text-2xl font-extrabold">{word.meaning}</p>

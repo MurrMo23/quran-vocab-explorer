@@ -130,7 +130,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
           <h1
             lang="ar"
             dir="rtl"
-            className={cn('m-0 max-w-full font-quran font-normal leading-[1.55] [overflow-wrap:anywhere]', headwordSize)}
+            className={cn('m-0 max-w-full font-quran font-normal leading-[1.85] [overflow-wrap:anywhere]', headwordSize)}
           >
             {word.arabic}
           </h1>
