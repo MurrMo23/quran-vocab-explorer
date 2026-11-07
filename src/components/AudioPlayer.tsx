@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Play, Pause, AudioWaveform, VolumeX } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTextToSpeech } from '@/hooks/useTextToSpeech';
@@ -76,7 +76,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   }, [src, word, surah, ayah]);
 
   const fallbackText = text ?? word?.arabic;
-  const canSpeak = allowComputerVoice && !!fallbackText && isSpeechSupported();
+  // Speech support is a browser fact: check it after mount so prerendered HTML and the first client
+  // render agree (no hydration mismatch on words without a recitation).
+  const [speechSupported, setSpeechSupported] = useState(false);
+  useEffect(() => setSpeechSupported(isSpeechSupported()), []);
+  const canSpeak = allowComputerVoice && !!fallbackText && speechSupported;
   const hasRecitation = sources.length > 0;
   const available = hasRecitation || canSpeak;
 
