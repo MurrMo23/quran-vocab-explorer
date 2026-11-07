@@ -13,14 +13,14 @@ import {
 const PageTrail: React.FC<{ items: { name: React.ReactNode; path: string }[] }> = ({ items }) => {
   const all = [{ name: 'Home' as React.ReactNode, path: '/' }, ...items];
   return (
-    <Breadcrumb className="mb-6">
+    <Breadcrumb className="mb-5">
       <BreadcrumbList>
         {all.map((item, i) => (
           <React.Fragment key={item.path}>
             {i > 0 && <BreadcrumbSeparator />}
             <BreadcrumbItem>
               {i === all.length - 1 ? (
-                <BreadcrumbPage>{item.name}</BreadcrumbPage>
+                <BreadcrumbPage className="font-bold">{item.name}</BreadcrumbPage>
               ) : (
                 <BreadcrumbLink asChild>
                   <Link to={item.path}>{item.name}</Link>
