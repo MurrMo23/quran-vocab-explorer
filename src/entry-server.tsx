@@ -1,3 +1,4 @@
+/// <reference types="node" />
 // Server entry used only at build time to prerender public pages (scripts/prerender.mjs).
 import { renderToPipeableStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
