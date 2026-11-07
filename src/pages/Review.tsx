@@ -13,6 +13,15 @@ import { RATING_OPTIONS } from '@/components/practice/rating-options';
 import SourcePicker from '@/components/review/SourcePicker';
 import ReviewCardFace from '@/components/review/ReviewCardFace';
 import ReviewSummary, { type ReviewAnswer } from '@/components/review/ReviewSummary';
+import GoalChooser from '@/components/onboarding/GoalChooser';
+import {
+  GOAL_CHANGE_EVENT,
+  goalWordIds,
+  readLearningGoal,
+  writeLearningGoal,
+  type LearningGoalId,
+} from '@/lib/learning-goals';
+import { track } from '@/lib/analytics';
 import {
   MAX_REPEATS_PER_WORD,
   buildReviewQueue,
@@ -55,6 +64,13 @@ const Review = () => {
   const collectionPool = usePracticePool(kind === 'collection' ? collectionParam : null);
 
   const [newPerDay, setNewPerDay] = useState(readNewPerDay);
+  const [goal, setGoal] = useState<LearningGoalId | null>(readLearningGoal);
+  // Picking a goal in the chooser on this page updates it too.
+  useEffect(() => {
+    const sync = () => setGoal(readLearningGoal());
+    window.addEventListener(GOAL_CHANGE_EVENT, sync);
+    return () => window.removeEventListener(GOAL_CHANGE_EVENT, sync);
+  }, []);
 
   const pool: { name: string; ids: string[]; loading: boolean; notFound: boolean } = useMemo(() => {
     if (kind === 'words') return { name: 'Selected words', ids: wordList, loading: false, notFound: wordList.length === 0 };
@@ -84,15 +100,15 @@ const Review = () => {
   const repeats = useRef(new Map<string, number>());
 
   // Latest progress, read when a session is built (the queue must not change as cards are rescheduled).
-  const latest = useRef({ cards, logs, newPerDay, pool });
-  latest.current = { cards, logs, newPerDay, pool };
+  const latest = useRef({ cards, logs, newPerDay, pool, goal });
+  latest.current = { cards, logs, newPerDay, pool, goal };
 
   useEffect(() => {
     if (!ready) {
       setPhase('loading');
       return;
     }
-    const { cards: c, logs: l, newPerDay: perDay, pool: p } = latest.current;
+    const { cards: c, logs: l, newPerDay: perDay, pool: p, goal: g } = latest.current;
     let queue: SessionItem[] = [];
     if (!p.notFound) {
       const usePool = kind !== 'due';
@@ -101,6 +117,7 @@ const Review = () => {
         cards: c,
         pool: usePool ? p.ids : undefined,
         newLimit: buildMode === 'newOnly' ? Math.max(perDay, 5) : usePool ? Infinity : remainingToday,
+        preferredNew: g ? goalWordIds(g) : undefined,
         newOnly: buildMode === 'newOnly',
         ahead: buildMode === 'ahead',
       });
@@ -142,6 +159,14 @@ const Review = () => {
     const v = writeNewPerDay(value);
     setNewPerDay(v);
     // Apply right away unless a session is under way.
+    if (kind === 'due' && (phase === 'empty' || (phase === 'session' && answers.length === 0))) startRound('normal');
+  };
+
+  const changeGoal = (value: LearningGoalId | null) => {
+    writeLearningGoal(value);
+    setGoal(value);
+    if (value) track('goal_selected', { goal: value });
+    // Like the daily limit: apply right away unless a session is under way.
     if (kind === 'due' && (phase === 'empty' || (phase === 'session' && answers.length === 0))) startRound('normal');
   };
 
@@ -300,7 +325,14 @@ const Review = () => {
           }
           newPerDay={newPerDay}
           onNewPerDayChange={changeNewPerDay}
+          goal={goal}
+          onGoalChange={changeGoal}
         />
+
+        {/* First visit: offer a goal before the default "Due & new" words. */}
+        {kind === 'due' && phase === 'session' && cards.size === 0 && answers.length === 0 && (
+          <GoalChooser className="mt-4" />
+        )}
 
         {phase === 'loading' && (
           <p className="flex items-center justify-center gap-2 py-16 text-sm text-muted-foreground" role="status">
@@ -467,6 +499,7 @@ const Review = () => {
                 <Link to="/collections">Pick a collection</Link>
               </Button>
             </div>
+            {kind === 'due' && <GoalChooser className="mx-auto max-w-xl" />}
             <ProgressSaveNotice />
           </section>
         )}

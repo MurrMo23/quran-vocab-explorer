@@ -8,6 +8,7 @@ const learnLinks = [
   { to: '/surahs', label: 'Surah vocabulary' },
   { to: '/roots', label: 'Roots' },
   { to: '/review', label: 'Daily Review' },
+  { to: '/ramadan', label: 'Ramadan 30-day plan' },
   { to: '/blog', label: 'Blog' },
 ];
 
