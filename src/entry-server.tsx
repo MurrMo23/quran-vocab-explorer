@@ -7,6 +7,11 @@ import { Helmet } from 'react-helmet';
 import App from './App';
 import { ProgressProvider } from '@/lib/progress';
 import { getAllWords, getPublishedCollections } from '@/utils/vocabulary';
+import { getWordPath } from '@/utils/word-slugs';
+
+// Build-time data for scripts/generate-sitemap.mjs and the legacy /word/<id> redirect pages.
+export { getAllWords, getPublishedCollections };
+export { getWordSlug, getLegacyWordRedirects } from '@/utils/word-slugs';
 
 export interface RenderResult {
   html: string;
@@ -58,6 +63,6 @@ export function routes(): string[] {
   // other route (auth, dashboard, ...). Interactive pages that depend on saved progress stay client-only.
   const statics = ['/collections'];
   const collections = getPublishedCollections().map((c) => `/collections/${c.id}`);
-  const words = getAllWords().map((w) => `/word/${encodeURIComponent(w.id)}`);
+  const words = getAllWords().map((w) => getWordPath(w));
   return [...statics, ...collections, ...words];
 }

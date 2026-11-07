@@ -8,6 +8,7 @@ import { getCollectionById, getWordsByCollection, Word } from '@/utils/vocabular
 import { toast } from 'sonner';
 import { practiceCollectionUrl } from '@/lib/collections';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { getWordPath } from '@/utils/word-slugs';
 const CollectionDetails = () => {
   const {
     id
@@ -51,7 +52,7 @@ const CollectionDetails = () => {
     }
   }, [searchQuery, words]);
   const handleWordClick = (wordId: string) => {
-    navigate(`/word/${wordId}`);
+    navigate(getWordPath(wordId));
   };
   const handleSearch = (query: string) => {
     setSearchQuery(query);

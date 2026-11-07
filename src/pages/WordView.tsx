@@ -4,7 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import WordDetail from '@/components/WordDetail';
 import SEO from '@/components/SEO';
-import { getWordById, Word, getAllWords } from '@/utils/vocabulary';
+import { Word, getAllWords } from '@/utils/vocabulary';
+import { getWordBySlugOrId, getWordPath } from '@/utils/word-slugs';
 import { toast } from 'sonner';
 import { getQuranicUsage } from '@/utils/word-usage';
 
@@ -12,15 +13,17 @@ const WordView = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   // Derived synchronously so prerendered HTML and the first client render match.
-  const { word, nextWord, previousWord, relatedWords, recommendedWords } = useMemo(() => {
-    const empty = { word: null as Word | null, nextWord: null as Word | null, previousWord: null as Word | null, relatedWords: [] as Word[], recommendedWords: [] as Word[] };
-    if (!id) return empty;
-    const foundWord = getWordById(id);
-    if (!foundWord) return empty;
+  // :id is a slug (/word/tawakkul) or a legacy word id (/word/87); both resolve to the word.
+  const { word, slug, nextWord, previousWord, relatedWords, recommendedWords } = useMemo(() => {
+    const empty = { word: null as Word | null, slug: null as string | null, nextWord: null as Word | null, previousWord: null as Word | null, relatedWords: [] as Word[], recommendedWords: [] as Word[] };
+    const resolved = getWordBySlugOrId(id);
+    if (!resolved) return empty;
+    const foundWord = resolved.word;
+    const wordId = foundWord.id;
     const allWords = getAllWords();
-    const currentIndex = allWords.findIndex(w => w.id === id);
+    const currentIndex = allWords.findIndex(w => w.id === wordId);
     const related = allWords.filter(w =>
-      w.id !== id && (
+      w.id !== wordId && (
         w.root === foundWord.root ||
         w.partOfSpeech === foundWord.partOfSpeech ||
         w.tags.some(tag => foundWord.tags.includes(tag))
@@ -28,11 +31,12 @@ const WordView = () => {
     ).slice(0, 8);
     // Deterministic order (closest frequency first) so server and client agree.
     const recommended = allWords
-      .filter(w => w.id !== id && w.level === foundWord.level && Math.abs(w.frequency - foundWord.frequency) < 50)
+      .filter(w => w.id !== wordId && w.level === foundWord.level && Math.abs(w.frequency - foundWord.frequency) < 50)
       .sort((a, b) => Math.abs(a.frequency - foundWord.frequency) - Math.abs(b.frequency - foundWord.frequency) || a.id.localeCompare(b.id))
       .slice(0, 8);
     return {
       word: foundWord,
+      slug: resolved.slug,
       previousWord: currentIndex > 0 ? allWords[currentIndex - 1] : null,
       nextWord: currentIndex < allWords.length - 1 ? allWords[currentIndex + 1] : null,
       relatedWords: related,
@@ -40,6 +44,15 @@ const WordView = () => {
     };
   }, [id]);
   const loading = false;
+  const canonicalPath = word ? getWordPath(word) : null;
+
+  // Legacy ids and non-canonical spellings move to the slug URL (the page itself already
+  // renders with the slug canonical, so crawlers consolidate either way).
+  useEffect(() => {
+    if (id && slug && id !== slug && canonicalPath) {
+      navigate(`${canonicalPath}${window.location.search}${window.location.hash}`, { replace: true });
+    }
+  }, [id, slug, canonicalPath, navigate]);
 
   useEffect(() => {
     if (id && !word) {
@@ -53,6 +66,7 @@ const WordView = () => {
       {word && (
         <SEO
           type="vocabulary"
+          url={canonicalPath ?? undefined}
           word={{
             arabic: word.arabic,
             transliteration: word.transliteration,

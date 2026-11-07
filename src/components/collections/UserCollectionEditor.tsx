@@ -29,6 +29,7 @@ import {
   type UserCollection,
 } from '@/lib/collections';
 import WordSearchPicker from './WordSearchPicker';
+import { getWordPath } from '@/utils/word-slugs';
 
 interface Props {
   collection: UserCollection;
@@ -192,7 +193,7 @@ const UserCollectionEditor: React.FC<Props> = ({ collection, onDeleted }) => {
               {words.map(({ id, word }) => (
                 <li key={id} className="flex items-center justify-between gap-2 rounded-md border p-2">
                   {word ? (
-                    <Link to={`/word/${word.id}`} className="min-w-0 hover:underline underline-offset-4">
+                    <Link to={getWordPath(word.id)} className="min-w-0 hover:underline underline-offset-4">
                       <span className="font-arabic text-lg mr-2" lang="ar">
                         {word.arabic}
                       </span>
