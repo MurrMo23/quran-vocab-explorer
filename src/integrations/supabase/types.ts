@@ -248,36 +248,6 @@ export type Database = {
         }
         Relationships: []
       }
-      client_errors: {
-        Row: {
-          created_at: string
-          id: string
-          message: string
-          release: string | null
-          stack: string | null
-          url: string | null
-          user_agent: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          message: string
-          release?: string | null
-          stack?: string | null
-          url?: string | null
-          user_agent?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          message?: string
-          release?: string | null
-          stack?: string | null
-          url?: string | null
-          user_agent?: string | null
-        }
-        Relationships: []
-      }
       community_sentences: {
         Row: {
           context: string | null
