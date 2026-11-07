@@ -49,7 +49,7 @@ function vendorChunks(id: string, { getModuleInfo }: { getModuleInfo: (id: strin
   return isEager(id, getModuleInfo) ? group[0] : undefined;
 }
 
-// Preload the Arabic face (Scheherazade New, regular weight): word headings and examples use it above the
+// Preload the UI face (Plus Jakarta Sans) and the Quranic headword face (Amiri Quran): both paint above the
 // fold, and preloading lets it arrive with the CSS instead of after layout, so the swap from the
 // fallback font happens early or not at all. Prerendered pages inherit this from dist/index.html.
 function preloadArabicFont(): Plugin {
@@ -59,15 +59,17 @@ function preloadArabicFont(): Plugin {
     transformIndexHtml: {
       order: "post",
       handler(_html, ctx) {
-        const font = Object.values(ctx.bundle ?? {}).find(
-          (f) => f.type === "asset" && /scheherazade-new-arabic-400-normal.*\.woff2$/.test(f.fileName),
-        );
-        if (!font) return [];
-        return [{
-          tag: "link",
-          attrs: { rel: "preload", href: `/${font.fileName}`, as: "font", type: "font/woff2", crossorigin: "" },
-          injectTo: "head",
-        }];
+        // Latin UI text and the Quranic headword face paint above the fold on most pages.
+        const wanted = [/plus-jakarta-sans-latin-wght-normal.*\.woff2$/, /amiri-quran-arabic-400-normal.*\.woff2$/];
+        const assets = Object.values(ctx.bundle ?? {}).filter((f) => f.type === "asset");
+        return wanted
+          .map((re) => assets.find((f) => re.test(f.fileName)))
+          .filter((f): f is NonNullable<typeof f> => Boolean(f))
+          .map((font) => ({
+            tag: "link",
+            attrs: { rel: "preload", href: `/${font.fileName}`, as: "font", type: "font/woff2", crossorigin: "" },
+            injectTo: "head" as const,
+          }));
       },
     },
   };

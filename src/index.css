@@ -24,85 +24,132 @@
   unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC,U+102E0-102FB,U+10E60-10E7E,U+10EC2-10EC4,U+10EFC-10EFF,U+1EE00-1EE03,U+1EE05-1EE1F,U+1EE21-1EE22,U+1EE24,U+1EE27,U+1EE29-1EE32,U+1EE34-1EE37,U+1EE39,U+1EE3B,U+1EE42,U+1EE47,U+1EE49,U+1EE4B,U+1EE4D-1EE4F,U+1EE51-1EE52,U+1EE54,U+1EE57,U+1EE59,U+1EE5B,U+1EE5D,U+1EE5F,U+1EE61-1EE62,U+1EE64,U+1EE67-1EE6A,U+1EE6C-1EE72,U+1EE74-1EE77,U+1EE79-1EE7C,U+1EE7E,U+1EE80-1EE89,U+1EE8B-1EE9B,U+1EEA1-1EEA3,U+1EEA5-1EEA9,U+1EEAB-1EEBB,U+1EEF0-1EEF1;
 }
 
+/* Latin UI text: Plus Jakarta Sans (SIL OFL 1.1), variable weight, self-hosted, latin + latin-ext subsets. */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('./assets/fonts/plus-jakarta-sans-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('./assets/fonts/plus-jakarta-sans-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+/* Quranic headwords and verses: Amiri Quran (SIL OFL 1.1), mushaf-style, Arabic subset only.
+   Small inline Arabic stays on Scheherazade New (font-arabic), which is clearer at small sizes. */
+@font-face {
+  font-family: 'Amiri Quran';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/fonts/amiri-quran-arabic-400-normal.woff2') format('woff2');
+  unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;
+}
+
 @layer base {
   :root {
-    --background: 40 25% 98%;
-    --foreground: 240 10% 3.9%;
+    /* Oasis palette: deep teal + warm gold on sand. See the design canvas for the source of truth. */
+    --background: 42 56% 96.5%;
+    --foreground: 167 37% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 167 37% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover-foreground: 167 37% 10%;
 
-    --primary: 195 83% 38%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 170 75% 23.9%;
+    --primary-foreground: 0 0% 100%;
+    --primary-shade: 170 77% 17.1%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 162 30% 91.6%;
+    --secondary-foreground: 170 72% 21%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 41 40% 92.2%;
+    --muted-foreground: 161 9% 34.9%;
 
-    --accent: 24 9.8% 56.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --accent: 162 30% 91.6%;
+    --accent-foreground: 170 72% 21%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --gold: 40 72% 61.2%;
+    --gold-foreground: 40 75% 9%;
+    --gold-shade: 40 72% 38.6%;
+    --gold-text: 40 77% 30.6%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 195 83% 38%;
+    --track: 42 30% 87.1%;
+    --success: 170 75% 23.9%;
 
-    --radius: 0.75rem;
+    --destructive: 10 62% 39.4%;
+    --destructive-foreground: 0 0% 100%;
 
-    --sidebar-background: 40 25% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 195 83% 38%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 195 83% 38%;
+    --border: 41 32% 84.5%;
+    --input: 41 32% 84.5%;
+    --ring: 170 75% 23.9%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 42 56% 96.5%;
+    --sidebar-foreground: 167 37% 10%;
+    --sidebar-primary: 170 75% 23.9%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 162 30% 91.6%;
+    --sidebar-accent-foreground: 170 72% 21%;
+    --sidebar-border: 41 32% 84.5%;
+    --sidebar-ring: 170 75% 23.9%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 166 39% 6.5%;
+    --foreground: 144 17% 94.3%;
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 167 35% 10.2%;
+    --card-foreground: 144 17% 94.3%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 167 35% 10.2%;
+    --popover-foreground: 144 17% 94.3%;
 
-    --primary: 195 83% 38%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 167 54% 50.2%;
+    --primary-foreground: 164 68% 7.5%;
+    --primary-shade: 168 56% 37.5%;
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 168 43% 15.9%;
+    --secondary-foreground: 165 57% 72%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 168 43% 15.9%;
+    --muted-foreground: 157 11% 67.5%;
 
-    --accent: 24 9.8% 56.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 168 43% 15.9%;
+    --accent-foreground: 165 57% 72%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --gold: 40 72% 61.2%;
+    --gold-foreground: 40 75% 9%;
+    --gold-shade: 40 60% 42%;
+    --gold-text: 40 72% 61.2%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 195 83% 38%;
+    --track: 166 29% 17.1%;
+    --success: 167 54% 50.2%;
 
-    --sidebar-background: 240 10% 3.9%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 195 83% 38%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 195 83% 38%;
+    --destructive: 11 67% 63.3%;
+    --destructive-foreground: 166 39% 6.5%;
+
+    --border: 166 29% 17.1%;
+    --input: 166 29% 17.1%;
+    --ring: 167 54% 50.2%;
+
+    --sidebar-background: 166 39% 6.5%;
+    --sidebar-foreground: 144 17% 94.3%;
+    --sidebar-primary: 167 54% 50.2%;
+    --sidebar-primary-foreground: 164 68% 7.5%;
+    --sidebar-accent: 168 43% 15.9%;
+    --sidebar-accent-foreground: 165 57% 72%;
+    --sidebar-border: 166 29% 17.1%;
+    --sidebar-ring: 167 54% 50.2%;
   }
 }
 
@@ -117,7 +164,11 @@
   }
 
   .glass-card {
-    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+    @apply bg-card text-card-foreground border border-border rounded-3xl shadow-sm;
+  }
+  /* Tactile surfaces (Duolingo-style): a thicker bottom border reads as a pressable edge. */
+  .card-tactile {
+    @apply bg-card text-card-foreground border-2 border-border border-b-[5px] rounded-3xl;
   }
 
   .highlight-text {

@@ -170,7 +170,7 @@ const SEO: React.FC<SEOProps> = ({
     '@id': `${SITE_URL}/#organization`,
     name: SITE_NAME,
     url: `${SITE_URL}/`,
-    logo: `${SITE_URL}/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png`
+    logo: `${SITE_URL}/brand/icon-512.png`
   };
 
   const website = {

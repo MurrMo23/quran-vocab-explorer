@@ -27,8 +27,16 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					shade: 'hsl(var(--primary-shade))'
 				},
+				gold: {
+					DEFAULT: 'hsl(var(--gold))',
+					foreground: 'hsl(var(--gold-foreground))',
+					shade: 'hsl(var(--gold-shade))',
+					text: 'hsl(var(--gold-text))'
+				},
+				track: 'hsl(var(--track))',
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
@@ -65,8 +73,9 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['Inter var', 'sans-serif'],
+				sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
 				arabic: ['"Scheherazade New"', 'serif'],
+				quran: ['"Amiri Quran"', '"Scheherazade New"', 'serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

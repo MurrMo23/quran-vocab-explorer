@@ -1,19 +1,15 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import { usePermissions } from '@/hooks/usePermissions';
-import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { Button } from './ui/button';
-import { 
-  BookOpen, 
-  User, 
-  LogOut, 
-  Settings, 
-  BarChart3, 
+import {
+  BookOpen,
+  LogOut,
+  Settings,
+  BarChart3,
   Volume2,
   Menu,
-  X,
   Home,
   Target,
   Zap,
@@ -21,7 +17,10 @@ import {
   Library,
   NotebookPen,
   Sparkles,
-  Moon
+  Moon,
+  Search,
+  ScrollText,
+  GitFork,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -31,226 +30,183 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { Avatar, AvatarFallback } from './ui/avatar';
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from './ui/sheet';
+import { Logo } from './brand/Logo';
+import { cn } from '@/lib/utils';
 
-// The site name shows until the configured logo has actually loaded, then the logo replaces it
-// in one step (no empty box while it downloads, and no swap at all if it fails).
-const Brand = ({ url, name, imgClass, height, textClass }: {
-  url: string; name: string; imgClass: string; height: number; textClass: string;
-}) => {
-  const src = url?.trim();
-  const [loadedSrc, setLoadedSrc] = useState('');
-  const loaded = !!src && loadedSrc === src;
-  return (
-    <>
-      {src ? (
-        <img
-          src={src}
-          alt={name}
-          height={height}
-          decoding="async"
-          className={`${imgClass} w-auto object-contain ${loaded ? '' : 'hidden'}`}
-          onLoad={() => setLoadedSrc(src)}
-        />
-      ) : null}
-      {!loaded && <span className={textClass}>{name}</span>}
-    </>
-  );
-};
+// Main sections, in the order learners use them. "Ramadan" is highlighted in gold.
+const navItems = [
+  { href: '/review', label: 'Learn', icon: Target },
+  { href: '/collections', label: 'Collections', icon: BookOpen },
+  { href: '/surahs', label: 'Surahs', icon: ScrollText },
+  { href: '/roots', label: 'Roots', icon: GitFork },
+  { href: '/names-of-allah', label: '99 Names', icon: Sparkles },
+  { href: '/ramadan', label: 'Ramadan', icon: Moon, gold: true },
+];
 
-const Navbar = () => {
+// Secondary destinations: in the mobile menu and the footer.
+const moreItems = [
+  { href: '/custom-learning', label: 'My collections', icon: Library },
+  { href: '/audio-practice', label: 'Audio practice', icon: Volume2 },
+  { href: '/blog', label: 'Blog', icon: Globe },
+];
+
+const isActive = (pathname: string, href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
+const Navbar = ({ onSearch }: { onSearch?: () => void }) => {
   const { session, signOut } = useAuth();
   const { hasRole } = usePermissions();
-  const { settings } = useSiteSettings();
-  // Single brand name everywhere; the DB setting is only used for the logo image.
-  const siteName = 'QuranVocab';
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const isAdmin = hasRole('admin');
+  const userMenuItems = [
+    { href: '/dashboard', label: 'Dashboard', icon: Home },
+    { href: '/notebook', label: 'Notebook', icon: NotebookPen },
+    { href: '/settings', label: 'Settings', icon: Settings },
+    { href: '/analytics', label: 'Analytics', icon: BarChart3 },
+    ...(hasRole('admin') ? [{ href: '/admin', label: 'Admin', icon: Zap }] : []),
+  ];
 
   const handleSignOut = async () => {
     await signOut();
     navigate('/');
   };
 
-  const navItems = [
-    { href: '/collections', label: 'Collections', icon: BookOpen },
-    { href: '/names-of-allah', label: '99 Names', icon: Sparkles },
-    { href: '/custom-learning', label: 'My collections', icon: Library },
-    { href: '/review', label: 'Review', icon: Target },
-    { href: '/ramadan', label: 'Ramadan', icon: Moon },
-    { href: '/audio-practice', label: 'Audio', icon: Volume2 },
-    { href: '/blog', label: 'Blog', icon: Globe }
-  ];
+  const closeMenu = () => setMobileMenuOpen(false);
 
-  const userMenuItems = [
-    { href: '/dashboard', label: 'Dashboard', icon: Home },
-    { href: '/notebook', label: 'Notebook', icon: NotebookPen },
-    { href: '/settings', label: 'Settings', icon: Settings },
-    { href: '/analytics', label: 'Analytics', icon: BarChart3 }
-  ];
+  const linkClass = (href: string, gold?: boolean) =>
+    cn(
+      'rounded-xl px-3 py-2 text-[15px] font-semibold transition-colors',
+      isActive(location.pathname, href)
+        ? 'bg-secondary text-secondary-foreground'
+        : gold
+          ? 'text-gold-text hover:bg-muted'
+          : 'text-foreground/75 hover:bg-muted hover:text-foreground',
+    );
 
-  if (isAdmin) {
-    userMenuItems.push({ href: '/admin', label: 'Admin', icon: Zap });
-  }
-
-  const MobileMenu = () => (
-    <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Menu className="h-5 w-5" />
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className="w-80">
-        <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between mb-6">
-            <Link to="/" className="text-xl font-bold">
-              {siteName}
-            </Link>
-            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
-              <X className="h-5 w-5" />
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/85">
+      <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4 sm:px-6">
+        {/* Mobile menu (shown by CSS, so the prerendered HTML already has it). */}
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
+              <Menu className="h-5 w-5" />
             </Button>
-          </div>
-          
-          <nav className="flex-1 space-y-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
-                  location.pathname === item.href
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                }`}
-              >
-                <item.icon className="h-5 w-5" />
-                {item.label}
+          </SheetTrigger>
+          <SheetContent side="left" className="w-80 overflow-y-auto">
+            <SheetTitle className="sr-only">Menu</SheetTitle>
+            <div className="flex h-full flex-col gap-6">
+              <Link to="/" onClick={closeMenu} aria-label="QuranVocab home">
+                <Logo className="h-8" />
               </Link>
-            ))}
-          </nav>
-          
-          <div className="border-t pt-4 mt-4">
-            {session ? (
-              <div className="space-y-2">
-                {userMenuItems.map((item) => (
+              <nav aria-label="Main" className="space-y-1">
+                {[...navItems, ...moreItems].map((item) => (
                   <Link
                     key={item.href}
                     to={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                    onClick={closeMenu}
+                    className={cn('flex items-center gap-3', linkClass(item.href, 'gold' in item ? Boolean(item.gold) : false))}
                   >
-                    <item.icon className="h-5 w-5" />
+                    <item.icon className="h-5 w-5" aria-hidden="true" />
                     {item.label}
                   </Link>
                 ))}
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    handleSignOut();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="w-full justify-start gap-3 px-3 py-2 text-muted-foreground hover:text-foreground"
-                >
-                  <LogOut className="h-5 w-5" />
-                  Sign Out
-                </Button>
-              </div>
-            ) : (
-              <Button
-                onClick={() => {
-                  navigate('/auth');
-                  setMobileMenuOpen(false);
-                }}
-                className="w-full"
-              >
-                Sign In
-              </Button>
-            )}
-          </div>
-        </div>
-      </SheetContent>
-    </Sheet>
-  );
-
-  return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-14 items-center px-4">
-        <div className="mr-4 hidden md:flex">
-          <Link to="/" className="mr-6 flex items-center">
-            <Brand url={settings.logo_url} name={siteName} imgClass="h-8 max-w-[200px]" height={32} textClass="text-xl font-bold" />
-          </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`transition-colors hover:text-foreground/80 ${
-                  location.pathname === item.href
-                    ? 'text-foreground'
-                    : 'text-foreground/60'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-        
-        {/* Shown by CSS, not JS, so the prerendered HTML already has the mobile header. */}
-        <div className="flex items-center md:hidden">
-          <MobileMenu />
-          <Link to="/" className="ml-4 flex items-center">
-            <Brand url={settings.logo_url} name={siteName} imgClass="h-6 max-w-[150px]" height={24} textClass="text-lg font-bold" />
-          </Link>
-        </div>
-        
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            {/* Search or other components can go here */}
-          </div>
-          <nav className="flex items-center space-x-2">
-            {session ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback>
-                        {session.user.email?.charAt(0).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <div className="flex items-center justify-start gap-2 p-2">
-                    <div className="flex flex-col space-y-1 leading-none">
-                      <p className="font-medium">{session.user.email}</p>
-                    </div>
-                  </div>
-                  <DropdownMenuSeparator />
-                  {userMenuItems.map((item) => (
-                    <DropdownMenuItem key={item.href} asChild>
-                      <Link to={item.href} className="flex items-center gap-2">
-                        <item.icon className="h-4 w-4" />
+              </nav>
+              <div className="mt-auto border-t border-border pt-4">
+                {session ? (
+                  <div className="space-y-1">
+                    {userMenuItems.map((item) => (
+                      <Link key={item.href} to={item.href} onClick={closeMenu} className={cn('flex items-center gap-3', linkClass(item.href))}>
+                        <item.icon className="h-5 w-5" aria-hidden="true" />
                         {item.label}
                       </Link>
-                    </DropdownMenuItem>
-                  ))}
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut} className="flex items-center gap-2">
-                    <LogOut className="h-4 w-4" />
-                    Sign Out
+                    ))}
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        handleSignOut();
+                        closeMenu();
+                      }}
+                      className="w-full justify-start gap-3 px-3"
+                    >
+                      <LogOut className="h-5 w-5" />
+                      Sign out
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="grid gap-2">
+                    <Button asChild>
+                      <Link to="/review" onClick={closeMenu}>Start free</Link>
+                    </Button>
+                    <Button asChild variant="outline">
+                      <Link to="/auth" onClick={closeMenu}>Sign in</Link>
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
+
+        <Link to="/" className="flex shrink-0 items-center" aria-label="QuranVocab home">
+          <Logo className="h-8 sm:h-9" />
+        </Link>
+
+        <nav aria-label="Main" className="ml-4 hidden flex-1 items-center gap-0.5 md:flex">
+          {navItems.map((item) => (
+            <Link key={item.href} to={item.href} className={linkClass(item.href, item.gold)}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="ml-auto flex items-center gap-2">
+          {onSearch && (
+            <Button variant="ghost" size="icon" onClick={onSearch} aria-label="Search words (Ctrl+K)" title="Search (Ctrl+K)" className="border border-border">
+              <Search className="h-5 w-5" />
+            </Button>
+          )}
+          {session ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0" aria-label="Account menu">
+                  <Avatar className="h-10 w-10">
+                    <AvatarFallback className="bg-secondary font-bold text-secondary-foreground">
+                      {session.user.email?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <div className="p-2 text-sm font-semibold">{session.user.email}</div>
+                <DropdownMenuSeparator />
+                {userMenuItems.map((item) => (
+                  <DropdownMenuItem key={item.href} asChild>
+                    <Link to={item.href} className="flex items-center gap-2">
+                      <item.icon className="h-4 w-4" />
+                      {item.label}
+                    </Link>
                   </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <Button onClick={() => navigate('/auth')} size="sm">
-                Sign In
+                ))}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleSignOut} className="flex items-center gap-2">
+                  <LogOut className="h-4 w-4" />
+                  Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Link to="/auth" className="hidden rounded-xl px-3 py-2 text-[15px] font-bold text-foreground hover:bg-muted sm:inline-block">
+                Sign in
+              </Link>
+              <Button asChild size="sm" className="h-10 px-4">
+                <Link to="/review">Start free</Link>
               </Button>
-            )}
-          </nav>
+            </>
+          )}
         </div>
       </div>
     </header>

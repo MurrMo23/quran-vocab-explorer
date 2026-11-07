@@ -24,12 +24,12 @@
     </script>
     <!-- Minimal shell shown only until the app renders (normally a fraction of a second) -->
     <style>
-      html { background: hsl(40 25% 98%); }
-      html.dark { background: hsl(240 10% 3.9%); }
+      html { background: hsl(42 56% 96.5%); }
+      html.dark { background: hsl(166 39% 6.5%); }
       .qv-boot { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
       .qv-boot span {
         width: 28px; height: 28px; border-radius: 50%;
-        border: 3px solid hsl(220 13% 85%); border-top-color: hsl(195 83% 38%);
+        border: 3px solid hsl(41 32% 84.5%); border-top-color: hsl(170 75% 23.9%);
         opacity: 0; animation: qv-in .2s ease .6s forwards, qv-spin .8s linear infinite;
       }
       @keyframes qv-in { to { opacity: 1; } }
@@ -37,11 +37,12 @@
       @media (prefers-reduced-motion: reduce) { .qv-boot span { animation: qv-in .2s ease .6s forwards; } }
     </style>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png">
-    <link rel="shortcut icon" href="/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png">
+    <!-- Favicon and app icons -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#0F6B5C">
 
     <title>QuranVocab — Learn the Words of the Quran</title>
     <meta name="description" content="Free tool to learn the most common words of the Quran with flashcards, quizzes and word pages showing root, meaning and Quranic examples." />
@@ -70,7 +71,7 @@
           "url": "https://quranvocab.com/",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://quranvocab.com/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png"
+            "url": "https://quranvocab.com/brand/icon-512.png"
           }
         },
         {
