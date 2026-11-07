@@ -5,7 +5,7 @@ import { Word } from './vocabulary-types';
 export const collectionsExtendedWords: Word[] = [
   {
     "id": "shaa",
-    "arabic": "شَاۜءَ",
+    "arabic": "شَاءَ",
     "transliteration": "sha'a",
     "meaning": "To will (divine will)",
     "root": "ش ي ا",
@@ -133,7 +133,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "mithaq",
-    "arabic": "مِّيثَٰق",
+    "arabic": "مِيثَاق",
     "transliteration": "mithaq",
     "meaning": "Covenant, solemn pledge",
     "root": "و ث ق",
@@ -164,7 +164,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "fitrah",
-    "arabic": "فِطْرَت",
+    "arabic": "فِطْرَة",
     "transliteration": "fitrah",
     "meaning": "Innate nature (fitrah)",
     "root": "ف ط ر",
@@ -195,7 +195,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "adalla",
-    "arabic": "أَضَلَّ",
+    "arabic": "أَضَلَّ",
     "transliteration": "adalla",
     "meaning": "To lead astray, send astray",
     "root": "ض ل ل",
@@ -258,7 +258,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "qada",
-    "arabic": "قَضَىٰۜ",
+    "arabic": "قَضَىٰ",
     "transliteration": "qada",
     "meaning": "To decree, decide",
     "root": "ق ض ي",
@@ -321,7 +321,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "sunnah",
-    "arabic": "سُنَّة",
+    "arabic": "سُنَّة",
     "transliteration": "sunnah",
     "meaning": "Established way (of Allah)",
     "root": "س ن ن",
@@ -478,7 +478,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "naml",
-    "arabic": "نَّمْل",
+    "arabic": "نَمْل",
     "transliteration": "naml",
     "meaning": "Ants",
     "root": "ن م ل",
@@ -510,7 +510,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "nahl",
-    "arabic": "نَّحْل",
+    "arabic": "نَحْل",
     "transliteration": "nahl",
     "meaning": "Bee(s)",
     "root": "ن ح ل",
@@ -670,7 +670,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "dhib",
-    "arabic": "ذِّئْب",
+    "arabic": "ذِئْب",
     "transliteration": "dhi'b",
     "meaning": "Wolf",
     "root": "ذ ا ب",
@@ -955,7 +955,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "anam",
-    "arabic": "نَّعَم",
+    "arabic": "أَنْعَام",
     "transliteration": "an'am",
     "meaning": "Livestock, grazing animals",
     "root": "ن ع م",
@@ -986,7 +986,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "dabbah",
-    "arabic": "دَاۜبَّة",
+    "arabic": "دَابَّة",
     "transliteration": "dabbah",
     "meaning": "Moving creature, animal",
     "root": "د ب ب",
@@ -1082,7 +1082,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "ilaf",
-    "arabic": "إِلَٰف",
+    "arabic": "إِيلَاف",
     "transliteration": "ilaf",
     "meaning": "Accustomed security, trade pact",
     "root": "ا ل ف",
@@ -1144,7 +1144,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "qabail",
-    "arabic": "قَبَاۜئِل",
+    "arabic": "قَبَائِل",
     "transliteration": "qaba'il",
     "meaning": "Tribes",
     "root": "ق ب ل",
@@ -1209,7 +1209,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "al-lat",
-    "arabic": "ٱللَّٰت",
+    "arabic": "ٱللَّٰت",
     "transliteration": "al-lat",
     "meaning": "Al-Lat (pre-Islamic idol)",
     "root": "",
@@ -1240,7 +1240,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "al-uzza",
-    "arabic": "ٱلْعُزَّىٰ",
+    "arabic": "ٱلْعُزَّىٰ",
     "transliteration": "al-'uzza",
     "meaning": "Al-Uzza (pre-Islamic idol)",
     "root": "",
@@ -1366,7 +1366,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "aswaq",
-    "arabic": "سُّوق",
+    "arabic": "أَسْوَاق",
     "transliteration": "aswaq",
     "meaning": "Markets",
     "root": "س و ق",
@@ -1462,7 +1462,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "ashirah",
-    "arabic": "عَشِيرَت",
+    "arabic": "عَشِيرَة",
     "transliteration": "'ashirah",
     "meaning": "Clan, kindred",
     "root": "ع ش ر",
@@ -2094,7 +2094,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "sullam",
-    "arabic": "سُلَّم",
+    "arabic": "سُلَّم",
     "transliteration": "sullam",
     "meaning": "Ladder, stairway",
     "root": "س ل م",
@@ -2537,7 +2537,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "shara",
-    "arabic": "شَرَ",
+    "arabic": "شَرَىٰ",
     "transliteration": "shara",
     "meaning": "To sell",
     "root": "ش ر ي",
@@ -2568,7 +2568,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "rabiha",
-    "arabic": "رَبِحَت",
+    "arabic": "رَبِحَ",
     "transliteration": "rabiha",
     "meaning": "To profit",
     "root": "ر ب ح",
@@ -2723,7 +2723,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "maghram",
-    "arabic": "مَّغْرَم",
+    "arabic": "مَغْرَم",
     "transliteration": "maghram",
     "meaning": "Debt, financial burden",
     "root": "غ ر م",
@@ -2754,7 +2754,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "riba",
-    "arabic": "رِّبَوٰا",
+    "arabic": "رِبَا",
     "transliteration": "riba",
     "meaning": "Usury, interest",
     "root": "ر ب و",
@@ -2911,7 +2911,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "mutaffifin",
-    "arabic": "مُطَفِّفِين",
+    "arabic": "مُطَفِّفِين",
     "transliteration": "mutaffifin",
     "meaning": "Those who give short measure, cheats",
     "root": "ط ف ف",
@@ -3195,7 +3195,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "naalayn",
-    "arabic": "نَعْلَي",
+    "arabic": "نَعْلَيْن",
     "transliteration": "na'layn",
     "meaning": "Pair of sandals",
     "root": "ن ع ل",
@@ -3386,7 +3386,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "fiddah",
-    "arabic": "فِضَّة",
+    "arabic": "فِضَّة",
     "transliteration": "fiddah",
     "meaning": "Silver",
     "root": "ف ض ض",
@@ -3545,7 +3545,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "sanaa",
-    "arabic": "صَنَعُ",
+    "arabic": "صَنَعَ",
     "transliteration": "sana'a",
     "meaning": "To make, construct",
     "root": "ص ن ع",
@@ -3608,7 +3608,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "fakhkhar",
-    "arabic": "فَخَّار",
+    "arabic": "فَخَّار",
     "transliteration": "fakhkhar",
     "meaning": "Pottery, baked clay",
     "root": "ف خ ر",
@@ -3670,7 +3670,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "sard",
-    "arabic": "سَّرْد",
+    "arabic": "سَرْد",
     "transliteration": "sard",
     "meaning": "Links of chain mail",
     "root": "س ر د",
@@ -3765,7 +3765,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "zaraa",
-    "arabic": "تَزْرَعُ",
+    "arabic": "زَرَعَ",
     "transliteration": "zara'a",
     "meaning": "To sow, cultivate",
     "root": "ز ر ع",
@@ -3796,7 +3796,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "raa-pasture",
-    "arabic": "رَعَ",
+    "arabic": "رَعَىٰ",
     "transliteration": "ra'a",
     "meaning": "To pasture, graze livestock",
     "root": "ر ع ي",
@@ -3828,7 +3828,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "ghawwas",
-    "arabic": "غَوَّاص",
+    "arabic": "غَوَّاص",
     "transliteration": "ghawwas",
     "meaning": "Diver",
     "root": "غ و ص",
@@ -3859,7 +3859,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "bannaa",
-    "arabic": "بَنَّاۜء",
+    "arabic": "بَنَّاء",
     "transliteration": "banna'",
     "meaning": "Builder",
     "root": "ب ن ي",
@@ -4052,7 +4052,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "laban",
-    "arabic": "لَّبَن",
+    "arabic": "لَبَن",
     "transliteration": "laban",
     "meaning": "Milk",
     "root": "ل ب ن",
@@ -4084,7 +4084,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "ghada",
-    "arabic": "غَدَاۜء",
+    "arabic": "غَدَاء",
     "transliteration": "ghada'",
     "meaning": "Morning meal, meal",
     "root": "غ د و",
@@ -4147,7 +4147,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "masha",
-    "arabic": "مَّشَ",
+    "arabic": "مَشَىٰ",
     "transliteration": "masha",
     "meaning": "To walk",
     "root": "م ش ي",
@@ -4338,7 +4338,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "allama",
-    "arabic": "عَلَّمَ",
+    "arabic": "عَلَّمَ",
     "transliteration": "'allama",
     "meaning": "To teach",
     "root": "ع ل م",
@@ -4403,7 +4403,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "rahima",
-    "arabic": "رَّحِمَ",
+    "arabic": "رَحِمَ",
     "transliteration": "rahima",
     "meaning": "To have mercy",
     "root": "ر ح م",
@@ -4630,7 +4630,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "ab",
-    "arabic": "أَبٌ",
+    "arabic": "أَب",
     "transliteration": "ab",
     "meaning": "Father",
     "root": "ا ب و",
@@ -4661,8 +4661,8 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "aba",
-    "arabic": "اۜبَاء",
-    "transliteration": "aba",
+    "arabic": "آبَاء",
+    "transliteration": "ābā'",
     "meaning": "Fathers, forefathers, ancestors",
     "root": "ا ب و",
     "partOfSpeech": "noun",
@@ -4692,7 +4692,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "walidayn",
-    "arabic": "وَٰلِدَي",
+    "arabic": "وَالِدَيْن",
     "transliteration": "walidayn",
     "meaning": "Parents (both parents)",
     "root": "و ل د",
@@ -4754,7 +4754,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "banun",
-    "arabic": "بُنَىّ",
+    "arabic": "بَنُون",
     "transliteration": "banun",
     "meaning": "Sons, children (Bani: \"children of\")",
     "root": "ب ن ي",
@@ -4878,7 +4878,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "ikhwah",
-    "arabic": "إِخْوَةٌ",
+    "arabic": "إِخْوَة",
     "transliteration": "ikhwah",
     "meaning": "Brothers, brethren",
     "root": "ا خ و",
@@ -5035,7 +5035,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "talaq",
-    "arabic": "طَّلَٰق",
+    "arabic": "طَلَاق",
     "transliteration": "talaq",
     "meaning": "Divorce",
     "root": "ط ل ق",
@@ -5067,7 +5067,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "mawaddah",
-    "arabic": "مَّوَدَّة",
+    "arabic": "مَوَدَّة",
     "transliteration": "mawaddah",
     "meaning": "Affection, love",
     "root": "و د د",
@@ -5569,7 +5569,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "bayaa",
-    "arabic": "بَايَعْ",
+    "arabic": "بَايَعَ",
     "transliteration": "baya'a",
     "meaning": "To pledge allegiance",
     "root": "ب ي ع",
@@ -5794,7 +5794,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "alladhi",
-    "arabic": "ٱلَّذِى",
+    "arabic": "ٱلَّذِى",
     "transliteration": "alladhi",
     "meaning": "Who, which (relative pronoun)",
     "root": "",
@@ -6214,7 +6214,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "marad",
-    "arabic": "مَّرَض",
+    "arabic": "مَرَض",
     "transliteration": "marad",
     "meaning": "Disease, sickness",
     "root": "م ر ض",
@@ -6246,7 +6246,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "marid",
-    "arabic": "مَّرِيض",
+    "arabic": "مَرِيض",
     "transliteration": "marid",
     "meaning": "Sick, ill person",
     "root": "م ر ض",
@@ -6277,7 +6277,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "marida",
-    "arabic": "مَرِضْ",
+    "arabic": "مَرِضَ",
     "transliteration": "marida",
     "meaning": "To fall ill",
     "root": "م ر ض",
@@ -6341,7 +6341,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "shifa",
-    "arabic": "شِفَاۜء",
+    "arabic": "شِفَاء",
     "transliteration": "shifa'",
     "meaning": "Healing, cure",
     "root": "ش ف ي",
@@ -6373,8 +6373,8 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "yashfi",
-    "arabic": "يَشْفِ",
-    "transliteration": "shafa",
+    "arabic": "شَفَىٰ",
+    "transliteration": "shafā",
     "meaning": "To heal, cure",
     "root": "ش ف ي",
     "partOfSpeech": "verb",
@@ -6716,7 +6716,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "maruf",
-    "arabic": "مَّعْرُوف",
+    "arabic": "مَعْرُوف",
     "transliteration": "ma'ruf",
     "meaning": "What is right, recognized good",
     "root": "ع ر ف",
@@ -7125,7 +7125,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "nisa",
-    "arabic": "نِسَاۜء",
+    "arabic": "نِسَاء",
     "transliteration": "nisa'",
     "meaning": "Women",
     "root": "ن س و",
@@ -7187,7 +7187,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "tufan",
-    "arabic": "طُّوفَان",
+    "arabic": "طُوفَان",
     "transliteration": "tufan",
     "meaning": "Flood",
     "root": "ط و ف",
@@ -7342,7 +7342,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "asa",
-    "arabic": "عَصَا2",
+    "arabic": "عَصَا",
     "transliteration": "'asa",
     "meaning": "Staff, stick",
     "root": "ع ص و",
@@ -7405,7 +7405,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "tabut",
-    "arabic": "تَّابُوت",
+    "arabic": "تَابُوت",
     "transliteration": "tabut",
     "meaning": "Chest, ark",
     "root": "",
@@ -7594,7 +7594,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "itmaanna",
-    "arabic": "ٱطْمَأَنَّ",
+    "arabic": "ٱطْمَأَنَّ",
     "transliteration": "itma'anna",
     "meaning": "To be at rest, find assurance",
     "root": "ط م ن",
@@ -7626,8 +7626,8 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "wajilat",
-    "arabic": "وَجِلَتْ",
-    "transliteration": "wajilat",
+    "arabic": "وَجِلَ",
+    "transliteration": "wajila",
     "meaning": "To tremble with awe (of hearts)",
     "root": "و ج ل",
     "partOfSpeech": "verb",
@@ -7658,7 +7658,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "tadarru",
-    "arabic": "تَضَرُّع",
+    "arabic": "تَضَرُّع",
     "transliteration": "tadarru'",
     "meaning": "Humble entreaty, humility",
     "root": "ض ر ع",
@@ -7753,8 +7753,8 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "qasat",
-    "arabic": "قَسَتْ",
-    "transliteration": "qasat",
+    "arabic": "قَسَا",
+    "transliteration": "qasā",
     "meaning": "To become hard (of hearts)",
     "root": "ق س و",
     "partOfSpeech": "verb",
@@ -7785,7 +7785,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "ahabba",
-    "arabic": "أَحْبَبْ",
+    "arabic": "أَحَبَّ",
     "transliteration": "ahabba",
     "meaning": "To love",
     "root": "ح ب ب",
@@ -7848,7 +7848,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "munib",
-    "arabic": "مُّنِيب",
+    "arabic": "مُنِيب",
     "transliteration": "munib",
     "meaning": "Turning back (to Allah) in repentance",
     "root": "ن و ب",
@@ -8227,7 +8227,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "zad",
-    "arabic": "زَّاد",
+    "arabic": "زَاد",
     "transliteration": "zad",
     "meaning": "Provision for a journey",
     "root": "ز و د",
@@ -8539,7 +8539,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "hazama",
-    "arabic": "هَزَمُ",
+    "arabic": "هَزَمَ",
     "transliteration": "hazama",
     "meaning": "To defeat, rout",
     "root": "ه ز م",
@@ -8633,7 +8633,7 @@ export const collectionsExtendedWords: Word[] = [
   },
   {
     "id": "salm",
-    "arabic": "سَّلْم",
+    "arabic": "سَلْم",
     "transliteration": "salm",
     "meaning": "Peace",
     "root": "س ل م",

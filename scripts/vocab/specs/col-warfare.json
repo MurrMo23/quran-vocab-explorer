@@ -1,0 +1,201 @@
+{
+ "collection": "warfare",
+ "existing": [
+  {
+   "id": "al-jihad",
+   "why": "Struggle, striving (including in battle)"
+  }
+ ],
+ "new": [
+  {
+   "id": "qatala-fight",
+   "lemma": "qa`tala",
+   "location": "2:244:1",
+   "transliteration": "qatala",
+   "meaning": "To fight",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "warfare",
+    "combat"
+   ]
+  },
+  {
+   "id": "qital",
+   "lemma": "qitaAl",
+   "location": "3:121:8",
+   "transliteration": "qital",
+   "meaning": "Fighting, battle",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "warfare",
+    "combat"
+   ]
+  },
+  {
+   "id": "harb",
+   "lemma": "Harob",
+   "location": "8:57:4",
+   "transliteration": "harb",
+   "meaning": "War",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "warfare",
+    "combat"
+   ]
+  },
+  {
+   "id": "jund",
+   "lemma": "jund",
+   "location": "37:173:2",
+   "transliteration": "jund",
+   "meaning": "Soldiers, army",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "warfare",
+    "army"
+   ]
+  },
+  {
+   "id": "zahf",
+   "lemma": "zaHof",
+   "location": "8:15:8",
+   "transliteration": "zahf",
+   "meaning": "Advancing army (in battle)",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "warfare",
+    "army"
+   ]
+  },
+  {
+   "id": "aduww",
+   "lemma": "Eaduw~",
+   "location": "43:67:5",
+   "transliteration": "'aduww",
+   "meaning": "Enemy",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "warfare",
+    "enemies"
+   ]
+  },
+  {
+   "id": "itada",
+   "lemma": "{EotadaY`",
+   "location": "2:190:8",
+   "transliteration": "i'tada",
+   "meaning": "To transgress, commit aggression",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "warfare",
+    "aggression"
+   ],
+   "extraCollections": [
+    "ethics"
+   ]
+  },
+  {
+   "id": "nasr",
+   "lemma": "naSor",
+   "location": "110:1:3",
+   "transliteration": "nasr",
+   "meaning": "Victory, help",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "warfare",
+    "victory"
+   ]
+  },
+  {
+   "id": "fath",
+   "lemma": "fatoH",
+   "location": "48:1:4",
+   "transliteration": "fath",
+   "meaning": "Conquest, opening, victory",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "warfare",
+    "victory"
+   ]
+  },
+  {
+   "id": "hazama",
+   "lemma": "hazamu",
+   "location": "54:45:1",
+   "transliteration": "hazama",
+   "meaning": "To defeat, rout",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "warfare",
+    "defeat"
+   ],
+   "arabic": "هَزَمَ"
+  },
+  {
+   "id": "asir",
+   "lemma": ">asiyr",
+   "location": "76:8:7",
+   "transliteration": "asir",
+   "meaning": "Captive, prisoner",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "warfare",
+    "captives"
+   ],
+   "extraCollections": [
+    "ethics"
+   ]
+  },
+  {
+   "id": "maghanim",
+   "lemma": "magaAnim",
+   "location": "48:19:1",
+   "transliteration": "maghanim",
+   "meaning": "Spoils of war, booty",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "warfare",
+    "spoils"
+   ]
+  },
+  {
+   "id": "salm",
+   "lemma": "s~alom",
+   "location": "8:61:3",
+   "transliteration": "salm",
+   "meaning": "Peace",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "warfare",
+    "peace"
+   ],
+   "arabic": "سَلْم"
+  },
+  {
+   "id": "ahada",
+   "lemma": "Ea`hada",
+   "location": "9:1:7",
+   "transliteration": "'ahada",
+   "meaning": "To make a treaty, covenant",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "warfare",
+    "treaties"
+   ]
+  }
+ ]
+}

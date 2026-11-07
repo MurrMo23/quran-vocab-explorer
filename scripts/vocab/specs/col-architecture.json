@@ -1,0 +1,269 @@
+{
+ "collection": "architecture",
+ "existing": [],
+ "new": [
+  {
+   "id": "bayt",
+   "lemma": "bayot",
+   "location": "26:149:4",
+   "transliteration": "bayt",
+   "meaning": "House, home",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "architecture",
+    "home"
+   ],
+   "extraCollections": [
+    "daily-life"
+   ]
+  },
+  {
+   "id": "masjid",
+   "lemma": "masojid",
+   "location": "72:18:2",
+   "transliteration": "masjid",
+   "meaning": "Mosque, place of prostration",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "architecture",
+    "worship"
+   ],
+   "extraCollections": [
+    "worship"
+   ]
+  },
+  {
+   "id": "kabah",
+   "lemma": "kaEobap",
+   "location": "5:97:3",
+   "transliteration": "ka'bah",
+   "meaning": "The Ka'bah",
+   "partOfSpeech": "proper noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "worship",
+    "makkah"
+   ],
+   "extraCollections": [
+    "worship"
+   ]
+  },
+  {
+   "id": "masakin",
+   "lemma": "masokan",
+   "location": "21:13:8",
+   "transliteration": "maskan",
+   "meaning": "Dwelling, home",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "home"
+   ]
+  },
+  {
+   "id": "bana",
+   "lemma": "banaY`",
+   "location": "26:128:1",
+   "transliteration": "bana",
+   "meaning": "To build, construct",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "building"
+   ],
+   "extraCollections": [
+    "crafts"
+   ]
+  },
+  {
+   "id": "bunyan",
+   "lemma": "bunoya`n",
+   "location": "61:4:10",
+   "transliteration": "bunyan",
+   "meaning": "Building, structure",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "building"
+   ]
+  },
+  {
+   "id": "qawaid",
+   "lemma": "qawaAEid",
+   "location": "2:127:4",
+   "transliteration": "qawa'id",
+   "meaning": "Foundations",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "building",
+    "ibrahim"
+   ]
+  },
+  {
+   "id": "saqf",
+   "lemma": "saqof",
+   "location": "16:26:13",
+   "transliteration": "saqf",
+   "meaning": "Roof, ceiling",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "building"
+   ]
+  },
+  {
+   "id": "jidar",
+   "lemma": "jidaAr",
+   "location": "18:77:14",
+   "transliteration": "jidar",
+   "meaning": "Wall",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "building",
+    "khidr"
+   ]
+  },
+  {
+   "id": "sur",
+   "lemma": "suwr",
+   "location": "57:13:18",
+   "transliteration": "sur",
+   "meaning": "Wall (with a gate)",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "architecture",
+    "afterlife"
+   ]
+  },
+  {
+   "id": "sadd",
+   "lemma": "sad~",
+   "location": "18:94:19",
+   "transliteration": "sadd",
+   "meaning": "Barrier, dam",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "dhul-qarnayn"
+   ]
+  },
+  {
+   "id": "qasr",
+   "lemma": "qaSor",
+   "location": "25:10:17",
+   "transliteration": "qasr",
+   "meaning": "Palace",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "palace"
+   ]
+  },
+  {
+   "id": "sarh",
+   "lemma": "SaroH",
+   "location": "40:36:6",
+   "transliteration": "sarh",
+   "meaning": "Tower, lofty palace",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "architecture",
+    "pharaoh"
+   ]
+  },
+  {
+   "id": "masani",
+   "lemma": "maSaAniE",
+   "location": "26:129:2",
+   "transliteration": "masani'",
+   "meaning": "Fortresses, grand structures",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "architecture",
+    "ad"
+   ]
+  },
+  {
+   "id": "ghurfah",
+   "lemma": "gurofap",
+   "location": "39:20:6",
+   "transliteration": "ghurfah",
+   "meaning": "Upper chamber, room",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "paradise"
+   ]
+  },
+  {
+   "id": "mihrab",
+   "lemma": "miHoraAb",
+   "location": "19:11:5",
+   "transliteration": "mihrab",
+   "meaning": "Prayer chamber, sanctuary",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "worship",
+    "zakariyya"
+   ]
+  },
+  {
+   "id": "amad",
+   "lemma": "Eamad",
+   "location": "13:2:6",
+   "transliteration": "amad",
+   "meaning": "Pillars",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "architecture",
+    "creation"
+   ]
+  },
+  {
+   "id": "imad",
+   "lemma": "EimaAd",
+   "location": "89:7:3",
+   "transliteration": "imad",
+   "meaning": "Lofty pillars",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "architecture",
+    "iram"
+   ]
+  },
+  {
+   "id": "sullam",
+   "lemma": "sul~am",
+   "location": "52:38:3",
+   "transliteration": "sullam",
+   "meaning": "Ladder, stairway",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "architecture",
+    "objects"
+   ]
+  }
+ ]
+}

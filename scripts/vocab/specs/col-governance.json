@@ -1,0 +1,204 @@
+{
+ "collection": "governance",
+ "existing": [
+  {
+   "id": "al-malik",
+   "why": "King, Sovereign"
+  },
+  {
+   "id": "al-hakam",
+   "why": "Judge, arbiter"
+  },
+  {
+   "id": "100",
+   "why": "Justice"
+  },
+  {
+   "id": "44",
+   "why": "Succession, vicegerency"
+  },
+  {
+   "id": "47",
+   "why": "Legal retribution"
+  }
+ ],
+ "new": [
+  {
+   "id": "mulk",
+   "lemma": "mulok",
+   "location": "38:20:2",
+   "transliteration": "mulk",
+   "meaning": "Kingdom, dominion, sovereignty",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "governance",
+    "rule"
+   ]
+  },
+  {
+   "id": "hakama",
+   "lemma": "Hakama",
+   "location": "22:69:2",
+   "transliteration": "hakama",
+   "meaning": "To judge, rule",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "governance",
+    "judgment"
+   ]
+  },
+  {
+   "id": "hakimin",
+   "lemma": "Ha`kimiyn",
+   "location": "95:8:4",
+   "transliteration": "hakimin",
+   "meaning": "Judges",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "governance",
+    "judgment"
+   ]
+  },
+  {
+   "id": "qist",
+   "lemma": "qisoT",
+   "location": "10:47:9",
+   "transliteration": "qist",
+   "meaning": "Equity, fairness, justice",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "governance",
+    "justice"
+   ],
+   "extraCollections": [
+    "ethics",
+    "morality"
+   ]
+  },
+  {
+   "id": "shura",
+   "lemma": "$uwraY`",
+   "location": "42:38:7",
+   "transliteration": "shura",
+   "meaning": "Mutual consultation",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "governance",
+    "consultation"
+   ],
+   "extraCollections": [
+    "community"
+   ]
+  },
+  {
+   "id": "sultan",
+   "lemma": "suloTa`n",
+   "location": "69:29:3",
+   "transliteration": "sultan",
+   "meaning": "Authority, power; proof",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "governance",
+    "authority"
+   ]
+  },
+  {
+   "id": "khalifah",
+   "lemma": "xaliyfap",
+   "location": "10:14:3",
+   "transliteration": "khalifah",
+   "meaning": "Successor, vicegerent",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "governance",
+    "authority"
+   ]
+  },
+  {
+   "id": "amr",
+   "lemma": ">amor",
+   "location": "38:36:5",
+   "transliteration": "amr",
+   "meaning": "Command, affair, matter",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "governance",
+    "command"
+   ]
+  },
+  {
+   "id": "amara",
+   "lemma": ">amara",
+   "location": "39:12:1",
+   "transliteration": "amara",
+   "meaning": "To command, order",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "governance",
+    "command"
+   ]
+  },
+  {
+   "id": "mala",
+   "lemma": "mala>",
+   "location": "27:29:3",
+   "transliteration": "mala'",
+   "meaning": "Chiefs, eminent council",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "governance",
+    "court"
+   ]
+  },
+  {
+   "id": "wazir",
+   "lemma": "waziyr",
+   "location": "20:29:3",
+   "transliteration": "wazir",
+   "meaning": "Minister, assistant",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "governance",
+    "court"
+   ]
+  },
+  {
+   "id": "hudud",
+   "lemma": "Huduwd",
+   "location": "4:13:2",
+   "transliteration": "hudud",
+   "meaning": "Limits, boundaries (set by Allah)",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "governance",
+    "law"
+   ]
+  },
+  {
+   "id": "bayaa",
+   "lemma": "baAyaEo",
+   "location": "48:18:7",
+   "transliteration": "baya'a",
+   "meaning": "To pledge allegiance",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "governance",
+    "allegiance"
+   ],
+   "arabic": "بَايَعَ"
+  }
+ ]
+}

@@ -1,0 +1,190 @@
+{
+ "collection": "quranic-stories",
+ "existing": [],
+ "new": [
+  {
+   "id": "tufan",
+   "lemma": "T~uwfaAn",
+   "location": "29:14:14",
+   "transliteration": "tufan",
+   "meaning": "Flood",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "quranic-stories",
+    "noah"
+   ],
+   "arabic": "طُوفَان"
+  },
+  {
+   "id": "judi",
+   "lemma": "juwdiY~",
+   "location": "11:44:13",
+   "transliteration": "judi",
+   "meaning": "Mount Judi, where the ark rested",
+   "partOfSpeech": "proper noun",
+   "level": "advanced",
+   "tags": [
+    "quranic-stories",
+    "noah"
+   ]
+  },
+  {
+   "id": "jubb",
+   "lemma": "jub~",
+   "location": "12:10:10",
+   "transliteration": "jubb",
+   "meaning": "Well",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "quranic-stories",
+    "joseph"
+   ]
+  },
+  {
+   "id": "suwa",
+   "lemma": "SuwaAE",
+   "location": "12:72:3",
+   "transliteration": "suwa'",
+   "meaning": "The king's measuring cup",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "quranic-stories",
+    "joseph"
+   ]
+  },
+  {
+   "id": "kahf",
+   "lemma": "kahof",
+   "location": "18:9:5",
+   "transliteration": "kahf",
+   "meaning": "Cave",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "quranic-stories",
+    "cave"
+   ]
+  },
+  {
+   "id": "asa",
+   "lemma": "EaSaA2",
+   "location": "7:107:2",
+   "transliteration": "'asa",
+   "meaning": "Staff, stick",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "quranic-stories",
+    "moses"
+   ],
+   "arabic": "عَصَا"
+  },
+  {
+   "id": "ijl",
+   "lemma": "Eijol",
+   "location": "2:51:8",
+   "transliteration": "'ijl",
+   "meaning": "Calf",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "quranic-stories",
+    "moses"
+   ],
+   "extraCollections": [
+    "animals"
+   ]
+  },
+  {
+   "id": "tabut",
+   "lemma": "t~aAbuwt",
+   "location": "20:39:4",
+   "transliteration": "tabut",
+   "meaning": "Chest, ark",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "quranic-stories",
+    "moses"
+   ],
+   "arabic": "تَابُوت"
+  },
+  {
+   "id": "infalaqa",
+   "lemma": "{nfalaqa",
+   "location": "26:63:8",
+   "transliteration": "infalaqa",
+   "meaning": "To split apart (the sea parting)",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "quranic-stories",
+    "moses"
+   ]
+  },
+  {
+   "id": "safinah",
+   "lemma": "safiynap",
+   "location": "18:71:6",
+   "transliteration": "safinah",
+   "meaning": "Ship, boat",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "quranic-stories",
+    "khidr"
+   ],
+   "extraCollections": [
+    "travel"
+   ]
+  },
+  {
+   "id": "yaqtin",
+   "lemma": "yaqoTiyn",
+   "location": "37:146:5",
+   "transliteration": "yaqtin",
+   "meaning": "Gourd plant",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "quranic-stories",
+    "jonah"
+   ],
+   "extraCollections": [
+    "nature"
+   ]
+  },
+  {
+   "id": "namlah",
+   "lemma": "namolap",
+   "location": "27:18:8",
+   "transliteration": "namlah",
+   "meaning": "Ant",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "quranic-stories",
+    "solomon"
+   ],
+   "extraCollections": [
+    "animals"
+   ]
+  },
+  {
+   "id": "ukhdud",
+   "lemma": ">uxoduwd",
+   "location": "85:4:3",
+   "transliteration": "ukhdud",
+   "meaning": "Trench, ditch",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "quranic-stories",
+    "trench"
+   ]
+  }
+ ]
+}

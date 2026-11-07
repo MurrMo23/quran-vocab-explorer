@@ -1,0 +1,339 @@
+[
+ {
+  "id": "32",
+  "status": "related",
+  "lemma": "zak~aY`",
+  "location": "91:9:4",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb زَكَّىٰ (to purify)."
+ },
+ {
+  "id": "35",
+  "status": "related",
+  "lemma": "yatafak~aru",
+  "location": "3:191:8",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb يَتَفَكَّرُونَ (they reflect)."
+ },
+ {
+  "id": "86",
+  "status": "related",
+  "lemma": "Hamod",
+  "location": "1:2:1",
+  "note": "Not in the Quran in this exact form; the Quran uses the noun ٱلْحَمْدُ (praise)."
+ },
+ {
+  "id": "87",
+  "status": "related",
+  "lemma": "tawak~alo",
+  "location": "3:159:24",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb تَوَكَّلْ (put your trust)."
+ },
+ {
+  "id": "88",
+  "status": "related",
+  "lemma": "yarojuwA@",
+  "location": "18:110:14",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb يَرْجُوا (to hope for)."
+ },
+ {
+  "id": "94",
+  "status": "related",
+  "lemma": "halaka",
+  "location": "8:42:24",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb هَلَكَ (to perish)."
+ },
+ {
+  "id": "95",
+  "status": "related",
+  "lemma": ">afolaHa",
+  "location": "23:1:2",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb أَفْلَحَ (to succeed)."
+ },
+ {
+  "id": "24",
+  "status": "related",
+  "lemma": "yasotan[biTu",
+  "location": "4:83:20",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb يَسْتَنبِطُونَهُ (they draw it out by inference)."
+ },
+ {
+  "id": "44",
+  "status": "related",
+  "lemma": "{sotaxolafa",
+  "location": "24:55:8",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb لَيَسْتَخْلِفَنَّهُمْ (He will surely make them successors)."
+ },
+ {
+  "id": "46",
+  "status": "related",
+  "lemma": "{sotaEi*o",
+  "location": "16:98:4",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb فَٱسْتَعِذْ (seek refuge)."
+ },
+ {
+  "id": "49",
+  "status": "related",
+  "lemma": "tajal~aY`",
+  "location": "7:143:25",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb تَجَلَّىٰ (He manifested)."
+ },
+ {
+  "id": "51",
+  "status": "related",
+  "lemma": "yatadab~aru",
+  "location": "4:82:2",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb يَتَدَبَّرُونَ (they ponder)."
+ },
+ {
+  "id": "110",
+  "status": "related",
+  "lemma": "wa`Hid",
+  "location": "2:163:3",
+  "note": "Not in the Quran in this exact form; the Quran uses وَاحِدٌ (one) from the same root, as in \"your god is one God\"."
+ },
+ {
+  "id": "112",
+  "status": "post-quranic",
+  "lemma": "suboHa`n",
+  "location": "17:1:1",
+  "note": "A theological term not used in the Quran, which expresses the idea with سُبْحَانَ (exalted is He)."
+ },
+ {
+  "id": "114",
+  "status": "related",
+  "lemma": "Hatom",
+  "location": "19:71:8",
+  "note": "Not in the Quran in this exact form; the Quran uses the noun حَتْمًا (an inevitability)."
+ },
+ {
+  "id": "116",
+  "status": "related",
+  "lemma": "waSof",
+  "location": "6:139:19",
+  "note": "Not in the Quran in this exact form; the Quran uses the related noun وَصْفَهُمْ (their description)."
+ },
+ {
+  "id": "118",
+  "status": "related",
+  "lemma": "kar~amo",
+  "location": "17:70:2",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb كَرَّمْنَا (We have honored)."
+ },
+ {
+  "id": "119",
+  "status": "post-quranic",
+  "lemma": "muEojiz",
+  "location": "6:134:7",
+  "note": "A later theological term for a prophet's miracle (the Quran calls them signs); the Quran uses the related word بِمُعْجِزِينَ (able to escape)."
+ },
+ {
+  "id": "121",
+  "status": "related",
+  "lemma": ">alohama",
+  "location": "91:8:1",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb فَأَلْهَمَهَا (and He inspired it)."
+ },
+ {
+  "id": "122",
+  "status": "related",
+  "lemma": "yatafaq~ahu",
+  "location": "9:122:13",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb لِيَتَفَقَّهُوا (to gain understanding)."
+ },
+ {
+  "id": "123",
+  "status": "post-quranic",
+  "lemma": "ja`hada",
+  "location": "29:6:2",
+  "note": "A term from Islamic jurisprudence; the Quran uses the related verb جَاهَدَ (to strive)."
+ },
+ {
+  "id": "124",
+  "status": "post-quranic",
+  "lemma": ">ajomaEu",
+  "location": "12:15:4",
+  "note": "A term from Islamic jurisprudence; the Quran uses the related verb أَجْمَعُوا (they agreed)."
+ },
+ {
+  "id": "125",
+  "status": "post-quranic",
+  "note": "A term from Islamic jurisprudence; not used in the Quran."
+ },
+ {
+  "id": "128",
+  "status": "post-quranic",
+  "lemma": "tarotiyl",
+  "location": "73:4:6",
+  "note": "A later term for the science of recitation; the Quran uses تَرْتِيلًا (measured recitation)."
+ },
+ {
+  "id": "130",
+  "status": "related",
+  "lemma": "taxoDaEo",
+  "location": "33:32:10",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb تَخْضَعْنَ (to be soft or yielding)."
+ },
+ {
+  "id": "132",
+  "status": "related",
+  "lemma": "yuEaZ~imo",
+  "location": "22:32:3",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb يُعَظِّمْ (to honor, magnify)."
+ },
+ {
+  "id": "134",
+  "status": "post-quranic",
+  "lemma": "<ila`h",
+  "location": "37:35:7",
+  "note": "A later term for saying \"there is no god but Allah\"; the phrase itself appears in the Quran with إِلَٰهَ (god)."
+ },
+ {
+  "id": "135",
+  "status": "related",
+  "lemma": "{sotaqa`mu",
+  "location": "11:112:1",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb فَٱسْتَقِمْ (so be steadfast)."
+ },
+ {
+  "id": "136",
+  "status": "related",
+  "lemma": "vab~ato",
+  "location": "14:27:1",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb يُثَبِّتُ (He makes firm)."
+ },
+ {
+  "id": "138",
+  "status": "related",
+  "lemma": "baqiYa",
+  "location": "55:27:1",
+  "note": "Not in the Quran in this exact form; the Quran uses the verb وَيَبْقَىٰ (and will remain)."
+ },
+ {
+  "id": "140",
+  "status": "related",
+  "lemma": "faAn",
+  "location": "55:26:4",
+  "note": "Not in the Quran in this exact form; the Quran uses the word فَانٍ (perishing)."
+ },
+ {
+  "id": "at-tawheed",
+  "status": "related",
+  "lemma": "wa`Hid",
+  "location": "2:163:3",
+  "note": "Not in the Quran in this exact form; the Quran uses وَاحِدٌ (one) from the same root, as in \"your god is one God\"."
+ },
+ {
+  "id": "al-qabid",
+  "status": "related",
+  "lemma": "qabaDo",
+  "location": "2:245:13",
+  "note": "This divine name is not in the Quran in this form; the Quran uses the verb يَقْبِضُ (He withholds)."
+ },
+ {
+  "id": "al-muizz",
+  "status": "related",
+  "lemma": "tuEiz~u",
+  "location": "3:26:13",
+  "note": "This divine name is not in the Quran in this form; the Quran uses the verb وَتُعِزُّ (and You honor)."
+ },
+ {
+  "id": "al-muzill",
+  "status": "related",
+  "lemma": "tu*il~u",
+  "location": "3:26:16",
+  "note": "This divine name is not in the Quran in this form; the Quran uses the verb وَتُذِلُّ (and You humble)."
+ },
+ {
+  "id": "at-tahmeed",
+  "status": "related",
+  "lemma": "Hamod",
+  "location": "1:2:1",
+  "note": "Not in the Quran in this exact form; the Quran uses the noun ٱلْحَمْدُ (praise)."
+ },
+ {
+  "id": "at-tahleel",
+  "status": "post-quranic",
+  "lemma": "<ila`h",
+  "location": "37:35:7",
+  "note": "A later term for saying \"there is no god but Allah\"; the phrase itself appears in the Quran with إِلَٰهَ (god)."
+ },
+ {
+  "id": "ar-rida",
+  "status": "related",
+  "lemma": "riDowa`n",
+  "location": "9:21:5",
+  "note": "Not in the Quran in this exact form; the Quran uses the noun رِضْوَان (approval, good pleasure)."
+ },
+ {
+  "id": "israfil",
+  "status": "post-quranic",
+  "note": "Israfil is named in hadith, not in the Quran."
+ },
+ {
+  "id": "azrail",
+  "status": "post-quranic",
+  "lemma": "malak",
+  "location": "32:11:3",
+  "note": "The name Azrail comes from later tradition; the Quran calls him مَلَكُ (the angel) of death."
+ },
+ {
+  "id": "as-salah-righteousness",
+  "status": "related",
+  "lemma": "S~a`liHa`t",
+  "location": "2:25:5",
+  "note": "Not in the Quran in this exact form; the Quran uses ٱلصَّالِحَاتِ (righteous deeds)."
+ },
+ {
+  "id": "al-haya",
+  "status": "related",
+  "lemma": "{sotiHoyaA^'",
+  "location": "28:25:5",
+  "note": "Not in the Quran in this exact form; the Quran uses ٱسْتِحْيَاءٍ (shyness, modesty)."
+ },
+ {
+  "id": "at-tawadu",
+  "status": "post-quranic",
+  "lemma": "hawon",
+  "location": "25:63:7",
+  "note": "A later ethical term not used in the Quran, which describes humility with هَوْنًا (gently, humbly)."
+ },
+ {
+  "id": "allahu-akbar",
+  "status": "post-quranic",
+  "lemma": "kab~iro",
+  "location": "17:111:20",
+  "note": "This exact phrase is not in the Quran; the Quran uses the verb وَكَبِّرْهُ (and glorify Him)."
+ },
+ {
+  "id": "ath-thalj",
+  "status": "post-quranic",
+  "note": "Snow is not mentioned in the Quran."
+ },
+ {
+  "id": "sharq",
+  "status": "related",
+  "lemma": "ma$oriq",
+  "location": "2:177:7",
+  "note": "Not in the Quran in this exact form; the Quran uses ٱلْمَشْرِقِ (the east)."
+ },
+ {
+  "id": "gharb",
+  "status": "related",
+  "lemma": "magorib",
+  "location": "2:177:8",
+  "note": "Not in the Quran in this exact form; the Quran uses ٱلْمَغْرِبِ (the west)."
+ },
+ {
+  "id": "shamal",
+  "status": "post-quranic",
+  "lemma": "$~imaAl",
+  "location": "56:41:2",
+  "note": "The Quran uses ٱلشِّمَالِ only in the sense of \"the left\", not \"north\"."
+ },
+ {
+  "id": "janub",
+  "status": "post-quranic",
+  "lemma": "janb",
+  "location": "32:16:2",
+  "note": "The Quran uses جُنُوبُهُمْ only in the sense of \"their sides\", not \"south\"."
+ }
+]

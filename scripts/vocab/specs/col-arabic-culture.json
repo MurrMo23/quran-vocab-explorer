@@ -1,0 +1,252 @@
+{
+ "collection": "arabic-culture",
+ "existing": [],
+ "new": [
+  {
+   "id": "dayf",
+   "lemma": "Dayof",
+   "location": "51:24:4",
+   "transliteration": "dayf",
+   "meaning": "Guest(s)",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "arabic-culture",
+    "hospitality"
+   ],
+   "extraCollections": [
+    "quranic-stories"
+   ]
+  },
+  {
+   "id": "quraysh",
+   "lemma": "qurayo$",
+   "location": "106:1:2",
+   "transliteration": "quraysh",
+   "meaning": "Quraysh, the tribe of Makkah",
+   "partOfSpeech": "proper noun",
+   "level": "beginner",
+   "tags": [
+    "arabic-culture",
+    "tribes"
+   ],
+   "extraCollections": [
+    "community"
+   ]
+  },
+  {
+   "id": "ilaf",
+   "lemma": "<ila`f",
+   "location": "106:1:1",
+   "transliteration": "ilaf",
+   "meaning": "Accustomed security, trade pact",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "arabic-culture",
+    "trade"
+   ],
+   "arabic": "إِيلَاف"
+  },
+  {
+   "id": "shair",
+   "lemma": "$aAEir",
+   "location": "26:224:1",
+   "transliteration": "sha'ir",
+   "meaning": "Poet",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "arabic-culture",
+    "poetry"
+   ]
+  },
+  {
+   "id": "qabail",
+   "lemma": "qabaA^}il",
+   "location": "49:13:10",
+   "transliteration": "qaba'il",
+   "meaning": "Tribes",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "arabic-culture",
+    "tribes"
+   ],
+   "extraCollections": [
+    "community",
+    "people"
+   ],
+   "arabic": "قَبَائِل"
+  },
+  {
+   "id": "asnam",
+   "lemma": ">aSonaAm",
+   "location": "26:71:3",
+   "transliteration": "asnam",
+   "meaning": "Idols",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "arabic-culture",
+    "idols"
+   ],
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "al-lat",
+   "lemma": "{ll~a`t",
+   "location": "53:19:2",
+   "transliteration": "al-lat",
+   "meaning": "Al-Lat (pre-Islamic idol)",
+   "partOfSpeech": "proper noun",
+   "level": "advanced",
+   "tags": [
+    "arabic-culture",
+    "idols"
+   ]
+  },
+  {
+   "id": "al-uzza",
+   "lemma": "{loEuz~aY`",
+   "location": "53:19:3",
+   "transliteration": "al-'uzza",
+   "meaning": "Al-Uzza (pre-Islamic idol)",
+   "partOfSpeech": "proper noun",
+   "level": "advanced",
+   "tags": [
+    "arabic-culture",
+    "idols"
+   ]
+  },
+  {
+   "id": "manat",
+   "lemma": "manaw`p",
+   "location": "53:20:1",
+   "transliteration": "manat",
+   "meaning": "Manat (pre-Islamic idol)",
+   "partOfSpeech": "proper noun",
+   "level": "advanced",
+   "tags": [
+    "arabic-culture",
+    "idols"
+   ]
+  },
+  {
+   "id": "mawudah",
+   "lemma": "mawo'udap",
+   "location": "81:8:2",
+   "transliteration": "maw'udah",
+   "meaning": "Girl buried alive",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "arabic-culture",
+    "infanticide"
+   ],
+   "extraCollections": [
+    "ethics"
+   ]
+  },
+  {
+   "id": "ibil",
+   "lemma": "<ibil",
+   "location": "88:17:4",
+   "transliteration": "ibil",
+   "meaning": "Camels",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "arabic-culture",
+    "camel"
+   ],
+   "extraCollections": [
+    "animals"
+   ]
+  },
+  {
+   "id": "aswaq",
+   "lemma": "s~uwq",
+   "location": "25:7:9",
+   "transliteration": "aswaq",
+   "meaning": "Markets",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "arabic-culture",
+    "market"
+   ],
+   "extraCollections": [
+    "business",
+    "daily-life"
+   ],
+   "arabic": "أَسْوَاق"
+  },
+  {
+   "id": "azlam",
+   "lemma": ">azola`m",
+   "location": "5:90:8",
+   "transliteration": "azlam",
+   "meaning": "Divining arrows",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "arabic-culture",
+    "divination"
+   ]
+  },
+  {
+   "id": "maysir",
+   "lemma": "mayosir",
+   "location": "5:90:6",
+   "transliteration": "maysir",
+   "meaning": "Gambling",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "arabic-culture",
+    "gambling"
+   ],
+   "extraCollections": [
+    "ethics"
+   ]
+  },
+  {
+   "id": "ashirah",
+   "lemma": "Ea$iyrat",
+   "location": "26:214:2",
+   "transliteration": "'ashirah",
+   "meaning": "Clan, kindred",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "arabic-culture",
+    "tribes"
+   ],
+   "extraCollections": [
+    "family",
+    "people"
+   ],
+   "arabic": "عَشِيرَة"
+  },
+  {
+   "id": "arab",
+   "lemma": ">aEoraAb",
+   "location": "9:97:1",
+   "transliteration": "a'rab",
+   "meaning": "Bedouins, desert Arabs",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "arabic-culture",
+    "tribes"
+   ],
+   "extraCollections": [
+    "community",
+    "people"
+   ]
+  }
+ ]
+}

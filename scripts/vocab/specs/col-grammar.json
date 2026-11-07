@@ -1,0 +1,331 @@
+{
+ "collection": "grammar",
+ "existing": [
+  {
+   "id": "min",
+   "why": "Core preposition 'from, of'"
+  },
+  {
+   "id": "la-ilaha-illa-allah",
+   "why": "Shows laa of absolute negation with the exception particle illa"
+  },
+  {
+   "id": "in-sha-allah",
+   "why": "Shows conditional in 'if' (its lemma)"
+  }
+ ],
+ "new": [
+  {
+   "id": "inna",
+   "lemma": "<in~",
+   "location": "94:6:1",
+   "transliteration": "inna",
+   "meaning": "Indeed, verily (emphasis)",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "emphasis"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "lam",
+   "lemma": "lam",
+   "location": "112:3:1",
+   "transliteration": "lam",
+   "meaning": "Did not (negates the past)",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "negation"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "lan",
+   "lemma": "lan",
+   "location": "18:67:3",
+   "transliteration": "lan",
+   "meaning": "Will never (negates the future)",
+   "partOfSpeech": "particle",
+   "level": "intermediate",
+   "tags": [
+    "grammar",
+    "negation"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "qad",
+   "lemma": "qad",
+   "location": "23:1:1",
+   "transliteration": "qad",
+   "meaning": "Certainly, already",
+   "partOfSpeech": "particle",
+   "level": "intermediate",
+   "tags": [
+    "grammar",
+    "emphasis"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "man",
+   "lemma": "man",
+   "location": "99:7:1",
+   "transliteration": "man",
+   "meaning": "Who, whoever",
+   "partOfSpeech": "pronoun",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "relative",
+    "conditional"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "ma",
+   "lemma": "maA",
+   "location": "101:2:1",
+   "transliteration": "ma",
+   "meaning": "What; that which; not",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "interrogative",
+    "negation"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "alladhi",
+   "lemma": "{l~a*iY",
+   "location": "87:2:1",
+   "transliteration": "alladhi",
+   "meaning": "Who, which (relative pronoun)",
+   "partOfSpeech": "pronoun",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "relative",
+    "pronoun"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "hadha",
+   "lemma": "ha`*aA",
+   "location": "95:3:1",
+   "transliteration": "hadha",
+   "meaning": "This",
+   "partOfSpeech": "pronoun",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "demonstrative",
+    "pronoun"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "dhalika",
+   "lemma": "*a`lik",
+   "location": "85:11:12",
+   "transliteration": "dhalika",
+   "meaning": "That",
+   "partOfSpeech": "pronoun",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "demonstrative",
+    "pronoun"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "kayfa",
+   "lemma": "kayof",
+   "location": "88:17:5",
+   "transliteration": "kayfa",
+   "meaning": "How",
+   "partOfSpeech": "adverb",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "interrogative"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "ayna",
+   "lemma": ">ayon",
+   "location": "81:26:1",
+   "transliteration": "ayna",
+   "meaning": "Where",
+   "partOfSpeech": "adverb",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "interrogative"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "mata",
+   "lemma": "mataY`",
+   "location": "21:38:2",
+   "transliteration": "mata",
+   "meaning": "When? (question)",
+   "partOfSpeech": "adverb",
+   "level": "intermediate",
+   "tags": [
+    "grammar",
+    "interrogative"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "idha",
+   "lemma": "<i*aA",
+   "location": "110:1:1",
+   "transliteration": "idha",
+   "meaning": "When (time/condition)",
+   "partOfSpeech": "adverb",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "conditional",
+    "time"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "law",
+   "lemma": "law",
+   "location": "102:5:2",
+   "transliteration": "law",
+   "meaning": "If (hypothetical)",
+   "partOfSpeech": "particle",
+   "level": "intermediate",
+   "tags": [
+    "grammar",
+    "conditional"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "bal",
+   "lemma": "bal",
+   "location": "87:16:1",
+   "transliteration": "bal",
+   "meaning": "Rather, but",
+   "partOfSpeech": "particle",
+   "level": "intermediate",
+   "tags": [
+    "grammar",
+    "conjunction"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "thumma",
+   "lemma": "vum~",
+   "location": "80:21:1",
+   "transliteration": "thumma",
+   "meaning": "Then, afterwards",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "conjunction"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "hal",
+   "lemma": "hal",
+   "location": "88:1:1",
+   "transliteration": "hal",
+   "meaning": "Is/has...? (yes-no question)",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "interrogative"
+   ],
+   "extraCollections": [
+    "particles"
+   ]
+  },
+  {
+   "id": "la-negation",
+   "lemma": "laA",
+   "location": "26:101:1",
+   "transliteration": "lā",
+   "meaning": "No, not (negation and prohibition)",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "negation"
+   ],
+   "extraCollections": [
+    "particles"
+   ],
+   "allowSharedLemma": true
+  },
+  {
+   "id": "in-conditional",
+   "lemma": "<in",
+   "location": "56:87:2",
+   "transliteration": "in",
+   "meaning": "If (conditional); also 'not' in some verses",
+   "partOfSpeech": "particle",
+   "level": "beginner",
+   "tags": [
+    "grammar",
+    "conditional"
+   ],
+   "extraCollections": [
+    "particles"
+   ],
+   "allowSharedLemma": true
+  }
+ ]
+}

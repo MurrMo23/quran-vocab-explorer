@@ -1,0 +1,177 @@
+{
+ "collection": "spiritual-states",
+ "existing": [
+  {
+   "id": "al-khashyah",
+   "why": "Khashya - reverent fear of God"
+  },
+  {
+   "id": "91",
+   "why": "Yaqin - certainty"
+  },
+  {
+   "id": "40",
+   "why": "Sakina - tranquillity"
+  },
+  {
+   "id": "129",
+   "why": "Khushu - humility in worship"
+  },
+  {
+   "id": "14",
+   "why": "Tawbah - repentance"
+  },
+  {
+   "id": "88",
+   "why": "Raja - hope"
+  },
+  {
+   "id": "ar-rida",
+   "why": "Rida - contentment"
+  },
+  {
+   "id": "89",
+   "why": "Khawf - fear"
+  },
+  {
+   "id": "87",
+   "why": "Tawakkul - reliance on Allah"
+  }
+ ],
+ "new": [
+  {
+   "id": "itmaanna",
+   "lemma": "{Toma>an~a",
+   "location": "13:28:10",
+   "transliteration": "itma'anna",
+   "meaning": "To be at rest, find assurance",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "spiritual-states",
+    "tranquillity",
+    "heart"
+   ]
+  },
+  {
+   "id": "wajilat",
+   "lemma": "wajilato",
+   "location": "8:2:7",
+   "transliteration": "wajila",
+   "meaning": "To tremble with awe (of hearts)",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "spiritual-states",
+    "fear",
+    "heart"
+   ],
+   "arabic": "وَجِلَ"
+  },
+  {
+   "id": "tadarru",
+   "lemma": "taDar~uE",
+   "location": "7:55:3",
+   "transliteration": "tadarru'",
+   "meaning": "Humble entreaty, humility",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "spiritual-states",
+    "humility"
+   ],
+   "extraCollections": [
+    "worship"
+   ]
+  },
+  {
+   "id": "ghaflah",
+   "lemma": "gafolap",
+   "location": "21:1:6",
+   "transliteration": "ghaflah",
+   "meaning": "Heedlessness",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "spiritual-states",
+    "heedlessness"
+   ]
+  },
+  {
+   "id": "mukhlis",
+   "lemma": "muxoliS",
+   "location": "39:11:7",
+   "transliteration": "mukhlis",
+   "meaning": "Sincere (in devotion)",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "spiritual-states",
+    "sincerity"
+   ],
+   "extraCollections": [
+    "worship"
+   ]
+  },
+  {
+   "id": "qasat",
+   "lemma": "qasato",
+   "location": "6:43:7",
+   "transliteration": "qasā",
+   "meaning": "To become hard (of hearts)",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "spiritual-states",
+    "hardness",
+    "heart"
+   ],
+   "arabic": "قَسَا"
+  },
+  {
+   "id": "ahabba",
+   "lemma": ">aHobabo",
+   "location": "3:31:4",
+   "transliteration": "ahabba",
+   "meaning": "To love",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "spiritual-states",
+    "love"
+   ],
+   "arabic": "أَحَبَّ"
+  },
+  {
+   "id": "ridwan",
+   "lemma": "riDowa`n",
+   "location": "3:162:3",
+   "transliteration": "ridwan",
+   "meaning": "Pleasure, good pleasure (of Allah)",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "spiritual-states",
+    "contentment"
+   ],
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "munib",
+   "lemma": "m~uniyb",
+   "location": "50:33:7",
+   "transliteration": "munib",
+   "meaning": "Turning back (to Allah) in repentance",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "spiritual-states",
+    "repentance",
+    "heart"
+   ],
+   "arabic": "مُنِيب"
+  }
+ ]
+}

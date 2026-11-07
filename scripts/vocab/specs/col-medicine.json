@@ -1,0 +1,199 @@
+{
+ "collection": "medicine",
+ "existing": [],
+ "new": [
+  {
+   "id": "marad",
+   "lemma": "m~araD",
+   "location": "2:10:3",
+   "transliteration": "marad",
+   "meaning": "Disease, sickness",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "medicine",
+    "illness",
+    "heart"
+   ],
+   "arabic": "مَرَض"
+  },
+  {
+   "id": "marid",
+   "lemma": "m~ariyD",
+   "location": "48:17:11",
+   "transliteration": "marid",
+   "meaning": "Sick, ill person",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "medicine",
+    "illness"
+   ],
+   "arabic": "مَرِيض"
+  },
+  {
+   "id": "marida",
+   "lemma": "mariDo",
+   "location": "26:80:2",
+   "transliteration": "marida",
+   "meaning": "To fall ill",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "medicine",
+    "illness",
+    "ibrahim"
+   ],
+   "arabic": "مَرِضَ"
+  },
+  {
+   "id": "saqim",
+   "lemma": "saqiym",
+   "location": "37:145:4",
+   "transliteration": "saqim",
+   "meaning": "Ill, ailing",
+   "partOfSpeech": "adjective",
+   "level": "advanced",
+   "tags": [
+    "medicine",
+    "illness",
+    "yunus"
+   ]
+  },
+  {
+   "id": "shifa",
+   "lemma": "$ifaA^'",
+   "location": "16:69:17",
+   "transliteration": "shifa'",
+   "meaning": "Healing, cure",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "medicine",
+    "healing",
+    "honey"
+   ],
+   "arabic": "شِفَاء"
+  },
+  {
+   "id": "yashfi",
+   "lemma": "ya$ofi",
+   "location": "26:80:4",
+   "transliteration": "shafā",
+   "meaning": "To heal, cure",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "medicine",
+    "healing",
+    "ibrahim"
+   ],
+   "arabic": "شَفَىٰ"
+  },
+  {
+   "id": "ama",
+   "lemma": ">aEomaY`",
+   "location": "35:19:3",
+   "transliteration": "a'ma",
+   "meaning": "Blind",
+   "partOfSpeech": "adjective",
+   "level": "intermediate",
+   "tags": [
+    "medicine",
+    "senses"
+   ]
+  },
+  {
+   "id": "asamm",
+   "lemma": ">aSam~",
+   "location": "2:18:1",
+   "transliteration": "asamm",
+   "meaning": "Deaf",
+   "partOfSpeech": "adjective",
+   "level": "intermediate",
+   "tags": [
+    "medicine",
+    "senses"
+   ]
+  },
+  {
+   "id": "abkam",
+   "lemma": ">abokam",
+   "location": "2:18:2",
+   "transliteration": "abkam",
+   "meaning": "Mute, dumb",
+   "partOfSpeech": "adjective",
+   "level": "advanced",
+   "tags": [
+    "medicine",
+    "senses"
+   ]
+  },
+  {
+   "id": "araj",
+   "lemma": ">aEoraj",
+   "location": "48:17:7",
+   "transliteration": "a'raj",
+   "meaning": "Lame",
+   "partOfSpeech": "adjective",
+   "level": "advanced",
+   "tags": [
+    "medicine",
+    "disability"
+   ]
+  },
+  {
+   "id": "qarh",
+   "lemma": "qaroH",
+   "location": "3:172:9",
+   "transliteration": "qarh",
+   "meaning": "Wound, injury",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "medicine",
+    "injury"
+   ]
+  },
+  {
+   "id": "durr",
+   "lemma": "Dur~",
+   "location": "21:83:7",
+   "transliteration": "durr",
+   "meaning": "Adversity, affliction, harm",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "medicine",
+    "affliction",
+    "ayyub"
+   ]
+  },
+  {
+   "id": "wahana",
+   "lemma": "wahana",
+   "location": "19:4:4",
+   "transliteration": "wahana",
+   "meaning": "To weaken, become feeble",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "medicine",
+    "aging"
+   ]
+  },
+  {
+   "id": "shayb",
+   "lemma": "$ayob",
+   "location": "19:4:9",
+   "transliteration": "shayb",
+   "meaning": "Grey hair, old age",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "medicine",
+    "aging"
+   ]
+  }
+ ]
+}

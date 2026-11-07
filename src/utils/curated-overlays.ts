@@ -221,7 +221,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses the verb زَكَّىٰ (to purify).",
     "arabic": "زَكَّىٰهَا",
-    "lemma": "زَكَّىٰ",
+    "lemma": "زَكَّىٰ",
     "location": {
       "surah": 91,
       "ayah": 9,
@@ -233,7 +233,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses the verb يَتَفَكَّرُونَ (they reflect).",
     "arabic": "وَيَتَفَكَّرُونَ",
-    "lemma": "يَتَفَكَّرُ",
+    "lemma": "يَتَفَكَّرُ",
     "location": {
       "surah": 3,
       "ayah": 191,
@@ -257,7 +257,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses the verb تَوَكَّلْ (put your trust).",
     "arabic": "فَتَوَكَّلْ",
-    "lemma": "تَوَكَّلْ",
+    "lemma": "تَوَكَّلْ",
     "location": {
       "surah": 3,
       "ayah": 159,
@@ -341,7 +341,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses the verb تَجَلَّىٰ (He manifested).",
     "arabic": "تَجَلَّىٰ",
-    "lemma": "تَجَلَّىٰ",
+    "lemma": "تَجَلَّىٰ",
     "location": {
       "surah": 7,
       "ayah": 143,
@@ -353,7 +353,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses the verb يَتَدَبَّرُونَ (they ponder).",
     "arabic": "يَتَدَبَّرُونَ",
-    "lemma": "يَتَدَبَّرُ",
+    "lemma": "يَتَدَبَّرُ",
     "location": {
       "surah": 4,
       "ayah": 82,
@@ -413,7 +413,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses the verb كَرَّمْنَا (We have honored).",
     "arabic": "كَرَّمْنَا",
-    "lemma": "كَرَّمْ",
+    "lemma": "كَرَّمْ",
     "location": {
       "surah": 17,
       "ayah": 70,
@@ -449,7 +449,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses the verb لِيَتَفَقَّهُوا (to gain understanding).",
     "arabic": "لِّيَتَفَقَّهُوا۟",
-    "lemma": "يَتَفَقَّهُ",
+    "lemma": "يَتَفَقَّهُ",
     "location": {
       "surah": 9,
       "ayah": 122,
@@ -513,7 +513,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses the verb يُعَظِّمْ (to honor, magnify).",
     "arabic": "يُعَظِّمْ",
-    "lemma": "يُعَظِّمْ",
+    "lemma": "يُعَظِّمْ",
     "location": {
       "surah": 22,
       "ayah": 32,
@@ -549,7 +549,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses the verb يُثَبِّتُ (He makes firm).",
     "arabic": "يُثَبِّتُ",
-    "lemma": "ثَبَّتْ",
+    "lemma": "ثَبَّتْ",
     "location": {
       "surah": 14,
       "ayah": 27,
@@ -609,7 +609,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "This divine name is not in the Quran in this form; the Quran uses the verb وَتُعِزُّ (and You honor).",
     "arabic": "وَتُعِزُّ",
-    "lemma": "تُعِزُّ",
+    "lemma": "تُعِزُّ",
     "location": {
       "surah": 3,
       "ayah": 26,
@@ -621,7 +621,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "This divine name is not in the Quran in this form; the Quran uses the verb وَتُذِلُّ (and You humble).",
     "arabic": "وَتُذِلُّ",
-    "lemma": "تُذِلُّ",
+    "lemma": "تُذِلُّ",
     "location": {
       "surah": 3,
       "ayah": 26,
@@ -685,7 +685,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses ٱلصَّالِحَاتِ (righteous deeds).",
     "arabic": "ٱلصَّـٰلِحَـٰتِ",
-    "lemma": "صَّٰلِحَٰت",
+    "lemma": "صَّٰلِحَٰت",
     "location": {
       "surah": 2,
       "ayah": 25,
@@ -697,7 +697,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "related",
     "note": "Not in the Quran in this exact form; the Quran uses ٱسْتِحْيَاءٍ (shyness, modesty).",
     "arabic": "ٱسْتِحْيَآءٍ",
-    "lemma": "ٱسْتِحْيَاۜء",
+    "lemma": "ٱسْتِحْيَاء",
     "location": {
       "surah": 28,
       "ayah": 25,
@@ -721,7 +721,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "post-quranic",
     "note": "This exact phrase is not in the Quran; the Quran uses the verb وَكَبِّرْهُ (and glorify Him).",
     "arabic": "وَكَبِّرْهُ",
-    "lemma": "كَبِّرْ",
+    "lemma": "كَبِّرْ",
     "location": {
       "surah": 17,
       "ayah": 111,
@@ -761,7 +761,7 @@ export const quranicForms: Record<string, QuranicForm> = {
     "status": "post-quranic",
     "note": "The Quran uses ٱلشِّمَالِ only in the sense of \"the left\", not \"north\".",
     "arabic": "ٱلشِّمَالِ",
-    "lemma": "شِّمَال",
+    "lemma": "شِّمَال",
     "location": {
       "surah": 56,
       "ayah": 41,

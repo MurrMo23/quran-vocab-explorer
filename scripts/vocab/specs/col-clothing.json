@@ -1,0 +1,257 @@
+{
+ "collection": "clothing",
+ "existing": [],
+ "new": [
+  {
+   "id": "libas",
+   "lemma": "libaAs",
+   "location": "7:26:6",
+   "transliteration": "libas",
+   "meaning": "Clothing, garment",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "clothing",
+    "modesty"
+   ]
+  },
+  {
+   "id": "thiyab",
+   "lemma": "viyaAb",
+   "location": "74:4:1",
+   "transliteration": "thiyab",
+   "meaning": "Clothes, garments",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "clothing",
+    "purity"
+   ]
+  },
+  {
+   "id": "ziynah",
+   "lemma": "ziynap",
+   "location": "7:31:4",
+   "transliteration": "zinah",
+   "meaning": "Adornment, finery",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "clothing",
+    "adornment"
+   ]
+  },
+  {
+   "id": "rish",
+   "lemma": "riy$",
+   "location": "7:26:9",
+   "transliteration": "rish",
+   "meaning": "Adornment, fine attire",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "clothing",
+    "adornment"
+   ]
+  },
+  {
+   "id": "qamis",
+   "lemma": "qamiyS",
+   "location": "12:93:2",
+   "transliteration": "qamis",
+   "meaning": "Shirt",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "clothing",
+    "yusuf"
+   ],
+   "extraCollections": [
+    "quranic-stories"
+   ]
+  },
+  {
+   "id": "jalabib",
+   "lemma": "jala`biyb",
+   "location": "33:59:11",
+   "transliteration": "jalabib",
+   "meaning": "Outer garments, cloaks",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "clothing",
+    "modesty",
+    "women"
+   ]
+  },
+  {
+   "id": "sarabil",
+   "lemma": "sara`biyl",
+   "location": "16:81:14",
+   "transliteration": "sarabil",
+   "meaning": "Garments, shirts",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "clothing"
+   ]
+  },
+  {
+   "id": "labus",
+   "lemma": "labuws",
+   "location": "21:80:3",
+   "transliteration": "labus",
+   "meaning": "Coat of armor",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "clothing",
+    "armor",
+    "dawud"
+   ],
+   "extraCollections": [
+    "warfare",
+    "crafts"
+   ]
+  },
+  {
+   "id": "naalayn",
+   "lemma": "naEolay",
+   "location": "20:12:5",
+   "transliteration": "na'layn",
+   "meaning": "Pair of sandals",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "clothing",
+    "footwear",
+    "musa"
+   ],
+   "arabic": "نَعْلَيْن"
+  },
+  {
+   "id": "harir",
+   "lemma": "Hariyr",
+   "location": "76:12:5",
+   "transliteration": "harir",
+   "meaning": "Silk",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "clothing",
+    "fabric",
+    "paradise"
+   ]
+  },
+  {
+   "id": "sundus",
+   "lemma": "sundus",
+   "location": "44:53:3",
+   "transliteration": "sundus",
+   "meaning": "Fine silk",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "clothing",
+    "fabric",
+    "paradise"
+   ]
+  },
+  {
+   "id": "istabraq",
+   "lemma": "<isotaboraq",
+   "location": "44:53:4",
+   "transliteration": "istabraq",
+   "meaning": "Brocade, thick silk",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "clothing",
+    "fabric",
+    "paradise"
+   ]
+  },
+  {
+   "id": "asawir",
+   "lemma": ">asaAwir",
+   "location": "43:53:4",
+   "transliteration": "asawir",
+   "meaning": "Bracelets",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "clothing",
+    "jewelry"
+   ]
+  },
+  {
+   "id": "dhahab",
+   "lemma": "*ahab",
+   "location": "43:53:6",
+   "transliteration": "dhahab",
+   "meaning": "Gold",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "clothing",
+    "jewelry",
+    "metals"
+   ]
+  },
+  {
+   "id": "fiddah",
+   "lemma": "fiD~ap",
+   "location": "76:21:9",
+   "transliteration": "fiddah",
+   "meaning": "Silver",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "clothing",
+    "jewelry",
+    "metals"
+   ]
+  },
+  {
+   "id": "lulu",
+   "lemma": "lu&olu&",
+   "location": "55:22:3",
+   "transliteration": "lu'lu'",
+   "meaning": "Pearl(s)",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "clothing",
+    "jewelry",
+    "sea"
+   ]
+  },
+  {
+   "id": "marjan",
+   "lemma": "marojaAn",
+   "location": "55:22:4",
+   "transliteration": "marjan",
+   "meaning": "Coral",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "clothing",
+    "jewelry",
+    "sea"
+   ]
+  },
+  {
+   "id": "hilyah",
+   "lemma": "Hiloyap",
+   "location": "16:14:11",
+   "transliteration": "hilyah",
+   "meaning": "Ornaments, jewelry",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "clothing",
+    "jewelry"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,173 @@
+{
+ "collection": "etymology",
+ "existing": [
+  {
+   "id": "30",
+   "why": "root:ع ل م - pattern fiʿl (ʿilm)"
+  },
+  {
+   "id": "al-aleem",
+   "why": "root:ع ل م - pattern faʿīl (ʿalīm)"
+  },
+  {
+   "id": "alima",
+   "why": "root:ع ل م - pattern faʿila (ʿalima)"
+  },
+  {
+   "id": "al-kitab",
+   "why": "root:ك ت ب - pattern fiʿāl (kitāb)"
+  },
+  {
+   "id": "2",
+   "why": "root:ر ح م - pattern faʿla (raḥma)"
+  },
+  {
+   "id": "ar-rahman",
+   "why": "root:ر ح م - pattern faʿlān"
+  },
+  {
+   "id": "ar-raheem",
+   "why": "root:ر ح م - pattern faʿīl"
+  },
+  {
+   "id": "18",
+   "why": "root:ح ك م - pattern fiʿla (ḥikma)"
+  },
+  {
+   "id": "al-hakeem",
+   "why": "root:ح ك م - pattern faʿīl"
+  },
+  {
+   "id": "al-ibadah",
+   "why": "root:ع ب د - pattern fiʿāla (ʿibāda)"
+  }
+ ],
+ "new": [
+  {
+   "id": "allama",
+   "lemma": "Eal~ama",
+   "location": "55:2:1",
+   "transliteration": "'allama",
+   "meaning": "To teach",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "etymology",
+    "root:ع ل م",
+    "pattern:faʿʿala"
+   ],
+   "extraCollections": [
+    "knowledge"
+   ]
+  },
+  {
+   "id": "alamin",
+   "lemma": "Ea`lamiyn",
+   "location": "1:2:4",
+   "transliteration": "'alamin",
+   "meaning": "Worlds (all creation)",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "etymology",
+    "root:ع ل م",
+    "pattern:fāʿal"
+   ]
+  },
+  {
+   "id": "rahima",
+   "lemma": "r~aHima",
+   "location": "23:118:4",
+   "transliteration": "rahima",
+   "meaning": "To have mercy",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "etymology",
+    "root:ر ح م",
+    "pattern:faʿila"
+   ],
+   "arabic": "رَحِمَ"
+  },
+  {
+   "id": "arham",
+   "lemma": ">aroHam",
+   "location": "12:92:10",
+   "transliteration": "arham",
+   "meaning": "Most merciful",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "etymology",
+    "root:ر ح م",
+    "pattern:afʿal"
+   ]
+  },
+  {
+   "id": "hukm",
+   "lemma": "Hukom",
+   "location": "12:22:5",
+   "transliteration": "hukm",
+   "meaning": "Judgement, authority",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "etymology",
+    "root:ح ك م",
+    "pattern:fuʿl"
+   ],
+   "extraCollections": [
+    "governance"
+   ]
+  },
+  {
+   "id": "ahkam",
+   "lemma": ">aHokam",
+   "location": "95:8:3",
+   "transliteration": "ahkam",
+   "meaning": "Most just (of judges)",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "etymology",
+    "root:ح ك م",
+    "pattern:afʿal"
+   ]
+  },
+  {
+   "id": "abada",
+   "lemma": "Eabada",
+   "location": "1:5:2",
+   "transliteration": "'abada",
+   "meaning": "To worship",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "etymology",
+    "root:ع ب د",
+    "pattern:faʿala"
+   ],
+   "extraCollections": [
+    "worship"
+   ]
+  },
+  {
+   "id": "abd",
+   "lemma": "Eabod",
+   "location": "96:10:1",
+   "transliteration": "'abd",
+   "meaning": "Servant, slave (of Allah)",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "etymology",
+    "root:ع ب د",
+    "pattern:faʿl"
+   ],
+   "extraCollections": [
+    "people",
+    "worship"
+   ]
+  }
+ ]
+}

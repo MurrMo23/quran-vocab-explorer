@@ -1,0 +1,154 @@
+{
+ "collection": "people",
+ "existing": [
+  {
+   "id": "an-nas",
+   "why": "People, mankind"
+  },
+  {
+   "id": "al-bashar",
+   "why": "Human beings"
+  },
+  {
+   "id": "al-muminun",
+   "why": "Believers as a social group"
+  },
+  {
+   "id": "al-munafiqun",
+   "why": "Hypocrites"
+  },
+  {
+   "id": "al-mushrikun",
+   "why": "Polytheists"
+  },
+  {
+   "id": "al-kafirun",
+   "why": "Disbelievers"
+  },
+  {
+   "id": "ahl-al-kitab",
+   "why": "People of the Book"
+  },
+  {
+   "id": "50",
+   "why": "The oppressed, weak ones"
+  },
+  {
+   "id": "38",
+   "why": "Emigrants"
+  }
+ ],
+ "new": [
+  {
+   "id": "qawm",
+   "lemma": "qawom",
+   "location": "22:43:1",
+   "transliteration": "qawm",
+   "meaning": "People, nation, folk",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "people",
+    "groups"
+   ]
+  },
+  {
+   "id": "shuub",
+   "lemma": "$uEuwb",
+   "location": "49:13:9",
+   "transliteration": "shu'ub",
+   "meaning": "Peoples, nations",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "people",
+    "groups"
+   ]
+  },
+  {
+   "id": "faqir",
+   "lemma": "faqiyr",
+   "location": "35:15:4",
+   "transliteration": "faqir",
+   "meaning": "Poor, in need",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "people",
+    "poverty"
+   ],
+   "extraCollections": [
+    "business"
+   ]
+  },
+  {
+   "id": "miskin",
+   "lemma": "misokiyn",
+   "location": "74:44:4",
+   "transliteration": "miskin",
+   "meaning": "Poor, needy person",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "people",
+    "poverty"
+   ],
+   "extraCollections": [
+    "ethics"
+   ]
+  },
+  {
+   "id": "ghani",
+   "lemma": "ganiY~",
+   "location": "9:93:7",
+   "transliteration": "ghani",
+   "meaning": "Rich; free of need",
+   "partOfSpeech": "adjective",
+   "level": "intermediate",
+   "tags": [
+    "people",
+    "wealth"
+   ]
+  },
+  {
+   "id": "rajul",
+   "lemma": "rajul",
+   "location": "36:20:5",
+   "transliteration": "rajul",
+   "meaning": "Man",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "people",
+    "men"
+   ]
+  },
+  {
+   "id": "nisa",
+   "lemma": "nisaA^'",
+   "location": "3:42:11",
+   "transliteration": "nisa'",
+   "meaning": "Women",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "people",
+    "women"
+   ],
+   "arabic": "نِسَاء"
+  },
+  {
+   "id": "shaykh",
+   "lemma": "$ayox",
+   "location": "11:72:8",
+   "transliteration": "shaykh",
+   "meaning": "Old man, elder",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "people",
+    "elders"
+   ]
+  }
+ ]
+}

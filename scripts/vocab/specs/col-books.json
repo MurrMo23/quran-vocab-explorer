@@ -1,0 +1,198 @@
+{
+ "collection": "books",
+ "existing": [
+  {
+   "id": "al-kitab",
+   "why": "The Book, scripture"
+  },
+  {
+   "id": "al-quran",
+   "why": "The Quran"
+  },
+  {
+   "id": "al-furqan",
+   "why": "The Criterion, a name of revelation"
+  },
+  {
+   "id": "at-tawrah",
+   "why": "The Torah"
+  },
+  {
+   "id": "al-injeel",
+   "why": "The Gospel"
+  },
+  {
+   "id": "az-zabur",
+   "why": "The Psalms of David"
+  },
+  {
+   "id": "as-suhuf",
+   "why": "The scrolls of Abraham and Moses"
+  },
+  {
+   "id": "al-lawh-al-mahfuz",
+   "why": "The Preserved Tablet"
+  },
+  {
+   "id": "120",
+   "why": "Divine revelation (wahy)"
+  },
+  {
+   "id": "127",
+   "why": "Measured recitation (tartil)"
+  }
+ ],
+ "new": [
+  {
+   "id": "kataba",
+   "lemma": "kataba",
+   "location": "52:41:5",
+   "transliteration": "kataba",
+   "meaning": "To write",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "books",
+    "writing"
+   ],
+   "extraCollections": [
+    "crafts",
+    "etymology"
+   ]
+  },
+  {
+   "id": "qaraa",
+   "lemma": "qara>a",
+   "location": "96:1:1",
+   "transliteration": "qara'a",
+   "meaning": "To read, recite",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "books",
+    "recitation"
+   ]
+  },
+  {
+   "id": "ayah",
+   "lemma": "'aAyap",
+   "location": "78:28:2",
+   "transliteration": "ayah",
+   "meaning": "Verse; sign",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "books",
+    "quran"
+   ],
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "surah",
+   "lemma": "suwrap",
+   "location": "24:1:1",
+   "transliteration": "surah",
+   "meaning": "Surah, chapter of the Quran",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "books",
+    "quran"
+   ]
+  },
+  {
+   "id": "qalam",
+   "lemma": "qalam",
+   "location": "96:4:3",
+   "transliteration": "qalam",
+   "meaning": "Pen",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "books",
+    "writing"
+   ],
+   "extraCollections": [
+    "crafts",
+    "knowledge"
+   ]
+  },
+  {
+   "id": "katib",
+   "lemma": "kaAtib",
+   "location": "82:11:2",
+   "transliteration": "katib",
+   "meaning": "Scribe, recorder",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "books",
+    "writing"
+   ],
+   "extraCollections": [
+    "crafts",
+    "etymology"
+   ]
+  },
+  {
+   "id": "tanzil",
+   "lemma": "tanziyl",
+   "location": "26:192:2",
+   "transliteration": "tanzil",
+   "meaning": "Revelation, that which is sent down",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "books",
+    "revelation"
+   ],
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "tala",
+   "lemma": "talaY`",
+   "location": "98:2:4",
+   "transliteration": "tala",
+   "meaning": "To recite, follow",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "books",
+    "recitation"
+   ],
+   "extraCollections": [
+    "worship"
+   ]
+  },
+  {
+   "id": "qirtas",
+   "lemma": "qiroTaAs",
+   "location": "6:7:6",
+   "transliteration": "qirtas",
+   "meaning": "Page, parchment",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "books",
+    "writing"
+   ]
+  },
+  {
+   "id": "midad",
+   "lemma": "midaAd",
+   "location": "18:109:5",
+   "transliteration": "midad",
+   "meaning": "Ink",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "books",
+    "writing"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,210 @@
+{
+ "collection": "daily-life",
+ "existing": [
+  {
+   "id": "al-ma",
+   "why": "Water - drinking and everyday use"
+  }
+ ],
+ "new": [
+  {
+   "id": "akala",
+   "lemma": ">akala",
+   "location": "52:19:1",
+   "transliteration": "akala",
+   "meaning": "To eat",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "daily-life",
+    "food",
+    "verbs"
+   ],
+   "extraCollections": [
+    "food"
+   ]
+  },
+  {
+   "id": "shariba",
+   "lemma": "$ariba",
+   "location": "56:68:4",
+   "transliteration": "shariba",
+   "meaning": "To drink",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "daily-life",
+    "drink",
+    "verbs"
+   ],
+   "extraCollections": [
+    "food"
+   ]
+  },
+  {
+   "id": "taam",
+   "lemma": "TaEaAm",
+   "location": "80:24:4",
+   "transliteration": "ta'am",
+   "meaning": "Food",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "daily-life",
+    "food"
+   ],
+   "extraCollections": [
+    "food"
+   ]
+  },
+  {
+   "id": "khubz",
+   "lemma": "xuboz",
+   "location": "12:36:18",
+   "transliteration": "khubz",
+   "meaning": "Bread",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "daily-life",
+    "food"
+   ],
+   "extraCollections": [
+    "food"
+   ]
+  },
+  {
+   "id": "laban",
+   "lemma": "l~aban",
+   "location": "16:66:14",
+   "transliteration": "laban",
+   "meaning": "Milk",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "daily-life",
+    "drink"
+   ],
+   "extraCollections": [
+    "food"
+   ],
+   "arabic": "لَبَن"
+  },
+  {
+   "id": "ghada",
+   "lemma": "gadaA^'",
+   "location": "18:62:6",
+   "transliteration": "ghada'",
+   "meaning": "Morning meal, meal",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "daily-life",
+    "food",
+    "musa"
+   ],
+   "arabic": "غَدَاء"
+  },
+  {
+   "id": "nawm",
+   "lemma": "nawom",
+   "location": "78:9:2",
+   "transliteration": "nawm",
+   "meaning": "Sleep",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "daily-life",
+    "rest"
+   ]
+  },
+  {
+   "id": "masha",
+   "lemma": "m~a$a",
+   "location": "25:63:4",
+   "transliteration": "masha",
+   "meaning": "To walk",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "daily-life",
+    "movement",
+    "verbs"
+   ],
+   "arabic": "مَشَىٰ"
+  },
+  {
+   "id": "qaada",
+   "lemma": "qaEada",
+   "location": "72:9:3",
+   "transliteration": "qa'ada",
+   "meaning": "To sit",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "daily-life",
+    "verbs"
+   ]
+  },
+  {
+   "id": "bab",
+   "lemma": "baAb",
+   "location": "43:34:2",
+   "transliteration": "bab",
+   "meaning": "Door, gate",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "daily-life",
+    "home"
+   ],
+   "extraCollections": [
+    "architecture"
+   ]
+  },
+  {
+   "id": "surur",
+   "lemma": "surur",
+   "location": "15:47:9",
+   "transliteration": "surur",
+   "meaning": "Couches, raised beds",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "daily-life",
+    "furniture",
+    "paradise"
+   ]
+  },
+  {
+   "id": "kas",
+   "lemma": "ka>os",
+   "location": "78:34:1",
+   "transliteration": "ka's",
+   "meaning": "Cup",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "daily-life",
+    "vessels",
+    "paradise"
+   ]
+  },
+  {
+   "id": "siraj",
+   "lemma": "siraAj",
+   "location": "78:13:2",
+   "transliteration": "siraj",
+   "meaning": "Lamp",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "daily-life",
+    "light"
+   ],
+   "extraCollections": [
+    "astronomy"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,240 @@
+{
+ "collection": "business",
+ "existing": [
+  {
+   "id": "36",
+   "why": "Balance, scale - fair weighing"
+  },
+  {
+   "id": "96",
+   "why": "Loss"
+  },
+  {
+   "id": "az-zakah",
+   "why": "Obligatory charity on wealth"
+  }
+ ],
+ "new": [
+  {
+   "id": "tijarah",
+   "lemma": "tija`rap",
+   "location": "24:37:4",
+   "transliteration": "tijarah",
+   "meaning": "Trade, commerce, transaction",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "business",
+    "trade"
+   ]
+  },
+  {
+   "id": "bay",
+   "lemma": "bayoE",
+   "location": "24:37:6",
+   "transliteration": "bay'",
+   "meaning": "Sale, selling, trading",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "business",
+    "trade"
+   ]
+  },
+  {
+   "id": "ishtara",
+   "lemma": "{$otaraY`",
+   "location": "2:16:3",
+   "transliteration": "ishtara",
+   "meaning": "To buy, purchase, exchange",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "business",
+    "trade"
+   ]
+  },
+  {
+   "id": "shara",
+   "lemma": "$ara",
+   "location": "12:20:1",
+   "transliteration": "shara",
+   "meaning": "To sell",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "business",
+    "trade"
+   ],
+   "arabic": "شَرَىٰ"
+  },
+  {
+   "id": "rabiha",
+   "lemma": "rabiHat",
+   "location": "2:16:7",
+   "transliteration": "rabiha",
+   "meaning": "To profit",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "business",
+    "profit"
+   ],
+   "arabic": "رَبِحَ"
+  },
+  {
+   "id": "mal",
+   "lemma": "maAl",
+   "location": "89:20:2",
+   "transliteration": "mal",
+   "meaning": "Wealth, property, money",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "business",
+    "wealth"
+   ]
+  },
+  {
+   "id": "kanz",
+   "lemma": "kanz",
+   "location": "26:58:1",
+   "transliteration": "kanz",
+   "meaning": "Treasure",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "business",
+    "wealth"
+   ]
+  },
+  {
+   "id": "darahim",
+   "lemma": "dara`him",
+   "location": "12:20:4",
+   "transliteration": "darahim",
+   "meaning": "Dirhams, silver coins",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "business",
+    "money"
+   ]
+  },
+  {
+   "id": "qard",
+   "lemma": "qaroD",
+   "location": "57:11:6",
+   "transliteration": "qard",
+   "meaning": "Loan",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "business",
+    "lending"
+   ]
+  },
+  {
+   "id": "maghram",
+   "lemma": "m~agoram",
+   "location": "52:40:6",
+   "transliteration": "maghram",
+   "meaning": "Debt, financial burden",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "business",
+    "lending"
+   ],
+   "arabic": "مَغْرَم"
+  },
+  {
+   "id": "riba",
+   "lemma": "r~ibaw`A",
+   "location": "2:276:3",
+   "transliteration": "riba",
+   "meaning": "Usury, interest",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "business",
+    "lending"
+   ],
+   "extraCollections": [
+    "ethics"
+   ],
+   "arabic": "رِبَا"
+  },
+  {
+   "id": "ajr",
+   "lemma": ">ajor",
+   "location": "36:21:5",
+   "transliteration": "ajr",
+   "meaning": "Wage, payment; reward",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "business",
+    "wages"
+   ]
+  },
+  {
+   "id": "sadaqah",
+   "lemma": "Sadaqap",
+   "location": "2:263:6",
+   "transliteration": "sadaqah",
+   "meaning": "Charity",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "business",
+    "charity"
+   ],
+   "extraCollections": [
+    "worship"
+   ]
+  },
+  {
+   "id": "kayl",
+   "lemma": "kayol",
+   "location": "26:181:2",
+   "transliteration": "kayl",
+   "meaning": "Measure (of goods)",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "business",
+    "measures"
+   ]
+  },
+  {
+   "id": "wazn",
+   "lemma": "wazon",
+   "location": "55:9:2",
+   "transliteration": "wazn",
+   "meaning": "Weight, weighing",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "business",
+    "measures"
+   ]
+  },
+  {
+   "id": "mutaffifin",
+   "lemma": "muTaf~ifiyn",
+   "location": "83:1:2",
+   "transliteration": "mutaffifin",
+   "meaning": "Those who give short measure, cheats",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "business",
+    "measures"
+   ],
+   "extraCollections": [
+    "ethics"
+   ]
+  }
+ ]
+}

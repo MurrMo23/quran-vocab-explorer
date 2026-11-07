@@ -1,0 +1,175 @@
+{
+ "collection": "morality",
+ "existing": [
+  {
+   "id": "100",
+   "why": "Justice - core Quranic virtue"
+  },
+  {
+   "id": "101",
+   "why": "Injustice/oppression - central vice"
+  },
+  {
+   "id": "98",
+   "why": "Righteousness (birr)"
+  },
+  {
+   "id": "99",
+   "why": "Wickedness, the opposite of birr"
+  },
+  {
+   "id": "20",
+   "why": "Patience - key moral virtue"
+  },
+  {
+   "id": "57",
+   "why": "Gratitude"
+  },
+  {
+   "id": "al-ihsan",
+   "why": "Excellence, doing good"
+  },
+  {
+   "id": "al-kidhb",
+   "why": "Lying"
+  },
+  {
+   "id": "al-khiyanah",
+   "why": "Betrayal of trust"
+  },
+  {
+   "id": "al-hasad",
+   "why": "Envy"
+  }
+ ],
+ "new": [
+  {
+   "id": "sadiq",
+   "lemma": "SaAdiq",
+   "location": "9:119:8",
+   "transliteration": "sadiq",
+   "meaning": "Truthful one",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "morality",
+    "honesty"
+   ]
+  },
+  {
+   "id": "amanat",
+   "lemma": ">ama`na`t",
+   "location": "23:8:3",
+   "transliteration": "amanat",
+   "meaning": "Trusts (things entrusted)",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "morality",
+    "trust"
+   ]
+  },
+  {
+   "id": "maruf",
+   "lemma": "m~aEoruwf",
+   "location": "3:104:8",
+   "transliteration": "ma'ruf",
+   "meaning": "What is right, recognized good",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "morality",
+    "good"
+   ],
+   "extraCollections": [
+    "community"
+   ],
+   "arabic": "مَعْرُوف"
+  },
+  {
+   "id": "munkar",
+   "lemma": "munkar",
+   "location": "3:104:11",
+   "transliteration": "munkar",
+   "meaning": "What is wrong, evil (forbidden)",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "morality",
+    "evil"
+   ],
+   "extraCollections": [
+    "community"
+   ]
+  },
+  {
+   "id": "fahishah",
+   "lemma": "fa`Hi$ap",
+   "location": "17:32:6",
+   "transliteration": "fahishah",
+   "meaning": "Immorality, indecency",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "morality",
+    "sin"
+   ]
+  },
+  {
+   "id": "ithm",
+   "lemma": "<ivom",
+   "location": "4:111:3",
+   "transliteration": "ithm",
+   "meaning": "Sin",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "morality",
+    "sin"
+   ]
+  },
+  {
+   "id": "afa",
+   "lemma": "EafaA",
+   "location": "42:40:6",
+   "transliteration": "'afa",
+   "meaning": "To pardon, forgive",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "morality",
+    "forgiveness"
+   ]
+  },
+  {
+   "id": "awfa",
+   "lemma": ">awofaY`",
+   "location": "13:20:2",
+   "transliteration": "awfa",
+   "meaning": "To fulfil (a promise, covenant)",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "morality",
+    "promises"
+   ]
+  },
+  {
+   "id": "ahd",
+   "lemma": "Eahod",
+   "location": "17:34:13",
+   "transliteration": "'ahd",
+   "meaning": "Commitment, promise, covenant",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "morality",
+    "promises"
+   ],
+   "extraCollections": [
+    "warfare",
+    "governance"
+   ]
+  }
+ ]
+}

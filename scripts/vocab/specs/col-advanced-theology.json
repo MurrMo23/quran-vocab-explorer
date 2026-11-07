@@ -1,0 +1,217 @@
+{
+ "collection": "advanced-theology",
+ "existing": [
+  {
+   "id": "113",
+   "why": "Qadar - divine decree"
+  },
+  {
+   "id": "120",
+   "why": "Wahy - revelation"
+  },
+  {
+   "id": "al-lawh-al-mahfuz",
+   "why": "The Preserved Tablet"
+  },
+  {
+   "id": "al-khalq",
+   "why": "Creation"
+  },
+  {
+   "id": "111",
+   "why": "Shirk - associating partners"
+  },
+  {
+   "id": "117",
+   "why": "Barzakh - intermediate realm"
+  },
+  {
+   "id": "115",
+   "why": "Divine names"
+  },
+  {
+   "id": "116",
+   "why": "Divine attributes"
+  }
+ ],
+ "new": [
+  {
+   "id": "shaa",
+   "lemma": "$aA^'a",
+   "location": "81:29:5",
+   "transliteration": "sha'a",
+   "meaning": "To will (divine will)",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "advanced-theology",
+    "will"
+   ],
+   "extraCollections": [
+    "faith"
+   ],
+   "arabic": "شَاءَ"
+  },
+  {
+   "id": "ghayb",
+   "lemma": "gayob",
+   "location": "13:9:2",
+   "transliteration": "ghayb",
+   "meaning": "The unseen",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "advanced-theology",
+    "unseen"
+   ],
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "arsh",
+   "lemma": "Earo$",
+   "location": "20:5:3",
+   "transliteration": "'arsh",
+   "meaning": "Throne",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "advanced-theology",
+    "throne"
+   ],
+   "extraCollections": [
+    "governance"
+   ]
+  },
+  {
+   "id": "shafaah",
+   "lemma": "$afa`Eap",
+   "location": "74:48:3",
+   "transliteration": "shafa'ah",
+   "meaning": "Intercession",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "advanced-theology",
+    "intercession"
+   ],
+   "extraCollections": [
+    "afterlife"
+   ]
+  },
+  {
+   "id": "mithaq",
+   "lemma": "m~iyva`q",
+   "location": "2:63:3",
+   "transliteration": "mithaq",
+   "meaning": "Covenant, solemn pledge",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "advanced-theology",
+    "covenant"
+   ],
+   "arabic": "مِيثَاق"
+  },
+  {
+   "id": "fitrah",
+   "lemma": "fiTorat",
+   "location": "30:30:5",
+   "transliteration": "fitrah",
+   "meaning": "Innate nature (fitrah)",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "advanced-theology",
+    "creation"
+   ],
+   "arabic": "فِطْرَة"
+  },
+  {
+   "id": "adalla",
+   "lemma": ">aDal~a",
+   "location": "13:27:13",
+   "transliteration": "adalla",
+   "meaning": "To lead astray, send astray",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "advanced-theology",
+    "misguidance"
+   ]
+  },
+  {
+   "id": "hada",
+   "lemma": "hadaY",
+   "location": "1:6:1",
+   "transliteration": "hada",
+   "meaning": "To guide",
+   "partOfSpeech": "verb",
+   "level": "beginner",
+   "tags": [
+    "advanced-theology",
+    "guidance"
+   ],
+   "extraCollections": [
+    "faith"
+   ]
+  },
+  {
+   "id": "qada",
+   "lemma": "qaDaY`^",
+   "location": "40:68:6",
+   "transliteration": "qada",
+   "meaning": "To decree, decide",
+   "partOfSpeech": "verb",
+   "level": "advanced",
+   "tags": [
+    "advanced-theology",
+    "decree"
+   ],
+   "arabic": "قَضَىٰ"
+  },
+  {
+   "id": "ajal",
+   "lemma": ">ajal",
+   "location": "15:5:5",
+   "transliteration": "ajal",
+   "meaning": "Appointed term, fixed time",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "advanced-theology",
+    "decree"
+   ],
+   "extraCollections": [
+    "time"
+   ]
+  },
+  {
+   "id": "sunnah",
+   "lemma": "sun~ap",
+   "location": "33:62:1",
+   "transliteration": "sunnah",
+   "meaning": "Established way (of Allah)",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "advanced-theology",
+    "divine-law"
+   ]
+  },
+  {
+   "id": "malakut",
+   "lemma": "malakuwt",
+   "location": "36:83:4",
+   "transliteration": "malakut",
+   "meaning": "Dominion, realm",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "advanced-theology",
+    "sovereignty"
+   ]
+  }
+ ]
+}

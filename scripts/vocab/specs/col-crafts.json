@@ -1,0 +1,198 @@
+{
+ "collection": "crafts",
+ "existing": [],
+ "new": [
+  {
+   "id": "hadid",
+   "lemma": "Hadiyd",
+   "location": "34:10:12",
+   "transliteration": "hadid",
+   "meaning": "Iron",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "crafts",
+    "metal"
+   ],
+   "extraCollections": [
+    "nature"
+   ]
+  },
+  {
+   "id": "sanaa",
+   "lemma": "SanaEu",
+   "location": "11:37:1",
+   "transliteration": "sana'a",
+   "meaning": "To make, construct",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "crafts",
+    "making"
+   ],
+   "arabic": "صَنَعَ"
+  },
+  {
+   "id": "tin",
+   "lemma": "Tiyn",
+   "location": "23:12:7",
+   "transliteration": "tin",
+   "meaning": "Clay",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "crafts",
+    "clay"
+   ],
+   "extraCollections": [
+    "nature"
+   ]
+  },
+  {
+   "id": "fakhkhar",
+   "lemma": "fax~aAr",
+   "location": "55:14:5",
+   "transliteration": "fakhkhar",
+   "meaning": "Pottery, baked clay",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "crafts",
+    "clay"
+   ]
+  },
+  {
+   "id": "qitr",
+   "lemma": "qiTor",
+   "location": "18:96:19",
+   "transliteration": "qitr",
+   "meaning": "Molten copper",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "crafts",
+    "metal"
+   ]
+  },
+  {
+   "id": "sard",
+   "lemma": "s~arod",
+   "location": "34:11:6",
+   "transliteration": "sard",
+   "meaning": "Links of chain mail",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "crafts",
+    "metal"
+   ],
+   "arabic": "سَرْد"
+  },
+  {
+   "id": "sabighat",
+   "lemma": "sa`biga`t",
+   "location": "34:11:3",
+   "transliteration": "sabighat",
+   "meaning": "Full coats of mail",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "crafts",
+    "metal"
+   ],
+   "extraCollections": [
+    "warfare"
+   ]
+  },
+  {
+   "id": "harth",
+   "lemma": "Harov",
+   "location": "68:22:4",
+   "transliteration": "harth",
+   "meaning": "Tilled field, crop",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "crafts",
+    "farming"
+   ],
+   "extraCollections": [
+    "nature"
+   ]
+  },
+  {
+   "id": "zaraa",
+   "lemma": "tazoraEu",
+   "location": "56:64:2",
+   "transliteration": "zara'a",
+   "meaning": "To sow, cultivate",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "crafts",
+    "farming"
+   ],
+   "arabic": "زَرَعَ"
+  },
+  {
+   "id": "raa-pasture",
+   "lemma": "raEa",
+   "location": "20:54:2",
+   "transliteration": "ra'a",
+   "meaning": "To pasture, graze livestock",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "crafts",
+    "shepherding"
+   ],
+   "extraCollections": [
+    "animals"
+   ],
+   "arabic": "رَعَىٰ"
+  },
+  {
+   "id": "ghawwas",
+   "lemma": "gaw~aAS",
+   "location": "38:37:4",
+   "transliteration": "ghawwas",
+   "meaning": "Diver",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "crafts",
+    "occupations"
+   ]
+  },
+  {
+   "id": "bannaa",
+   "lemma": "ban~aA^'",
+   "location": "38:37:3",
+   "transliteration": "banna'",
+   "meaning": "Builder",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "crafts",
+    "occupations"
+   ],
+   "arabic": "بَنَّاء"
+  },
+  {
+   "id": "sayd",
+   "lemma": "Sayod",
+   "location": "5:96:3",
+   "transliteration": "sayd",
+   "meaning": "Hunting, game",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "crafts",
+    "hunting"
+   ],
+   "extraCollections": [
+    "food"
+   ]
+  }
+ ]
+}

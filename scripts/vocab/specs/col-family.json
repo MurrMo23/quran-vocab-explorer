@@ -1,0 +1,278 @@
+{
+ "collection": "family",
+ "existing": [
+  {
+   "id": "26",
+   "why": "Chaste (married) women - marriage vocabulary"
+  }
+ ],
+ "new": [
+  {
+   "id": "umm",
+   "lemma": ">um~",
+   "location": "80:35:1",
+   "transliteration": "umm",
+   "meaning": "Mother",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "parents"
+   ],
+   "allowSharedLemma": true
+  },
+  {
+   "id": "ab",
+   "lemma": ">abN",
+   "location": "12:16:2",
+   "transliteration": "ab",
+   "meaning": "Father",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "parents"
+   ],
+   "arabic": "أَب"
+  },
+  {
+   "id": "aba",
+   "lemma": "A^baA'",
+   "location": "37:69:3",
+   "transliteration": "ābā'",
+   "meaning": "Fathers, forefathers, ancestors",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "family",
+    "ancestors"
+   ],
+   "arabic": "آبَاء"
+  },
+  {
+   "id": "walidayn",
+   "lemma": "wa`liday",
+   "location": "14:41:4",
+   "transliteration": "walidayn",
+   "meaning": "Parents (both parents)",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "parents"
+   ],
+   "arabic": "وَالِدَيْن"
+  },
+  {
+   "id": "ibn",
+   "lemma": "{bon",
+   "location": "19:34:3",
+   "transliteration": "ibn",
+   "meaning": "Son",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "children"
+   ]
+  },
+  {
+   "id": "banun",
+   "lemma": "bunaY~",
+   "location": "80:36:2",
+   "transliteration": "banun",
+   "meaning": "Sons, children (Bani: \"children of\")",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "children"
+   ],
+   "arabic": "بَنُون"
+  },
+  {
+   "id": "banat",
+   "lemma": "banaAt",
+   "location": "37:153:2",
+   "transliteration": "banat",
+   "meaning": "Daughters",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "children"
+   ]
+  },
+  {
+   "id": "walad",
+   "lemma": "walad",
+   "location": "19:88:4",
+   "transliteration": "walad",
+   "meaning": "Child, son, offspring",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "children"
+   ]
+  },
+  {
+   "id": "akh",
+   "lemma": ">ax",
+   "location": "20:30:2",
+   "transliteration": "akh",
+   "meaning": "Brother",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "siblings"
+   ]
+  },
+  {
+   "id": "ikhwah",
+   "lemma": "<ixowapN",
+   "location": "49:10:3",
+   "transliteration": "ikhwah",
+   "meaning": "Brothers, brethren",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "family",
+    "siblings",
+    "brotherhood"
+   ],
+   "extraCollections": [
+    "community"
+   ],
+   "arabic": "إِخْوَة"
+  },
+  {
+   "id": "ukht",
+   "lemma": ">uxot",
+   "location": "19:28:1",
+   "transliteration": "ukht",
+   "meaning": "Sister",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "siblings"
+   ]
+  },
+  {
+   "id": "zawj",
+   "lemma": "zawoj",
+   "location": "20:117:7",
+   "transliteration": "zawj",
+   "meaning": "Spouse, wife, husband; pair",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "marriage"
+   ]
+  },
+  {
+   "id": "sahibah",
+   "lemma": "Sa`Hibap",
+   "location": "70:12:1",
+   "transliteration": "sahibah",
+   "meaning": "Wife, female companion",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "family",
+    "marriage"
+   ]
+  },
+  {
+   "id": "nakaha",
+   "lemma": "nakaHa",
+   "location": "4:22:2",
+   "transliteration": "nakaha",
+   "meaning": "To marry",
+   "partOfSpeech": "verb",
+   "level": "intermediate",
+   "tags": [
+    "family",
+    "marriage"
+   ]
+  },
+  {
+   "id": "talaq",
+   "lemma": "T~ala`q",
+   "location": "2:227:3",
+   "transliteration": "talaq",
+   "meaning": "Divorce",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "family",
+    "marriage",
+    "law"
+   ],
+   "arabic": "طَلَاق"
+  },
+  {
+   "id": "mawaddah",
+   "lemma": "m~awad~ap",
+   "location": "30:21:13",
+   "transliteration": "mawaddah",
+   "meaning": "Affection, love",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "family",
+    "marriage",
+    "emotions"
+   ],
+   "extraCollections": [
+    "emotions"
+   ],
+   "arabic": "مَوَدَّة"
+  },
+  {
+   "id": "yatim",
+   "lemma": "yatiym",
+   "location": "93:9:2",
+   "transliteration": "yatim",
+   "meaning": "Orphan",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": [
+    "family",
+    "care"
+   ],
+   "extraCollections": [
+    "ethics"
+   ]
+  },
+  {
+   "id": "qurba",
+   "lemma": "qurobaY`",
+   "location": "17:26:3",
+   "transliteration": "qurba",
+   "meaning": "Kinship, near relatives",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": [
+    "family",
+    "kinship"
+   ]
+  },
+  {
+   "id": "arham-family",
+   "lemma": ">aroHaAm",
+   "location": "47:22:10",
+   "transliteration": "arham",
+   "meaning": "Wombs; ties of kinship",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": [
+    "family",
+    "kinship"
+   ]
+  }
+ ]
+}
