@@ -151,69 +151,69 @@ const jobs = {
 
 // ---------- template ----------
 const font = (f) => `data:font/woff2;base64,${readFileSync(join(here, 'fonts', f)).toString('base64')}`;
-const logo = `data:image/png;base64,${readFileSync(join(root, 'public/lovable-uploads/971aabb3-7499-4eb9-a8b4-d658db731aee.png')).toString('base64')}`;
+const siteFont = (f) => `data:font/woff2;base64,${readFileSync(join(root, 'src/assets/fonts', f)).toString('base64')}`;
+// The new brand logo (book mark + wordmark), inline SVG with the dark-ink wordmark for the sand background.
+const logo = `data:image/svg+xml;base64,${readFileSync(join(root, 'public/brand/quranvocab-logo.svg')).toString('base64')}`;
 const LATIN = 'U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD';
 const LATIN_EXT = 'U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF';
 const faces = [
-  // Scheherazade New (SIL): a classic naskh built for fully vowelled Quranic text. The Google Fonts
-  // build of Amiri used on the site does not attach harakat to their letters under HarfBuzz
-  // (they float above the line), so it is not used for the images.
+  // Headword: Amiri Quran, the face the site uses for large Arabic (self-hosted subset in src/assets/fonts).
+  // Scheherazade New stays as a fallback for any character outside that subset.
+  `@font-face{font-family:QuranOG;font-weight:400;src:url(${siteFont('amiri-quran-arabic-400-normal.woff2')}) format('woff2')}`,
   `@font-face{font-family:ArabicOG;font-weight:700;src:url(${font('scheherazade-new-arabic-700-normal.woff2')}) format('woff2')}`,
-  ...[400, 500, 700].flatMap((w) => [
-    `@font-face{font-family:InterOG;font-weight:${w};unicode-range:${LATIN};src:url(${font(`inter-latin-${w}-normal.woff2`)}) format('woff2')}`,
-    `@font-face{font-family:InterOG;font-weight:${w};unicode-range:${LATIN_EXT};src:url(${font(`inter-latin-ext-${w}-normal.woff2`)}) format('woff2')}`,
-  ]),
+  // Latin: Plus Jakarta Sans (variable weight), the site's UI face.
+  `@font-face{font-family:JakartaOG;font-weight:200 800;unicode-range:${LATIN};src:url(${siteFont('plus-jakarta-sans-latin-wght-normal.woff2')}) format('woff2')}`,
+  `@font-face{font-family:JakartaOG;font-weight:200 800;unicode-range:${LATIN_EXT};src:url(${siteFont('plus-jakarta-sans-latin-ext-wght-normal.woff2')}) format('woff2')}`,
 ].join('\n');
 
-// Brand: site primary hsl(195 83% 38%) = #1089b1, background hsl(40 25% 98%), logo indigo #4147e0.
+// Brand "Oasis": sand #FBF8F1, ink #10231F, teal #0F6B5C (shade #0A4D42), gold #E3B455, mint #E3F0EC.
 const html = `<!doctype html><html><head><meta charset="utf-8"><style>
 ${faces}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:1200px;height:630px;overflow:hidden}
-body{font-family:InterOG,sans-serif;background:#faf8f4;color:#14181c;-webkit-font-smoothing:antialiased}
-.card{position:relative;width:1200px;height:630px;display:flex}
-.left{position:relative;width:540px;height:630px;padding:56px 44px 48px 60px;display:flex;flex-direction:column}
-.left:before{content:"";position:absolute;inset:0;background:radial-gradient(600px 400px at 0% 0%,rgba(16,137,177,.07),transparent 70%)}
-.kind{position:relative;display:flex;align-items:center;gap:12px;font-size:19px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0d7398}
-.kind i{width:10px;height:10px;background:#c9a24a;transform:rotate(45deg);display:block}
-.kind .badge{margin-left:auto;letter-spacing:.04em;text-transform:none;font-weight:500;color:#6b7680;font-size:19px}
-.body{position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:12px 0}
-.title{font-weight:700;font-size:64px;line-height:1.08;letter-spacing:-.02em;color:#101418;max-height:150px;overflow:hidden}
-.subtitle{font-size:31px;line-height:1.3;color:#46525c;max-height:165px;overflow:hidden}
-.stat{display:flex;align-items:center;gap:10px;white-space:nowrap;overflow:hidden;font-size:22px;font-weight:500;color:#0d7398}
-.stat:before{content:"";flex:none;width:28px;height:3px;border-radius:2px;background:#c9a24a}
-.foot{position:relative;display:flex;align-items:center;justify-content:space-between}
-.foot img{height:44px;width:auto}
-.foot span{font-size:19px;color:#7a858e;font-weight:500}
-.right{position:relative;flex:1;height:630px;background:linear-gradient(150deg,#1291bb 0%,#0c6f92 45%,#08465e 100%);overflow:hidden;display:flex;align-items:center;justify-content:center}
-.right svg.pat{position:absolute;inset:0;opacity:.075}
-.frame{position:absolute;inset:26px;border:1.5px solid rgba(233,205,140,.55);border-radius:22px}
-.frame:after{content:"";position:absolute;inset:8px;border:1px solid rgba(233,205,140,.22);border-radius:16px}
-.glow{position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.14),transparent)}
-.ar{position:relative;font-family:ArabicOG,serif;font-weight:700;color:#fdf6e3;text-align:center;direction:rtl;line-height:1.55;width:540px;max-height:470px;padding:0 10px;text-shadow:0 2px 18px rgba(0,0,0,.18);font-feature-settings:"calt" 1,"liga" 1}
-.orn{position:absolute;left:50%;transform:translateX(-50%);width:120px;height:14px;display:flex;align-items:center;justify-content:center;gap:10px}
-.orn.top{top:50px}.orn.bot{bottom:50px}
-.orn b{flex:1;height:1px;background:rgba(233,205,140,.6)}.orn i{width:9px;height:9px;transform:rotate(45deg);background:#e9cd8c;display:block}
+body{font-family:JakartaOG,sans-serif;background:#FBF8F1;color:#10231F;-webkit-font-smoothing:antialiased}
+.card{position:relative;width:1200px;height:630px;display:flex;gap:8px;padding:44px}
+.left{position:relative;width:560px;padding:8px 24px 4px 16px;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.top img{height:50px;width:auto;display:block}
+.chips{display:flex;align-items:center;gap:10px;margin-top:40px}
+.chip{display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:999px;font-size:19px;font-weight:800;white-space:nowrap}
+.kind{background:#E3F0EC;color:#0F5C4F}
+.badge{background:#FFFFFF;border:2px solid #E4DCCB;color:#34453F}
+.badge:empty{display:none}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:8px 0 12px}
+.title{font-weight:800;font-size:64px;line-height:1.06;letter-spacing:-.025em;color:#10231F;max-height:150px;overflow:hidden;text-wrap:balance}
+.subtitle{font-size:29px;line-height:1.35;font-weight:500;color:#51615C;max-height:160px;overflow:hidden;text-wrap:pretty}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.stat{display:inline-flex;align-items:center;height:48px;padding:0 20px;border-radius:16px;background:#F6EBD3;border-bottom:4px solid #E3B455;color:#7A560F;font-size:21px;font-weight:800;white-space:nowrap;overflow:hidden;max-width:100%}
+.url{font-size:19px;font-weight:700;color:#51615C}
+.right{position:relative;flex:1;height:542px;border-radius:44px;background:#0F6B5C;border-bottom:12px solid #0A4D42;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:84px 0 62px}
+.right svg.pat{position:absolute;inset:0;opacity:.07}
+.arcs{position:absolute;top:34px;left:50%;transform:translateX(-50%)}
+/* Amiri Quran colours its marks (COLR palette: red/green/orange/blue); draw them in the text colour. */
+@font-palette-values --sand{font-family:QuranOG;override-colors:0 #FBF8F1,1 #FBF8F1,2 #FBF8F1,3 #FBF8F1}
+.ar{position:relative;font-family:QuranOG,ArabicOG,serif;font-palette:--sand;font-weight:400;color:#FBF8F1;text-align:center;direction:rtl;line-height:1.75;width:520px;max-height:400px;padding:0 18px}
+.dots{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:10px}
+.dots i{width:10px;height:10px;border-radius:50%;background:#E3B455;display:block;opacity:.9}
+.dots i:nth-child(2){opacity:.55}.dots i:nth-child(3){opacity:.3}
 </style></head><body>
 <div class="card">
   <div class="left">
-    <div class="kind"><i></i><span id="kind"></span><span class="badge" id="badge"></span></div>
+    <div class="top"><img src="${logo}" alt=""><span class="url">quranvocab.com</span></div>
+    <div class="chips"><span class="chip kind" id="kind"></span><span class="chip badge" id="badge"></span></div>
     <div class="body">
       <div class="title" id="title"></div>
       <div class="subtitle" id="subtitle"></div>
-      <div class="stat" id="stat"></div>
     </div>
-    <div class="foot"><img src="${logo}" alt=""><span>quranvocab.com</span></div>
+    <div class="foot"><span class="stat" id="stat"></span></div>
   </div>
   <div class="right">
-    <svg class="pat" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="p" width="80" height="80" patternUnits="userSpaceOnUse">
-      <g fill="none" stroke="#fff" stroke-width="1.4"><rect x="20" y="20" width="40" height="40"/><rect x="20" y="20" width="40" height="40" transform="rotate(45 40 40)"/><circle cx="40" cy="40" r="9"/><path d="M0 0L20 20M80 0L60 20M0 80L20 60M80 80L60 60"/></g>
+    <svg class="pat" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="p" width="84" height="84" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#FBF8F1" stroke-width="1.5"><rect x="22" y="22" width="40" height="40"/><rect x="22" y="22" width="40" height="40" transform="rotate(45 42 42)"/></g>
     </pattern></defs><rect width="100%" height="100%" fill="url(#p)"/></svg>
-    <div class="glow"></div>
-    <div class="frame"></div>
-    <div class="orn top"><b></b><i></i><b></b></div>
+    <svg class="arcs" width="96" height="40" viewBox="40 26 40 18" aria-hidden="true"><path d="M49.4 40.4a15 15 0 0 1 21.2 0" stroke="#E3B455" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M41.6 32.6a26 26 0 0 1 36.8 0" stroke="#E3B455" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg>
     <div class="ar" id="ar" lang="ar" dir="rtl"></div>
-    <div class="orn bot"><b></b><i></i><b></b></div>
+    <div class="dots"><i></i><i></i><i></i></div>
   </div>
 </div>
 <script>
@@ -239,11 +239,11 @@ window.renderCard = async (d) => {
   fit(title, 64, 36, 150);
   const sub = document.getElementById('subtitle');
   sub.style.maxHeight = 'none';
-  fit(sub, 31, 22, 165);
-  fit(document.getElementById('stat'), 22, 16, 40);
+  fit(sub, 29, 21, 160);
+  fit(document.getElementById('stat'), 21, 15, 48);
   ar.style.maxHeight = 'none';
   const words = d.arabic.trim().split(/\\s+/).length;
-  fit(ar, d.arabicSize === 'multi' ? 110 : words > 2 ? 130 : 210, 56, 460);
+  fit(ar, d.arabicSize === 'multi' ? 92 : words > 2 ? 110 : 170, 44, 370);
   return true;
 };
 </script></body></html>`;

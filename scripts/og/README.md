@@ -35,7 +35,7 @@ A full run removes images for pages that no longer exist, then rewrites the mani
 ## How it works
 
 - `og-data.ts` imports the app's own data modules. The script bundles it with the project's esbuild and dumps one JSON file, so the cards always match the site.
-- The template is inline HTML/CSS in `generate-og.mjs`: brand teal (`--primary` 195 83% 38%), the cream site background and the logo from `public/lovable-uploads`. Fonts are vendored in `fonts/` (OFL licences included), so a run needs no network:
-  - **Scheherazade New** for Arabic. The Google Fonts build of Amiri that the site uses does not attach harakat to their letters under HarfBuzz/Chromium: the marks float above the word. Amiri Quran has the same problem.
-  - **Inter** for Latin text.
-- Total size is about 25 MB (about 45 KB per image).
+- The template is inline HTML/CSS in `generate-og.mjs`, in the "Oasis" brand: sand background (`#FBF8F1`), the logo from `public/brand/quranvocab-logo.svg`, a mint category chip, a gold stat chip, and a deep-teal tactile panel (`#0F6B5C` with a `#0A4D42` bottom edge) holding the Arabic. Fonts are embedded as data URLs, so a run needs no network:
+  - **Amiri Quran** (`src/assets/fonts`, the site's headword face) for the Arabic. The upstream font colours some marks with a COLR palette (red, green, orange, blue); the site's subset has that table removed, and the template also overrides the palette with `@font-palette-values`, so marks always draw in the text colour. **Scheherazade New** (`fonts/`) is the fallback for any character outside the Amiri subset.
+  - **Plus Jakarta Sans** (`src/assets/fonts`, variable weight) for Latin text.
+- Total size is about 18 MB (about 33 KB per image).

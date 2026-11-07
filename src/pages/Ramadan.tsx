@@ -74,30 +74,36 @@ const DayCard: React.FC<{ d: RamadanDay; progress: DayProgress | null; today: bo
   return (
     <li
       id={`day-${d.day}`}
-      className={cn('min-w-0 scroll-mt-24 rounded-xl border bg-card p-4 shadow-sm', today && 'border-primary ring-2 ring-primary/30')}
+      className={cn(
+        'flex min-w-0 scroll-mt-24 flex-col rounded-[1.375rem] border-2 border-b-4 bg-card p-5',
+        today && 'border-primary ring-2 ring-primary/25',
+      )}
       data-testid="ramadan-day"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <h3 className="text-lg font-semibold">
+        <h3 className="flex items-center text-lg font-extrabold">
+          <span className="mr-2.5 flex h-9 w-9 items-center justify-center rounded-xl bg-secondary text-sm text-secondary-foreground" aria-hidden="true">
+            {d.day}
+          </span>
           Day {d.day}
-          {today && <Badge className="ml-2 align-middle">Today</Badge>}
+          {today && <Badge className="ml-2 border-transparent bg-gold align-middle text-gold-foreground hover:bg-gold">Today</Badge>}
         </h3>
         <span className="text-sm text-muted-foreground">{formatPlanDate(ramadanDayDate(d.day))}</span>
       </div>
       {d.theme && (
         <p className="mt-1 text-sm">
-          <span className="font-medium text-primary">{d.theme.title}.</span>{' '}
+          <span className="font-bold text-primary">{d.theme.title}.</span>{' '}
           <span className="text-muted-foreground">{d.theme.note}</span>
         </p>
       )}
-      <ul className="mt-3 divide-y">
+      <ul className="mt-3 divide-y rounded-2xl bg-background px-3">
         {d.words.map((id) => {
           const w = getWordById(id);
           if (!w) return null;
           return (
             <li key={id}>
-              <Link to={getWordPath(w)} className="flex items-center gap-3 py-1.5 hover:text-primary">
-                <span className="min-w-[4.5rem] max-w-[55%] text-right font-arabic text-xl leading-snug" lang="ar" dir="rtl">
+              <Link to={getWordPath(w)} className="flex min-h-11 items-center gap-3 py-1.5 hover:text-primary">
+                <span className="min-w-[4.5rem] max-w-[55%] text-right font-arabic text-2xl leading-snug" lang="ar" dir="rtl">
                   {w.arabic}
                 </span>
                 <span className="line-clamp-2 min-w-0 flex-1 text-sm leading-snug">{w.meaning}</span>
@@ -116,14 +122,14 @@ const DayCard: React.FC<{ d: RamadanDay; progress: DayProgress | null; today: bo
           .
         </p>
       )}
-      <div className="mt-3 flex items-center gap-3">
-        <Button asChild size="sm" variant={done ? 'outline' : 'default'}>
+      <div className="mt-auto flex flex-wrap items-center gap-3 pt-4">
+        <Button asChild variant={done ? 'outline' : 'default'}>
           <Link
             to={reviewWordsUrl(d.words)}
             onClick={() => track('ramadan_day_start', { day: d.day })}
             data-testid={`start-day-${d.day}`}
           >
-            <Play className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
+            <Play className="h-4 w-4" aria-hidden="true" />
             {done ? `Review Day ${d.day}` : `Start Day ${d.day}`}
           </Link>
         </Button>
@@ -131,7 +137,7 @@ const DayCard: React.FC<{ d: RamadanDay; progress: DayProgress | null; today: bo
         <span className="text-xs text-muted-foreground" data-testid={`day-progress-${d.day}`} aria-live="polite">
           {progress &&
             (done ? (
-              <span className="inline-flex items-center gap-1 text-green-700 dark:text-green-400">
+              <span className="inline-flex items-center gap-1 font-bold text-primary">
                 <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" /> All {total} known
               </span>
             ) : progress.started > 0 ? (
@@ -191,15 +197,17 @@ const Ramadan = () => {
         breadcrumbs={[{ name: 'Ramadan plan', path: PATH }]}
       />
 
-      <div className="container mx-auto max-w-5xl py-6">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <PageTrail items={[{ name: 'Ramadan plan', path: PATH }]} />
 
-        <header className="mb-6 max-w-3xl">
-          <p className="font-arabic text-3xl text-primary" lang="ar" dir="rtl">
+        <div className="card-tactile mb-10 grid gap-6 rounded-[2rem] p-6 sm:p-9 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-start">
+        <header className="min-w-0">
+          <span className="inline-block rounded-full bg-gold/25 px-3 py-1.5 text-[13px] font-bold text-gold-text">30-day plan · {WORDS_PER_DAY} words a day</span>
+          <p className="mt-3 font-quran text-5xl leading-[1.75] text-primary sm:text-6xl sm:leading-[1.75]" lang="ar" dir="rtl">
             رمضان
           </p>
-          <h1 className="mt-2 text-2xl font-bold sm:text-3xl">{TITLE}</h1>
-          <p className="mt-3 text-muted-foreground">
+          <h1 className="mt-1 text-2xl font-extrabold tracking-tight sm:text-[2.125rem] sm:leading-tight">{TITLE}</h1>
+          <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:text-[17px]">
             {RAMADAN_DAYS} days, about {WORDS_PER_DAY} words a day. The words come in order of how often they occur in
             the Quran and in Juz Amma, so the first days already cover much of what you hear recited. Together the{' '}
             {coverage.words} words make up about <strong className="text-foreground">{coverage.quranPercent}%</strong> of
@@ -207,8 +215,8 @@ const Ramadan = () => {
           </p>
         </header>
 
-        <section className="mb-8 rounded-xl border bg-secondary/30 p-4 sm:p-5" aria-labelledby="dates-heading">
-          <h2 id="dates-heading" className="flex items-center gap-2 text-lg font-semibold">
+        <section className="min-w-0 rounded-3xl bg-background p-5 sm:p-6" aria-labelledby="dates-heading">
+          <h2 id="dates-heading" className="flex items-center gap-2 text-lg font-extrabold">
             <Moon className="h-5 w-5 text-primary" aria-hidden="true" />
             Ramadan 2027 (1448 AH)
           </h2>
@@ -220,23 +228,23 @@ const Ramadan = () => {
           <div className="mt-3 min-h-[1.5rem]">
             <PhaseNote phase={phase} />
           </div>
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-start">
-            <Button asChild size="lg">
+          <div className="mt-4 flex flex-col gap-3">
+            <Button asChild size="lg" className="w-full">
               <Link
                 to={reviewWordsUrl(plan[startDay - 1].words)}
                 onClick={() => track('ramadan_day_start', { day: startDay })}
                 data-testid="start-plan"
               >
-                <Play className="mr-2 h-4 w-4" aria-hidden="true" />
+                <Play className="h-5 w-5" aria-hidden="true" />
                 Start Day {startDay}
               </Link>
             </Button>
             <div>
-              <Button size="lg" variant="outline" onClick={downloadIcs} data-testid="download-ics">
-                <CalendarPlus className="mr-2 h-4 w-4" aria-hidden="true" />
+              <Button size="lg" variant="outline" onClick={downloadIcs} data-testid="download-ics" className="w-full">
+                <CalendarPlus className="h-5 w-5" aria-hidden="true" />
                 Add to calendar (.ics file)
               </Button>
-              <p className="mt-1.5 max-w-sm text-xs text-muted-foreground">
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
                 Downloads a calendar file with {RAMADAN_DAYS} daily reminders at 8:00 pm your local time,{' '}
                 {formatPlanDate(ramadanDayDate(1))} – {lastDate} 2027. Open it with Google Calendar, Apple Calendar or
                 Outlook. It is made in your browser; nothing is sent to us.
@@ -244,9 +252,10 @@ const Ramadan = () => {
             </div>
           </div>
         </section>
+        </div>
 
         <section aria-labelledby="plan-heading">
-          <h2 id="plan-heading" className="mb-1 text-xl font-semibold">
+          <h2 id="plan-heading" className="mb-1 text-[22px] font-extrabold">
             The 30 days
           </h2>
           <p className="mb-4 text-sm text-muted-foreground">
@@ -260,8 +269,8 @@ const Ramadan = () => {
           </ol>
         </section>
 
-        <section className="mt-10 max-w-3xl space-y-3 border-t pt-6 text-sm text-muted-foreground" aria-labelledby="how-heading">
-          <h2 id="how-heading" className="text-lg font-semibold text-foreground">
+        <section className="mt-12 max-w-3xl space-y-3 rounded-[1.75rem] border bg-card p-6 text-sm leading-relaxed text-muted-foreground sm:p-7" aria-labelledby="how-heading">
+          <h2 id="how-heading" className="text-xl font-extrabold text-foreground">
             How the plan was made
           </h2>
           <p>
@@ -272,15 +281,15 @@ const Ramadan = () => {
           </p>
           <p>
             Your progress is saved in this browser, or in your account if you{' '}
-            <Link to="/auth" className="underline hover:text-primary">
+            <Link to="/auth" className="font-semibold text-primary underline underline-offset-4 hover:text-primary-shade">
               sign in
             </Link>
             . Prefer a different focus? See{' '}
-            <Link to="/surahs" className="underline hover:text-primary">
+            <Link to="/surahs" className="font-semibold text-primary underline underline-offset-4 hover:text-primary-shade">
               surah vocabulary
             </Link>{' '}
             or the{' '}
-            <Link to="/collections" className="underline hover:text-primary">
+            <Link to="/collections" className="font-semibold text-primary underline underline-offset-4 hover:text-primary-shade">
               themed collections
             </Link>
             .

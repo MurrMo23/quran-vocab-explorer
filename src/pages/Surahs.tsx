@@ -56,30 +56,31 @@ const Surahs = () => {
         breadcrumbs={[{ name: 'Surah vocabulary', path: '/surahs' }]}
       />
 
-      <div className="container mx-auto max-w-5xl py-6">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <PageTrail items={[{ name: 'Surah vocabulary', path: '/surahs' }]} />
 
-        <header className="mb-6">
-          <h1 className="text-2xl font-bold sm:text-3xl">Surah vocabulary</h1>
-          <p className="mt-2 text-muted-foreground">
-            Learn the words of the surahs you recite. Each of the 114 surahs has a page listing the QuranVocab words
-            found in it, most frequent first, and how much of the surah they cover. The short surahs of{' '}
-            <a href="#juz-amma" className="underline underline-offset-4 hover:text-foreground">Juz Amma</a> (78–114) are
-            highlighted.
-          </p>
+        <header className="card-tactile mb-8 flex flex-col gap-6 rounded-[2rem] p-6 sm:p-9 lg:flex-row lg:items-center lg:justify-between">
+          <div className="min-w-0 max-w-2xl">
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Surah vocabulary</h1>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:text-[17px]">
+              Learn the words of the surahs you recite. Each of the 114 surahs has a page listing the QuranVocab words
+              found in it, most frequent first, and how much of the surah they cover. The short surahs of{' '}
+              <a href="#juz-amma" className="font-semibold text-primary underline underline-offset-4 hover:text-primary-shade">Juz Amma</a>{' '}
+              (78–114) are highlighted.
+            </p>
+          </div>
+          <div className="relative w-full lg:max-w-sm">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+            <Input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search by name or number, e.g. Yasin, الكهف, 67"
+              aria-label="Search surahs by English or Arabic name"
+              className="h-12 rounded-2xl border-2 bg-background pl-11 text-base md:text-base"
+            />
+          </div>
         </header>
-
-        <div className="relative mb-4 max-w-md">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
-          <Input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by name or number, e.g. Yasin, الكهف, 67"
-            aria-label="Search surahs by English or Arabic name"
-            className="pl-9"
-          />
-        </div>
         <p className="sr-only" aria-live="polite">
           {query ? `${shown.length} ${shown.length === 1 ? 'surah' : 'surahs'} found` : ''}
         </p>
@@ -87,32 +88,32 @@ const Surahs = () => {
         {shown.length === 0 ? (
           <p className="py-8 text-center text-muted-foreground">No surah matches “{query}”.</p>
         ) : (
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {shown.map((s) => {
               const amma = isJuzAmma(s.number);
               return (
-                <li key={s.number} id={s.number === 78 ? 'juz-amma' : undefined} className="scroll-mt-20">
+                <li key={s.number} id={s.number === 78 ? 'juz-amma' : undefined} className="scroll-mt-24">
                   <Link
                     to={surahPath(s.number)}
                     className={cn(
-                      'flex h-full items-start gap-3 rounded-xl border p-4 transition-colors hover:border-primary/30 hover:bg-muted/40',
-                      amma && 'border-primary/25 bg-primary/5',
+                      'flex h-full items-start gap-3.5 rounded-[1.375rem] border-2 border-b-4 bg-card p-4 transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:p-5',
+                      amma && 'border-primary/25 bg-secondary/40',
                     )}
                   >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-secondary text-sm font-extrabold text-secondary-foreground">
                       {s.number}
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-baseline justify-between gap-2">
-                        <span className="font-medium">{s.name}</span>
-                        <span className="font-arabic text-lg" lang="ar" dir="rtl">{s.arabic}</span>
+                        <span className="font-extrabold">{s.name}</span>
+                        <span className="font-arabic text-xl leading-none" lang="ar" dir="rtl">{s.arabic}</span>
                       </span>
-                      <span className="block text-sm text-muted-foreground">{s.meaning}</span>
-                      <span className="mt-1 flex flex-wrap items-center gap-x-1.5 text-xs text-muted-foreground">
-                        <span>{juzLabel(s)}</span>
+                      <span className="mt-0.5 block text-sm text-muted-foreground">{s.meaning}</span>
+                      <span className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs text-muted-foreground">
                         {amma && (
-                          <span className="rounded-full bg-primary/10 px-1.5 py-px font-medium text-primary">Juz Amma</span>
+                          <span className="rounded-full bg-gold/25 px-2 py-0.5 font-bold text-gold-text">Juz Amma</span>
                         )}
+                        <span>{juzLabel(s)}</span>
                         <span aria-hidden="true">·</span>
                         <span>{s.ayahs} ayahs</span>
                         <span aria-hidden="true">·</span>
@@ -128,11 +129,11 @@ const Surahs = () => {
           </ul>
         )}
 
-        <p className="mt-8 text-sm text-muted-foreground">
+        <p className="mt-10 max-w-3xl text-sm leading-relaxed text-muted-foreground">
           Coverage is the share of the surah’s words (every form counted, from the Quranic Arabic Corpus) that are forms
           of the listed words. You can also explore words by their{' '}
-          <Link to="/roots" className="underline underline-offset-4 hover:text-foreground">Arabic roots</Link> or by{' '}
-          <Link to="/collections" className="underline underline-offset-4 hover:text-foreground">theme</Link>.
+          <Link to="/roots" className="font-semibold text-primary underline underline-offset-4 hover:text-primary-shade">Arabic roots</Link> or by{' '}
+          <Link to="/collections" className="font-semibold text-primary underline underline-offset-4 hover:text-primary-shade">theme</Link>.
         </p>
       </div>
     </>

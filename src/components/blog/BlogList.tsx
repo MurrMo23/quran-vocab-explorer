@@ -35,8 +35,8 @@ const BlogList = ({ categorySlug, limit }: BlogListProps) => {
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center p-12 text-center">
-        <AlertTriangle className="h-12 w-12 text-amber-500 mb-4" />
-        <h2 className="text-xl font-semibold mb-2">Error Loading Blog Posts</h2>
+        <AlertTriangle className="h-12 w-12 text-gold-text mb-4" />
+        <h2 className="mb-2 text-xl font-extrabold">Error Loading Blog Posts</h2>
         <p className="text-muted-foreground">
           There was a problem loading the blog posts. Please try again later.
         </p>
@@ -46,8 +46,8 @@ const BlogList = ({ categorySlug, limit }: BlogListProps) => {
 
   if (posts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-center border rounded-lg">
-        <h2 className="text-xl font-semibold mb-2">No Posts Found</h2>
+      <div className="card-tactile flex flex-col items-center justify-center p-12 text-center">
+        <h2 className="mb-2 text-xl font-extrabold">No Posts Found</h2>
         <p className="text-muted-foreground">
           {categorySlug 
             ? "No posts are available in this category yet."

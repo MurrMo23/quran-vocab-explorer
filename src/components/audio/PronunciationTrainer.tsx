@@ -28,7 +28,7 @@ const PronunciationTrainer: React.FC<PronunciationTrainerProps> = ({ word, onCom
         </div>
       </div>
 
-      <Card>
+      <Card className="rounded-3xl shadow-none">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Mic className="h-5 w-5" />
@@ -40,13 +40,13 @@ const PronunciationTrainer: React.FC<PronunciationTrainerProps> = ({ word, onCom
         </CardContent>
       </Card>
 
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="rounded-3xl shadow-none border-0 bg-secondary text-secondary-foreground">
         <CardContent className="p-4">
-          <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+          <h4 className="font-semibold text-secondary-foreground mb-2 flex items-center gap-2">
             <Volume2 className="h-4 w-4" />
             Practice tips
           </h4>
-          <ul className="text-sm text-blue-800 space-y-1">
+          <ul className="text-sm text-secondary-foreground space-y-1">
             <li>• Listen to the recitation several times before recording</li>
             <li>• Play your recording and the recitation back-to-back and listen for differences</li>
             <li>• Pay attention to long vowels, emphatic letters and letters from the throat</li>

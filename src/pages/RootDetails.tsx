@@ -13,8 +13,8 @@ const RootDetails = () => {
     return (
       <>
         <SEO title="Root not found" noindex />
-        <div className="py-16 text-center">
-          <h1 className="mb-2 text-xl font-semibold">Root not found</h1>
+        <div className="mx-auto max-w-xl px-4 py-16 text-center sm:px-6">
+          <h1 className="mb-2 text-2xl font-extrabold">Root not found</h1>
           <p className="mb-6 text-muted-foreground">We have no words from this root yet.</p>
           <Button asChild>
             <Link to="/roots">Browse all roots</Link>
@@ -42,27 +42,29 @@ const RootDetails = () => {
         ]}
       />
 
-      <div className="container mx-auto max-w-4xl py-6">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <PageTrail items={[{ name: 'Roots', path: '/roots' }, { name: <span className="font-arabic" lang="ar" dir="rtl">{root.arabic}</span>, path: rootPath(root.slug) }]} />
 
-        <header className="mb-8">
-          <p className="font-arabic text-5xl leading-tight text-primary" lang="ar" dir="rtl">
+        <header className="card-tactile mb-8 flex flex-col items-center gap-3 rounded-[2rem] px-6 py-8 text-center sm:px-9 sm:py-10">
+          <span className="rounded-full bg-secondary px-3 py-1.5 text-[13px] font-bold text-secondary-foreground">Arabic root</span>
+          <p className="font-quran text-6xl leading-[1.6] text-primary sm:text-7xl" lang="ar" dir="rtl">
             {root.arabic}
           </p>
-          <h1 className="mt-3 text-2xl font-bold sm:text-3xl">
-            Root {root.arabic} <span className="text-muted-foreground">({root.slug})</span>
+          <h1 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+            Root <span className="font-arabic font-normal" lang="ar" dir="rtl">{root.arabic}</span>{' '}
+            <span className="text-muted-foreground">({root.slug})</span>
           </h1>
-          <p className="mt-2 text-lg">
-            Words from this root occur <strong>{root.total.toLocaleString('en-US')}</strong>{' '}
+          <p className="text-[17px] text-muted-foreground">
+            Words from this root occur <strong className="font-extrabold text-foreground">{root.total.toLocaleString('en-US')}</strong>{' '}
             {root.total === 1 ? 'time' : 'times'} in the Quran.
           </p>
         </header>
 
         <section aria-labelledby="family-heading">
-          <h2 id="family-heading" className="mb-3 text-lg font-semibold">
+          <h2 id="family-heading" className="mb-4 text-xl font-extrabold">
             {n === 1 ? 'Word' : `${n} words`} from this root on QuranVocab
           </h2>
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {root.words.map((word) => {
               // Same figure as the word page (some entries count several closely related lemmas).
               const occ = getWordOccurrences(word.id) ? word.frequency : undefined;
@@ -70,13 +72,13 @@ const RootDetails = () => {
                 <li key={word.id}>
                   <Link
                     to={wordPath(word.id)}
-                    className="glass-card block h-full rounded-xl border border-transparent p-4 transition-all hover:border-primary/20 hover:shadow-md"
+                    className="flex h-full flex-col gap-1 rounded-[1.375rem] border-2 border-b-4 bg-card p-5 transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   >
-                    <span className="block text-right font-arabic text-2xl" lang="ar" dir="rtl">{word.arabic}</span>
+                    <span className="block text-center font-quran text-4xl leading-[1.75]" lang="ar" dir="rtl">{word.arabic}</span>
+                    <span className="block text-[17px] font-extrabold leading-snug">{word.meaning}</span>
                     <span className="block text-sm text-muted-foreground">{word.transliteration}</span>
-                    <span className="block font-medium">{word.meaning}</span>
-                    <span className="mt-2 block text-xs capitalize text-muted-foreground">
-                      {word.partOfSpeech}
+                    <span className="mt-1 block text-xs text-muted-foreground">
+                      <span className="capitalize">{word.partOfSpeech}</span>
                       {occ ? ` · ${occ.toLocaleString('en-US')}× in the Quran` : word.quranicForm ? ' · related form' : ''}
                     </span>
                   </Link>
@@ -84,7 +86,7 @@ const RootDetails = () => {
               );
             })}
           </ul>
-          <p className="mt-4 text-xs text-muted-foreground">
+          <p className="mt-5 max-w-3xl text-xs leading-relaxed text-muted-foreground">
             Root and counts from the Quranic Arabic Corpus. The root total counts every word in the Quran with a
             form derived from this root, including words not listed here.
           </p>

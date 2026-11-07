@@ -30,9 +30,9 @@ const BlogSidebar = () => {
 
   return (
     <div className="space-y-6">
-      <Card>
+      <Card className="rounded-3xl shadow-none">
         <CardHeader className="pb-2">
-          <CardTitle className="text-lg">Categories</CardTitle>
+          <CardTitle className="text-lg font-extrabold">Categories</CardTitle>
         </CardHeader>
         <CardContent>
           {categoriesLoading ? (
@@ -50,7 +50,7 @@ const BlogSidebar = () => {
                   <li key={category.id}>
                     <Link 
                       to={`/blog/category/${category.slug}`} 
-                      className="flex items-center text-sm py-1 hover:text-primary"
+                      className="flex min-h-11 items-center text-sm font-semibold hover:text-primary"
                     >
                       <Folder className="h-4 w-4 mr-2" />
                       {category.name}
@@ -63,9 +63,9 @@ const BlogSidebar = () => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="rounded-3xl shadow-none">
         <CardHeader className="pb-2">
-          <CardTitle className="text-lg">Recent Posts</CardTitle>
+          <CardTitle className="text-lg font-extrabold">Recent Posts</CardTitle>
         </CardHeader>
         <CardContent>
           {postsLoading ? (
@@ -89,9 +89,9 @@ const BlogSidebar = () => {
       </Card>
 
       {popularTags.length > 0 && (
-        <Card>
+        <Card className="rounded-3xl shadow-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Popular Tags</CardTitle>
+            <CardTitle className="text-lg font-extrabold">Popular Tags</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2">

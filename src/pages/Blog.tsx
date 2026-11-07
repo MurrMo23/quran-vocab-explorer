@@ -15,11 +15,11 @@ const Blog = () => {
         type="website"
       />
 
-      <div className="container mx-auto py-8">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <div className="flex flex-col md:flex-row gap-8">
           <div className="w-full md:w-3/4">
             <header className="mb-8">
-              <h1 className="text-3xl font-bold mb-2">Blog</h1>
+              <h1 className="mb-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Blog</h1>
               <p className="text-muted-foreground">
                 Explore our articles about Arabic vocabulary, learning tips, and more.
               </p>

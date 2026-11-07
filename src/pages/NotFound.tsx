@@ -18,21 +18,21 @@ const NotFound = () => {
         <title>Page not found | QuranVocab</title>
         <meta name="robots" content="noindex" />
       </Helmet>
-      <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
-        <div className="max-w-xl w-full text-center space-y-6">
-          <p className="text-sm font-semibold text-primary tracking-wide">404</p>
-          <h1 className="text-3xl md:text-4xl font-bold">We couldn't find that page</h1>
+      <div className="flex min-h-[70vh] items-center justify-center px-4 py-12 sm:px-6 sm:py-16">
+        <div className="card-tactile w-full max-w-2xl space-y-6 rounded-[2rem] px-5 py-10 text-center sm:px-10">
+          <p className="mx-auto w-fit rounded-full bg-gold/25 px-3 py-1.5 text-[13px] font-bold text-gold-text">404</p>
+          <h1 className="text-3xl font-extrabold tracking-tight md:text-4xl">We couldn't find that page</h1>
           <p className="text-muted-foreground">
-            There is no page at <code className="px-1 py-0.5 rounded bg-muted text-sm break-all">{location.pathname}</code>.
+            There is no page at <code className="break-all rounded-lg bg-muted px-1.5 py-0.5 text-sm">{location.pathname}</code>.
             It may have been moved, or the link may be mistyped.
           </p>
 
           <div className="grid gap-3 sm:grid-cols-3">
             {suggestions.map(({ to, label, icon: Icon }) => (
-              <Button key={to} asChild variant="outline" className="h-auto py-4 flex-col gap-2">
+              <Button key={to} asChild variant="outline" className="h-auto flex-col gap-2 whitespace-normal py-4">
                 <Link to={to}>
-                  <Icon className="h-5 w-5" />
-                  <span className="text-sm">{label}</span>
+                  <Icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                  <span className="text-sm font-bold">{label}</span>
                 </Link>
               </Button>
             ))}
@@ -44,13 +44,13 @@ const NotFound = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild>
+            <Button asChild size="lg">
               <Link to="/">
                 <Home className="mr-2 h-4 w-4" />
                 Back to home
               </Link>
             </Button>
-            <Button asChild variant="ghost">
+            <Button asChild size="lg" variant="ghost">
               <Link to="/contact">Report a broken link</Link>
             </Button>
           </div>

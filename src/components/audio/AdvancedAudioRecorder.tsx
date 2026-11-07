@@ -15,7 +15,7 @@ interface AdvancedAudioRecorderProps {
  */
 const AdvancedAudioRecorder: React.FC<AdvancedAudioRecorderProps> = ({ word }) => {
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="rounded-3xl shadow-none w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Mic className="h-5 w-5" />

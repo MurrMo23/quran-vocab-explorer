@@ -63,11 +63,11 @@ const ContentPageNavigation: React.FC<ContentPageNavigationProps> = ({
   }
 
   return (
-    <Card className="sticky top-4">
+    <Card className="sticky top-24 rounded-3xl shadow-none">
       <CardContent className="p-4">
-        <h3 className="font-semibold mb-4 text-sm uppercase tracking-wide text-muted-foreground">
-          Quick Navigation
-        </h3>
+        <h2 className="mb-3 text-sm font-extrabold text-muted-foreground">
+          Pages
+        </h2>
         <nav className="space-y-2">
           {contentPages.map((page) => {
             const Icon = page.icon;
@@ -78,12 +78,12 @@ const ContentPageNavigation: React.FC<ContentPageNavigationProps> = ({
                 key={page.slug}
                 asChild
                 variant={isActive ? "secondary" : "ghost"}
-                className="w-full justify-start text-left h-auto p-3"
+                className="h-auto w-full justify-start whitespace-normal rounded-2xl p-3 text-left"
               >
                 <Link to={`/${page.slug}`} className="flex items-center space-x-3">
                   <Icon className="h-4 w-4" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium truncate">{page.title}</div>
+                    <div className="truncate text-sm font-bold">{page.title}</div>
                     <div className="text-xs text-muted-foreground truncate">{page.description}</div>
                   </div>
                 </Link>

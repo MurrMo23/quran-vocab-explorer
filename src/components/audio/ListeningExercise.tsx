@@ -94,7 +94,7 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
 
   if (questions.length === 0) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="rounded-3xl shadow-none w-full max-w-2xl mx-auto">
         <CardContent className="flex items-center justify-center p-8">
           <div className="text-center">
             <Headphones className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
@@ -107,12 +107,12 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
 
   if (complete) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="rounded-3xl shadow-none w-full max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle className="text-center">Exercise Complete!</CardTitle>
         </CardHeader>
         <CardContent className="text-center space-y-4">
-          <div className="text-4xl font-bold text-green-600">
+          <div className="text-4xl font-extrabold text-primary">
             {Math.round((score / questions.length) * 100)}%
           </div>
           <p className="text-lg">
@@ -134,7 +134,7 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="rounded-3xl shadow-none w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Headphones className="h-5 w-5" />
@@ -187,9 +187,9 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
                   }
                   className={`w-full justify-start text-left h-auto p-3 ${
                     showResult && index === currentQuestion.correctIndex
-                      ? "bg-green-100 border-green-500 text-green-800"
+                      ? "border-primary bg-secondary text-secondary-foreground"
                       : showResult && index === selectedAnswer && index !== currentQuestion.correctIndex
-                      ? "bg-red-100 border-red-500 text-red-800"
+                      ? "border-destructive bg-destructive/10 text-destructive"
                       : ""
                   }`}
                   onClick={() => handleAnswerSelect(index)}
@@ -197,10 +197,10 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
                 >
                   <div className="flex items-center gap-2">
                     {showResult && index === currentQuestion.correctIndex && (
-                      <Check className="h-4 w-4 text-green-600" />
+                      <Check className="h-4 w-4 text-primary" />
                     )}
                     {showResult && index === selectedAnswer && index !== currentQuestion.correctIndex && (
-                      <X className="h-4 w-4 text-red-600" />
+                      <X className="h-4 w-4 text-destructive" />
                     )}
                     {option}
                   </div>
@@ -214,10 +214,10 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
         {showResult && (
           <div className="text-center space-y-4">
             {selectedAnswer === currentQuestion.correctIndex ? (
-              <div className="text-green-600 font-semibold">Correct!</div>
+              <div className="text-primary font-semibold">Correct!</div>
             ) : (
               <div className="space-y-2">
-                <div className="text-red-600 font-semibold">Not quite right</div>
+                <div className="text-destructive font-semibold">Not quite right</div>
                 <div className="text-sm text-muted-foreground">
                   The correct answer was: {currentQuestion.options[currentQuestion.correctIndex]}
                 </div>

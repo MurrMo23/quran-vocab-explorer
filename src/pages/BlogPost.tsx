@@ -24,9 +24,9 @@ const BlogPost = () => {
         url={`https://quranvocab.com/blog/${slug}`}
         type="article"
       />
-      <div className="container mx-auto py-8">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
       <div className="mb-6">
-        <Link to="/blog" className="flex items-center text-primary hover:underline">
+        <Link to="/blog" className="inline-flex min-h-11 items-center font-bold text-primary hover:underline">
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back to Blog
         </Link>

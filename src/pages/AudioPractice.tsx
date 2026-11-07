@@ -24,20 +24,20 @@ const AudioPractice = () => {
   const handleListeningComplete = (_score: number) => {
     // Listening quiz scores are shown inside the exercise itself.
   };
-  return <div className="max-w-4xl mx-auto space-y-6 my-[20px]">
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" onClick={() => navigate(-1)}>
+  return <div className="mx-auto max-w-5xl space-y-6 px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
+      <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-4">
+        <Button variant="ghost" className="-ml-3" onClick={() => navigate(-1)}>
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
         <div>
-          <h1 className="text-2xl font-bold">Audio Practice</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Audio practice</h1>
           <p className="text-muted-foreground">Improve your Arabic pronunciation and listening skills</p>
         </div>
       </div>
 
       <Tabs defaultValue="pronunciation" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid h-12 w-full grid-cols-3 rounded-2xl">
           <TabsTrigger value="pronunciation" className="gap-2">
             <Volume2 className="h-4 w-4" />
             Pronunciation
@@ -53,9 +53,9 @@ const AudioPractice = () => {
         </TabsList>
 
         <TabsContent value="pronunciation" className="space-y-6">
-          <Card className="rounded-lg border bg-card text-card-foreground shadow-sm">
+          <Card className="rounded-3xl border-2 border-b-[5px] shadow-none">
             <CardHeader>
-              <CardTitle>Pronunciation Training</CardTitle>
+              <CardTitle className="font-extrabold">Pronunciation Training</CardTitle>
               <p className="text-sm text-muted-foreground">
                 Listen to the recitation, record yourself and compare ({currentWordIndex + 1}/{practiceWords.length})
               </p>
@@ -65,9 +65,9 @@ const AudioPractice = () => {
             </CardContent>
           </Card>
 
-          {practicedCount > 0 && <Card>
+          {practicedCount > 0 && <Card className="rounded-3xl shadow-none">
               <CardHeader>
-                <CardTitle>Progress</CardTitle>
+                <CardTitle className="font-extrabold">Progress</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between">
@@ -83,9 +83,9 @@ const AudioPractice = () => {
         </TabsContent>
 
         <TabsContent value="recording" className="space-y-6">
-          <Card>
+          <Card className="rounded-3xl shadow-none">
             <CardHeader>
-              <CardTitle>Recording Practice</CardTitle>
+              <CardTitle className="font-extrabold">Recording Practice</CardTitle>
               <p className="text-sm text-muted-foreground">
                 Record yourself and compare with the recitation — recordings stay on your device
               </p>

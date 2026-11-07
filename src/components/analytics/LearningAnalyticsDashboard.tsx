@@ -39,11 +39,11 @@ const LearningAnalyticsDashboard: React.FC = () => {
 
   if (!loading && logs.length === 0) {
     return (
-      <Card className="border-dashed">
+      <Card className="rounded-3xl shadow-none border-dashed">
         <CardContent className="flex flex-col items-center gap-4 py-12 text-center">
           <Brain className="h-10 w-10 text-primary" />
           <div className="space-y-1">
-            <h2 className="text-xl font-semibold">No reviews yet</h2>
+            <h2 className="text-xl font-extrabold">No reviews yet</h2>
             <p className="mx-auto max-w-md text-muted-foreground">
               Once you start reviewing, you'll see your daily activity, accuracy trend, the words you find
               hardest, and what's coming up.
@@ -74,12 +74,12 @@ const LearningAnalyticsDashboard: React.FC = () => {
           { label: 'Active days (30)', value: `${activeDays30}/30` },
           { label: 'Accuracy (30 days)', value: overall30 === null ? '—' : `${overall30}%` },
         ].map((t) => (
-          <div key={t.label} className="rounded-xl border bg-card p-4">
+          <div key={t.label} className="rounded-[1.375rem] border-2 border-b-4 bg-card p-4">
             <div className="text-xs text-muted-foreground sm:text-sm">{t.label}</div>
             {loading ? (
               <Skeleton className="mt-1 h-7 w-14" />
             ) : (
-              <div className="text-xl font-semibold tabular-nums sm:text-2xl">{t.value}</div>
+              <div className="text-2xl font-extrabold tabular-nums sm:text-3xl">{t.value}</div>
             )}
           </div>
         ))}
@@ -93,9 +93,9 @@ const LearningAnalyticsDashboard: React.FC = () => {
         height={220}
       />
 
-      <Card>
+      <Card className="rounded-3xl shadow-none">
         <CardHeader className="pb-2">
-          <CardTitle className="text-lg">Accuracy trend, last 30 days</CardTitle>
+          <CardTitle className="text-lg font-extrabold">Accuracy trend, last 30 days</CardTitle>
           <p className="text-sm text-muted-foreground">
             Share of answers not rated "again" on each day you reviewed.
           </p>
@@ -132,10 +132,10 @@ const LearningAnalyticsDashboard: React.FC = () => {
       </Card>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
+        <Card className="rounded-3xl shadow-none">
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2 text-lg">
-              <TrendingDown className="h-5 w-5 text-rose-500" />
+              <TrendingDown className="h-5 w-5 text-destructive" />
               Hardest words
             </CardTitle>
             <p className="text-sm text-muted-foreground">Most often rated "again".</p>
@@ -176,10 +176,10 @@ const LearningAnalyticsDashboard: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="rounded-3xl shadow-none">
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2 text-lg">
-              <CalendarClock className="h-5 w-5 text-sky-600" />
+              <CalendarClock className="h-5 w-5 text-primary" />
               Upcoming reviews
             </CardTitle>
             <p className="text-sm text-muted-foreground">
@@ -198,8 +198,8 @@ const LearningAnalyticsDashboard: React.FC = () => {
                       <span className="w-20 shrink-0 text-muted-foreground">
                         {i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : weekdayLabel(d.date)}
                       </span>
-                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
-                        <div className="h-full bg-sky-500" style={{ width: `${(d.count / max) * 100}%` }} />
+                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-track">
+                        <div className="h-full bg-primary" style={{ width: `${(d.count / max) * 100}%` }} />
                       </div>
                       <span className="w-8 shrink-0 text-right tabular-nums">{d.count}</span>
                     </li>

@@ -43,22 +43,22 @@ const statusText = (name: DivineName): string => {
 const VerseText: React.FC<{ v: NameVerse }> = ({ v }) => {
   const words = v.ar.split(' ');
   return (
-    <p className="font-arabic text-2xl leading-[2.2] sm:text-3xl" lang="ar" dir="rtl">
+    <p className="font-quran text-[1.75rem] leading-[1.9] sm:text-[2.125rem]" lang="ar" dir="rtl">
       {words.map((t, i) => (
         <React.Fragment key={i}>
           {i > 0 && ' '}
-          {i === v.w - 1 ? <mark className="rounded bg-primary/15 px-1 text-primary">{t}</mark> : t}
+          {i === v.w - 1 ? <mark className="rounded-lg bg-secondary px-1.5 text-secondary-foreground">{t}</mark> : t}
         </React.Fragment>
       ))}{' '}
-      <span className="text-lg text-muted-foreground">﴿{v.a.toLocaleString('ar-EG')}﴾</span>
+      <span className="font-arabic text-xl text-muted-foreground">﴿{v.a.toLocaleString('ar-EG')}﴾</span>
     </p>
   );
 };
 
 const VerseCard: React.FC<{ v: NameVerse; name: DivineName }> = ({ v, name }) => (
-  <li className="rounded-xl border p-4 sm:p-5">
+  <li className="rounded-3xl bg-background p-5 sm:p-6">
     <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-      <h3 className="font-semibold">
+      <h3 className="font-extrabold">
         Quran {ref(v)}
         {v.kind === 'related' && (
           <Badge variant="outline" className="ml-2 align-middle font-normal">
@@ -70,13 +70,13 @@ const VerseCard: React.FC<{ v: NameVerse; name: DivineName }> = ({ v, name }) =>
         href={`https://quran.com/${v.s}/${v.a}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1 text-xs text-muted-foreground underline-offset-4 hover:underline"
+        className="inline-flex min-h-11 items-center gap-1 text-sm font-bold text-primary underline-offset-4 hover:underline"
       >
         Read on Quran.com <ExternalLink className="h-3 w-3" aria-hidden="true" />
       </a>
     </div>
     <VerseText v={v} />
-    <p className="mt-3 text-sm sm:text-base">“{v.en}”</p>
+    <p className="mt-3 text-base leading-relaxed text-foreground/85 sm:text-[17px]">“{v.en}”</p>
     {v.kind === 'related' && (
       <p className="mt-2 text-xs text-muted-foreground">
         The highlighted word comes from the same root as {name.tr}; it is not the name itself.
@@ -92,8 +92,8 @@ const VerseCard: React.FC<{ v: NameVerse; name: DivineName }> = ({ v, name }) =>
 const NameNotFound = () => (
   <>
     <SEO title="Name not found" noindex />
-    <div className="py-16 text-center">
-      <h1 className="mb-2 text-xl font-semibold">Name not found</h1>
+    <div className="mx-auto max-w-xl px-4 py-16 text-center sm:px-6">
+      <h1 className="mb-2 text-2xl font-extrabold">Name not found</h1>
       <p className="mb-6 text-muted-foreground">We could not find that name.</p>
       <Button asChild>
         <Link to={NAMES_HUB_PATH}>See all 99 names</Link>
@@ -151,18 +151,23 @@ const NameOfAllah = () => {
         jsonLd={[term]}
       />
 
-      <div className="container mx-auto max-w-3xl py-6">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <PageTrail items={[{ name: '99 Names of Allah', path: NAMES_HUB_PATH }, { name: name.tr, path }]} />
 
-        <header className="mb-8 text-center">
-          <p className="text-sm text-muted-foreground">Name {name.n} of 99</p>
-          <p className="my-3 font-arabic text-6xl leading-[1.6] text-primary sm:text-7xl" lang="ar" dir="rtl">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+        <div className="min-w-0 lg:flex-[999_1_560px]">
+        <header className="card-tactile mb-6 flex flex-col items-center rounded-[2rem] px-5 py-8 text-center sm:px-9 sm:py-10">
+          <div className="flex flex-wrap justify-center gap-2">
+            <span className="rounded-full bg-secondary px-3 py-1.5 text-[13px] font-bold text-secondary-foreground">Name {name.n} of 99</span>
+            <span className="rounded-full bg-gold/25 px-3 py-1.5 text-[13px] font-bold text-gold-text">{STATUS_LABEL[name.status]}</span>
+          </div>
+          <p className="my-2 font-quran text-6xl leading-[1.7] text-primary sm:text-8xl sm:leading-[1.6]" lang="ar" dir="rtl">
             {name.ar}
           </p>
-          <h1 className="text-2xl font-bold sm:text-3xl">
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
             {name.tr} <span className="text-muted-foreground">·</span> {name.en}
           </h1>
-          <p className="mx-auto mt-3 max-w-xl text-lg">{name.meaning}</p>
+          <p className="mx-auto mt-3 max-w-xl text-[17px] leading-relaxed text-muted-foreground">{name.meaning}</p>
           {audioVerse && (
             <div className="mt-5 flex justify-center">
               <AudioPlayer
@@ -174,13 +179,39 @@ const NameOfAllah = () => {
           )}
         </header>
 
-        <dl className="mb-8 grid gap-4 rounded-xl border p-4 sm:grid-cols-2 sm:p-5">
+        <div className="mb-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+            {word && (
+              <Button asChild size="lg">
+                <Link to={reviewHref([word.id])}>
+                  <Repeat className="h-5 w-5" aria-hidden="true" />
+                  Review this name
+                </Link>
+              </Button>
+            )}
+            {word && (
+              <Button asChild size="lg" variant="outline">
+                <Link to={wordPath(word.id)}>
+                  <BookOpen className="h-5 w-5" aria-hidden="true" />
+                  Study this word
+                </Link>
+              </Button>
+            )}
+            <Button asChild size="lg" variant="ghost">
+              <Link to={NAMES_HUB_PATH}>All 99 names</Link>
+            </Button>
+        </div>
+        </div>
+
+        <aside className="mb-8 flex min-w-0 flex-col gap-5 lg:sticky lg:top-24 lg:flex-[1_1_300px]">
+        <section aria-labelledby="glance-heading" className="rounded-3xl border bg-card p-6">
+        <h2 id="glance-heading" className="mb-4 text-lg font-extrabold">At a glance</h2>
+        <dl className="grid gap-4">
           <div>
             <dt className="text-sm text-muted-foreground">Root</dt>
-            <dd className="mt-1">
+            <dd className="mt-1 flex flex-wrap items-center gap-x-3">
               <span className="font-arabic text-2xl" lang="ar" dir="rtl">{name.root.ar}</span>
               {rootLink && (
-                <Link to={rootPath(name.root.slug)} className="ml-3 text-sm text-primary underline-offset-4 hover:underline">
+                <Link to={rootPath(name.root.slug)} className="inline-flex min-h-11 items-center text-sm font-bold text-primary underline-offset-4 hover:underline">
                   Root family
                 </Link>
               )}
@@ -189,7 +220,7 @@ const NameOfAllah = () => {
           <div>
             <dt className="text-sm text-muted-foreground">Quran</dt>
             <dd className="mt-1">
-              <Badge variant={name.status === 'quran' ? 'default' : 'outline'}>{STATUS_LABEL[name.status]}</Badge>
+              <span className="font-extrabold">{STATUS_LABEL[name.status]}</span>
               {name.status === 'quran' && name.count !== null && name.lemma && (
                 <p className="mt-2 text-sm text-muted-foreground">
                   The word <span className="font-arabic text-base text-foreground" lang="ar" dir="rtl">{name.lemma}</span>{' '}
@@ -198,36 +229,17 @@ const NameOfAllah = () => {
               )}
             </dd>
           </div>
-          <div className="sm:col-span-2 text-sm">
+          <div className="text-sm leading-relaxed">
             <p>{statusText(name)}</p>
             {name.note && <p className="mt-1 text-muted-foreground">{name.note}</p>}
           </div>
         </dl>
-
-        <div className="mb-8 flex flex-wrap gap-3">
-            {word && (
-              <Button asChild>
-                <Link to={reviewHref([word.id])}>
-                  <Repeat className="mr-2 h-4 w-4" aria-hidden="true" />
-                  Review this name
-                </Link>
-              </Button>
-            )}
-            {word && (
-              <Button asChild variant="outline">
-                <Link to={wordPath(word.id)}>
-                  <BookOpen className="mr-2 h-4 w-4" aria-hidden="true" />
-                  Study this word
-                </Link>
-              </Button>
-            )}
-            <Button asChild variant="ghost">
-              <Link to={NAMES_HUB_PATH}>All 99 names</Link>
-            </Button>
+        </section>
+        </aside>
         </div>
 
-        <section aria-labelledby="verses-heading" className="mb-10">
-          <h2 id="verses-heading" className="mb-3 text-xl font-semibold">
+        <section aria-labelledby="verses-heading" className="mb-10 rounded-[1.75rem] border bg-card p-5 sm:p-7">
+          <h2 id="verses-heading" className="mb-4 text-[22px] font-extrabold">
             {name.status === 'quran' ? `${name.tr} in the Quran` : 'Related words in the Quran'}
           </h2>
           {name.verses.length > 0 ? (
@@ -242,7 +254,7 @@ const NameOfAllah = () => {
               describe Allah in the Quran. This name is known from the hadith list.
             </p>
           )}
-          <p className="mt-4 text-xs text-muted-foreground">
+          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
             Verse text: Tanzil (Uthmani). Translation: Saheeh International. Word positions and roots: Quranic Arabic
             Corpus. Recitation: Quran.com word by word and EveryAyah (Mishary Alafasy).
           </p>
@@ -250,16 +262,16 @@ const NameOfAllah = () => {
 
         {related.length > 0 && (
           <section aria-labelledby="related-heading" className="mb-10">
-            <h2 id="related-heading" className="mb-3 text-xl font-semibold">Names from the same root</h2>
-            <ul className="grid gap-3 sm:grid-cols-2">
+            <h2 id="related-heading" className="mb-4 text-[22px] font-extrabold">Names from the same root</h2>
+            <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((r) => (
                 <li key={r.slug}>
-                  <Link to={namePath(r.slug)} className="flex items-center justify-between gap-3 rounded-xl border p-4 hover:border-primary/40 hover:bg-muted/40">
+                  <Link to={namePath(r.slug)} className="flex h-full items-center justify-between gap-3 rounded-[1.375rem] border-2 border-b-4 bg-card p-4 transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                     <span>
-                      <span className="block font-medium">{r.n}. {r.tr}</span>
+                      <span className="block font-extrabold">{r.n}. {r.tr}</span>
                       <span className="block text-sm text-muted-foreground">{r.en}</span>
                     </span>
-                    <span className="font-arabic text-2xl" lang="ar" dir="rtl">{r.ar}</span>
+                    <span className="font-quran text-3xl leading-[1.8]" lang="ar" dir="rtl">{r.ar}</span>
                   </Link>
                 </li>
               ))}
@@ -267,18 +279,18 @@ const NameOfAllah = () => {
           </section>
         )}
 
-        <nav aria-label="Previous and next name" className="grid grid-cols-2 gap-3 border-t pt-6">
+        <nav aria-label="Previous and next name" className="grid grid-cols-2 gap-3">
           {prev ? (
-            <Link to={namePath(prev.slug)} className="rounded-xl border p-3 hover:bg-muted/40">
-              <span className="flex items-center gap-1 text-xs text-muted-foreground"><ArrowLeft className="h-3 w-3" aria-hidden="true" /> {prev.n}</span>
-              <span className="block font-medium">{prev.tr}</span>
+            <Link to={namePath(prev.slug)} className="rounded-[1.25rem] border bg-card px-4 py-3.5 transition-colors hover:border-primary/40 sm:px-5">
+              <span className="flex items-center gap-1 text-[13px] text-muted-foreground"><ArrowLeft className="h-4 w-4" aria-hidden="true" /> {prev.n}</span>
+              <span className="block font-extrabold">{prev.tr}</span>
               <span className="block font-arabic text-lg" lang="ar" dir="rtl">{prev.ar}</span>
             </Link>
           ) : <span />}
           {next ? (
-            <Link to={namePath(next.slug)} className="rounded-xl border p-3 text-right hover:bg-muted/40">
-              <span className="flex items-center justify-end gap-1 text-xs text-muted-foreground">{next.n} <ArrowRight className="h-3 w-3" aria-hidden="true" /></span>
-              <span className="block font-medium">{next.tr}</span>
+            <Link to={namePath(next.slug)} className="rounded-[1.25rem] border bg-card px-4 py-3.5 text-right transition-colors hover:border-primary/40 sm:px-5">
+              <span className="flex items-center justify-end gap-1 text-[13px] text-muted-foreground">{next.n} <ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
+              <span className="block font-extrabold">{next.tr}</span>
               <span className="block font-arabic text-lg" lang="ar" dir="rtl">{next.ar}</span>
             </Link>
           ) : <span />}

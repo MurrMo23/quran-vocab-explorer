@@ -52,21 +52,21 @@ const NameCard: React.FC<{ name: DivineName }> = ({ name }) => {
     <li className="relative">
       <Link
         to={namePath(name.slug)}
-        className="flex h-full flex-col rounded-xl border bg-card p-3 sm:p-4 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex h-full flex-col rounded-[1.375rem] border-2 border-b-4 bg-card p-3.5 transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:p-5"
       >
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-secondary text-xs font-extrabold text-secondary-foreground">
           {name.n}
         </span>
-        <span className="mt-1 block text-center font-arabic text-2xl leading-relaxed sm:text-3xl" lang="ar" dir="rtl">
+        <span className="mt-1 block text-center font-quran text-[1.75rem] leading-[1.9] sm:text-4xl sm:leading-[1.9]" lang="ar" dir="rtl">
           {name.ar}
         </span>
-        <span className="mt-1 block font-semibold leading-snug">{name.tr}</span>
+        <span className="mt-1 block font-extrabold leading-snug">{name.tr}</span>
         <span className="block text-sm text-muted-foreground">{name.en}</span>
         {name.status !== 'quran' && (
-          <span className="mt-2 block text-xs text-muted-foreground">{STATUS_LABEL[name.status]}</span>
+          <span className="mt-2 block text-xs font-semibold text-gold-text">{STATUS_LABEL[name.status]}</span>
         )}
         {/* Room for the play button, which sits outside the link. */}
-        {verse && <span className="mt-2 block h-8" aria-hidden="true" />}
+        {verse && <span className="mt-2 block h-10" aria-hidden="true" />}
       </Link>
       {verse && (
         <AudioPlayer
@@ -74,7 +74,7 @@ const NameCard: React.FC<{ name: DivineName }> = ({ name }) => {
           size="sm"
           label=""
           allowComputerVoice={false}
-          className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4"
+          className="absolute bottom-3.5 left-3.5 sm:bottom-5 sm:left-5"
         />
       )}
     </li>
@@ -124,48 +124,50 @@ const NamesOfAllah = () => {
         jsonLd={[termSet]}
       />
 
-      <div className="container mx-auto max-w-6xl py-6">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <PageTrail items={[{ name: '99 Names of Allah', path: NAMES_HUB_PATH }]} />
 
-        <header className="mb-6 max-w-3xl">
-          <p className="font-arabic text-4xl leading-relaxed text-primary" lang="ar" dir="rtl">
+        <header className="card-tactile mb-6 flex flex-col gap-6 rounded-[2rem] p-6 sm:p-9 lg:flex-row lg:items-center lg:justify-between">
+          <div className="min-w-0 max-w-3xl">
+          <p className="font-quran text-5xl leading-[1.75] text-primary sm:text-6xl sm:leading-[1.75]" lang="ar" dir="rtl">
             الأسماء الحسنى
           </p>
-          <h1 className="mt-1 text-2xl font-bold sm:text-3xl">The 99 Names of Allah</h1>
-          <p className="mt-3 text-muted-foreground">
+          <h1 className="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">The 99 Names of Allah</h1>
+          <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:text-[17px]">
             Each name with its Arabic, transliteration and meaning, and the verses where the Quran uses it. {inQuran} of
             the 99 are used of Allah in the Quran itself; for the others we show a related Quranic word where there is
             one. Tap a name to read its verses and hear the recitation.
           </p>
-        </header>
+          </div>
 
-        <div className="mb-6 flex flex-wrap items-center gap-3">
+        <div className="flex w-full flex-col gap-2 rounded-3xl bg-background p-5 sm:p-6 lg:max-w-xs">
           {reviewIds.length > 0 && (
-            <Button asChild>
+            <Button asChild size="lg" className="w-full">
               <Link to={reviewHref(reviewIds)}>
                 <Repeat className="mr-2 h-4 w-4" aria-hidden="true" />
                 Review all 99
               </Link>
             </Button>
           )}
-          <p className="text-xs text-muted-foreground">
+          <p className="text-center text-xs text-muted-foreground">
             {reviewIds.length < names.length
               ? `Reviews the ${reviewIds.length} names that have a QuranVocab word page.`
               : 'Spaced-repetition review of every name.'}
           </p>
         </div>
+        </header>
 
-        <div className="sticky top-0 z-10 -mx-4 mb-4 bg-background/95 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+        <div className="sticky top-0 z-10 -mx-4 mb-4 border-b bg-background px-4 py-3 sm:-mx-6 sm:px-6">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <div className="relative sm:max-w-xs sm:flex-1">
-              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
               <Input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search: Wadud, loving, الودود"
                 aria-label="Search the names"
-                className="pl-9"
+                className="h-12 rounded-2xl border-2 bg-card pl-11 text-base md:text-base"
               />
             </div>
             <div role="group" aria-label="Filter names" className="flex flex-wrap gap-2">
@@ -176,8 +178,8 @@ const NamesOfAllah = () => {
                   onClick={() => setFilter(f.value)}
                   aria-pressed={filter === f.value}
                   className={cn(
-                    'rounded-full border px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-                    filter === f.value ? 'border-primary bg-primary text-primary-foreground' : 'hover:bg-muted',
+                    'h-11 rounded-full border-2 px-4 text-sm font-extrabold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                    filter === f.value ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card hover:border-primary/40',
                   )}
                 >
                   {f.label}
@@ -191,7 +193,7 @@ const NamesOfAllah = () => {
         </div>
 
         {shown.length > 0 ? (
-          <ul className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-3 lg:grid-cols-4">
+          <ul className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
             {shown.map((n) => (
               <NameCard key={n.slug} name={n} />
             ))}
@@ -200,15 +202,15 @@ const NamesOfAllah = () => {
           <p className="py-10 text-center text-muted-foreground">No name matches “{query}”.</p>
         )}
 
-        <section aria-labelledby="about-list" className="mt-10 grid gap-6 md:grid-cols-2">
-          <div className="rounded-xl border p-5">
-            <h2 id="about-list" className="mb-2 text-lg font-semibold">About this list</h2>
+        <section aria-labelledby="about-list" className="mt-12 grid gap-4 sm:gap-6 md:grid-cols-[2fr_1fr]">
+          <div className="rounded-[1.75rem] border bg-card p-6 sm:p-7">
+            <h2 id="about-list" className="mb-2 text-xl font-extrabold">About this list</h2>
             <p className="text-sm text-muted-foreground">
               The Prophet Muhammad ﷺ said that Allah has ninety-nine names (Sahih al-Bukhari and Sahih Muslim). The
               list of 99 used here, from Ar-Rahman to As-Sabur, comes from a hadith narrated by al-Tirmidhi. Scholars
               differ on the exact list, and the Quran contains more names of Allah than these.
             </p>
-            <ul className="mt-3 space-y-1 text-sm">
+            <ul className="mt-3 space-y-1.5 text-sm">
               <li><strong>In the Quran</strong>: the name's own word is used of Allah in the Quran.</li>
               <li><strong>Related form in the Quran</strong>: a verb or other word from the same root describes Allah.</li>
               <li><strong>From hadith</strong>: the name comes from the hadith list; no Quranic word from its root describes Allah by it.</li>
@@ -219,16 +221,16 @@ const NamesOfAllah = () => {
             </p>
           </div>
 
-          <aside aria-label="Related site" className="rounded-xl border bg-muted/30 p-5">
-            <h2 className="mb-2 text-lg font-semibold">AllahSWT.org</h2>
-            <p className="text-sm text-muted-foreground">
+          <aside aria-label="Related site" className="rounded-[1.75rem] bg-secondary p-6 text-secondary-foreground sm:p-7">
+            <h2 className="mb-2 text-xl font-extrabold">AllahSWT.org</h2>
+            <p className="text-sm">
               Charity projects inspired by the Names. A sister site from the team behind QuranVocab.
             </p>
             <a
               href="https://allahswt.org/"
               target="_blank"
               rel="noopener"
-              className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-4 hover:underline"
+              className="mt-3 inline-flex min-h-11 items-center gap-1 text-sm font-extrabold underline underline-offset-4"
             >
               Visit AllahSWT.org
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />

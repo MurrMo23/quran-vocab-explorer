@@ -21,7 +21,7 @@ const BlogCard = ({ post, compact = false }: BlogCardProps) => {
     : null;
 
   return (
-    <Card className={`overflow-hidden ${compact ? 'h-full' : ''}`}>
+    <Card className={`overflow-hidden rounded-3xl border-2 border-b-4 shadow-none ${compact ? 'h-full' : ''}`}>
       {post.featured_image && !compact && (
         <div className="relative h-48 overflow-hidden">
           <img 
@@ -34,7 +34,7 @@ const BlogCard = ({ post, compact = false }: BlogCardProps) => {
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <div>
-            <h3 className={`font-semibold ${compact ? 'text-lg' : 'text-xl'} tracking-tight line-clamp-2`}>
+            <h3 className={`font-extrabold ${compact ? 'text-lg' : 'text-xl'} tracking-tight line-clamp-2`}>
               {post.title}
             </h3>
             {formattedDate && (
@@ -45,7 +45,7 @@ const BlogCard = ({ post, compact = false }: BlogCardProps) => {
             )}
           </div>
           {!compact && post.categories && post.categories.length > 0 && (
-            <Badge variant="outline" className="bg-primary/10 text-primary">
+            <Badge variant="outline" className="border-transparent bg-secondary text-secondary-foreground">
               <Folder className="h-3 w-3 mr-1" />
               {post.categories[0].name}
             </Badge>
@@ -67,7 +67,7 @@ const BlogCard = ({ post, compact = false }: BlogCardProps) => {
       <CardFooter className={`flex justify-between items-center ${compact ? 'pt-0 pb-3 px-4' : ''}`}>
         <Link 
           to={`/blog/${post.slug}`} 
-          className="text-primary hover:underline text-sm font-medium"
+          className="inline-flex min-h-11 items-center text-sm font-bold text-primary hover:underline"
         >
           Read more
         </Link>

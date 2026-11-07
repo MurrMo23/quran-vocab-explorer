@@ -75,7 +75,7 @@ const UserCollectionEditor: React.FC<Props> = ({ collection, onDeleted }) => {
   };
 
   return (
-    <Card>
+    <Card className="rounded-3xl shadow-none">
       <CardHeader className="space-y-3">
         {renaming ? (
           <form onSubmit={saveDetails} className="space-y-2">

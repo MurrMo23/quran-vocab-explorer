@@ -12,29 +12,24 @@ const StreakCounter: React.FC<StreakCounterProps> = ({
   streak, 
   className 
 }) => {
-  // Determine if the streak deserves a special visual treatment
+  // A week or more gets the solid gold chip.
   const isHighStreak = streak >= 7;
-  const isVeryHighStreak = streak >= 30;
 
   return (
     <div className={cn("flex items-center", className)}>
       <div 
         className={cn(
-          "flex items-center px-2 py-1 rounded-full",
-          isVeryHighStreak ? "bg-gradient-to-r from-amber-100 to-amber-200 text-amber-800" : 
-          isHighStreak ? "bg-amber-100 text-amber-800 border border-amber-200" : 
-          "bg-amber-100 text-amber-800"
+          "flex items-center rounded-full px-2.5 py-1 font-bold",
+          isHighStreak ? "border-b-2 border-gold-shade bg-gold text-gold-foreground" : "bg-gold/25 text-gold-text"
         )}
       >
         <Flame 
           className={cn(
             "h-4 w-4 mr-1", 
-            isVeryHighStreak ? "text-amber-600" :
-            isHighStreak ? "text-amber-500" :
-            streak > 0 ? "text-amber-500" : "text-muted-foreground"
+            isHighStreak ? "text-gold-foreground" : streak > 0 ? "text-gold-text" : "text-muted-foreground"
           )} 
         />
-        <span className="text-sm font-medium">
+        <span className="text-sm font-bold">
           {streak} day{streak !== 1 ? 's' : ''}
         </span>
       </div>
