@@ -11,6 +11,7 @@ import {
   isSpeechSupported,
 } from '@/utils/audio';
 import AudioAttribution from '@/components/audio/AudioAttribution';
+import { track } from '@/lib/analytics';
 
 interface AudioPlayerProps {
   /** Play the best genuine recitation for this word (word-by-word, else example ayah). */
@@ -102,6 +103,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     } else if (canSpeak && fallbackText) {
       started = speak(fallbackText);
     }
+    if (started) track('audio_play', { kind: !word ? 'ayah' : sources[0]?.kind === 'ayah' ? 'ayah' : word.quranicForm && !word.location ? 'related' : 'word' });
     if (started) onPlay?.();
   };
 
