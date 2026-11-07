@@ -14,6 +14,10 @@ import Index from '@/pages/Index';
 import Collections from '@/pages/Collections';
 import CollectionDetails from '@/pages/CollectionDetails';
 import WordView from '@/pages/WordView';
+import Roots from '@/pages/Roots';
+import RootDetails from '@/pages/RootDetails';
+import Surahs from '@/pages/Surahs';
+import SurahVocabulary from '@/pages/SurahVocabulary';
 
 // Every other route is code-split.
 const Auth = lazy(() => import('@/pages/Auth'));
@@ -76,6 +80,10 @@ function App() {
                 <Route path="enhanced-quiz" element={<RedirectToReview />} />
                 <Route path="mobile-flashcards" element={<RedirectToReview />} />
                 <Route path="word/:id" element={page(<WordView />)} />
+                <Route path="roots" element={page(<Roots />)} />
+                <Route path="root/:root" element={page(<RootDetails />)} />
+                <Route path="surahs" element={page(<Surahs />)} />
+                <Route path="surah/:number" element={page(<SurahVocabulary />)} />
                 <Route path="admin" element={page(<Admin />)} />
                 <Route path="analytics" element={page(<Analytics />)} />
                 <Route path="settings" element={page(<Settings />)} />

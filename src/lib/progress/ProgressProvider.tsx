@@ -22,6 +22,7 @@ import {
   mergeLogs,
   type StoredLog,
 } from './storage';
+import { ReviewSessionTracker } from './session-analytics';
 
 /** UseProgressResult plus optional extras (the contract in types.ts stays unchanged). */
 export interface ProgressContextValue extends UseProgressResult {
@@ -80,6 +81,7 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const flushing = useRef(false);
   const flushAgain = useRef(false);
   const loadToken = useRef(0);
+  const sessionAnalytics = useRef(new ReviewSessionTracker());
 
   const updatePendingCount = useCallback(() => setPendingSync(pendingLogs.current.size), []);
 
@@ -293,6 +295,7 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       const logs = [...s.logs, log];
       commit({ ...s, cards, logs });
       setNow(at);
+      sessionAnalytics.current.record(wordId, rating, source, at.getTime());
 
       if (!s.userId) {
         LocalStore.save(cards, logs);
@@ -323,7 +326,11 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     [state.cards],
   );
   const buildSession = useCallback(
-    (pool: readonly string[], size: number) => buildSessionQueue(state.cards, pool, size, new Date()),
+    (pool: readonly string[], size: number) => {
+      const ids = buildSessionQueue(state.cards, pool, size, new Date());
+      sessionAnalytics.current.notePlan(ids);
+      return ids;
+    },
     [state.cards],
   );
   const previewInterval = useCallback(

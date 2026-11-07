@@ -284,7 +284,7 @@ const Review = () => {
         type="website"
       />
 
-      <div className={cn('mx-auto w-full max-w-xl py-4 sm:py-8', phase === 'session' && 'pb-48 sm:pb-8')}>
+      <div className={cn('mx-auto w-full max-w-xl py-4 sm:py-8', phase === 'session' && (current?.mode === 'choice' ? 'pb-[22rem] sm:pb-8' : 'pb-48 sm:pb-8'))}>
         <h1 className="sr-only">Review</h1>
 
         <SourcePicker
@@ -382,8 +382,8 @@ const Review = () => {
                             data-testid="choice-option"
                             className={cn(
                               'h-auto min-h-12 justify-start whitespace-normal py-2 text-left text-base disabled:opacity-100',
-                              chosen !== null && isCorrect && 'border-green-500 bg-green-50 text-green-800 dark:bg-green-950/40 dark:text-green-200',
-                              picked && !isCorrect && 'border-red-500 bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200',
+                              chosen !== null && isCorrect && 'border-2 border-green-600 bg-green-100 font-semibold text-green-800 dark:bg-green-950/40 dark:text-green-200',
+                              picked && !isCorrect && 'border-2 border-red-600 bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-200',
                               chosen !== null && !isCorrect && !picked && 'opacity-60',
                             )}
                           >

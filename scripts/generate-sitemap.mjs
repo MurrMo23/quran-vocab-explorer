@@ -12,7 +12,7 @@ const SITE_URL = 'https://quranvocab.com';
 const dist = resolve('dist');
 const publicDir = resolve('public');
 const ssr = await import(pathToFileURL(resolve('dist-ssr', 'entry-server.js')).href);
-const { getAllWords, getPublishedCollections, getWordSlug } = ssr;
+const { getAllWords, getPublishedCollections, getWordSlug, quranPages } = ssr;
 
 // --- Slug guard ------------------------------------------------------------------------------
 const words = getAllWords();
@@ -51,6 +51,8 @@ const entries = [
   ...staticPages,
   ...collections.map((c) => [`/collections/${encodeURIComponent(c.id)}`, 'monthly', '0.7']),
   ...words.map((w) => [`/word/${encodeURIComponent(getWordSlug(w))}`, 'monthly', '0.6']),
+  // /roots, /root/<slug>, /surahs, /surah/<n>
+  ...quranPages().map((path) => [path, 'monthly', /^\/(roots|surahs)$/.test(path) ? '0.8' : '0.6']),
 ];
 const xmlEscape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const sitemap = [

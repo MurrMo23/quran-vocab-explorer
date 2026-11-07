@@ -43,7 +43,7 @@ const ReviewCardFace: React.FC<ReviewCardFaceProps> = ({ word, revealed, isNew, 
       )}
 
       <p
-        className="arabic-text text-5xl font-bold leading-relaxed text-primary sm:text-6xl"
+        className="arabic-text text-center text-5xl font-bold leading-relaxed text-primary sm:text-6xl"
         lang="ar"
         dir="rtl"
         data-testid="review-arabic"
