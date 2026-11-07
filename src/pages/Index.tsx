@@ -50,8 +50,8 @@ const Index = () => {
     },
     {
       icon: Target,
-      title: 'Flashcards & Quizzes',
-      description: 'Practise with flashcards, then check yourself with multiple-choice quizzes',
+      title: 'One Daily Review',
+      description: 'Hear each word, recall its meaning, and answer quick multiple-choice checks in one short session',
       color: 'text-orange-600'
     },
     {
@@ -105,7 +105,7 @@ const Index = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
-                  onClick={() => navigate(session ? '/dashboard' : '/practice')}
+                  onClick={() => navigate(session ? '/dashboard' : '/review')}
                   className="text-lg px-8 py-3"
                 >
                   <Play className="mr-2 h-5 w-5" />
@@ -204,8 +204,8 @@ const Index = () => {
                   <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
                     <span className="text-2xl font-bold">3</span>
                   </div>
-                  <h3 className="text-xl font-semibold">Test Yourself</h3>
-                  <p className="opacity-90">Take a multiple-choice quiz and see your score</p>
+                  <h3 className="text-xl font-semibold">Come Back Daily</h3>
+                  <p className="opacity-90">Each word returns just before you would forget it, with quick checks mixed in</p>
                 </div>
               </div>
             </div>
@@ -254,7 +254,7 @@ const Index = () => {
                 <Button 
                   size="lg" 
                   variant="secondary"
-                  onClick={() => navigate(session ? '/dashboard' : '/practice')}
+                  onClick={() => navigate(session ? '/dashboard' : '/review')}
                   className="text-lg px-8 py-3"
                 >
                   <CheckCircle className="mr-2 h-5 w-5" />

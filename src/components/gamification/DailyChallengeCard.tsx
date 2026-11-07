@@ -15,7 +15,7 @@ interface DailyChallengeCardProps {
   isCompleted?: boolean;
 }
 
-/** Today's challenge, with progress measured from real reviews. "Start" opens Practice. */
+/** Today's challenge, with progress measured from real reviews. "Start" opens Review. */
 const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({
   challenge,
   onStartChallenge,
@@ -66,7 +66,7 @@ const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({
           </div>
         ) : (
           <Button asChild className="w-full" size="lg" onClick={onStartChallenge}>
-            <Link to="/practice">{progress > 0 ? 'Continue in Practice' : 'Start in Practice'}</Link>
+            <Link to="/review">{progress > 0 ? 'Continue reviewing' : 'Start reviewing'}</Link>
           </Button>
         )}
       </CardContent>

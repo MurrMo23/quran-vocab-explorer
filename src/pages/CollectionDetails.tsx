@@ -6,6 +6,7 @@ import SearchBar from '@/components/SearchBar';
 import AudioPlayer from '@/components/AudioPlayer';
 import { getCollectionById, getWordsByCollection, Word } from '@/utils/vocabulary';
 import { toast } from 'sonner';
+import { practiceCollectionUrl } from '@/lib/collections';
 import { useIsMobile } from '@/hooks/use-mobile';
 const CollectionDetails = () => {
   const {
@@ -122,12 +123,12 @@ const CollectionDetails = () => {
             <aside className="w-full md:w-1/4">
               <div className="sticky top-20">
                 <div className="p-4 bg-secondary/30 rounded-lg mb-6">
-                  <h3 className="font-medium mb-2">Practice This Collection</h3>
+                  <h3 className="font-medium mb-2">Review This Collection</h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     Master the words in this collection through focused practice.
                   </p>
-                  <button onClick={() => navigate(`/practice?collection=${id}`)} className="w-full bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
-                    Start Practice Session
+                  <button onClick={() => navigate(practiceCollectionUrl(id ?? ''))} className="w-full bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+                    Start Review
                   </button>
                 </div>
 

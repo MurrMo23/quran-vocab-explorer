@@ -14,10 +14,10 @@ export const COLLECTION_NAME_MAX = 80;
 export const COLLECTION_DESCRIPTION_MAX = 500;
 export const COLLECTION_WORDS_MAX = 1000;
 
-/** Query parameter the Practice page reads: /practice?collection=<id> */
+/** Query parameter the Review page reads: /review?collection=<id> (/practice?collection= redirects there). */
 export const PRACTICE_COLLECTION_PARAM = 'collection';
 export const practiceCollectionUrl = (id: string) =>
-  `/practice?${PRACTICE_COLLECTION_PARAM}=${encodeURIComponent(id)}`;
+  `/review?${PRACTICE_COLLECTION_PARAM}=${encodeURIComponent(id)}`;
 
 export interface UserCollection {
   id: string;
