@@ -16,7 +16,6 @@ import {
   X,
   Home,
   Target,
-  HelpCircle,
   Zap,
   Globe,
   Library,
@@ -54,8 +53,7 @@ const Navbar = () => {
   const navItems = [
     { href: '/collections', label: 'Collections', icon: BookOpen },
     { href: '/custom-learning', label: 'My collections', icon: Library },
-    { href: '/practice', label: 'Practice', icon: Target },
-    { href: '/quiz', label: 'Quiz', icon: HelpCircle },
+    { href: '/review', label: 'Review', icon: Target },
     { href: '/audio-practice', label: 'Audio', icon: Volume2 },
     { href: '/blog', label: 'Blog', icon: Globe }
   ];

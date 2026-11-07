@@ -109,7 +109,7 @@ const Dashboard = () => {
               </div>
               <div className="flex flex-col gap-2 sm:flex-row">
                 <Button asChild size="lg">
-                  <Link to="/practice">
+                  <Link to="/review">
                     <Brain className="mr-2 h-5 w-5" />
                     Start your first review
                   </Link>
@@ -143,10 +143,10 @@ const Dashboard = () => {
                 </div>
               )}
               <Button asChild size="lg" className="shrink-0">
-                <Link to="/practice">
+                <Link to="/review">
                   <Brain className="mr-2 h-5 w-5" />
                   {loading
-                    ? 'Practice'
+                    ? 'Review'
                     : stats.dueNow > 0
                       ? `Review ${stats.dueNow} due word${stats.dueNow === 1 ? '' : 's'}`
                       : 'Learn new words'}

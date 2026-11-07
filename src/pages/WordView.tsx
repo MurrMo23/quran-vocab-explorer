@@ -118,10 +118,10 @@ const WordView = () => {
             Sorry, we couldn't find the word you're looking for.
           </p>
           <button
-            onClick={() => navigate('/practice')}
+            onClick={() => navigate('/review')}
             className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
           >
-            Go to Practice
+            Go to Review
           </button>
         </div>
       )}

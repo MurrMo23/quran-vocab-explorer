@@ -128,13 +128,13 @@ const UserCollectionEditor: React.FC<Props> = ({ collection, onDeleted }) => {
                 <Button asChild size="sm">
                   <Link to={practiceCollectionUrl(collection.id)}>
                     <Play className="h-4 w-4 mr-1" />
-                    Practice this collection
+                    Review this collection
                   </Link>
                 </Button>
               ) : (
                 <Button size="sm" disabled title="Add words first">
                   <Play className="h-4 w-4 mr-1" />
-                  Practice this collection
+                  Review this collection
                 </Button>
               )}
               <Button size="sm" variant="outline" onClick={() => setRenaming(true)}>

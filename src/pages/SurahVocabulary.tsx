@@ -35,7 +35,7 @@ const SurahVocabulary = () => {
     count > 0
       ? `${count} Quranic Arabic ${count === 1 ? 'word' : 'words'} from Surah ${surah.name} (${surah.arabic}, "${surah.meaning}"), most frequent first: ${topWords}. Learning them covers ${pct(surah.coveragePercent)} of the surah's ${surah.totalWords} words.`
       : `Vocabulary of Surah ${surah.name} (${surah.arabic}, "${surah.meaning}"), ${surah.ayahs} ayahs and ${surah.totalWords} words.`;
-  const practiceHref = `/practice?words=${surah.words.map((w) => encodeURIComponent(w.word.id)).join(',')}`;
+  const practiceHref = `/review?words=${surah.words.map((w) => encodeURIComponent(w.word.id)).join(',')}`;
 
   return (
     <>
@@ -86,7 +86,7 @@ const SurahVocabulary = () => {
             <Button asChild className="mt-4 w-full sm:w-auto">
               <Link to={practiceHref}>
                 <Target className="mr-2 h-4 w-4" aria-hidden="true" />
-                Practise these words
+                Review these words
               </Link>
             </Button>
           </section>

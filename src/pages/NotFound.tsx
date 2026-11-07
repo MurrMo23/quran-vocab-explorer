@@ -1,12 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { BookOpen, Home, Target, HelpCircle, Search } from "lucide-react";
+import { BookOpen, Home, Target, Newspaper, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const suggestions = [
   { to: "/collections", label: "Browse collections", icon: BookOpen },
-  { to: "/practice", label: "Practise with flashcards", icon: Target },
-  { to: "/quiz", label: "Take a quiz", icon: HelpCircle },
+  { to: "/review", label: "Review your words", icon: Target },
+  { to: "/blog", label: "Read the blog", icon: Newspaper },
 ];
 
 const NotFound = () => {

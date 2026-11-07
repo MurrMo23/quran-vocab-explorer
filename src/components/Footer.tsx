@@ -7,8 +7,7 @@ const learnLinks = [
   { to: '/collections', label: 'Vocabulary Collections' },
   { to: '/surahs', label: 'Surah vocabulary' },
   { to: '/roots', label: 'Roots' },
-  { to: '/practice', label: 'Flashcard Practice' },
-  { to: '/quiz', label: 'Quiz' },
+  { to: '/review', label: 'Daily Review' },
   { to: '/blog', label: 'Blog' },
 ];
 
@@ -36,7 +35,7 @@ const Footer: React.FC = () => {
             </Link>
             <p className="text-sm">
               Learn the words of the Quran. QuranVocab is a free, independent tool for learning high-frequency
-              Quranic Arabic vocabulary with themed collections, flashcards and quizzes.
+              Quranic Arabic vocabulary with themed collections and a daily spaced-repetition review.
             </p>
             <p className="text-xs text-gray-400">
               Word data is being checked against the Quranic Arabic Corpus and Tanzil Quran text.{' '}

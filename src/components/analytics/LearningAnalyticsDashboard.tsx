@@ -50,7 +50,7 @@ const LearningAnalyticsDashboard: React.FC = () => {
             </p>
           </div>
           <Button asChild size="lg">
-            <Link to="/practice">Start your first review</Link>
+            <Link to="/review">Start your first review</Link>
           </Button>
         </CardContent>
       </Card>

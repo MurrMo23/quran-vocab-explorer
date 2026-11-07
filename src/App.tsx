@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import { AuthProvider } from '@/components/AuthProvider';
 import Layout from '@/components/Layout';
 import ScrollToTop from '@/components/ScrollToTop';
+import RedirectToReview from '@/components/review/RedirectToReview';
 // The home page stays in the main bundle so the first paint does not wait for a chunk.
 import Index from '@/pages/Index';
 // Prerendered pages (scripts/prerender.mjs) are bundled eagerly: hydrating a lazy route lets an
@@ -24,9 +25,7 @@ const ResetPassword = lazy(() => import('@/pages/ResetPassword'));
 const Dashboard = lazy(() => import('@/pages/Dashboard'));
 
 
-const Practice = lazy(() => import('@/pages/Practice'));
-const Quiz = lazy(() => import('@/pages/Quiz'));
-const EnhancedQuiz = lazy(() => import('@/pages/EnhancedQuiz'));
+const Review = lazy(() => import('@/pages/Review'));
 
 const Admin = lazy(() => import('@/pages/Admin'));
 const Analytics = lazy(() => import('@/pages/Analytics'));
@@ -38,7 +37,6 @@ const Blog = lazy(() => import('@/pages/Blog'));
 const BlogCategory = lazy(() => import('@/pages/BlogCategory'));
 const BlogTag = lazy(() => import('@/pages/BlogTag'));
 const BlogPost = lazy(() => import('@/pages/BlogPost'));
-const MobileFlashcards = lazy(() => import('@/pages/MobileFlashcards'));
 const ContentPage = lazy(() => import('@/components/ContentPage'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
@@ -75,9 +73,12 @@ function App() {
                 <Route path="dashboard" element={page(<Dashboard />)} />
                 <Route path="collections" element={page(<Collections />)} />
                 <Route path="collections/:id" element={page(<CollectionDetails />)} />
-                <Route path="practice" element={page(<Practice />)} />
-                <Route path="quiz" element={page(<Quiz />)} />
-                <Route path="enhanced-quiz" element={page(<EnhancedQuiz />)} />
+                <Route path="review" element={page(<Review />)} />
+                {/* The old learning modes are one Review session now; keep their links working. */}
+                <Route path="practice" element={<RedirectToReview />} />
+                <Route path="quiz" element={<RedirectToReview />} />
+                <Route path="enhanced-quiz" element={<RedirectToReview />} />
+                <Route path="mobile-flashcards" element={<RedirectToReview />} />
                 <Route path="word/:id" element={page(<WordView />)} />
                 <Route path="roots" element={page(<Roots />)} />
                 <Route path="root/:root" element={page(<RootDetails />)} />
@@ -96,7 +97,6 @@ function App() {
                 <Route path="blog/category/:category" element={page(<BlogCategory />)} />
                 <Route path="blog/tag/:tag" element={page(<BlogTag />)} />
                 <Route path="blog/:slug" element={page(<BlogPost />)} />
-                <Route path="mobile-flashcards" element={page(<MobileFlashcards />)} />
                 <Route path="help" element={page(<ContentPage />)} />
                 <Route path="about" element={page(<ContentPage />)} />
                 <Route path="contact" element={page(<ContentPage />)} />
