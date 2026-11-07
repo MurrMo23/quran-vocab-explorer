@@ -11,6 +11,7 @@ import Index from '@/pages/Index';
 
 // Every other route is code-split.
 const Auth = lazy(() => import('@/pages/Auth'));
+const ResetPassword = lazy(() => import('@/pages/ResetPassword'));
 const Dashboard = lazy(() => import('@/pages/Dashboard'));
 const Collections = lazy(() => import('@/pages/Collections'));
 const CollectionDetails = lazy(() => import('@/pages/CollectionDetails'));
@@ -61,6 +62,7 @@ function App() {
               <Route path="/" element={<Layout />}>
                 <Route index element={<Index />} />
                 <Route path="auth" element={page(<Auth />)} />
+                <Route path="reset-password" element={page(<ResetPassword />)} />
                 <Route path="dashboard" element={page(<Dashboard />)} />
                 <Route path="collections" element={page(<Collections />)} />
                 <Route path="collections/:id" element={page(<CollectionDetails />)} />

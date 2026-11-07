@@ -77,10 +77,10 @@ const Auth = () => {
         navigate('/dashboard');
       } else if (mode === 'reset') {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${window.location.origin}/auth`
+          redirectTo: `${window.location.origin}/reset-password`
         });
         if (error) throw error;
-        toast.success('Password reset email sent!');
+        toast.success('If an account exists for that email, a reset link is on its way.');
         setMode('login');
       }
     } catch (error: any) {
