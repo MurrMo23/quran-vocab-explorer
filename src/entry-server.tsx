@@ -56,9 +56,10 @@ export function namesPages(): string[] {
 
 /** Public routes worth prerendering (everything that is in the sitemap and needs no account). */
 export function routes(): string[] {
-  // '/' is not prerendered: dist/index.html must stay the clean SPA shell the host serves for every
-  // other route (auth, dashboard, ...). Interactive pages that depend on saved progress stay client-only.
-  const statics = ['/collections', '/ramadan'];
+  // '/' is prerendered into dist/index.html, which the host also serves for client-only routes
+  // (auth, dashboard, ...). scripts/prerender.mjs adds a guard that swaps the home markup back to the
+  // boot shell on any other path before first paint, so those routes never show or hydrate it.
+  const statics = ['/', '/collections', '/ramadan'];
   const collections = getPublishedCollections().map((c) => `/collections/${c.id}`);
   const words = getAllWords().map((w) => getWordPath(w));
   return [...statics, ...collections, ...words, ...quranPages(), ...namesPages()];

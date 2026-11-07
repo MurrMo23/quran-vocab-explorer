@@ -104,7 +104,7 @@ const WordView = () => {
           <div className="w-full h-40 bg-gray-200 rounded-lg"></div>
         </div>
       ) : word ? (
-        <div className="animate-fade-in">
+        <div>
           <WordDetail 
             word={word} 
             nextWord={nextWord || undefined}

@@ -33,6 +33,11 @@ const stripDefaults = (html) =>
     .replace(/<meta name="twitter:(title|description|image)"[^>]*>/g, '');
 
 const BOOT = /<div id="root">[\s\S]*?<\/div><\/div>/;
+const BOOT_HTML = template.match(BOOT)[0].replace(/^<div id="root">/, '').replace(/<\/div>$/, '');
+// dist/index.html is also the SPA fallback for client-only routes. On any path other than '/', hide the
+// prerendered home before first paint (head script) and restore the boot shell so React mounts fresh.
+const HOME_GUARD_HEAD = `<script>if(location.pathname!=='/')document.documentElement.classList.add('qv-shell')</script><style>.qv-shell #root[data-prerendered]{visibility:hidden}</style>`;
+const HOME_GUARD_BODY = `<script>(function(){if(location.pathname==='/')return;var r=document.getElementById('root');r.removeAttribute('data-prerendered');r.innerHTML=${JSON.stringify(BOOT_HTML)};document.documentElement.classList.remove('qv-shell')})()</script>`;
 let ok = 0;
 let redirectsWritten = 0;
 const failed = [];
@@ -42,7 +47,12 @@ for (const url of routes()) {
     if (!html || html.length < 200) throw new Error('empty render');
     let page = head ? stripDefaults(template).replace('</head>', `${head}</head>`) : template;
     if (!BOOT.test(page)) throw new Error('root placeholder not found in template');
-    page = page.replace(BOOT, `<div id="root" data-prerendered="true">${html}</div>`);
+    page = page.replace(BOOT, () => `<div id="root" data-prerendered="true">${html}</div>`);
+    if (url === '/') {
+      page = page.replace('</head>', `${HOME_GUARD_HEAD}</head>`);
+      page = page.replace(/(<div id="root" data-prerendered="true">[\s\S]*?)(\s*<!-- Readable fallback)/, (_m, a, b) => `${a}${HOME_GUARD_BODY}${b}`);
+      if (!page.includes(HOME_GUARD_BODY)) throw new Error('home guard not inserted');
+    }
     const out = url === '/' ? join(dist, 'index.html') : join(dist, decodeURIComponent(url), 'index.html');
     mkdirSync(dirname(out), { recursive: true });
     writeFileSync(out, page);
