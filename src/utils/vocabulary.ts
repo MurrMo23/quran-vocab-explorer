@@ -36,6 +36,8 @@ import { additionalBodyPartsWords } from './words-additional-body-parts';
 import { additionalNumbersWords } from './words-additional-numbers';
 import { directionsWords } from './words-directions';
 import { importantVerbsWords } from './words-important-verbs';
+import { collectionsExtendedWords } from './words-collections-extended';
+import { collectionAssignments, quranicForms } from './curated-overlays';
 import { expandedCollections } from './expanded-collections';
 
 // Export type and collection definitions
@@ -78,7 +80,8 @@ const allVocabularyWords: Word[] = [
   ...additionalBodyPartsWords,
   ...additionalNumbersWords,
   ...directionsWords,
-  ...importantVerbsWords
+  ...importantVerbsWords,
+  ...collectionsExtendedWords
 ];
 
 // Remove duplicates based on ID
@@ -221,6 +224,16 @@ const assignCollections = () => {
 
 // Call the function to assign collections
 assignCollections();
+
+// Curated, corpus-verified data (see curated-overlays.ts): extra collection memberships and,
+// for words not found verbatim, the related Quranic form used for labelling and audio.
+for (const word of sampleVocabulary) {
+  for (const c of collectionAssignments[word.id] ?? []) {
+    if (!word.collections.includes(c)) word.collections.push(c);
+  }
+  const form = quranicForms[word.id];
+  if (form) word.quranicForm = form;
+}
 
 // Custom collections storage - in a real app, this would be in a database
 const customCollections: Collection[] = [];

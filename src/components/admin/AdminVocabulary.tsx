@@ -12,6 +12,7 @@ import { ChevronLeft, ChevronRight, ExternalLink, FileDown, Info, Search } from 
 import { getAllCollections, getAllWords } from '@/utils/vocabulary';
 import { Word } from '@/utils/vocabulary-types';
 import { dateStamp, downloadCsv, downloadJson } from './exportUtils';
+import { getQuranicUsage } from '@/utils/word-usage';
 
 interface AdminVocabularyProps {
   // Kept for API compatibility with Admin.tsx; this view is read-only so nothing is logged.
@@ -22,7 +23,7 @@ const PAGE_SIZE = 50;
 const ALL = 'all';
 
 const formatFrequency = (word: Word) =>
-  word.frequency > 0 ? word.frequency.toLocaleString() : 'Not found verbatim';
+  word.frequency > 0 ? word.frequency.toLocaleString() : getQuranicUsage(word).short;
 
 const AdminVocabulary: React.FC<AdminVocabularyProps> = () => {
   const words = useMemo(() => getAllWords(), []);
@@ -42,7 +43,8 @@ const AdminVocabulary: React.FC<AdminVocabularyProps> = () => {
     () => ({
       total: words.length,
       verified: words.filter((w) => w.frequencyVerified).length,
-      noLocation: words.filter((w) => !w.location).length,
+      noLocation: words.filter((w) => !w.location && !w.quranicForm?.location).length,
+      relatedForms: words.filter((w) => w.frequency === 0).length,
       noExamples: words.filter((w) => !w.examples || w.examples.length === 0).length,
     }),
     [words]
@@ -101,7 +103,8 @@ const AdminVocabulary: React.FC<AdminVocabularyProps> = () => {
   const statCards = [
     { label: 'Total words', value: stats.total },
     { label: 'Verified frequency', value: stats.verified },
-    { label: 'Missing location (no audio)', value: stats.noLocation },
+    { label: 'No word recitation', value: stats.noLocation },
+    { label: 'Not verbatim (marked)', value: stats.relatedForms },
     { label: 'No examples', value: stats.noExamples },
   ];
 

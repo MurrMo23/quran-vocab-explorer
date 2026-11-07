@@ -116,6 +116,17 @@ export const getAudioSources = (word: Word): AudioSource[] => {
       shortLabel: 'Word recitation',
     });
   }
+  // Not in the Quran verbatim: recite the closest related Quranic form instead, labelled as such.
+  const related = word.quranicForm;
+  if (!wordUrl && related && isValidLocation(related.location)) {
+    const { surah, ayah, position } = related.location;
+    sources.push({
+      url: getWordAudioUrl({ location: related.location })!,
+      kind: 'word',
+      label: `Recitation of the related Quranic form ${related.arabic ?? ''} (${surah}:${ayah}, word ${position}) from Quran.com`.replace('  ', ' '),
+      shortLabel: 'Related form recitation',
+    });
+  }
   const stored = getStoredAudioSource(word.audioUrl);
   if (stored) sources.push(stored);
   const firstExample = word.examples?.[0];

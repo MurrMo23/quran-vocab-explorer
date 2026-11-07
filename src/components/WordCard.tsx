@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { useTextToSpeech } from '@/hooks/useTextToSpeech';
 import { getBestAudio, isSpeechSupported, COMPUTER_VOICE_LABEL } from '@/utils/audio';
 import AudioAttribution from '@/components/audio/AudioAttribution';
+import { getQuranicUsage } from '@/utils/word-usage';
 
 interface WordCardProps {
   word: Word;
@@ -23,6 +24,7 @@ const WordCard: React.FC<WordCardProps> = ({
   className
 }) => {
   const [flipped, setFlipped] = useState(showAnswerInitially);
+  const usage = getQuranicUsage(word);
   const [result, setResult] = useState<'correct' | 'incorrect' | null>(null);
   const { playWord, speak, stop, isPlaying, isLoading, nowPlaying } = useTextToSpeech();
   const bestAudio = useMemo(() => getBestAudio(word), [word]);
@@ -121,7 +123,7 @@ const WordCard: React.FC<WordCardProps> = ({
               /{word.transliteration}/
             </p>
             <p className="text-sm text-muted-foreground mt-4">
-              {word.partOfSpeech} • {word.frequency > 0 ? `Used ${word.frequency} times in the Quran` : 'Related term, not verbatim in the Quran'}
+              {word.partOfSpeech} • {usage.kind === 'verbatim' ? `Used ${word.frequency} times in the Quran` : usage.kind === 'related' ? 'Related form of a Quranic word' : usage.kind === 'post-quranic' ? 'Islamic term, not in the Quran' : 'Not verbatim in the Quran'}
             </p>
           </div>
         ) : (

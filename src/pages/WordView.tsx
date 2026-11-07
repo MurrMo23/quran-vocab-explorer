@@ -6,6 +6,7 @@ import WordDetail from '@/components/WordDetail';
 import SEO from '@/components/SEO';
 import { getWordById, Word, getAllWords } from '@/utils/vocabulary';
 import { toast } from 'sonner';
+import { getQuranicUsage } from '@/utils/word-usage';
 
 const WordView = () => {
   const { id } = useParams<{ id: string }>();
@@ -76,6 +77,7 @@ const WordView = () => {
             meaning: word.meaning,
             root: word.root,
             frequency: word.frequency,
+            usage: getQuranicUsage(word).long,
             partOfSpeech: word.partOfSpeech,
             tags: word.tags
           }}

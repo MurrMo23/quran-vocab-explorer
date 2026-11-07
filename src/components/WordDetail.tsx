@@ -8,6 +8,8 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import WordNotesPanel from '@/components/learning/WordNotesPanel';
+import { Badge } from '@/components/ui/badge';
+import { getQuranicUsage } from '@/utils/word-usage';
 
 interface WordDetailProps {
   word: Word;
@@ -27,6 +29,8 @@ const WordDetail: React.FC<WordDetailProps> = ({
   recommendedWords = []
 }) => {
   const navigate = useNavigate();
+  const usage = getQuranicUsage(word);
+  const related = word.quranicForm;
 
   const handleWordNavigation = (wordId: string) => {
     navigate(`/word/${wordId}`);
@@ -74,12 +78,30 @@ const WordDetail: React.FC<WordDetailProps> = ({
             <Hash className="h-5 w-5 text-primary" />
           </div>
           <div>
-            <div className="text-sm text-muted-foreground">Frequency</div>
-            <div className="font-medium">{word.frequency > 0 ? `${word.frequency} occurrences` : 'Not found verbatim in the Quran'}</div>
+            <div className="text-sm text-muted-foreground">{usage.kind === 'verbatim' ? 'Frequency' : 'In the Quran'}</div>
+            {usage.kind === 'verbatim' ? (
+              <div className="font-medium">{usage.short}</div>
+            ) : (
+              <Badge variant="outline" className="mt-0.5 font-medium">{usage.short}</Badge>
+            )}
           </div>
         </div>
       </div>
       
+      {usage.kind !== 'verbatim' && (
+        <aside className="mb-6 rounded-lg border bg-muted/40 p-4 text-sm" aria-label="How this word relates to the Quran">
+          <p>{usage.long}</p>
+          {related?.arabic && related.location && (
+            <p className="mt-2 text-muted-foreground">
+              Related Quranic form:{' '}
+              <span className="font-arabic text-base text-foreground" lang="ar">{related.arabic}</span>
+              {' '}({related.location.surah}:{related.location.ayah}
+              {related.occurrences ? `, ${related.occurrences}× in the Quran` : ''}). The recitation below is of this form.
+            </p>
+          )}
+        </aside>
+      )}
+
       <section className="mb-6">
         <h3 className="text-lg font-medium mb-3 flex items-center">
           <BookOpen className="h-5 w-5 mr-2 text-primary" />

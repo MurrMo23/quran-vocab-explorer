@@ -25,6 +25,8 @@ interface SEOProps {
     meaning: string;
     root: string;
     frequency: number;
+    /** Sentence describing Quranic usage (handles words not found verbatim). */
+    usage?: string;
     partOfSpeech: string;
     tags: string[];
   };
@@ -128,7 +130,7 @@ const SEO: React.FC<SEOProps> = ({
   // Generate word-specific SEO data if word prop is provided
   const wordTitle = word ? `${word.transliteration} (${word.arabic}) — meaning: ${word.meaning}` : title;
   const wordDescription = word
-    ? `"${word.arabic}" (${word.transliteration}) means "${word.meaning}". Root: ${word.root}. ${word.frequency} occurrences in the Quran. Learn it with audio and examples.`
+    ? `"${word.arabic}" (${word.transliteration}) means "${word.meaning}". Root: ${word.root}. ${word.usage ?? `${word.frequency} occurrences in the Quran.`} Learn it with audio and examples.`
     : description;
   const wordKeywords = word
     ? [...keywords, word.arabic, word.transliteration, word.meaning, word.root, ...word.tags, 'Quranic Arabic']
@@ -167,7 +169,7 @@ const SEO: React.FC<SEOProps> = ({
       '@id': `${canonical}#term`,
       name: `${word.transliteration} (${word.arabic})`,
       alternateName: word.arabic,
-      description: `Arabic word meaning "${word.meaning}". Transliteration: ${word.transliteration}. Root: ${word.root}. Part of speech: ${word.partOfSpeech}. Frequency in the Quran: ${word.frequency} occurrences.`,
+      description: `Arabic word meaning "${word.meaning}". Transliteration: ${word.transliteration}. Root: ${word.root}. Part of speech: ${word.partOfSpeech}. ${word.usage ?? `Frequency in the Quran: ${word.frequency} occurrences.`}`,
       termCode: word.arabic,
       url: canonical,
       inLanguage: 'ar',
