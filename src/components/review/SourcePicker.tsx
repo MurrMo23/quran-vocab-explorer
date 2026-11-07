@@ -6,11 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import type { Collection } from '@/utils/vocabulary-types';
 import type { UserCollection } from '@/lib/collections';
-import { NEW_PER_DAY_MAX, NEW_PER_DAY_MIN } from './review-session';
-
-export const SOURCE_DUE = 'due';
-export const SOURCE_WORDS = 'words';
-export const collectionSourceValue = (id: string) => `c:${id}`;
+import { NEW_PER_DAY_MAX, NEW_PER_DAY_MIN, SOURCE_DUE, SOURCE_WORDS, collectionSourceValue } from './review-session';
 
 interface SourcePickerProps {
   value: string;

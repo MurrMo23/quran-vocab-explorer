@@ -38,8 +38,7 @@ const lastmod = new Date().toISOString().slice(0, 10);
 const staticPages = [
   ['/', 'weekly', '1.0'],
   ['/collections', 'weekly', '0.9'],
-  ['/practice', 'monthly', '0.8'],
-  ['/quiz', 'monthly', '0.8'],
+  ['/review', 'monthly', '0.8'],
   ['/blog', 'weekly', '0.7'],
   ['/about', 'yearly', '0.5'],
   ['/contact', 'yearly', '0.4'],

@@ -24,7 +24,7 @@ export interface QuizQuestion {
   isCorrect?: boolean;
 }
 
-/** A question as shown by components/quiz/QuizQuestion. */
+/** A question with its type and prompt text. */
 export interface TypedQuizQuestion extends QuizQuestion {
   type: QuestionType;
   question: string;

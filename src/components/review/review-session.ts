@@ -30,6 +30,11 @@ export function parseWordList(raw: string | null): string[] {
   return out;
 }
 
+/** Values of the session source picker. */
+export const SOURCE_DUE = 'due';
+export const SOURCE_WORDS = 'words';
+export const collectionSourceValue = (id: string) => `c:${id}`;
+
 /** Most cards in one session; "Review more" builds the next batch. */
 export const SESSION_MAX = 20;
 export const DEFAULT_NEW_PER_DAY = 10;
@@ -181,11 +186,11 @@ export function buildReviewQueue({
 /** "in 10 min", "in 3 hours" or "now". */
 export function formatUntil(date: Date, now: Date = new Date()): string {
   const ms = date.getTime() - now.getTime();
-  if (ms <= 60_000) return 'now';
+  if (ms <= 0) return 'now';
   const MIN = 60_000;
   const HOUR = 60 * MIN;
   const DAY = 24 * HOUR;
-  if (ms < HOUR) return `in ${Math.round(ms / MIN)} min`;
+  if (ms < HOUR) return `in ${Math.max(1, Math.round(ms / MIN))} min`;
   if (ms < DAY) {
     const h = Math.round(ms / HOUR);
     return `in ${h} hour${h === 1 ? '' : 's'}`;

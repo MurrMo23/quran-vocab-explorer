@@ -126,7 +126,7 @@ const CollectionDetails = () => {
                 <div className="p-4 bg-secondary/30 rounded-lg mb-6">
                   <h3 className="font-medium mb-2">Review This Collection</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Master the words in this collection through focused practice.
+                    Master the words in this collection through a focused review session.
                   </p>
                   <button onClick={() => navigate(practiceCollectionUrl(id ?? ''))} className="w-full bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
                     Start Review

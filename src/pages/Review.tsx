@@ -10,7 +10,7 @@ import { useUserCollections, PRACTICE_COLLECTION_PARAM } from '@/lib/collections
 import { usePracticePool } from '@/components/practice/usePracticePool';
 import ProgressSaveNotice from '@/components/practice/ProgressSaveNotice';
 import { RATING_OPTIONS } from '@/components/practice/rating-options';
-import SourcePicker, { SOURCE_DUE, SOURCE_WORDS, collectionSourceValue } from '@/components/review/SourcePicker';
+import SourcePicker from '@/components/review/SourcePicker';
 import ReviewCardFace from '@/components/review/ReviewCardFace';
 import ReviewSummary, { type ReviewAnswer } from '@/components/review/ReviewSummary';
 import {
@@ -24,6 +24,9 @@ import {
   defaultNewWordOrder,
   parseWordList,
   REVIEW_WORDS_PARAM,
+  SOURCE_DUE,
+  SOURCE_WORDS,
+  collectionSourceValue,
   type SessionItem,
 } from '@/components/review/review-session';
 import { cn } from '@/lib/utils';
@@ -442,10 +445,18 @@ const Review = () => {
                   Learn new words
                 </Button>
               )}
-              {emptyInfo.ahead && !pool.notFound && (
-                <Button size="lg" variant="outline" className="h-14 text-base" onClick={() => startRound('ahead')}>
-                  Review ahead
+              {!pool.notFound && emptyInfo.next && emptyInfo.next.getTime() <= Date.now() ? (
+                // A card became due while this screen was open.
+                <Button size="lg" variant="outline" className="h-14 text-base" onClick={() => startRound('normal')}>
+                  Review now
                 </Button>
+              ) : (
+                emptyInfo.ahead &&
+                !pool.notFound && (
+                  <Button size="lg" variant="outline" className="h-14 text-base" onClick={() => startRound('ahead')}>
+                    Review ahead
+                  </Button>
+                )
               )}
               {kind !== 'due' && (
                 <Button size="lg" variant="outline" className="h-14 text-base" onClick={() => chooseSource(SOURCE_DUE)}>

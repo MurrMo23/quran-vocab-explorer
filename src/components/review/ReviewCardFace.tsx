@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import AudioPlayer from '@/components/AudioPlayer';
 import type { Word } from '@/utils/vocabulary-types';
 import { cn } from '@/lib/utils';
+import { getWordPath } from '@/utils/word-slugs';
 
 interface ReviewCardFaceProps {
   word: Word;
@@ -94,7 +95,7 @@ const ReviewCardFace: React.FC<ReviewCardFaceProps> = ({ word, revealed, isNew, 
 
           <p className="text-center">
             <Link
-              to={`/word/${encodeURIComponent(word.id)}`}
+              to={getWordPath(word)}
               className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
             >
               Word details
