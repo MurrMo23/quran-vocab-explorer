@@ -4,7 +4,6 @@ import { Search } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { Button } from '@/components/ui/button';
-import { Toaster } from '@/components/ui/sonner';
 
 // Loaded the first time search opens (closed, it rendered nothing anyway), so it stays out of
 // the main bundle and hydration is unaffected.
@@ -47,7 +46,6 @@ const Layout: React.FC = () => {
       </main>
       
       <Footer />
-      <Toaster />
     </div>;
 };
 export default Layout;
