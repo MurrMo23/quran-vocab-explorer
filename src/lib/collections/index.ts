@@ -8,6 +8,7 @@
 import { useSyncExternalStore, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { createSyncedStore, type SyncedState } from '@/lib/notes/createSyncedStore';
+import { track } from '@/lib/analytics';
 
 export const COLLECTIONS_STORAGE_KEY = 'qv-collections-v1';
 export const COLLECTION_NAME_MAX = 80;
@@ -173,7 +174,7 @@ const validateName = (name: string | undefined) => {
 
 export const createCollection = (input: NewUserCollection) => {
   validateName(input.name);
-  return store.create(input);
+  return store.create(input).then((c) => { track('collection_create'); return c; });
 };
 export const updateCollection = (id: string, patch: UserCollectionPatch) => {
   validateName(patch.name);

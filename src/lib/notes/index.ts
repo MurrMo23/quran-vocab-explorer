@@ -6,6 +6,7 @@
 import { useSyncExternalStore, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { createSyncedStore, type SyncedState } from './createSyncedStore';
+import { track } from '@/lib/analytics';
 
 export const NOTE_TYPES = ['general', 'mnemonic', 'personal_example', 'etymology'] as const;
 export type NoteType = (typeof NOTE_TYPES)[number];
@@ -157,7 +158,7 @@ const validate = (content: string | undefined) => {
 
 export const createNote = (input: NewNote) => {
   validate(input.content);
-  return store.create(input);
+  return store.create(input).then((note) => { track('note_create'); return note; });
 };
 export const updateNote = (id: string, patch: NotePatch) => {
   validate(patch.content);

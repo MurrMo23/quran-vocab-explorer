@@ -8,6 +8,7 @@ import { Word, getAllWords } from '@/utils/vocabulary';
 import { getWordBySlugOrId, getWordPath } from '@/utils/word-slugs';
 import { toast } from 'sonner';
 import { getQuranicUsage } from '@/utils/word-usage';
+import { publicId, track } from '@/lib/analytics';
 
 const WordView = () => {
   const { id } = useParams<{ id: string }>();
@@ -53,6 +54,10 @@ const WordView = () => {
       navigate(`${canonicalPath}${window.location.search}${window.location.hash}`, { replace: true });
     }
   }, [id, slug, canonicalPath, navigate]);
+
+  useEffect(() => {
+    if (word) track('word_view', { word_id: word.id, collection_id: publicId(new URLSearchParams(window.location.search).get('collection')) });
+  }, [word]);
 
   useEffect(() => {
     if (id && !word) {

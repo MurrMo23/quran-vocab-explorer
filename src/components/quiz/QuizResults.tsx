@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import type { QuizResult, QuizQuestion } from './quiz-utils';
 import ProgressSaveNotice from '@/components/practice/ProgressSaveNotice';
 import { toast } from 'sonner';
+import { track } from '@/lib/analytics';
 
 interface QuizResultsProps {
   result: QuizResult;
@@ -29,6 +30,9 @@ const QuizResults: React.FC<QuizResultsProps> = ({
     if (accuracy >= 60) return { level: 'Fair', color: 'bg-orange-500', emoji: '📚' };
     return { level: 'Needs Improvement', color: 'bg-red-500', emoji: '💪' };
   };
+
+  // One event per result shown (a new result object per finished quiz).
+  React.useEffect(() => track('quiz_complete', { score_pct: Math.round(result.accuracy) }), [result]);
 
   const performance = getPerformanceLevel(result.accuracy);
 

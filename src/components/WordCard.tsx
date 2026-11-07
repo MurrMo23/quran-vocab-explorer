@@ -7,6 +7,7 @@ import { useTextToSpeech } from '@/hooks/useTextToSpeech';
 import { getBestAudio, isSpeechSupported, COMPUTER_VOICE_LABEL } from '@/utils/audio';
 import AudioAttribution from '@/components/audio/AudioAttribution';
 import { getQuranicUsage } from '@/utils/word-usage';
+import { track } from '@/lib/analytics';
 
 interface WordCardProps {
   word: Word;
@@ -39,6 +40,7 @@ const WordCard: React.FC<WordCardProps> = ({
       stop();
       return;
     }
+    if (bestAudio || canSpeak) track('audio_play', { kind: bestAudio?.kind === 'ayah' ? 'ayah' : 'word' });
     if (bestAudio) {
       const ok = await playWord(word);
       if (ok || !canSpeak) return;

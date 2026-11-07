@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { track } from '@/lib/analytics';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -69,10 +70,12 @@ const Auth = () => {
         });
         
         if (error) throw error;
+        track('sign_up', { method: 'email' });
         toast.success('Account created! Please check your email to verify your account.');
       } else if (mode === 'login') {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        track('login', { method: 'email' });
         toast.success('Welcome back!');
         navigate('/dashboard');
       } else if (mode === 'reset') {
@@ -83,8 +86,8 @@ const Auth = () => {
         toast.success('If an account exists for that email, a reset link is on its way.');
         setMode('login');
       }
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -100,8 +103,8 @@ const Auth = () => {
         }
       });
       if (error) throw error;
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
       setGoogleLoading(false);
     }
   };
