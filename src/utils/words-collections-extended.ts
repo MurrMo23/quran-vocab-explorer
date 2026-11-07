@@ -6427,6 +6427,1190 @@ export const collectionsExtendedWords: Word[] = [
     ]
   },
   {
+    "id": "al-kabir",
+    "arabic": "الْكَبِير",
+    "transliteration": "Al-Kabir",
+    "meaning": "The Most Great",
+    "root": "ك ب ر",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 40,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 13,
+      "ayah": 9,
+      "position": 4
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 13,
+        "ayah": 9,
+        "arabicText": "عَـٰلِمُ ٱلْغَيْبِ وَٱلشَّهَـٰدَةِ ٱلْكَبِيرُ ٱلْمُتَعَالِ",
+        "translation": "[He is] Knower of the unseen and the witnessed, the Grand, the Exalted"
+      }
+    ]
+  },
+  {
+    "id": "al-hafiz",
+    "arabic": "الْحَفِيظ",
+    "transliteration": "Al-Hafiz",
+    "meaning": "The Preserver, Guardian",
+    "root": "ح ف ظ",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 12,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 42,
+      "ayah": 6,
+      "position": 7
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 42,
+        "ayah": 6,
+        "arabicText": "وَٱلَّذِينَ ٱتَّخَذُوا۟ مِن دُونِهِۦٓ أَوْلِيَآءَ ٱللَّهُ حَفِيظٌ عَلَيْهِمْ وَمَآ أَنتَ عَلَيْهِم بِوَكِيلٍ",
+        "translation": "And those who take as allies other than Him - Allah is [yet] Guardian over them; and you, [O Muhammad], are not over them a manager"
+      }
+    ]
+  },
+  {
+    "id": "al-muqit",
+    "arabic": "الْمُقِيت",
+    "transliteration": "Al-Muqit",
+    "meaning": "The Sustainer, Keeper",
+    "root": "ق و ت",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 1,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 4,
+      "ayah": 85,
+      "position": 22
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 4,
+        "ayah": 85,
+        "arabicText": "مَّن يَشْفَعْ شَفَـٰعَةً حَسَنَةً يَكُن لَّهُۥ نَصِيبٌ مِّنْهَا وَمَن يَشْفَعْ شَفَـٰعَةً سَيِّئَةً يَكُن لَّهُۥ كِفْلٌ مِّنْهَا وَكَانَ ٱللَّهُ عَلَىٰ كُلِّ شَىْءٍ مُّقِيتًا",
+        "translation": "Whoever intercedes for a good cause will have a reward therefrom; and whoever intercedes for an evil cause will have a burden therefrom. And ever is Allah, over all things, a Keeper"
+      }
+    ]
+  },
+  {
+    "id": "al-hasib",
+    "arabic": "الْحَسِيب",
+    "transliteration": "Al-Hasib",
+    "meaning": "The Reckoner",
+    "root": "ح س ب",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 4,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 33,
+      "ayah": 39,
+      "position": 13
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 33,
+        "ayah": 39,
+        "arabicText": "ٱلَّذِينَ يُبَلِّغُونَ رِسَـٰلَـٰتِ ٱللَّهِ وَيَخْشَوْنَهُۥ وَلَا يَخْشَوْنَ أَحَدًا إِلَّا ٱللَّهَ وَكَفَىٰ بِٱللَّهِ حَسِيبًا",
+        "translation": "[Allah praises] those who convey the messages of Allah and fear Him and do not fear anyone but Allah. And sufficient is Allah as Accountant"
+      }
+    ]
+  },
+  {
+    "id": "ar-raqib",
+    "arabic": "الرَّقِيب",
+    "transliteration": "Ar-Raqib",
+    "meaning": "The Watchful",
+    "root": "ر ق ب",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 5,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 4,
+      "ayah": 1,
+      "position": 28
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 4,
+        "ayah": 1,
+        "arabicText": "يَـٰٓأَيُّهَا ٱلنَّاسُ ٱتَّقُوا۟ رَبَّكُمُ ٱلَّذِى خَلَقَكُم مِّن نَّفْسٍ وَٰحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَآءً وَٱتَّقُوا۟ ٱللَّهَ ٱلَّذِى تَسَآءَلُونَ بِهِۦ وَٱلْأَرْحَامَ إِنَّ ٱللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا",
+        "translation": "O mankind, fear your Lord, who created you from one soul and created from it its mate and dispersed from both of them many men and women. And fear Allah, through whom you ask one another, and the wombs. Indeed Allah is ever, over you, an Observer"
+      }
+    ]
+  },
+  {
+    "id": "al-mujib",
+    "arabic": "الْمُجِيب",
+    "transliteration": "Al-Mujib",
+    "meaning": "The Responsive (who answers prayer)",
+    "root": "ج و ب",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 2,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 11,
+      "ayah": 61,
+      "position": 27
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 11,
+        "ayah": 61,
+        "arabicText": "وَإِلَىٰ ثَمُودَ أَخَاهُمْ صَـٰلِحًا قَالَ يَـٰقَوْمِ ٱعْبُدُوا۟ ٱللَّهَ مَا لَكُم مِّنْ إِلَـٰهٍ غَيْرُهُۥ هُوَ أَنشَأَكُم مِّنَ ٱلْأَرْضِ وَٱسْتَعْمَرَكُمْ فِيهَا فَٱسْتَغْفِرُوهُ ثُمَّ تُوبُوٓا۟ إِلَيْهِ إِنَّ رَبِّى قَرِيبٌ مُّجِيبٌ",
+        "translation": "And to Thamud [We sent] their brother Salih. He said, \"O my people, worship Allah; you have no deity other than Him. He has produced you from the earth and settled you in it, so ask forgiveness of Him and then repent to Him. Indeed, my Lord is near and responsive"
+      }
+    ]
+  },
+  {
+    "id": "al-wasi",
+    "arabic": "الْوَاسِع",
+    "transliteration": "Al-Wasi'",
+    "meaning": "The All-Encompassing",
+    "root": "و س ع",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 9,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 2,
+      "ayah": 115,
+      "position": 11
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 2,
+        "ayah": 115,
+        "arabicText": "وَلِلَّهِ ٱلْمَشْرِقُ وَٱلْمَغْرِبُ فَأَيْنَمَا تُوَلُّوا۟ فَثَمَّ وَجْهُ ٱللَّهِ إِنَّ ٱللَّهَ وَٰسِعٌ عَلِيمٌ",
+        "translation": "And to Allah belongs the east and the west. So wherever you [might] turn, there is the Face of Allah. Indeed, Allah is all-Encompassing and Knowing"
+      }
+    ]
+  },
+  {
+    "id": "al-wadud",
+    "arabic": "الْوَدُود",
+    "transliteration": "Al-Wadud",
+    "meaning": "The Most Loving",
+    "root": "و د د",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 2,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 85,
+      "ayah": 14,
+      "position": 3
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 85,
+        "ayah": 14,
+        "arabicText": "وَهُوَ ٱلْغَفُورُ ٱلْوَدُودُ",
+        "translation": "And He is the Forgiving, the Affectionate"
+      }
+    ]
+  },
+  {
+    "id": "al-majid",
+    "arabic": "الْمَجِيد",
+    "transliteration": "Al-Majid",
+    "meaning": "The Most Glorious",
+    "root": "م ج د",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 4,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 11,
+      "ayah": 73,
+      "position": 14
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 11,
+        "ayah": 73,
+        "arabicText": "قَالُوٓا۟ أَتَعْجَبِينَ مِنْ أَمْرِ ٱللَّهِ رَحْمَتُ ٱللَّهِ وَبَرَكَـٰتُهُۥ عَلَيْكُمْ أَهْلَ ٱلْبَيْتِ إِنَّهُۥ حَمِيدٌ مَّجِيدٌ",
+        "translation": "They said, \"Are you amazed at the decree of Allah? May the mercy of Allah and His blessings be upon you, people of the house. Indeed, He is Praiseworthy and Honorable"
+      }
+    ]
+  },
+  {
+    "id": "ash-shahid",
+    "arabic": "الشَّهِيد",
+    "transliteration": "Ash-Shahid",
+    "meaning": "The Witness",
+    "root": "ش ه د",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 56,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 85,
+      "ayah": 9,
+      "position": 10
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 85,
+        "ayah": 9,
+        "arabicText": "ٱلَّذِى لَهُۥ مُلْكُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَٱللَّهُ عَلَىٰ كُلِّ شَىْءٍ شَهِيدٌ",
+        "translation": "To whom belongs the dominion of the heavens and the earth. And Allah, over all things, is Witness"
+      }
+    ]
+  },
+  {
+    "id": "al-wakil",
+    "arabic": "الْوَكِيل",
+    "transliteration": "Al-Wakil",
+    "meaning": "The Trustee, Disposer of affairs",
+    "root": "و ك ل",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 24,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 33,
+      "ayah": 3,
+      "position": 6
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 33,
+        "ayah": 3,
+        "arabicText": "وَتَوَكَّلْ عَلَى ٱللَّهِ وَكَفَىٰ بِٱللَّهِ وَكِيلًا",
+        "translation": "And rely upon Allah; and sufficient is Allah as Disposer of affairs"
+      }
+    ]
+  },
+  {
+    "id": "al-qawiyy",
+    "arabic": "الْقَوِيُ",
+    "transliteration": "Al-Qawiyy",
+    "meaning": "The All-Strong",
+    "root": "ق و ي",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 11,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 42,
+      "ayah": 19,
+      "position": 8
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 42,
+        "ayah": 19,
+        "arabicText": "ٱللَّهُ لَطِيفٌۢ بِعِبَادِهِۦ يَرْزُقُ مَن يَشَآءُ وَهُوَ ٱلْقَوِىُّ ٱلْعَزِيزُ",
+        "translation": "Allah is Subtle with His servants; He gives provisions to whom He wills. And He is the Powerful, the Exalted in Might"
+      }
+    ]
+  },
+  {
+    "id": "al-matin",
+    "arabic": "الْمَتِين",
+    "transliteration": "Al-Matin",
+    "meaning": "The Firm",
+    "root": "م ت ن",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 3,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 51,
+      "ayah": 58,
+      "position": 7
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 51,
+        "ayah": 58,
+        "arabicText": "إِنَّ ٱللَّهَ هُوَ ٱلرَّزَّاقُ ذُو ٱلْقُوَّةِ ٱلْمَتِينُ",
+        "translation": "Indeed, it is Allah who is the [continual] Provider, the firm possessor of strength"
+      }
+    ]
+  },
+  {
+    "id": "al-waliyy",
+    "arabic": "الْوَلِيُ",
+    "transliteration": "Al-Waliyy",
+    "meaning": "The Protecting Friend",
+    "root": "و ل ي",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 86,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 42,
+      "ayah": 9,
+      "position": 8
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 42,
+        "ayah": 9,
+        "arabicText": "أَمِ ٱتَّخَذُوا۟ مِن دُونِهِۦٓ أَوْلِيَآءَ فَٱللَّهُ هُوَ ٱلْوَلِىُّ وَهُوَ يُحْىِ ٱلْمَوْتَىٰ وَهُوَ عَلَىٰ كُلِّ شَىْءٍ قَدِيرٌ",
+        "translation": "Or have they taken protectors [or allies] besides him? But Allah - He is the Protector, and He gives life to the dead, and He is over all things competent"
+      }
+    ]
+  },
+  {
+    "id": "al-hamid",
+    "arabic": "الْحَمِيد",
+    "transliteration": "Al-Hamid",
+    "meaning": "The Praiseworthy",
+    "root": "ح م د",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 17,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 35,
+      "ayah": 15,
+      "position": 10
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 35,
+        "ayah": 15,
+        "arabicText": "يَـٰٓأَيُّهَا ٱلنَّاسُ أَنتُمُ ٱلْفُقَرَآءُ إِلَى ٱللَّهِ وَٱللَّهُ هُوَ ٱلْغَنِىُّ ٱلْحَمِيدُ",
+        "translation": "O mankind, you are those in need of Allah, while Allah is the Free of need, the Praiseworthy"
+      }
+    ]
+  },
+  {
+    "id": "al-muhyi",
+    "arabic": "الْمُحْيِي",
+    "transliteration": "Al-Muhyi",
+    "meaning": "The Giver of Life",
+    "root": "ح ي ي",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 2,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 30,
+      "ayah": 50,
+      "position": 13
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 30,
+        "ayah": 50,
+        "arabicText": "فَٱنظُرْ إِلَىٰٓ ءَاثَـٰرِ رَحْمَتِ ٱللَّهِ كَيْفَ يُحْىِ ٱلْأَرْضَ بَعْدَ مَوْتِهَآ إِنَّ ذَٰلِكَ لَمُحْىِ ٱلْمَوْتَىٰ وَهُوَ عَلَىٰ كُلِّ شَىْءٍ قَدِيرٌ",
+        "translation": "So observe the effects of the mercy of Allah - how He gives life to the earth after its lifelessness. Indeed, that [same one] will give life to the dead, and He is over all things competent"
+      }
+    ]
+  },
+  {
+    "id": "al-hayy",
+    "arabic": "الْحَيُ",
+    "transliteration": "Al-Hayy",
+    "meaning": "The Ever-Living",
+    "root": "ح ي ي",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 24,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 3,
+      "ayah": 2,
+      "position": 6
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 3,
+        "ayah": 2,
+        "arabicText": "ٱللَّهُ لَآ إِلَـٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ",
+        "translation": "Allah - there is no deity except Him, the Ever-Living, the Sustainer of existence"
+      }
+    ]
+  },
+  {
+    "id": "al-qayyum",
+    "arabic": "الْقَيُّوم",
+    "transliteration": "Al-Qayyum",
+    "meaning": "The Self-Subsisting Sustainer",
+    "root": "ق و م",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 3,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 3,
+      "ayah": 2,
+      "position": 7
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 3,
+        "ayah": 2,
+        "arabicText": "ٱللَّهُ لَآ إِلَـٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ",
+        "translation": "Allah - there is no deity except Him, the Ever-Living, the Sustainer of existence"
+      }
+    ]
+  },
+  {
+    "id": "al-ahad",
+    "arabic": "الْأَحَد",
+    "transliteration": "Al-Ahad",
+    "meaning": "The One, the Unique",
+    "root": "ا ح د",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 74,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 112,
+      "ayah": 1,
+      "position": 4
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 112,
+        "ayah": 1,
+        "arabicText": "قُلْ هُوَ ٱللَّهُ أَحَدٌ",
+        "translation": "Say, \"He is Allah, [who is] One"
+      }
+    ]
+  },
+  {
+    "id": "as-samad",
+    "arabic": "الصَّمَد",
+    "transliteration": "As-Samad",
+    "meaning": "The Eternal Refuge",
+    "root": "ص م د",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 1,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 112,
+      "ayah": 2,
+      "position": 2
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 112,
+        "ayah": 2,
+        "arabicText": "ٱللَّهُ ٱلصَّمَدُ",
+        "translation": "Allah, the Eternal Refuge"
+      }
+    ]
+  },
+  {
+    "id": "al-qadir",
+    "arabic": "الْقَادِر",
+    "transliteration": "Al-Qadir",
+    "meaning": "The All-Capable",
+    "root": "ق د ر",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 14,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 86,
+      "ayah": 8,
+      "position": 4
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 86,
+        "ayah": 8,
+        "arabicText": "إِنَّهُۥ عَلَىٰ رَجْعِهِۦ لَقَادِرٌ",
+        "translation": "Indeed, Allah, to return him [to life], is Able"
+      }
+    ]
+  },
+  {
+    "id": "al-muqtadir",
+    "arabic": "الْمُقْتَدِر",
+    "transliteration": "Al-Muqtadir",
+    "meaning": "The Perfect in Ability",
+    "root": "ق د ر",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 4,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 54,
+      "ayah": 55,
+      "position": 6
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 54,
+        "ayah": 55,
+        "arabicText": "فِى مَقْعَدِ صِدْقٍ عِندَ مَلِيكٍ مُّقْتَدِرٍۭ",
+        "translation": "In a seat of honor near a Sovereign, Perfect in Ability"
+      }
+    ]
+  },
+  {
+    "id": "al-akhir",
+    "arabic": "الْآخِر",
+    "transliteration": "Al-Akhir",
+    "meaning": "The Last",
+    "root": "ا خ ر",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 155,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 57,
+      "ayah": 3,
+      "position": 3
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 57,
+        "ayah": 3,
+        "arabicText": "هُوَ ٱلْأَوَّلُ وَٱلْـَٔاخِرُ وَٱلظَّـٰهِرُ وَٱلْبَاطِنُ وَهُوَ بِكُلِّ شَىْءٍ عَلِيمٌ",
+        "translation": "He is the First and the Last, the Ascendant and the Intimate, and He is, of all things, Knowing"
+      }
+    ]
+  },
+  {
+    "id": "az-zahir",
+    "arabic": "الظَّاهِر",
+    "transliteration": "Az-Zahir",
+    "meaning": "The Manifest",
+    "root": "ظ ه ر",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 8,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 57,
+      "ayah": 3,
+      "position": 4
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 57,
+        "ayah": 3,
+        "arabicText": "هُوَ ٱلْأَوَّلُ وَٱلْـَٔاخِرُ وَٱلظَّـٰهِرُ وَٱلْبَاطِنُ وَهُوَ بِكُلِّ شَىْءٍ عَلِيمٌ",
+        "translation": "He is the First and the Last, the Ascendant and the Intimate, and He is, of all things, Knowing"
+      }
+    ]
+  },
+  {
+    "id": "al-batin",
+    "arabic": "الْبَاطِن",
+    "transliteration": "Al-Batin",
+    "meaning": "The Hidden",
+    "root": "ب ط ن",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 3,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 57,
+      "ayah": 3,
+      "position": 5
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 57,
+        "ayah": 3,
+        "arabicText": "هُوَ ٱلْأَوَّلُ وَٱلْـَٔاخِرُ وَٱلظَّـٰهِرُ وَٱلْبَاطِنُ وَهُوَ بِكُلِّ شَىْءٍ عَلِيمٌ",
+        "translation": "He is the First and the Last, the Ascendant and the Intimate, and He is, of all things, Knowing"
+      }
+    ]
+  },
+  {
+    "id": "al-mutaali",
+    "arabic": "الْمُتَعَالِي",
+    "transliteration": "Al-Muta'ali",
+    "meaning": "The Most Exalted",
+    "root": "ع ل و",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 1,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 13,
+      "ayah": 9,
+      "position": 5
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 13,
+        "ayah": 9,
+        "arabicText": "عَـٰلِمُ ٱلْغَيْبِ وَٱلشَّهَـٰدَةِ ٱلْكَبِيرُ ٱلْمُتَعَالِ",
+        "translation": "[He is] Knower of the unseen and the witnessed, the Grand, the Exalted"
+      }
+    ]
+  },
+  {
+    "id": "al-barr",
+    "arabic": "الْبَرُ",
+    "transliteration": "Al-Barr",
+    "meaning": "The Source of Goodness",
+    "root": "ب ر ر",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 22,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 52,
+      "ayah": 28,
+      "position": 8
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 52,
+        "ayah": 28,
+        "arabicText": "إِنَّا كُنَّا مِن قَبْلُ نَدْعُوهُ إِنَّهُۥ هُوَ ٱلْبَرُّ ٱلرَّحِيمُ",
+        "translation": "Indeed, we used to supplicate Him before. Indeed, it is He who is the Beneficent, the Merciful"
+      }
+    ]
+  },
+  {
+    "id": "at-tawwab",
+    "arabic": "التَّوَّاب",
+    "transliteration": "At-Tawwab",
+    "meaning": "The Accepter of Repentance",
+    "root": "ت و ب",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 12,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 110,
+      "ayah": 3,
+      "position": 7
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 110,
+        "ayah": 3,
+        "arabicText": "فَسَبِّحْ بِحَمْدِ رَبِّكَ وَٱسْتَغْفِرْهُ إِنَّهُۥ كَانَ تَوَّابًۢا",
+        "translation": "Then exalt [Him] with praise of your Lord and ask forgiveness of Him. Indeed, He is ever Accepting of repentance"
+      }
+    ]
+  },
+  {
+    "id": "al-muntaqim",
+    "arabic": "الْمُنْتَقِم",
+    "transliteration": "Al-Muntaqim",
+    "meaning": "The Avenger",
+    "root": "ن ق م",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 3,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 44,
+      "ayah": 16,
+      "position": 6
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 44,
+        "ayah": 16,
+        "arabicText": "يَوْمَ نَبْطِشُ ٱلْبَطْشَةَ ٱلْكُبْرَىٰٓ إِنَّا مُنتَقِمُونَ",
+        "translation": "The Day We will strike with the greatest assault, indeed, We will take retribution"
+      }
+    ]
+  },
+  {
+    "id": "al-afuww",
+    "arabic": "الْعَفُوُ",
+    "transliteration": "Al-'Afuww",
+    "meaning": "The Pardoner",
+    "root": "ع ف و",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 5,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 4,
+      "ayah": 99,
+      "position": 9
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 4,
+        "ayah": 99,
+        "arabicText": "فَأُو۟لَـٰٓئِكَ عَسَى ٱللَّهُ أَن يَعْفُوَ عَنْهُمْ وَكَانَ ٱللَّهُ عَفُوًّا غَفُورًا",
+        "translation": "For those it is expected that Allah will pardon them, and Allah is ever Pardoning and Forgiving"
+      }
+    ]
+  },
+  {
+    "id": "ar-rauf",
+    "arabic": "الرَّءُوف",
+    "transliteration": "Ar-Ra'uf",
+    "meaning": "The Most Kind",
+    "root": "ر ا ف",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 11,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 2,
+      "ayah": 207,
+      "position": 10
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 2,
+        "ayah": 207,
+        "arabicText": "وَمِنَ ٱلنَّاسِ مَن يَشْرِى نَفْسَهُ ٱبْتِغَآءَ مَرْضَاتِ ٱللَّهِ وَٱللَّهُ رَءُوفٌۢ بِٱلْعِبَادِ",
+        "translation": "And of the people is he who sells himself, seeking means to the approval of Allah. And Allah is kind to [His] servants"
+      }
+    ]
+  },
+  {
+    "id": "malik-al-mulk",
+    "arabic": "مَالِكُ الْمُلْكِ",
+    "transliteration": "Malik al-Mulk",
+    "meaning": "Owner of All Sovereignty",
+    "root": "م ل ك",
+    "partOfSpeech": "phrase",
+    "level": "intermediate",
+    "frequency": 3,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 3,
+      "ayah": 26,
+      "position": 3
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 3,
+        "ayah": 26,
+        "arabicText": "قُلِ ٱللَّهُمَّ مَـٰلِكَ ٱلْمُلْكِ تُؤْتِى ٱلْمُلْكَ مَن تَشَآءُ وَتَنزِعُ ٱلْمُلْكَ مِمَّن تَشَآءُ وَتُعِزُّ مَن تَشَآءُ وَتُذِلُّ مَن تَشَآءُ بِيَدِكَ ٱلْخَيْرُ إِنَّكَ عَلَىٰ كُلِّ شَىْءٍ قَدِيرٌ",
+        "translation": "Say, \"O Allah, Owner of Sovereignty, You give sovereignty to whom You will and You take sovereignty away from whom You will. You honor whom You will and You humble whom You will. In Your hand is [all] good. Indeed, You are over all things competent"
+      }
+    ]
+  },
+  {
+    "id": "dhul-jalali-wal-ikram",
+    "arabic": "ذُو الْجَلَالِ وَالْإِكْرَامِ",
+    "transliteration": "Dhul-Jalali wal-Ikram",
+    "meaning": "Possessor of Majesty and Honour",
+    "root": "ج ل ل",
+    "partOfSpeech": "phrase",
+    "level": "intermediate",
+    "frequency": 2,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 55,
+      "ayah": 78,
+      "position": 5
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 55,
+        "ayah": 78,
+        "arabicText": "تَبَـٰرَكَ ٱسْمُ رَبِّكَ ذِى ٱلْجَلَـٰلِ وَٱلْإِكْرَامِ",
+        "translation": "Blessed is the name of your Lord, Owner of Majesty and Honor"
+      }
+    ]
+  },
+  {
+    "id": "al-jami",
+    "arabic": "الْجَامِع",
+    "transliteration": "Al-Jami'",
+    "meaning": "The Gatherer",
+    "root": "ج م ع",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 3,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 3,
+      "ayah": 9,
+      "position": 3
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 3,
+        "ayah": 9,
+        "arabicText": "رَبَّنَآ إِنَّكَ جَامِعُ ٱلنَّاسِ لِيَوْمٍ لَّا رَيْبَ فِيهِ إِنَّ ٱللَّهَ لَا يُخْلِفُ ٱلْمِيعَادَ",
+        "translation": "Our Lord, surely You will gather the people for a Day about which there is no doubt. Indeed, Allah does not fail in His promise"
+      }
+    ]
+  },
+  {
+    "id": "al-hadi",
+    "arabic": "الْهَادِي",
+    "transliteration": "Al-Hadi",
+    "meaning": "The Guide",
+    "root": "ه د ي",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 2,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 25,
+      "ayah": 31,
+      "position": 10
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 25,
+        "ayah": 31,
+        "arabicText": "وَكَذَٰلِكَ جَعَلْنَا لِكُلِّ نَبِىٍّ عَدُوًّا مِّنَ ٱلْمُجْرِمِينَ وَكَفَىٰ بِرَبِّكَ هَادِيًا وَنَصِيرًا",
+        "translation": "And thus have We made for every prophet an enemy from among the criminals. But sufficient is your Lord as a guide and a helper"
+      }
+    ]
+  },
+  {
+    "id": "al-badi",
+    "arabic": "الْبَدِيع",
+    "transliteration": "Al-Badi'",
+    "meaning": "The Incomparable Originator",
+    "root": "ب د ع",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 2,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 2,
+      "ayah": 117,
+      "position": 1
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 2,
+        "ayah": 117,
+        "arabicText": "بَدِيعُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَإِذَا قَضَىٰٓ أَمْرًا فَإِنَّمَا يَقُولُ لَهُۥ كُن فَيَكُونُ",
+        "translation": "Originator of the heavens and the earth. When He decrees a matter, He only says to it, \"Be,\" and it is"
+      }
+    ]
+  },
+  {
+    "id": "al-warith",
+    "arabic": "الْوَارِث",
+    "transliteration": "Al-Warith",
+    "meaning": "The Inheritor",
+    "root": "و ر ث",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 7,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 15,
+      "ayah": 23,
+      "position": 6
+    },
+    "tags": [
+      "divine-names",
+      "names-of-allah"
+    ],
+    "collections": [
+      "divine-names",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 15,
+        "ayah": 23,
+        "arabicText": "وَإِنَّا لَنَحْنُ نُحْىِۦ وَنُمِيتُ وَنَحْنُ ٱلْوَٰرِثُونَ",
+        "translation": "And indeed, it is We who give life and cause death, and We are the Inheritor"
+      }
+    ]
+  },
+  {
     "id": "allama",
     "arabic": "عَلَّمَ",
     "transliteration": "'allama",
