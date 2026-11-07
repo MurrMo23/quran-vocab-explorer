@@ -1,3 +1,4 @@
+import SEO from '@/components/SEO';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, BookOpen } from 'lucide-react';
@@ -6,7 +7,6 @@ import AudioPlayer from '@/components/AudioPlayer';
 import { getCollectionById, getWordsByCollection, Word } from '@/utils/vocabulary';
 import { toast } from 'sonner';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Helmet } from 'react-helmet';
 const CollectionDetails = () => {
   const {
     id
@@ -14,14 +14,14 @@ const CollectionDetails = () => {
     id: string;
   }>();
   const navigate = useNavigate();
-  const [words, setWords] = useState<Word[]>([]);
-  const [filteredWords, setFilteredWords] = useState<Word[]>([]);
+  const [words, setWords] = useState<Word[]>(() => (id && getCollectionById(id) ? getWordsByCollection(id) : []));
+  const [filteredWords, setFilteredWords] = useState<Word[]>(words);
   const [searchQuery, setSearchQuery] = useState('');
   const [collection, setCollection] = useState<{
     id: string;
     name: string;
     description: string;
-  } | null>(null);
+  } | null>(() => (id ? getCollectionById(id) ?? null : null));
   const isMobile = useIsMobile();
   useEffect(() => {
     if (id) {
@@ -56,10 +56,14 @@ const CollectionDetails = () => {
     setSearchQuery(query);
   };
   return <>
-      <Helmet>
-        <title>{collection?.name || 'Collection'} | Arabic Words</title>
-        <meta name="description" content={collection?.description || 'Browse Arabic vocabulary collection'} />
-      </Helmet>
+      <SEO
+        title={collection ? `${collection.name}: ${words.length} Quranic Arabic words` : 'Collection'}
+        description={collection
+          ? `${collection.description}. Learn ${words.length} Quranic Arabic words with meanings, roots, example verses and recitation audio.`
+          : 'Browse a collection of Quranic Arabic vocabulary.'}
+        url={collection ? `/collections/${collection.id}` : undefined}
+        noindex={!collection}
+      />
 
       <div className="mb-6">
         <button onClick={() => navigate('/collections')} className="text-muted-foreground hover:text-foreground flex items-center transition-colors">

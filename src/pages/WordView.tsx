@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import WordDetail from '@/components/WordDetail';
@@ -11,59 +11,41 @@ import { getQuranicUsage } from '@/utils/word-usage';
 const WordView = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [word, setWord] = useState<Word | null>(null);
-  const [nextWord, setNextWord] = useState<Word | null>(null);
-  const [previousWord, setPreviousWord] = useState<Word | null>(null);
-  const [relatedWords, setRelatedWords] = useState<Word[]>([]);
-  const [recommendedWords, setRecommendedWords] = useState<Word[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Derived synchronously so prerendered HTML and the first client render match.
+  const { word, nextWord, previousWord, relatedWords, recommendedWords } = useMemo(() => {
+    const empty = { word: null as Word | null, nextWord: null as Word | null, previousWord: null as Word | null, relatedWords: [] as Word[], recommendedWords: [] as Word[] };
+    if (!id) return empty;
+    const foundWord = getWordById(id);
+    if (!foundWord) return empty;
+    const allWords = getAllWords();
+    const currentIndex = allWords.findIndex(w => w.id === id);
+    const related = allWords.filter(w =>
+      w.id !== id && (
+        w.root === foundWord.root ||
+        w.partOfSpeech === foundWord.partOfSpeech ||
+        w.tags.some(tag => foundWord.tags.includes(tag))
+      )
+    ).slice(0, 8);
+    // Deterministic order (closest frequency first) so server and client agree.
+    const recommended = allWords
+      .filter(w => w.id !== id && w.level === foundWord.level && Math.abs(w.frequency - foundWord.frequency) < 50)
+      .sort((a, b) => Math.abs(a.frequency - foundWord.frequency) - Math.abs(b.frequency - foundWord.frequency) || a.id.localeCompare(b.id))
+      .slice(0, 8);
+    return {
+      word: foundWord,
+      previousWord: currentIndex > 0 ? allWords[currentIndex - 1] : null,
+      nextWord: currentIndex < allWords.length - 1 ? allWords[currentIndex + 1] : null,
+      relatedWords: related,
+      recommendedWords: recommended,
+    };
+  }, [id]);
+  const loading = false;
 
   useEffect(() => {
-    if (id) {
-      const foundWord = getWordById(id);
-      
-      if (foundWord) {
-        setWord(foundWord);
-        
-        // Get all words for navigation
-        const allWords = getAllWords();
-        const currentIndex = allWords.findIndex(w => w.id === id);
-        
-        // Set next and previous words
-        if (currentIndex > 0) {
-          setPreviousWord(allWords[currentIndex - 1]);
-        }
-        if (currentIndex < allWords.length - 1) {
-          setNextWord(allWords[currentIndex + 1]);
-        }
-        
-        // Find related words (same root or similar meaning)
-        const related = allWords.filter(w => 
-          w.id !== id && (
-            w.root === foundWord.root || 
-            w.partOfSpeech === foundWord.partOfSpeech ||
-            w.tags.some(tag => foundWord.tags.includes(tag))
-          )
-        ).slice(0, 8);
-        setRelatedWords(related);
-        
-        // Find recommended words (similar difficulty level and frequency)
-        const recommended = allWords.filter(w => 
-          w.id !== id && 
-          w.level === foundWord.level &&
-          Math.abs(w.frequency - foundWord.frequency) < 50
-        ).sort(() => Math.random() - 0.5).slice(0, 8);
-        setRecommendedWords(recommended);
-        
-      } else {
-        toast.error("Word not found", {
-          description: "We couldn't find the word you're looking for",
-        });
-      }
-      
-      setLoading(false);
+    if (id && !word) {
+      toast.error("Word not found", { description: "We couldn't find the word you're looking for" });
     }
-  }, [id]);
+  }, [id, word]);
 
   return (
     <>

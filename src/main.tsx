@@ -1,4 +1,4 @@
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
 import { ProgressProvider } from '@/lib/progress'
@@ -15,5 +15,10 @@ const app = (
   </BrowserRouter>
 );
 
-// Standard React mounting
-createRoot(root).render(app);
+// Public pages are prerendered at build time (scripts/prerender.mjs): hydrate that markup so
+// there is no flash. Everything else mounts normally.
+if (root.dataset.prerendered === 'true') {
+  hydrateRoot(root, app);
+} else {
+  createRoot(root).render(app);
+}

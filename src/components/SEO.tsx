@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
 interface SEOProps {
   title?: string;
@@ -70,12 +71,12 @@ const toAbsolute = (pathOrUrl: string, origin: string): string => {
 };
 
 /** Build a canonical URL from an explicit url prop or the current location. */
-const buildCanonical = (explicitUrl?: string): string => {
+const buildCanonical = (currentPath: string, explicitUrl?: string): string => {
   const origin = getCanonicalOrigin();
   if (explicitUrl) {
     try {
       const u = new URL(explicitUrl, origin);
-      const sameSite = /(^|\.)quranvocab\.com$/.test(u.hostname) || u.origin === window.location.origin;
+      const sameSite = /(^|\.)quranvocab\.com$/.test(u.hostname) || (typeof window !== 'undefined' && u.origin === window.location.origin);
       const base = sameSite ? origin : u.origin;
       const path = normalisePath(u.pathname);
       return path === '/' ? `${base}/` : `${base}${path}`;
@@ -83,7 +84,8 @@ const buildCanonical = (explicitUrl?: string): string => {
       /* fall through to location-based canonical */
     }
   }
-  const path = typeof window === 'undefined' ? '/' : normalisePath(window.location.pathname);
+  // From the router, so prerendered HTML (no window) gets the same canonical as the browser.
+  const path = normalisePath(currentPath);
   return path === '/' ? `${origin}/` : `${origin}${path}`;
 };
 
@@ -124,7 +126,8 @@ const SEO: React.FC<SEOProps> = ({
 
   const siteTitle = SITE_NAME;
   const origin = getCanonicalOrigin();
-  const canonical = buildCanonical(url);
+  const { pathname } = useLocation();
+  const canonical = buildCanonical(pathname, url);
   const absoluteImage = toAbsolute(image || DEFAULT_IMAGE, origin);
 
   // Generate word-specific SEO data if word prop is provided

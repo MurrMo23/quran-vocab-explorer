@@ -12,9 +12,9 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { usePermissions } from '@/hooks/usePermissions';
 
 const Collections = () => {
-  const [collections, setCollections] = useState<Collection[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [filteredCollections, setFilteredCollections] = useState<Collection[]>([]);
+  const [collections, setCollections] = useState<Collection[]>(() => getPublishedCollections());
+  const [loading, setLoading] = useState(false);
+  const [filteredCollections, setFilteredCollections] = useState<Collection[]>(collections);
   const [searchQuery, setSearchQuery] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
   
