@@ -123,7 +123,7 @@ const WordCard: React.FC<WordCardProps> = ({
               /{word.transliteration}/
             </p>
             <p className="text-sm text-muted-foreground mt-4">
-              {word.partOfSpeech} • {usage.kind === 'verbatim' ? `Used ${word.frequency} times in the Quran` : usage.kind === 'related' ? 'Related form of a Quranic word' : usage.kind === 'post-quranic' ? 'Islamic term, not in the Quran' : 'Not verbatim in the Quran'}
+              {word.partOfSpeech} • {usage.kind === 'verbatim' ? `Used ${word.frequency} times in the Quran` : usage.kind === 'related' ? 'Related form of a Quranic word' : usage.kind === 'post-quranic' ? 'Not used in the Quran' : 'Not verbatim in the Quran'}
             </p>
           </div>
         ) : (

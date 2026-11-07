@@ -22,7 +22,7 @@ export const getQuranicUsage = (word: Pick<Word, 'frequency' | 'quranicForm'>): 
     return { kind: 'related', short: 'Related form', long: f.note || `The Quran uses the related form ${f.arabic ?? ''}${occ}.` };
   }
   if (f?.status === 'post-quranic') {
-    return { kind: 'post-quranic', short: 'Islamic term', long: f.note };
+    return { kind: 'post-quranic', short: 'Not in the Quran', long: f.note };
   }
   return { kind: 'unknown', short: 'Not found verbatim', long: 'Not found verbatim in the Quran.' };
 };

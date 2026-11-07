@@ -16,7 +16,7 @@ SET content = replace(content,
   '<p>These projects do not endorse QuranVocab, and any errors on this site are ours.</p>',
   '<p>These projects do not endorse QuranVocab, and any errors on this site are ours.</p>
 <h2>Words not found verbatim</h2>
-<p>A few entries are useful Islamic vocabulary that does not appear in the Quran in exactly that form, such as <em>tawakkul</em> (trust in Allah) or <em>tawhid</em> (monotheism). They are marked <strong>Related form</strong> when the Quran uses another word from the same root family, and the recitation you hear is of that Quranic word. Later technical or cultural terms are marked <strong>Islamic term</strong>.</p>'),
+<p>A few entries are useful Islamic vocabulary that does not appear in the Quran in exactly that form, such as <em>tawakkul</em> (trust in Allah) or <em>tawhid</em> (monotheism). They are marked <strong>Related form</strong> when the Quran uses another word from the same root family, and the recitation you hear is of that Quranic word. Later Islamic terms and other words the Quran does not use are marked <strong>Not in the Quran</strong>; where a closely related Quranic word exists, you hear that word instead.</p>'),
     updated_at = now()
 WHERE slug = 'about'
   AND content NOT LIKE '%Words not found verbatim%';
