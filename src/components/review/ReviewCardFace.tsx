@@ -5,8 +5,7 @@ import type { Word } from '@/utils/vocabulary-types';
 import { cn } from '@/lib/utils';
 import { getWordPath } from '@/utils/word-slugs';
 import HearItButton from './HearItButton';
-import { getRecitationSources, getRecitedForm, hasPronunciation } from '@/utils/audio';
-import WordAudioButton from '@/components/word/WordAudioButton';
+import { getRecitedForm } from '@/utils/audio';
 
 interface ReviewCardFaceProps {
   word: Word;
@@ -21,7 +20,6 @@ interface ReviewCardFaceProps {
 /** The card itself: Arabic and recitation on the front; meaning, root and an example verse on the back. */
 const ReviewCardFace: React.FC<ReviewCardFaceProps> = ({ word, revealed, isNew, prompt, onReveal }) => {
   const recited = getRecitedForm(word);
-  const showQuranAudio = hasPronunciation(word) && getRecitationSources(word).length > 0;
   const example = word.examples?.[0];
   const tappable = !revealed && !!onReveal;
 
@@ -86,18 +84,7 @@ const ReviewCardFace: React.FC<ReviewCardFaceProps> = ({ word, revealed, isNew, 
                 ({recited.surah}:{recited.ayah})
               </p>
             )}
-            {showQuranAudio && (
-              <WordAudioButton
-                word={word}
-                quran
-                allowComputerVoice={false}
-                variant="outline"
-                size="sm"
-                className="mt-3 h-10 text-sm [&_svg]:size-4"
-              >
-                Hear it in the Quran
-              </WordAudioButton>
-            )}
+
           </div>
 
           {example && (example.arabicText || example.translation) && (

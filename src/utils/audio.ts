@@ -4,7 +4,8 @@
 //   - "Hear the word": an isolated pronunciation of the headword in its vowelled citation form, recorded
 //     with one consistent AI voice (Yasser by default, Ahmed as an option), loudness-matched across all
 //     words (PRONUNCIATION, files in public/audio/pron/<voice>/). Always labelled "AI voice".
-//   - "Hear it in the Quran": genuine recitation (getRecitationSources), strategy in priority order:
+//   - Genuine recitation (getRecitationSources), the fallback when the pronunciation file fails,
+//     in priority order:
 //
 //   0. The word clipped from Mishary Alafasy's recitation of its ayah (Quran.com timings), so every word
 //      is heard in ONE voice, at the occurrence whose spelling best matches the headword (WORD_AUDIO).

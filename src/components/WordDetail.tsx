@@ -161,11 +161,6 @@ const WordDetail: React.FC<WordDetailProps> = ({
             <WordAudioButton word={word} variant="gold">
               Hear the word
             </WordAudioButton>
-            {hasPron && hasWordRecitation && (
-              <WordAudioButton word={word} quran allowComputerVoice={false} variant="outline">
-                Hear it in the Quran
-              </WordAudioButton>
-            )}
             {firstExample && (
               <WordAudioButton
                 surah={firstExample.surah}
