@@ -138,13 +138,20 @@ export type FeedbackState =
   | { kind: 'flip-back'; word: Word; previewInterval: (wordId: string, rating: Rating) => string }
   | { kind: 'choice-idle' }
   | { kind: 'correct'; word: Word }
-  | { kind: 'wrong'; word: Word };
+  | { kind: 'wrong'; word: Word }
+  // Simple Yes / No session.
+  | { kind: 'yn-ask' }
+  | { kind: 'yn-yes'; word: Word }
+  | { kind: 'yn-right'; word: Word }
+  | { kind: 'yn-wrong'; word: Word; explainLabel: 'name' | 'word' };
 
 interface FeedbackBarProps {
   state: FeedbackState;
   onReveal: () => void;
   onRate: (rating: Rating) => void;
   onContinue: () => void;
+  onYes?: () => void;
+  onNo?: () => void;
 }
 
 const meaningLine = (word: Word) => {
@@ -156,8 +163,13 @@ const meaningLine = (word: Word) => {
  * The bar under the session (sticks to the bottom of the viewport while the session is on screen):
  * the reveal button, the rating buttons, or the correct / not-quite feedback with Continue.
  */
-export const FeedbackBar: React.FC<FeedbackBarProps> = ({ state, onReveal, onRate, onContinue }) => {
-  const tone = state.kind === 'correct' ? 'correct' : state.kind === 'wrong' ? 'wrong' : 'neutral';
+export const FeedbackBar: React.FC<FeedbackBarProps> = ({ state, onReveal, onRate, onContinue, onYes, onNo }) => {
+  const tone =
+    state.kind === 'correct' || state.kind === 'yn-yes' || state.kind === 'yn-right'
+      ? 'correct'
+      : state.kind === 'wrong' || state.kind === 'yn-wrong'
+        ? 'wrong'
+        : 'neutral';
 
   let message: React.ReactNode = null;
   if (state.kind === 'correct') {
@@ -178,6 +190,27 @@ export const FeedbackBar: React.FC<FeedbackBarProps> = ({ state, onReveal, onRat
         <p className={cn('mt-0.5 text-sm', WRONG_BODY)}>{meaningLine(state.word)} It will come back again soon.</p>
       </>
     );
+  } else if (state.kind === 'yn-yes' || state.kind === 'yn-right') {
+    message = (
+      <>
+        <p className="text-xl font-extrabold leading-tight text-secondary-foreground">
+          {state.kind === 'yn-yes' ? 'Great!' : 'Correct!'}
+        </p>
+        <p className="mt-0.5 text-sm text-foreground/80">{meaningLine(state.word)} Next word…</p>
+      </>
+    );
+  } else if (state.kind === 'yn-wrong') {
+    message = (
+      <>
+        <p className={cn('text-xl font-extrabold leading-tight', WRONG_TEXT)}>Not quite</p>
+        <p className={cn('mt-0.5 text-sm', WRONG_BODY)}>
+          {meaningLine(state.word)} Opening the {state.explainLabel === 'name' ? 'page for this name' : 'word page'} so you can
+          learn it…
+        </p>
+      </>
+    );
+  } else if (state.kind === 'yn-ask') {
+    message = <p className="text-base font-extrabold">Do you remember what it means?</p>;
   } else if (state.kind === 'choice-idle') {
     message = (
       <p className="text-sm font-semibold text-muted-foreground">
@@ -226,6 +259,29 @@ export const FeedbackBar: React.FC<FeedbackBarProps> = ({ state, onReveal, onRat
             {message}
           </div>
         </div>
+
+        {state.kind === 'yn-ask' && (
+          <div className="grid grid-cols-2 gap-3 sm:w-auto sm:min-w-[20rem]" role="group" aria-label="Do you remember what it means?">
+            <Button size="lg" variant="outline" onClick={onNo} aria-keyshortcuts="n" data-testid="review-no">
+              No
+            </Button>
+            <Button size="lg" onClick={onYes} aria-keyshortcuts="y" data-testid="review-yes">
+              Yes
+            </Button>
+          </div>
+        )}
+
+        {(state.kind === 'yn-yes' || state.kind === 'yn-right') && (
+          <Button size="lg" className="w-full shrink-0 sm:w-auto sm:min-w-[10rem]" onClick={onContinue} autoFocus data-testid="review-continue">
+            Next word
+          </Button>
+        )}
+
+        {state.kind === 'yn-wrong' && (
+          <Button size="lg" variant="destructive" className="w-full shrink-0 sm:w-auto sm:min-w-[10rem]" onClick={onContinue} autoFocus data-testid="review-continue">
+            Learn it now
+          </Button>
+        )}
 
         {state.kind === 'flip-front' && (
           <Button size="lg" className="w-full sm:w-auto sm:min-w-[12rem]" onClick={onReveal} data-testid="review-show-answer">

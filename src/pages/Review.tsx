@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { CalendarClock, Loader2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
@@ -23,6 +23,8 @@ import {
   type LearningGoalId,
 } from '@/lib/learning-goals';
 import { track } from '@/lib/analytics';
+import { wordPath } from '@/utils/quran-pages';
+import { getNameForWord, namePath } from '@/utils/names-of-allah';
 import {
   MAX_REPEATS_PER_WORD,
   buildReviewQueue,
@@ -34,6 +36,7 @@ import {
   defaultNewWordOrder,
   parseWordList,
   REVIEW_WORDS_PARAM,
+  REVIEW_SIMPLE_PARAM,
   SOURCE_DUE,
   SOURCE_WORDS,
   collectionSourceValue,
@@ -56,6 +59,9 @@ const Review = () => {
   const wordsParam = searchParams.get(REVIEW_WORDS_PARAM);
   const wordList = useMemo(() => parseWordList(wordsParam), [wordsParam]);
   const kind: 'due' | 'words' | 'collection' = wordsParam !== null ? 'words' : collectionParam ? 'collection' : 'due';
+  // Simple session (used by the 99 Names): "Do you remember?" Yes / No instead of rating buttons.
+  const simple = searchParams.get(REVIEW_SIMPLE_PARAM) === '1';
+  const navigate = useNavigate();
 
   const progress = useProgress();
   const { recordReview, previewInterval, cards, logs, stats, loading: progressLoading } = progress;
@@ -85,7 +91,7 @@ const Review = () => {
   }, [kind, wordList, collectionPool]);
 
   const ready = !progressLoading && !pool.loading;
-  const sourceKey = `${kind}|${kind === 'words' ? wordList.join(',') : kind === 'collection' ? `${collectionParam}|${pool.ids.length}` : ''}`;
+  const sourceKey = `${simple ? 's' : ''}${kind}|${kind === 'words' ? wordList.join(',') : kind === 'collection' ? `${collectionParam}|${pool.ids.length}` : ''}`;
 
   // Session state.
   const [phase, setPhase] = useState<Phase>('loading');
@@ -93,6 +99,14 @@ const Review = () => {
   const [position, setPosition] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [chosen, setChosen] = useState<string | null>(null);
+  /** Yes / No cards: what the learner answered ('no' shows the meanings to pick from). */
+  const [yesNo, setYesNo] = useState<'yes' | 'no' | null>(null);
+  const autoNext = useRef<number | null>(null);
+  const clearAutoNext = () => {
+    if (autoNext.current !== null) window.clearTimeout(autoNext.current);
+    autoNext.current = null;
+  };
+  useEffect(() => clearAutoNext, []);
   const [answers, setAnswers] = useState<ReviewAnswer[]>([]);
   const [round, setRound] = useState(0);
   const [buildMode, setBuildMode] = useState<BuildMode>('normal');
@@ -120,13 +134,16 @@ const Review = () => {
         preferredNew: g ? goalWordIds(g) : undefined,
         newOnly: buildMode === 'newOnly',
         ahead: buildMode === 'ahead',
+        simple,
       });
     }
     repeats.current = new Map();
+    clearAutoNext();
     setItems(queue);
     setPosition(0);
     setRevealed(false);
     setChosen(null);
+    setYesNo(null);
     setAnswers([]);
     shownAt.current = Date.now();
     setPhase(queue.length > 0 ? 'session' : 'empty');
@@ -172,6 +189,7 @@ const Review = () => {
 
   const advance = useCallback(
     (queue: SessionItem[]) => {
+      clearAutoNext();
       if (position + 1 >= queue.length) {
         setPhase('summary');
         return;
@@ -179,6 +197,7 @@ const Review = () => {
       setPosition(position + 1);
       setRevealed(false);
       setChosen(null);
+      setYesNo(null);
       shownAt.current = Date.now();
     },
     [position],
@@ -196,7 +215,12 @@ const Review = () => {
         const n = repeats.current.get(current.wordId) ?? 0;
         if (n < MAX_REPEATS_PER_WORD) {
           repeats.current.set(current.wordId, n + 1);
-          queue = [...items, { wordId: current.wordId, mode: 'flip', isNew: false }];
+          queue = [
+            ...items,
+            current.mode === 'yesno'
+              ? { wordId: current.wordId, mode: 'yesno', options: current.options, isNew: false }
+              : { wordId: current.wordId, mode: 'flip', isNew: false },
+          ];
           setItems(queue);
         }
       }
@@ -231,6 +255,52 @@ const Review = () => {
     advance(items);
   }, [current, chosen, advance, items]);
 
+  /** Where a missed word is explained: its 99 Names page if it is one, else its word page. */
+  const explainPath = (wordId: string) => {
+    const name = getNameForWord(wordId);
+    return name ? namePath(name.slug) : wordPath(wordId);
+  };
+
+  // Yes / No cards. Yes: show the meaning briefly, then the next word.
+  const answerYes = useCallback(() => {
+    if (!current || current.mode !== 'yesno' || yesNo !== null) return;
+    setYesNo('yes');
+    setRevealed(true);
+    const queue = record('good', 'practice');
+    autoNext.current = window.setTimeout(() => advance(queue), 1600);
+  }, [current, yesNo, record, advance]);
+
+  // No: the four meanings appear under the card.
+  const answerNo = useCallback(() => {
+    if (!current || current.mode !== 'yesno' || yesNo !== null) return;
+    setYesNo('no');
+  }, [current, yesNo]);
+
+  // Right: next word. Wrong: open the page that explains the word.
+  const pickMeaning = useCallback(
+    (option: string) => {
+      if (!current || current.mode !== 'yesno' || yesNo !== 'no' || chosen !== null || !word) return;
+      setChosen(option);
+      setRevealed(true);
+      const right = option === word.meaning;
+      const queue = record(right ? 'hard' : 'again', 'quiz');
+      const target = explainPath(word.id);
+      autoNext.current = window.setTimeout(() => (right ? advance(queue) : navigate(target)), right ? 1400 : 2200);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [current, yesNo, chosen, word, record, advance, navigate],
+  );
+
+  const continueYesNo = useCallback(() => {
+    if (!current || current.mode !== 'yesno' || !word) return;
+    if (yesNo === 'yes' || (chosen !== null && chosen === word.meaning)) advance(items);
+    else if (chosen !== null) {
+      clearAutoNext();
+      navigate(explainPath(word.id));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, word, yesNo, chosen, advance, items, navigate]);
+
   const endSession = () => {
     if (answers.length > 0) setPhase('summary');
     else setPhase('empty');
@@ -244,6 +314,28 @@ const Review = () => {
       const onButton = (e.target as HTMLElement | null)?.tagName === 'BUTTON';
       if (e.key === 'Enter' && onButton) return; // let the focused button act
       const isSpace = e.key === ' ' || e.key === 'Spacebar';
+      if (current.mode === 'yesno') {
+        const k = e.key.toLowerCase();
+        if (yesNo === null) {
+          if (k === 'y') {
+            e.preventDefault();
+            answerYes();
+          } else if (k === 'n') {
+            e.preventDefault();
+            answerNo();
+          } else if (isSpace) e.preventDefault();
+        } else if (yesNo === 'no' && chosen === null) {
+          const idx = ['1', '2', '3', '4'].indexOf(e.key);
+          if (idx >= 0 && current.options?.[idx] !== undefined) {
+            e.preventDefault();
+            pickMeaning(current.options[idx]);
+          } else if (isSpace) e.preventDefault();
+        } else if (isSpace || e.key === 'Enter') {
+          e.preventDefault();
+          continueYesNo();
+        }
+        return;
+      }
       if (current.mode === 'flip') {
         if (!revealed && (isSpace || e.key === 'Enter')) {
           e.preventDefault();
@@ -272,7 +364,7 @@ const Review = () => {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [phase, current, revealed, chosen, reveal, rate, choose, continueAfterChoice]);
+  }, [phase, current, revealed, chosen, yesNo, reveal, rate, choose, continueAfterChoice, answerYes, answerNo, pickMeaning, continueYesNo]);
 
   // Skip ids whose word data is missing (e.g. a removed custom word).
   useEffect(() => {
@@ -298,11 +390,22 @@ const Review = () => {
   }, [phase, kind, pool.ids, cards, logs]);
 
   const total = items.length;
-  const answeredCurrent = current?.mode === 'choice' && chosen !== null;
+  const answeredCurrent =
+    (current?.mode === 'choice' && chosen !== null) || (current?.mode === 'yesno' && (yesNo === 'yes' || chosen !== null));
 
   const feedback: FeedbackState | null =
     phase === 'session' && current && word
-      ? current.mode === 'flip'
+      ? current.mode === 'yesno'
+        ? yesNo === null
+          ? { kind: 'yn-ask' }
+          : yesNo === 'yes'
+            ? { kind: 'yn-yes', word }
+            : chosen === null
+              ? { kind: 'choice-idle' }
+              : chosen === word.meaning
+                ? { kind: 'yn-right', word }
+                : { kind: 'yn-wrong', word, explainLabel: getNameForWord(word.id) ? 'name' : 'word' }
+        : current.mode === 'flip'
         ? revealed
           ? { kind: 'flip-back', word, previewInterval }
           : { kind: 'flip-front' }
@@ -373,7 +476,13 @@ const Review = () => {
 
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <h2 className="text-[1.5rem] font-extrabold leading-tight sm:text-[1.625rem]">
-                  {current.mode === 'choice'
+                  {current.mode === 'yesno'
+                    ? yesNo === 'no'
+                      ? 'Which meaning is it?'
+                      : yesNo === 'yes'
+                        ? 'Here is the meaning'
+                        : 'Do you remember this word?'
+                    : current.mode === 'choice'
                     ? 'What does this word mean?'
                     : revealed
                       ? 'Here is the meaning'
@@ -390,9 +499,19 @@ const Review = () => {
                 word={word}
                 revealed={revealed}
                 isNew={current.isNew}
-                prompt={current.mode === 'choice' ? 'Pick the meaning below' : undefined}
+                prompt={
+                  current.mode === 'choice' || (current.mode === 'yesno' && yesNo === 'no')
+                    ? 'Pick the meaning below'
+                    : current.mode === 'yesno'
+                      ? 'Think of its meaning, then answer below'
+                      : undefined
+                }
                 onReveal={current.mode === 'flip' ? reveal : undefined}
               />
+
+              {current.mode === 'yesno' && yesNo === 'no' && (
+                <ChoiceOptions options={current.options ?? []} answer={word.meaning} chosen={chosen} onChoose={pickMeaning} />
+              )}
 
               {current.mode === 'choice' && (
                 <ChoiceOptions options={current.options ?? []} answer={word.meaning} chosen={chosen} onChoose={choose} />
@@ -473,7 +592,14 @@ const Review = () => {
 
         {/* Sticks to the bottom of the viewport while the session is on screen; mobile and desktop alike. */}
         {feedback && (
-          <FeedbackBar state={feedback} onReveal={reveal} onRate={rate} onContinue={continueAfterChoice} />
+          <FeedbackBar
+          state={feedback}
+          onReveal={reveal}
+          onRate={rate}
+          onContinue={current?.mode === 'yesno' ? continueYesNo : continueAfterChoice}
+          onYes={answerYes}
+          onNo={answerNo}
+        />
         )}
       </div>
     </>

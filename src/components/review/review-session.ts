@@ -7,6 +7,8 @@ import type { Word } from '@/utils/vocabulary-types';
 
 /** Query parameter with an explicit word list: /review?words=id1,id2 (used by surah pages). */
 export const REVIEW_WORDS_PARAM = 'words';
+/** Query parameter for the simple Yes / No session (no rating buttons): /review?words=…&simple=1. */
+export const REVIEW_SIMPLE_PARAM = 'simple';
 /** Query parameter with a collection id: /review?collection=<id>. */
 export const REVIEW_COLLECTION_PARAM = 'collection';
 const MAX_WORD_LIST = 1000;
@@ -48,12 +50,13 @@ export const CHOICE_RATIO = 1 / 3;
 /** A word rated "Again" comes back later in the same session, at most this many extra times. */
 export const MAX_REPEATS_PER_WORD = 2;
 
-export type CardMode = 'flip' | 'choice';
+/** flip: reveal then rate; choice: pick the meaning; yesno: "Do you remember?" Yes / No, then pick on No. */
+export type CardMode = 'flip' | 'choice' | 'yesno';
 
 export interface SessionItem {
   wordId: string;
   mode: CardMode;
-  /** Multiple-choice options (meanings); set when mode is 'choice'. */
+  /** Multiple-choice options (meanings); set when mode is 'choice' or 'yesno'. */
   options?: string[];
   /** True when the word had never been reviewed when the session was built. */
   isNew: boolean;
@@ -153,6 +156,8 @@ export interface BuildQueueInput {
   size?: number;
   now?: Date;
   random?: () => number;
+  /** Every card asks Yes / No, with four meanings ready for a No. */
+  simple?: boolean;
 }
 
 /** Due words first (most overdue first), then new words, each tagged flip or multiple choice. */
@@ -166,6 +171,7 @@ export function buildReviewQueue({
   size = SESSION_MAX,
   now = new Date(),
   random = Math.random,
+  simple = false,
 }: BuildQueueInput): SessionItem[] {
   const hasPool = !!pool && pool.length > 0;
   const exists = (id: string) => !!getWordById(id);
@@ -190,6 +196,10 @@ export function buildReviewQueue({
     const isNew = !card || (card.lastReview === null && card.reps === 0);
     const eligible = !!card && !isNew && card.reps >= CHOICE_MIN_REPS;
     const word = getWordById(wordId)!;
+    if (simple) {
+      const q = buildQuestion(word, 'multiple-choice', distractorPool, i);
+      return { wordId, mode: 'yesno', options: q.options, isNew };
+    }
     if (eligible && random() < CHOICE_RATIO) {
       const q = buildQuestion(word, 'multiple-choice', distractorPool, i);
       if (q.options.length >= 4) return { wordId, mode: 'choice', options: q.options, isNew };
