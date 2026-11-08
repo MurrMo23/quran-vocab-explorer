@@ -1,42 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Loader2, Pause, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ALAFASY_AYAH, AudioPlaybackError, getAyahAudioUrl, playAudioUrl, stopAllAudio } from '@/utils/audio';
-import { track } from '@/lib/analytics';
+import { loadBundledTimings, useVerseFollowAlong } from '@/components/quran/useVerseFollowAlong';
 import { findWordIndexInVerse } from './verse-highlight';
-
-// Word timings for the example verses (public/data/verse-timings.json), loaded on first play.
-interface Timings {
-  verses: Record<string, { f: number; t: number[] }>;
-  examples: Record<string, [number, number[]][]>;
-}
-let timingsPromise: Promise<Timings | null> | null = null;
-const loadTimings = () =>
-  (timingsPromise ??= fetch('/data/verse-timings.json')
-    .then((r) => (r.ok ? (r.json() as Promise<Timings>) : null))
-    .catch(() => null));
-
-/** Start and end (centiseconds) of each displayed word, or null when it has no timing. */
-const tokenTimes = (t: Timings, wordId: string, index: number, surah: number, ayah: number, count: number) => {
-  const verse = t.verses[`${surah}:${ayah}`];
-  const map = t.examples[wordId]?.find((r) => r[0] === index)?.[1];
-  if (!verse || !map || map.length !== count) return null;
-  const startOf = (pos: number) => verse.t[pos - verse.f];
-  const endOf = (pos: number) => {
-    // A word ends where the next timed word starts (the last entry is the end of the last word).
-    for (let i = pos - verse.f + 1; i < verse.t.length; i++) if (verse.t[i] >= 0) return verse.t[i];
-    return -1;
-  };
-  const times = map.map((pos) => {
-    if (!pos) return null;
-    const s = startOf(pos);
-    const e = endOf(pos);
-    return s >= 0 && e > s ? { s, e } : null;
-  });
-  return times.some(Boolean) ? times : null;
-};
 
 interface ExampleVerseCardProps {
   wordId: string;
@@ -62,88 +30,13 @@ const ExampleVerseCard: React.FC<ExampleVerseCardProps> = ({ wordId, index, sura
     () => (highlight ? findWordIndexInVerse(arabic, highlight.target, highlight.isVerb) : -1),
     [arabic, highlight],
   );
-  const [state, setState] = useState<'idle' | 'loading' | 'playing' | 'error'>('idle');
-  const [active, setActive] = useState(-1);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const raf = useRef(0);
-
-  const stop = useCallback(() => {
-    cancelAnimationFrame(raf.current);
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
-    }
-    setActive(-1);
-    setState('idle');
-  }, []);
-
-  useEffect(() => () => {
-    cancelAnimationFrame(raf.current);
-    audioRef.current?.pause();
-  }, []);
-
-  const play = async () => {
-    if (state === 'playing' || state === 'loading') {
-      stopAllAudio();
-      stop();
-      return;
-    }
-    setState('loading');
-    track('audio_play', { kind: 'ayah' });
-    const timings = await loadTimings();
-    const times = timings ? tokenTimes(timings, wordId, index, surah, ayah, words.length) : null;
-    const timed = times?.filter(Boolean) as { s: number; e: number }[] | undefined;
-    // Excerpt: from just before its first word to just after its last.
-    const clip = timed?.length
-      ? { start: Math.max(0, timed[0].s * 10 - 120), end: timed[timed.length - 1].e * 10 + 350 }
-      : undefined;
-    let audio: HTMLAudioElement;
-    try {
-      audio = await playAudioUrl(ALAFASY_AYAH(surah, ayah), clip);
-    } catch (err) {
-      // The Quran.com file failed: play EveryAyah's copy of the same recitation, without the highlight.
-      if (err instanceof AudioPlaybackError && err.reason === 'blocked') {
-        setState('error');
-        return;
-      }
-      try {
-        audio = await playAudioUrl(getAyahAudioUrl(surah, ayah));
-      } catch {
-        setState('error');
-        return;
-      }
-      audioRef.current = audio;
-      setState('playing');
-      audio.addEventListener('pause', stop, { once: true });
-      audio.addEventListener('ended', stop, { once: true });
-      return;
-    }
-    audioRef.current = audio;
-    setState('playing');
-    // Some browsers or servers ignore the #t= start of a media fragment: seek there ourselves.
-    if (clip && audio.currentTime < clip.start / 1000 - 0.3) {
-      try {
-        audio.currentTime = clip.start / 1000;
-      } catch {
-        /* not seekable yet; the highlight still follows currentTime */
-      }
-    }
-    audio.addEventListener('pause', stop, { once: true });
-    audio.addEventListener('ended', stop, { once: true });
-    if (!times) return;
-    const tick = () => {
-      if (audioRef.current !== audio) return;
-      const cs = audio.currentTime * 100;
-      let now = -1;
-      for (let i = 0; i < times.length; i++) {
-        const t = times[i];
-        if (t && cs >= t.s - 4 && cs < t.e) now = i;
-      }
-      setActive((prev) => (prev === now ? prev : now));
-      raf.current = requestAnimationFrame(tick);
-    };
-    raf.current = requestAnimationFrame(tick);
-  };
+  // Displayed word -> verse word position (examples are often excerpts), from the bundled alignment.
+  const resolvePositions = useCallback(async () => {
+    const t = await loadBundledTimings();
+    const map = t?.examples[wordId]?.find((r) => r[0] === index)?.[1];
+    return map && map.length === words.length ? map : null;
+  }, [wordId, index, words.length]);
+  const { state, active, toggle: play } = useVerseFollowAlong(surah, ayah, resolvePositions);
 
   const playing = state === 'playing';
 

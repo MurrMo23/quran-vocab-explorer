@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowRight, Loader2, Repeat } from 'lucide-react';
+import { ArrowRight, Loader2, Pause, Play, Repeat } from 'lucide-react';
 import SEO from '@/components/SEO';
 import PageTrail from '@/components/quran/PageTrail';
 import { Button } from '@/components/ui/button';
-import WordAudioButton from '@/components/word/WordAudioButton';
+import { useVerseFollowAlong } from '@/components/quran/useVerseFollowAlong';
+import { cn } from '@/lib/utils';
 import { EmbedStaticData, useStaticData } from '@/lib/static-data';
 import { getRootBySlug, getSurahName, hasSurahPage, rootPath, surahPath, wordPath } from '@/utils/quran-pages';
 import { reviewWordsUrl } from '@/components/review/review-session';
@@ -17,17 +18,27 @@ const capitalize = (t: string) => (t ? t[0].toUpperCase() + t.slice(1) : t);
 const ExampleVerse: React.FC<{ form: RootForm }> = ({ form }) => {
   const { ex } = form;
   const surah = getSurahName(ex.s);
+  // Root examples show the whole verse: displayed word i is verse word position i + 1.
+  const positions = useMemo(() => ex.ar.map((_, i) => i + 1), [ex.ar]);
+  const { state, active, toggle } = useVerseFollowAlong(ex.s, ex.a, positions);
+  const playing = state === 'playing';
+  const label = surah ? `${surah.name} ${ex.s}:${ex.a}` : `${ex.s}:${ex.a}`;
   return (
     <figure className="mt-3 rounded-2xl bg-background p-4" itemScope itemType="https://schema.org/Quotation">
       <p lang="ar" dir="rtl" className="font-quran text-[22px] leading-[2.1] sm:text-[26px]" itemProp="text">
         {ex.ar.map((w, i) => (
           <React.Fragment key={i}>
             {i > 0 && ' '}
-            {i === ex.p - 1 ? (
-              <mark className="rounded-lg bg-secondary px-1 text-secondary-foreground [box-decoration-break:clone]">{w}</mark>
-            ) : (
-              w
-            )}
+            <span
+              className={cn(
+                'rounded-lg [box-decoration-break:clone] motion-safe:transition-[color,text-shadow] motion-safe:duration-200',
+                i === ex.p - 1 && !playing && 'bg-secondary px-1 text-secondary-foreground',
+                i === active && 'reciting',
+              )}
+              data-reciting={i === active ? 'true' : undefined}
+            >
+              {w}
+            </span>
           </React.Fragment>
         ))}
       </p>
@@ -37,14 +48,27 @@ const ExampleVerse: React.FC<{ form: RootForm }> = ({ form }) => {
       <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-sm text-muted-foreground">
         {hasSurahPage(ex.s) ? (
           <Link to={surahPath(ex.s)} className="font-semibold hover:text-primary hover:underline">
-            {surah ? `${surah.name} ${ex.s}:${ex.a}` : `${ex.s}:${ex.a}`}
+            {label}
           </Link>
         ) : (
-          <span>{surah ? `${surah.name} ${ex.s}:${ex.a}` : `${ex.s}:${ex.a}`}</span>
+          <span>{label}</span>
         )}
-        <WordAudioButton surah={ex.s} ayah={ex.a} allowComputerVoice={false} icon="play" variant="outline" size="sm" className="h-10 text-sm [&_svg]:size-4">
-          Play verse
-        </WordAudioButton>
+        <div className="flex items-center gap-2">
+          {state === 'error' && <span className="text-xs text-gold-text">Audio could not play. Tap again.</span>}
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={toggle}
+            aria-pressed={playing}
+            aria-label={playing ? `Stop verse ${ex.s}:${ex.a}` : `Play verse ${ex.s}:${ex.a} and follow each word`}
+            title="Mishary Alafasy (Quran.com)"
+            className="h-10 text-sm font-extrabold [&_svg]:size-4"
+          >
+            {state === 'loading' ? <Loader2 className="motion-safe:animate-spin" aria-hidden /> : playing ? <Pause aria-hidden /> : <Play aria-hidden />}
+            {playing ? 'Stop' : 'Play verse'}
+          </Button>
+        </div>
       </div>
     </figure>
   );
