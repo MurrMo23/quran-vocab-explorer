@@ -4,6 +4,7 @@
 //
 // It also guards the word slugs: the build fails if any slug is duplicated, not URL-safe,
 // numeric, or equal to another word's id (which would make /word/<x> ambiguous).
+import './static-loader.mjs';
 import { writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';

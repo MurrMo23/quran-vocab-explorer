@@ -12,6 +12,7 @@ import { getWordPath } from '@/utils/word-slugs';
 import { getNameForWord, namePath } from '@/utils/names-of-allah';
 import { getRecitationSources, hasPronunciation } from '@/utils/audio';
 import VoicePicker from '@/components/audio/VoicePicker';
+import ExampleVerseCard from '@/components/word/ExampleVerseCard';
 import { reviewWordsUrl } from '@/components/review/review-session';
 import WordAudioButton from '@/components/word/WordAudioButton';
 import { getRecitedForm } from '@/utils/audio';
@@ -225,60 +226,20 @@ const WordDetail: React.FC<WordDetailProps> = ({
           )}
 
           {word.examples.map((example, index) => {
-            const parts = highlightTarget ? highlightWordInVerse(example.arabicText, highlightTarget, highlightIsVerb) : null;
             const surahName = getSurahName(example.surah);
             return (
-              <div
+              <ExampleVerseCard
                 key={index}
-                className="flex flex-col gap-3 rounded-[20px] bg-background p-5 sm:p-6"
-                itemScope
-                itemType="https://schema.org/Quotation"
-              >
-                <p lang="ar" dir="rtl" className="font-quran text-[26px] leading-[2] sm:text-[34px]" itemProp="text">
-                  {parts
-                    ? parts.map((p, i) =>
-                        p.highlight ? (
-                          <mark key={i} className="rounded-lg bg-secondary px-1.5 text-secondary-foreground [box-decoration-break:clone]">
-                            {p.text}
-                          </mark>
-                        ) : (
-                          <React.Fragment key={i}>{p.text}</React.Fragment>
-                        ),
-                      )
-                    : example.arabicText}
-                </p>
-                <p
-                  className="text-[17px] leading-relaxed text-foreground/80 before:content-['\201C'] after:content-['\201D']"
-                  itemProp="translationOfWork"
-                >
-                  {example.translation}
-                </p>
-                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm text-muted-foreground">
-                  <span itemProp="isPartOf">
-                    {surahName ? `${surahName.name} ${example.surah}:${example.ayah}` : `Surah ${example.surah}, Ayah ${example.ayah}`}
-                  </span>
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                    <WordAudioButton
-                      surah={example.surah}
-                      ayah={example.ayah}
-                      allowComputerVoice={false}
-                      icon="play"
-                      variant="outline"
-                      size="default"
-                    >
-                      Play verse
-                    </WordAudioButton>
-                    {hasSurahPage(example.surah) && (
-                      <Link
-                        to={surahPath(example.surah)}
-                        className="inline-flex min-h-11 items-center font-bold text-primary underline-offset-4 hover:underline"
-                      >
-                        Open surah word list <span aria-hidden="true">&nbsp;→</span>
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </div>
+                wordId={word.id}
+                index={index}
+                surah={example.surah}
+                ayah={example.ayah}
+                arabic={example.arabicText}
+                translation={example.translation}
+                highlight={highlightTarget ? { target: highlightTarget, isVerb: highlightIsVerb } : undefined}
+                reference={surahName ? `${surahName.name} ${example.surah}:${example.ayah}` : `Surah ${example.surah}, Ayah ${example.ayah}`}
+                surahLink={hasSurahPage(example.surah) ? surahPath(example.surah) : undefined}
+              />
             );
           })}
 

@@ -1,21 +1,90 @@
 import React, { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { ArrowRight, Loader2, Repeat } from 'lucide-react';
 import SEO from '@/components/SEO';
 import PageTrail from '@/components/quran/PageTrail';
 import { Button } from '@/components/ui/button';
-import { getRootBySlug, getWordOccurrences, rootPath, wordPath } from '@/utils/quran-pages';
+import WordAudioButton from '@/components/word/WordAudioButton';
+import { EmbedStaticData, useStaticData } from '@/lib/static-data';
+import { getRootBySlug, getSurahName, hasSurahPage, rootPath, surahPath, wordPath } from '@/utils/quran-pages';
+import { reviewWordsUrl } from '@/components/review/review-session';
+import { FORM_GROUPS, formLabel, rootDataPath, type RootDoc, type RootForm } from '@/utils/root-library';
+
+const SURAHS_SHOWN = 10;
+const capitalize = (t: string) => (t ? t[0].toUpperCase() + t.slice(1) : t);
+
+/** The example verse with the form's word highlighted. */
+const ExampleVerse: React.FC<{ form: RootForm }> = ({ form }) => {
+  const { ex } = form;
+  const surah = getSurahName(ex.s);
+  return (
+    <figure className="mt-3 rounded-2xl bg-background p-4" itemScope itemType="https://schema.org/Quotation">
+      <p lang="ar" dir="rtl" className="font-quran text-[22px] leading-[2.1] sm:text-[26px]" itemProp="text">
+        {ex.ar.map((w, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && ' '}
+            {i === ex.p - 1 ? (
+              <mark className="rounded-lg bg-secondary px-1 text-secondary-foreground [box-decoration-break:clone]">{w}</mark>
+            ) : (
+              w
+            )}
+          </React.Fragment>
+        ))}
+      </p>
+      <figcaption className="mt-2 text-[15px] leading-relaxed text-foreground/80">
+        <span className="before:content-['\201C'] after:content-['\201D']">{ex.en}</span>
+      </figcaption>
+      <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-sm text-muted-foreground">
+        {hasSurahPage(ex.s) ? (
+          <Link to={surahPath(ex.s)} className="font-semibold hover:text-primary hover:underline">
+            {surah ? `${surah.name} ${ex.s}:${ex.a}` : `${ex.s}:${ex.a}`}
+          </Link>
+        ) : (
+          <span>{surah ? `${surah.name} ${ex.s}:${ex.a}` : `${ex.s}:${ex.a}`}</span>
+        )}
+        <WordAudioButton surah={ex.s} ayah={ex.a} allowComputerVoice={false} icon="play" variant="outline" size="sm" className="h-10 text-sm [&_svg]:size-4">
+          Play verse
+        </WordAudioButton>
+      </div>
+    </figure>
+  );
+};
+
+const FormCard: React.FC<{ form: RootForm }> = ({ form }) => (
+  <li className="rounded-[1.375rem] border-2 border-b-4 bg-card p-4 sm:p-5">
+    <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+      <div className="min-w-0">
+        <p className="text-[17px] font-extrabold leading-snug">{form.gloss}</p>
+        <p className="mt-0.5 text-sm text-muted-foreground">
+          {formLabel(form)} · {form.count.toLocaleString('en-US')}× in the Quran
+        </p>
+        {form.word && (
+          <Link to={wordPath(form.word)} className="mt-1 inline-flex min-h-9 items-center gap-1 text-sm font-extrabold text-primary hover:underline">
+            Learn this word <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        )}
+      </div>
+      <p lang="ar" dir="rtl" className="font-quran text-[34px] leading-[1.7]">
+        {form.ar}
+      </p>
+    </div>
+    <ExampleVerse form={form} />
+  </li>
+);
 
 const RootDetails = () => {
-  const { root: slug } = useParams<{ root: string }>();
-  const root = useMemo(() => (slug ? getRootBySlug(slug) : undefined), [slug]);
+  const { root: slug = '' } = useParams<{ root: string }>();
+  const path = slug ? rootDataPath(slug) : null;
+  const { data: root, error } = useStaticData<RootDoc>(path);
+  const siteFamily = useMemo(() => getRootBySlug(slug), [slug]);
 
-  if (!root) {
+  if (error) {
     return (
       <>
         <SEO title="Root not found" noindex />
         <div className="mx-auto max-w-xl px-4 py-16 text-center sm:px-6">
           <h1 className="mb-2 text-2xl font-extrabold">Root not found</h1>
-          <p className="mb-6 text-muted-foreground">We have no words from this root yet.</p>
+          <p className="mb-6 text-muted-foreground">There is no Quranic root “{slug}”.</p>
           <Button asChild>
             <Link to="/roots">Browse all roots</Link>
           </Button>
@@ -24,10 +93,21 @@ const RootDetails = () => {
     );
   }
 
-  const n = root.words.length;
-  const meanings = root.words.slice(0, 4).map((w) => `${w.transliteration} (${w.meaning})`).join(', ');
-  const title = `Arabic root ${root.arabic} (${root.slug}): ${n} Quranic ${n === 1 ? 'word' : 'words'}`;
-  const description = `Words from the root ${root.arabic} (${root.slug}) occur ${root.total.toLocaleString('en-US')} times in the Quran. Learn ${n === 1 ? 'the word' : `${n} words`} from this root family: ${meanings}.`;
+  if (!root) {
+    return (
+      <p className="flex items-center justify-center gap-2 py-24 text-sm font-semibold text-muted-foreground" role="status">
+        <Loader2 className="h-4 w-4 motion-safe:animate-spin" aria-hidden /> Loading root…
+      </p>
+    );
+  }
+
+  const n = root.forms.length;
+  const siteWords = siteFamily?.words ?? [];
+  const groups = FORM_GROUPS.map((g) => ({ ...g, forms: root.forms.filter((f) => g.kinds.includes(f.kind)) })).filter((g) => g.forms.length);
+  const top = root.forms.slice(0, 3).map((f) => f.gloss).join(', ');
+  const title = `Root ${root.ar} (${root.slug}) in the Quran: ${capitalize(root.core)}`;
+  const description = `The Arabic root ${root.ar} (${root.slug}) means ${root.core}. ${root.total.toLocaleString('en-US')} words in the Quran come from it, in ${n} ${n === 1 ? 'form' : 'forms'} (${top}), each with an example verse.`;
+  const maxSurah = root.surahs[0]?.[1] ?? 1;
 
   return (
     <>
@@ -35,62 +115,126 @@ const RootDetails = () => {
         title={title}
         description={description}
         url={rootPath(root.slug)}
-        keywords={[`root ${root.slug}`, `${root.arabic} root`, 'Arabic root words', 'Quranic Arabic roots']}
+        keywords={[`root ${root.slug}`, `${root.ar} root`, `${root.ar.replace(/ /g, '')} meaning`, 'Arabic root words', 'Quranic Arabic roots']}
         breadcrumbs={[
           { name: 'Roots', path: '/roots' },
-          { name: `Root ${root.arabic}`, path: rootPath(root.slug) },
+          { name: `Root ${root.ar}`, path: rootPath(root.slug) },
         ]}
       />
+      <EmbedStaticData path={rootDataPath(root.slug)} data={root} />
 
-      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
-        <PageTrail items={[{ name: 'Roots', path: '/roots' }, { name: <span className="font-arabic" lang="ar" dir="rtl">{root.arabic}</span>, path: rootPath(root.slug) }]} />
+      <div className="mx-auto max-w-5xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
+        <PageTrail
+          items={[
+            { name: 'Roots', path: '/roots' },
+            { name: <span className="font-arabic" lang="ar" dir="rtl">{root.ar}</span>, path: rootPath(root.slug) },
+          ]}
+        />
 
         <header className="card-tactile mb-8 flex flex-col items-center gap-3 rounded-[2rem] px-6 py-8 text-center sm:px-9 sm:py-10">
           <span className="rounded-full bg-secondary px-3 py-1.5 text-[13px] font-bold text-secondary-foreground">Arabic root</span>
-          <p className="font-quran text-6xl leading-[1.6] text-primary sm:text-7xl" lang="ar" dir="rtl">
-            {root.arabic}
+          <p className="pb-3 font-quran text-6xl leading-[2] text-primary sm:text-7xl" lang="ar" dir="rtl">
+            {root.ar}
           </p>
           <h1 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
-            Root <span className="font-arabic font-normal" lang="ar" dir="rtl">{root.arabic}</span>{' '}
-            <span className="text-muted-foreground">({root.slug})</span>
+            {capitalize(root.core)}
+            <span className="mt-1 block text-base font-bold text-muted-foreground sm:text-lg">Root {root.slug}</span>
           </h1>
-          <p className="text-[17px] text-muted-foreground">
-            Words from this root occur <strong className="font-extrabold text-foreground">{root.total.toLocaleString('en-US')}</strong>{' '}
-            {root.total === 1 ? 'time' : 'times'} in the Quran.
-          </p>
+          <dl className="mt-2 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
+            <div>
+              <dt className="text-muted-foreground">In the Quran</dt>
+              <dd className="text-xl font-extrabold">{root.total.toLocaleString('en-US')}×</dd>
+            </div>
+            <div>
+              <dt className="text-muted-foreground">Word forms</dt>
+              <dd className="text-xl font-extrabold">{n}</dd>
+            </div>
+            <div>
+              <dt className="text-muted-foreground">Surahs</dt>
+              <dd className="text-xl font-extrabold">{root.surahs.length} of 114</dd>
+            </div>
+          </dl>
+          {siteWords.length > 0 && (
+            <Button asChild size="lg" className="mt-3">
+              <Link to={reviewWordsUrl(siteWords.map((w) => w.id))}>
+                <Repeat aria-hidden />
+                Learn {siteWords.length === 1 ? 'its word' : `its ${siteWords.length} words`}
+              </Link>
+            </Button>
+          )}
         </header>
 
-        <section aria-labelledby="family-heading">
-          <h2 id="family-heading" className="mb-4 text-xl font-extrabold">
-            {n === 1 ? 'Word' : `${n} words`} from this root on QuranVocab
-          </h2>
-          <ul className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-            {root.words.map((word) => {
-              // Same figure as the word page (some entries count several closely related lemmas).
-              const occ = getWordOccurrences(word.id) ? word.frequency : undefined;
+        {groups.map((g) => (
+          <section key={g.id} aria-labelledby={`forms-${g.id}`} className="mb-10">
+            <h2 id={`forms-${g.id}`} className="mb-4 text-xl font-extrabold">
+              {g.title} <span className="text-muted-foreground">({g.forms.length})</span>
+            </h2>
+            <ul className="grid gap-4">
+              {g.forms.map((f) => (
+                <FormCard key={`${f.ar}-${f.kind}-${f.form}`} form={f} />
+              ))}
+            </ul>
+          </section>
+        ))}
+
+        <section aria-labelledby="where" className="mb-10 rounded-[1.75rem] border-2 bg-card p-5 sm:p-7">
+          <h2 id="where" className="text-xl font-extrabold">Where it appears</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Words from this root occur in {root.surahs.length} of the 114 surahs
+            {root.surahs.length > SURAHS_SHOWN ? `, most often in:` : '.'}
+          </p>
+          <ol className="mt-4 grid gap-2">
+            {root.surahs.slice(0, SURAHS_SHOWN).map(([s, count]) => {
+              const name = getSurahName(s);
+              const label = name ? `${s}. ${name.name}` : `Surah ${s}`;
               return (
-                <li key={word.id}>
-                  <Link
-                    to={wordPath(word.id)}
-                    className="flex h-full flex-col gap-1 rounded-[1.375rem] border-2 border-b-4 bg-card p-5 transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                  >
-                    <span className="block text-center font-quran text-4xl leading-[1.75]" lang="ar" dir="rtl">{word.arabic}</span>
-                    <span className="block text-[17px] font-extrabold leading-snug">{word.meaning}</span>
-                    <span className="block text-sm text-muted-foreground">{word.transliteration}</span>
-                    <span className="mt-1 block text-xs text-muted-foreground">
-                      <span className="capitalize">{word.partOfSpeech}</span>
-                      {occ ? ` · ${occ.toLocaleString('en-US')}× in the Quran` : word.quranicForm ? ' · related form' : ''}
-                    </span>
-                  </Link>
+                <li key={s} className="grid grid-cols-[minmax(7rem,12rem)_1fr_auto] items-center gap-3 text-sm">
+                  {hasSurahPage(s) ? (
+                    <Link to={surahPath(s)} className="truncate font-semibold hover:text-primary hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    <span className="truncate font-semibold">{label}</span>
+                  )}
+                  <span className="h-3 overflow-hidden rounded-full bg-track" aria-hidden>
+                    <span className="block h-full rounded-full bg-primary" style={{ width: `${Math.max(4, (count / maxSurah) * 100)}%` }} />
+                  </span>
+                  <span className="w-12 text-right font-bold tabular-nums">{count}×</span>
                 </li>
               );
             })}
-          </ul>
-          <p className="mt-5 max-w-3xl text-xs leading-relaxed text-muted-foreground">
-            Root and counts from the Quranic Arabic Corpus. The root total counts every word in the Quran with a
-            form derived from this root, including words not listed here.
-          </p>
+          </ol>
         </section>
+
+        {siteWords.some((w) => !root.forms.some((f) => f.word === w.id)) && (
+          <section aria-labelledby="related" className="mb-10">
+            <h2 id="related" className="mb-3 text-xl font-extrabold">More words from this root on QuranVocab</h2>
+            <ul className="flex flex-wrap gap-2">
+              {siteWords
+                .filter((w) => !root.forms.some((f) => f.word === w.id))
+                .map((w) => (
+                  <li key={w.id}>
+                    <Link
+                      to={wordPath(w.id)}
+                      className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 bg-card px-4 text-sm font-bold hover:border-primary/40"
+                    >
+                      <span className="font-arabic text-lg font-normal" lang="ar" dir="rtl">
+                        {w.arabic}
+                      </span>
+                      {w.meaning}
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </section>
+        )}
+
+        <p className="max-w-3xl text-xs leading-relaxed text-muted-foreground">
+          Root, word forms, verb patterns and counts: Quranic Arabic Corpus (morphology v0.4); a count is the number of
+          words in the Quran with that form. Meanings: QuranVocab, written from the Quran.com word-by-word translation.
+          Verses: Tanzil Uthmani text with the Saheeh International translation. Each example is the shortest verse
+          that uses the form.
+        </p>
       </div>
     </>
   );

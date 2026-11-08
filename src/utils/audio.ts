@@ -150,7 +150,8 @@ export const getRecitedForm = (word: Pick<Word, 'id' | 'arabic'>): RecitedForm |
   return { text, surah, ayah, position, differs: !same };
 };
 
-const ALAFASY_AYAH = (surah: number, ayah: number) => `https://verses.quran.com/Alafasy/mp3/${pad3(surah)}${pad3(ayah)}.mp3`;
+/** Mishary Alafasy's recitation of one ayah on Quran.com's CDN (its word timings match this file). */
+export const ALAFASY_AYAH = (surah: number, ayah: number) => `https://verses.quran.com/Alafasy/mp3/${pad3(surah)}${pad3(ayah)}.mp3`;
 
 // ---------------------------------------------------------------------------------------------
 // AI-voice pronunciation library

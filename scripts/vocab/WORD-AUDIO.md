@@ -15,3 +15,11 @@ How the table was built (2026-11-08):
 
 `scripts/vocab/word-audio.json` is the source data; the .ts file is generated from it.
 Word pages and review cards show "Recited in the Quran as …" whenever the recited form differs.
+
+## Follow-along highlight on word pages (Nov 2026)
+`public/data/verse-timings.json` holds Quran.com's word timings (Mishary Alafasy, recitation 7) for the
+586 example verses on word pages, and for each example the verse word position of every displayed word
+(examples are often excerpts; alignment by consonant skeleton against the corpus tokens). Play verse
+plays exactly the words shown (media fragment) and highlights each word while it is recited
+(`src/components/word/ExampleVerseCard.tsx`). Two words (50:34, words 4–5) have no timing and are not
+highlighted. If the Quran.com file fails, the EveryAyah copy plays without the highlight.

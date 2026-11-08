@@ -55,3 +55,14 @@ export function highlightWordInVerse(verse: string, word: string, isVerb = false
     { text: tokens.slice(hit + 1).join(''), highlight: false },
   ].filter((p) => p.text.length > 0);
 }
+
+/**
+ * Index (among the verse's whitespace-separated words) of the single occurrence of `word`, or -1.
+ * Same rules as highlightWordInVerse.
+ */
+export function findWordIndexInVerse(verse: string, word: string, isVerb = false): number {
+  const parts = highlightWordInVerse(verse, word, isVerb);
+  if (!parts) return -1;
+  const before = parts[0].highlight ? '' : parts[0].text;
+  return before.trim() ? before.trim().split(/\s+/).length : 0;
+}

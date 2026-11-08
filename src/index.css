@@ -207,6 +207,32 @@
 }
 
 @layer components {
+  /* Root library hub (/roots): 1,600+ cards, so the classes live here instead of in the markup. */
+  .root-grid {
+    @apply grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4;
+  }
+  .root-card {
+    @apply flex h-full flex-col gap-1.5 rounded-[1.25rem] border-2 border-b-4 bg-card px-4 py-3 transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  }
+  .root-card .rc-top {
+    @apply flex items-start justify-between gap-2;
+  }
+  .root-card .rc-n {
+    @apply shrink-0 rounded-full bg-gold/25 px-2 py-0.5 text-xs font-bold text-gold-text;
+  }
+  .root-card .rc-ar {
+    @apply font-arabic text-2xl leading-snug;
+  }
+  .root-card .rc-m {
+    @apply line-clamp-2 text-[15px] font-bold leading-snug;
+  }
+  .root-card .rc-f {
+    @apply mt-auto block text-xs text-muted-foreground;
+  }
+  .root-card .rc-f b {
+    @apply font-semibold text-primary;
+  }
+
   /* Tactile surfaces (Duolingo-style): a thicker bottom border reads as a pressable edge. */
   .card-tactile {
     @apply bg-card text-card-foreground border-2 border-border border-b-[5px] rounded-3xl;

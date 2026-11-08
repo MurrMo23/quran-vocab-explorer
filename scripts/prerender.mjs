@@ -1,6 +1,7 @@
 // Build-time prerendering: renders each public route to static HTML (dist/<route>/index.html)
 // so crawlers and link previews get real content, titles and structured data. The client
 // hydrates this markup (src/main.tsx), so visitors see no flash.
+import './static-loader.mjs';
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';

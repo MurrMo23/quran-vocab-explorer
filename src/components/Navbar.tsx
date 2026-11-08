@@ -51,7 +51,9 @@ const moreItems = [
   { href: '/blog', label: 'Blog', icon: Globe },
 ];
 
-const isActive = (pathname: string, href: string) => pathname === href || pathname.startsWith(`${href}/`);
+// /root/<slug> pages belong to Roots, /surah/<n> to Surahs.
+const isActive = (pathname: string, href: string) =>
+  pathname === href || pathname.startsWith(`${href}/`) || ((href === '/roots' || href === '/surahs') && pathname.startsWith(`${href.slice(0, -1)}/`));
 
 const Navbar = ({ onSearch }: { onSearch?: () => void }) => {
   const { session, signOut } = useAuth();
