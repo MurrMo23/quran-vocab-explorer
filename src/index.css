@@ -207,6 +207,15 @@
 }
 
 @layer components {
+  /* The word being recited in an example verse: the letters themselves light up (no box). */
+  .reciting {
+    color: hsl(var(--gold-text));
+    text-shadow:
+      0 0 6px hsl(var(--gold) / 0.9),
+      0 0 16px hsl(var(--gold) / 0.7),
+      0 0 30px hsl(var(--gold) / 0.45);
+  }
+
   /* Root library hub (/roots): 1,600+ cards, so the classes live here instead of in the markup. */
   .root-grid {
     @apply grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4;

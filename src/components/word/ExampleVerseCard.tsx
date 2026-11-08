@@ -155,9 +155,9 @@ const ExampleVerseCard: React.FC<ExampleVerseCardProps> = ({ wordId, index, sura
             {i > 0 && ' '}
             <span
               className={cn(
-                'rounded-lg [box-decoration-break:clone] motion-safe:transition-colors motion-safe:duration-150',
-                i === target && 'bg-secondary px-1.5 text-secondary-foreground',
-                i === active && 'bg-gold/45 px-1.5 text-foreground ring-2 ring-gold/60',
+                'rounded-lg [box-decoration-break:clone] motion-safe:transition-[color,text-shadow] motion-safe:duration-200',
+                i === target && state !== 'playing' && 'bg-secondary px-1.5 text-secondary-foreground',
+                i === active && 'reciting',
               )}
               data-reciting={i === active ? 'true' : undefined}
             >
