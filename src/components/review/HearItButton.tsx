@@ -7,8 +7,8 @@ import { track } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 /**
- * The gold "Hear it" button on the review card. Same playback as AudioPlayer (genuine recitation
- * first, then the clearly labelled computer voice), in the session's tactile style.
+ * The gold "Hear it" button on the review card: the word's AI-voice pronunciation (labelled), then
+ * genuine recitation, then the clearly labelled computer voice, in the session's tactile style.
  */
 const HearItButton: React.FC<{ word: Word; className?: string }> = ({ word, className }) => {
   const { playSources, speak, stop, isPlaying, isLoading, nowPlaying } = useTextToSpeech();
@@ -21,6 +21,7 @@ const HearItButton: React.FC<{ word: Word; className?: string }> = ({ word, clas
   const plannedLabel = hasRecitation ? sources[0].shortLabel : canSpeak ? COMPUTER_VOICE_LABEL : 'No audio available';
   const statusLabel = isPlaying && nowPlaying ? nowPlaying.shortLabel : plannedLabel;
   const isComputer = isPlaying ? nowPlaying?.kind === 'computer' : !hasRecitation;
+  const isAiVoice = isPlaying ? nowPlaying?.kind === 'pronunciation' : sources[0]?.kind === 'pronunciation';
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -39,7 +40,14 @@ const HearItButton: React.FC<{ word: Word; className?: string }> = ({ word, clas
     }
     if (started)
       track('audio_play', {
-        kind: sources[0]?.kind === 'ayah' ? 'ayah' : word.quranicForm && !word.location ? 'related' : 'word',
+        kind:
+          sources[0]?.kind === 'pronunciation'
+            ? 'pronunciation'
+            : sources[0]?.kind === 'ayah'
+              ? 'ayah'
+              : word.quranicForm && !word.location
+                ? 'related'
+                : 'word',
       });
   };
 
@@ -67,6 +75,7 @@ const HearItButton: React.FC<{ word: Word; className?: string }> = ({ word, clas
       </button>
       {/* The computer voice is never presented as a recitation. */}
       {available && isComputer && <span className="text-xs font-semibold text-gold-text">{statusLabel}</span>}
+      {available && !isComputer && isAiVoice && <span className="text-xs font-semibold text-muted-foreground">AI voice</span>}
     </div>
   );
 };

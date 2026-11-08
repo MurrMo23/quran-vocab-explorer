@@ -10,7 +10,8 @@ import { getQuranicUsage } from '@/utils/word-usage';
 import { getRootBySlug, getSurahName, getWordRootSlug, getWordSurahPages, hasSurahPage, rootPath, surahPath } from '@/utils/quran-pages';
 import { getWordPath } from '@/utils/word-slugs';
 import { getNameForWord, namePath } from '@/utils/names-of-allah';
-import { getAudioSources } from '@/utils/audio';
+import { getRecitationSources, hasPronunciation } from '@/utils/audio';
+import VoicePicker from '@/components/audio/VoicePicker';
 import { reviewWordsUrl } from '@/components/review/review-session';
 import WordAudioButton from '@/components/word/WordAudioButton';
 import { getRecitedForm } from '@/utils/audio';
@@ -96,7 +97,8 @@ const WordDetail: React.FC<WordDetailProps> = ({
   const highlightIsVerb = usage.kind === 'verbatim' && word.partOfSpeech.toLowerCase() === 'verb';
   const firstExample = word.examples[0];
   const reviewHref = reviewWordsUrl([word.id]);
-  const hasWordRecitation = getAudioSources(word).length > 0;
+  const hasWordRecitation = getRecitationSources(word).length > 0;
+  const hasPron = hasPronunciation(word);
   const collections = (word.collections ?? [])
     .map((id) => getCollectionById(id))
     .filter((c): c is NonNullable<typeof c> => !!c)
@@ -158,6 +160,11 @@ const WordDetail: React.FC<WordDetailProps> = ({
             <WordAudioButton word={word} variant="gold">
               Hear the word
             </WordAudioButton>
+            {hasPron && hasWordRecitation && (
+              <WordAudioButton word={word} quran allowComputerVoice={false} variant="outline">
+                Hear it in the Quran
+              </WordAudioButton>
+            )}
             {firstExample && (
               <WordAudioButton
                 surah={firstExample.surah}
@@ -185,11 +192,12 @@ const WordDetail: React.FC<WordDetailProps> = ({
               ({recited.surah}:{recited.ayah})
             </p>
           )}
-          {hasWordRecitation ? (
-            <AudioAttribution />
+          {hasPron && <VoicePicker label="Pronunciation voice" />}
+          {hasPron || hasWordRecitation ? (
+            <AudioAttribution pronunciation={hasPron} recitation={hasWordRecitation} />
           ) : (
             <p className="text-[13px] text-gold-text">
-              No recitation of this word is available. Hear the word plays a computer voice (approximate), not a Quran recitation.
+              No audio of this word is available. Hear the word plays a computer voice (approximate), not a Quran recitation.
             </p>
           )}
         </article>

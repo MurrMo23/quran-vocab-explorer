@@ -159,7 +159,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           </div>
         )}
       </div>
-      {showAttr && <AudioAttribution />}
+      {showAttr && <AudioAttribution pronunciation={sources[0]?.kind === 'pronunciation'} />}
     </div>
   );
 };

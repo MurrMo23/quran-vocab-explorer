@@ -7,6 +7,7 @@ import {
   COMPUTER_VOICE_LABEL,
   getAudioSources,
   getAyahAudioSource,
+  getPronunciationVoice,
   playAudioUrl,
   speakArabicFallback,
   stopAllAudio,
@@ -15,8 +16,8 @@ import {
 /**
  * Audio playback hook.
  *
- * Plays genuine Quran recitation (Quran.com word-by-word, EveryAyah ayah recitation) whenever
- * a word or ayah reference is known. For arbitrary Arabic text it can fall back to the
+ * Plays the AI-voice pronunciation of a word or genuine Quran recitation (Quran.com word-by-word,
+ * EveryAyah ayah recitation), whichever sources the caller passes. For arbitrary Arabic text it can fall back to the
  * browser's speech synthesis, which is always labelled as an approximate computer voice.
  *
  * No server-side text-to-speech is used.
@@ -26,7 +27,7 @@ import {
 export const WEB_SPEECH_SENTINEL = 'web-speech-api';
 
 export interface NowPlaying {
-  kind: 'word' | 'ayah' | 'computer';
+  kind: 'pronunciation' | 'word' | 'ayah' | 'computer';
   label: string;
   shortLabel: string;
 }
@@ -75,7 +76,12 @@ export const useTextToSpeech = () => {
       try {
         for (const source of sources) {
           try {
-            const audio = await playAudioUrl(source.url, source.clip);
+            // The pronunciation voice is a live preference: always play the listener's current choice.
+            const url =
+              source.kind === 'pronunciation'
+                ? source.url.replace(/\/audio\/pron\/[a-z]+\//, `/audio/pron/${getPronunciationVoice()}/`)
+                : source.url;
+            const audio = await playAudioUrl(url, source.clip);
             if (!mountedRef.current) {
               audio.pause();
               return false;
@@ -90,7 +96,7 @@ export const useTextToSpeech = () => {
             audio.addEventListener('ended', onStop, { once: true });
             audio.addEventListener('pause', onStop, { once: true });
             audio.addEventListener('error', onStop, { once: true });
-            setAudioUrl(source.url);
+            setAudioUrl(url);
             setNowPlaying({ kind: source.kind, label: source.label, shortLabel: source.shortLabel });
             setIsPlaying(true);
             return true;

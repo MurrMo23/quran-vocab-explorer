@@ -30,7 +30,7 @@ const AdvancedAudioRecorder: React.FC<AdvancedAudioRecorderProps> = ({ word }) =
         </div>
 
         <div className="flex justify-center">
-          <AudioPlayer word={word} label="Reference recitation" />
+          <AudioPlayer word={word} label="Reference pronunciation" />
         </div>
 
         <SelfPracticeRecorder word={word} />

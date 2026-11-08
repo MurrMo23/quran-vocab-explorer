@@ -1,6 +1,11 @@
 // Audio sources for QuranVocab.
 //
-// Strategy (in priority order):
+// Two kinds of audio, kept apart in the UI:
+//   - "Hear the word": an isolated pronunciation of the headword in its vowelled citation form, recorded
+//     with one consistent AI voice (Yasser by default, Ahmed as an option), loudness-matched across all
+//     words (PRONUNCIATION, files in public/audio/pron/<voice>/). Always labelled "AI voice".
+//   - "Hear it in the Quran": genuine recitation (getRecitationSources), strategy in priority order:
+//
 //   0. The word clipped from Mishary Alafasy's recitation of its ayah (Quran.com timings), so every word
 //      is heard in ONE voice, at the occurrence whose spelling best matches the headword (WORD_AUDIO).
 //   1. Word-by-word recitation from Quran.com's CDN, when the word has a verified `location`.
@@ -13,8 +18,9 @@
 
 import type { Word, WordLocation } from './vocabulary-types';
 import { WORD_AUDIO } from './generated/word-audio';
+import { PRONUNCIATION } from './generated/pronunciation';
 
-export type AudioKind = 'word' | 'ayah';
+export type AudioKind = 'pronunciation' | 'word' | 'ayah';
 
 export interface AudioSource {
   url: string;
@@ -146,11 +152,77 @@ export const getRecitedForm = (word: Pick<Word, 'id' | 'arabic'>): RecitedForm |
 
 const ALAFASY_AYAH = (surah: number, ayah: number) => `https://verses.quran.com/Alafasy/mp3/${pad3(surah)}${pad3(ayah)}.mp3`;
 
+// ---------------------------------------------------------------------------------------------
+// AI-voice pronunciation library
+// ---------------------------------------------------------------------------------------------
+
+export type PronunciationVoice = 'yasser' | 'ahmed';
+export const PRONUNCIATION_VOICES: { id: PronunciationVoice; name: string }[] = [
+  { id: 'yasser', name: 'Yasser' },
+  { id: 'ahmed', name: 'Ahmed' },
+];
+export const DEFAULT_VOICE: PronunciationVoice = 'yasser';
+export const PRONUNCIATION_LABEL = 'Pronunciation (AI voice)';
+const VOICE_KEY = 'qv-pron-voice';
+const VOICE_EVENT = 'qv-pron-voice-change';
+
+/** The listener's chosen pronunciation voice (per browser). Defaults to Yasser. */
+export const getPronunciationVoice = (): PronunciationVoice => {
+  try {
+    const v = typeof window !== 'undefined' ? window.localStorage.getItem(VOICE_KEY) : null;
+    return v === 'ahmed' || v === 'yasser' ? v : DEFAULT_VOICE;
+  } catch {
+    return DEFAULT_VOICE;
+  }
+};
+
+export const setPronunciationVoice = (voice: PronunciationVoice) => {
+  try {
+    window.localStorage.setItem(VOICE_KEY, voice);
+  } catch {
+    /* storage unavailable: the choice lasts for this page view only */
+  }
+  window.dispatchEvent(new CustomEvent(VOICE_EVENT, { detail: voice }));
+};
+
+export const onPronunciationVoiceChange = (cb: (v: PronunciationVoice) => void) => {
+  const handler = (e: Event) => cb((e as CustomEvent<PronunciationVoice>).detail);
+  window.addEventListener(VOICE_EVENT, handler);
+  return () => window.removeEventListener(VOICE_EVENT, handler);
+};
+
+export const hasPronunciation = (word: Pick<Word, 'id'>): boolean => !!PRONUNCIATION[word.id];
+
+/** The isolated AI-voice pronunciation of a word, or null if it has none. Voice is read at play time. */
+export const getPronunciationSource = (
+  word: Pick<Word, 'id'>,
+  voice: PronunciationVoice = getPronunciationVoice(),
+): AudioSource | null => {
+  const key = PRONUNCIATION[word.id];
+  if (!key) return null;
+  const name = PRONUNCIATION_VOICES.find(v => v.id === voice)?.name ?? voice;
+  return {
+    url: `/audio/pron/${voice}/${key}.mp3`,
+    kind: 'pronunciation',
+    label: `Pronunciation of the word on its own (AI voice: ${name}). Not a Quran recitation.`,
+    shortLabel: PRONUNCIATION_LABEL,
+  };
+};
+
+/**
+ * What "Hear the word" plays: the AI-voice pronunciation first, then genuine recitation as a fallback
+ * if that file cannot load.
+ */
+export const getAudioSources = (word: Word): AudioSource[] => {
+  const pron = getPronunciationSource(word);
+  return pron ? [pron, ...getRecitationSources(word)] : getRecitationSources(word);
+};
+
 /**
  * All genuine recitation sources for a word, best first. Players try them in order so a
  * missing file (404) on one CDN falls through to the next.
  */
-export const getAudioSources = (word: Word): AudioSource[] => {
+export const getRecitationSources = (word: Word): AudioSource[] => {
   const sources: AudioSource[] = [];
   const entry = WORD_AUDIO[word.id];
   if (entry) {

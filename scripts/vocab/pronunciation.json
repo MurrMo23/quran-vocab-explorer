@@ -1,0 +1,3757 @@
+{
+ "1": {
+  "text": "اللَّه",
+  "key": "56ea9489d1",
+  "source": "headword"
+ },
+ "2": {
+  "text": "رَحْمَة",
+  "key": "b7b845b3d7",
+  "source": "lemma"
+ },
+ "3": {
+  "text": "كِتَاب",
+  "key": "ceae396ee8",
+  "source": "lemma"
+ },
+ "4": {
+  "text": "آمَنَ",
+  "key": "5b75a095e0",
+  "source": "headword"
+ },
+ "5": {
+  "text": "صَلَاة",
+  "key": "7173ae744f",
+  "source": "lemma"
+ },
+ "6": {
+  "text": "يَوْم",
+  "key": "3574cdb12b",
+  "source": "lemma"
+ },
+ "7": {
+  "text": "قُلْ",
+  "key": "29508b6481",
+  "source": "headword"
+ },
+ "8": {
+  "text": "جَنَّة",
+  "key": "7e2c97d7a6",
+  "source": "headword"
+ },
+ "9": {
+  "text": "نَبِيّ",
+  "key": "cb442f68e0",
+  "source": "lemma"
+ },
+ "10": {
+  "text": "تَقْوَى",
+  "key": "8e127eb662",
+  "source": "lemma"
+ },
+ "11": {
+  "text": "رَسُول",
+  "key": "d7d730ef7a",
+  "source": "lemma"
+ },
+ "12": {
+  "text": "قِيَامَة",
+  "key": "b00405af26",
+  "source": "lemma"
+ },
+ "13": {
+  "text": "عِبَادَة",
+  "key": "c041d0fd39",
+  "source": "headword"
+ },
+ "14": {
+  "text": "تَوْبَة",
+  "key": "33b3cc8176",
+  "source": "lemma"
+ },
+ "15": {
+  "text": "رَحِيم",
+  "key": "bfc7fcbb61",
+  "source": "lemma"
+ },
+ "27": {
+  "text": "دُنْيَا",
+  "key": "e256fa638c",
+  "source": "lemma"
+ },
+ "28": {
+  "text": "مَاء",
+  "key": "1c60205d98",
+  "source": "lemma"
+ },
+ "29": {
+  "text": "إِنْسَان",
+  "key": "b1a1674ee8",
+  "source": "headword"
+ },
+ "30": {
+  "text": "عِلْم",
+  "key": "7cb592e7b2",
+  "source": "lemma"
+ },
+ "31": {
+  "text": "قَلْب",
+  "key": "9e17ba9c1d",
+  "source": "lemma"
+ },
+ "52": {
+  "text": "مُوسَى",
+  "key": "913048ff33",
+  "source": "lemma"
+ },
+ "53": {
+  "text": "عِيسَى",
+  "key": "4190741bd2",
+  "source": "lemma"
+ },
+ "54": {
+  "text": "إِبْرَاهِيم",
+  "key": "4c73ec4d35",
+  "source": "lemma"
+ },
+ "55": {
+  "text": "نُوح",
+  "key": "b6a3e8a994",
+  "source": "lemma"
+ },
+ "56": {
+  "text": "سَجَدَ",
+  "key": "3d2ca50703",
+  "source": "lemma"
+ },
+ "57": {
+  "text": "شُكْر",
+  "key": "dd27008147",
+  "source": "lemma"
+ },
+ "58": {
+  "text": "خَيْر",
+  "key": "fac0b37cf0",
+  "source": "lemma"
+ },
+ "59": {
+  "text": "شَرّ",
+  "key": "e7a872f754",
+  "source": "lemma"
+ },
+ "60": {
+  "text": "سَمَاء",
+  "key": "90cf1779bf",
+  "source": "lemma"
+ },
+ "61": {
+  "text": "أَرْض",
+  "key": "7fc1c71990",
+  "source": "lemma"
+ },
+ "62": {
+  "text": "نَار",
+  "key": "897a9dc982",
+  "source": "lemma"
+ },
+ "63": {
+  "text": "نُور",
+  "key": "25a57ab046",
+  "source": "lemma"
+ },
+ "64": {
+  "text": "حَقّ",
+  "key": "ec218187b3",
+  "source": "lemma"
+ },
+ "65": {
+  "text": "بَاطِل",
+  "key": "b357edae33",
+  "source": "lemma"
+ },
+ "66": {
+  "text": "هُدَى",
+  "key": "67c4919040",
+  "source": "headword"
+ },
+ "67": {
+  "text": "ضَلَال",
+  "key": "c1f08fc1bd",
+  "source": "lemma"
+ },
+ "68": {
+  "text": "رِزْق",
+  "key": "ec1a390f80",
+  "source": "lemma"
+ },
+ "69": {
+  "text": "زَكَاة",
+  "key": "e42b727072",
+  "source": "lemma"
+ },
+ "70": {
+  "text": "صَوْم",
+  "key": "13ef59fd54",
+  "source": "lemma"
+ },
+ "71": {
+  "text": "حَجّ",
+  "key": "1e792fd21a",
+  "source": "headword"
+ },
+ "72": {
+  "text": "أُمَّة",
+  "key": "f80cbb2fb2",
+  "source": "headword"
+ },
+ "73": {
+  "text": "مُسْلِم",
+  "key": "e848075317",
+  "source": "lemma"
+ },
+ "74": {
+  "text": "كَافِر",
+  "key": "27590432cb",
+  "source": "headword"
+ },
+ "75": {
+  "text": "عَذَاب",
+  "key": "de2f1cbb28",
+  "source": "lemma"
+ },
+ "76": {
+  "text": "ثَوَاب",
+  "key": "eed40ef571",
+  "source": "lemma"
+ },
+ "16": {
+  "text": "آدَم",
+  "key": "1b16793b74",
+  "source": "headword"
+ },
+ "17": {
+  "text": "طَاعَة",
+  "key": "60d08a72f8",
+  "source": "lemma"
+ },
+ "18": {
+  "text": "حِكْمَة",
+  "key": "1f14f8da29",
+  "source": "lemma"
+ },
+ "19": {
+  "text": "شَاكِر",
+  "key": "55700e7900",
+  "source": "lemma"
+ },
+ "20": {
+  "text": "صَبْر",
+  "key": "ede7596303",
+  "source": "lemma"
+ },
+ "21": {
+  "text": "نِفَاق",
+  "key": "494eb23f16",
+  "source": "lemma"
+ },
+ "32": {
+  "text": "تَزْكِيَة",
+  "key": "be9e4c47e2",
+  "source": "headword"
+ },
+ "33": {
+  "text": "نُسُك",
+  "key": "86cf3db60e",
+  "source": "lemma"
+ },
+ "34": {
+  "text": "مُؤْمِن",
+  "key": "b9ea0bd584",
+  "source": "lemma"
+ },
+ "35": {
+  "text": "تَفَكُّر",
+  "key": "b106b70132",
+  "source": "headword"
+ },
+ "36": {
+  "text": "مِيزَان",
+  "key": "56cd667251",
+  "source": "lemma"
+ },
+ "37": {
+  "text": "خَشْيَة",
+  "key": "e1fd7d6366",
+  "source": "lemma"
+ },
+ "38": {
+  "text": "مُهَاجِر",
+  "key": "4c5f86e4aa",
+  "source": "lemma"
+ },
+ "39": {
+  "text": "فَضْل",
+  "key": "47dd4bb886",
+  "source": "lemma"
+ },
+ "40": {
+  "text": "سَكِينَة",
+  "key": "d19707141a",
+  "source": "lemma"
+ },
+ "41": {
+  "text": "مَوْعِظَة",
+  "key": "7faa8e0c11",
+  "source": "lemma"
+ },
+ "77": {
+  "text": "يُونُس",
+  "key": "a141d3eee9",
+  "source": "lemma"
+ },
+ "78": {
+  "text": "يُوسُف",
+  "key": "02b93923d3",
+  "source": "lemma"
+ },
+ "79": {
+  "text": "دَاوُد",
+  "key": "84f119f177",
+  "source": "lemma"
+ },
+ "80": {
+  "text": "سُلَيْمَان",
+  "key": "fd1094a5cd",
+  "source": "lemma"
+ },
+ "81": {
+  "text": "أَيُّوب",
+  "key": "1582dc057f",
+  "source": "lemma"
+ },
+ "82": {
+  "text": "ذِكْر",
+  "key": "978e9b57d3",
+  "source": "lemma"
+ },
+ "83": {
+  "text": "دُعَاء",
+  "key": "9719e62ab1",
+  "source": "lemma"
+ },
+ "84": {
+  "text": "اِسْتِغْفَار",
+  "key": "a572658f98",
+  "source": "lemma"
+ },
+ "85": {
+  "text": "تَسْبِيح",
+  "key": "32160ac91f",
+  "source": "lemma"
+ },
+ "86": {
+  "text": "تَحْمِيد",
+  "key": "78b8e8ef91",
+  "source": "headword"
+ },
+ "87": {
+  "text": "تَوَكُّل",
+  "key": "f7ffb81347",
+  "source": "headword"
+ },
+ "88": {
+  "text": "رَجَاء",
+  "key": "d7c9ed2477",
+  "source": "headword"
+ },
+ "89": {
+  "text": "خَوْف",
+  "key": "730129c63b",
+  "source": "lemma"
+ },
+ "90": {
+  "text": "طَمَع",
+  "key": "6baa0599aa",
+  "source": "lemma"
+ },
+ "91": {
+  "text": "يَقِين",
+  "key": "e5a0c48731",
+  "source": "lemma"
+ },
+ "92": {
+  "text": "شَكّ",
+  "key": "3c5950e31b",
+  "source": "lemma"
+ },
+ "93": {
+  "text": "نَجَاة",
+  "key": "d1eee79ae9",
+  "source": "lemma"
+ },
+ "94": {
+  "text": "هَلَاك",
+  "key": "ba6dae3f3d",
+  "source": "manual"
+ },
+ "95": {
+  "text": "فَلَاح",
+  "key": "5ff0faf0f5",
+  "source": "manual"
+ },
+ "96": {
+  "text": "خُسْرَان",
+  "key": "1ba3d1bbcf",
+  "source": "lemma"
+ },
+ "97": {
+  "text": "جِهَاد",
+  "key": "6dde8db6b0",
+  "source": "lemma"
+ },
+ "98": {
+  "text": "بِرّ",
+  "key": "c816fbc091",
+  "source": "lemma"
+ },
+ "99": {
+  "text": "فُجُور",
+  "key": "ed4d7a9c01",
+  "source": "lemma"
+ },
+ "100": {
+  "text": "عَدْل",
+  "key": "c4f684b833",
+  "source": "lemma"
+ },
+ "101": {
+  "text": "ظُلْم",
+  "key": "82fd0c4f30",
+  "source": "lemma"
+ },
+ "102": {
+  "text": "شَجَرَة",
+  "key": "afe4715de8",
+  "source": "lemma"
+ },
+ "103": {
+  "text": "ثَمَرَة",
+  "key": "43848ba912",
+  "source": "headword"
+ },
+ "104": {
+  "text": "نَهْر",
+  "key": "086a9ae650",
+  "source": "headword"
+ },
+ "105": {
+  "text": "بَحْر",
+  "key": "249655c52c",
+  "source": "lemma"
+ },
+ "106": {
+  "text": "جَبَل",
+  "key": "09f33d10b4",
+  "source": "lemma"
+ },
+ "107": {
+  "text": "رِيح",
+  "key": "effc0171dd",
+  "source": "lemma"
+ },
+ "22": {
+  "text": "اِسْتِكْبَار",
+  "key": "d755689f04",
+  "source": "manual"
+ },
+ "23": {
+  "text": "مُتَشَابِهَات",
+  "key": "0228cd0273",
+  "source": "headword"
+ },
+ "24": {
+  "text": "اِسْتِنْبَاط",
+  "key": "1abe55950d",
+  "source": "manual"
+ },
+ "25": {
+  "text": "تَخْفِيف",
+  "key": "a5523ca584",
+  "source": "lemma"
+ },
+ "26": {
+  "text": "مُحْصَنَات",
+  "key": "131df9fcdc",
+  "source": "lemma"
+ },
+ "42": {
+  "text": "مُحْكَمَات",
+  "key": "e7aa1d508b",
+  "source": "lemma"
+ },
+ "43": {
+  "text": "تَأْوِيل",
+  "key": "b2a9af36b1",
+  "source": "lemma"
+ },
+ "44": {
+  "text": "اِسْتِخْلَاف",
+  "key": "c1b4330931",
+  "source": "headword"
+ },
+ "45": {
+  "text": "إِسْرَاف",
+  "key": "303b8f311e",
+  "source": "lemma"
+ },
+ "46": {
+  "text": "اِسْتِعَاذَة",
+  "key": "1d70049f7e",
+  "source": "headword"
+ },
+ "47": {
+  "text": "قِصَاص",
+  "key": "f3a001adfe",
+  "source": "lemma"
+ },
+ "48": {
+  "text": "مُتَوَكِّل",
+  "key": "5b382c5a90",
+  "source": "headword"
+ },
+ "49": {
+  "text": "تَجَلِّي",
+  "key": "5a1ae4c1f9",
+  "source": "headword"
+ },
+ "50": {
+  "text": "مُسْتَضْعَفِين",
+  "key": "21ff5aae9b",
+  "source": "headword"
+ },
+ "51": {
+  "text": "تَدَبُّر",
+  "key": "748315c25d",
+  "source": "headword"
+ },
+ "108": {
+  "text": "رَاسِخُون",
+  "key": "df452ae2b9",
+  "source": "lemma"
+ },
+ "109": {
+  "text": "إِفْك",
+  "key": "5dd8200671",
+  "source": "lemma"
+ },
+ "110": {
+  "text": "تَوْحِيد",
+  "key": "e70df5ff10",
+  "source": "headword"
+ },
+ "111": {
+  "text": "شِرْك",
+  "key": "102b604866",
+  "source": "lemma"
+ },
+ "112": {
+  "text": "تَنْزِيه",
+  "key": "06d18af833",
+  "source": "headword"
+ },
+ "113": {
+  "text": "قَدَر",
+  "key": "d7993674c7",
+  "source": "lemma"
+ },
+ "114": {
+  "text": "حَتْمِيَّة",
+  "key": "73082c65c7",
+  "source": "headword"
+ },
+ "115": {
+  "text": "أَسْمَاء",
+  "key": "704a00a550",
+  "source": "headword"
+ },
+ "116": {
+  "text": "صِفَات",
+  "key": "2a8fb0fd47",
+  "source": "headword"
+ },
+ "117": {
+  "text": "بَرْزَخ",
+  "key": "73e6d0dc5c",
+  "source": "lemma"
+ },
+ "118": {
+  "text": "كَرَامَة",
+  "key": "a410383ba6",
+  "source": "headword"
+ },
+ "119": {
+  "text": "مُعْجِزَة",
+  "key": "4bf85cfb50",
+  "source": "headword"
+ },
+ "120": {
+  "text": "وَحْي",
+  "key": "199424796d",
+  "source": "headword"
+ },
+ "121": {
+  "text": "إِلْهَام",
+  "key": "952aa28e5c",
+  "source": "headword"
+ },
+ "122": {
+  "text": "فِقْه",
+  "key": "9e19694e8c",
+  "source": "headword"
+ },
+ "123": {
+  "text": "اِجْتِهَاد",
+  "key": "0ef09c39a7",
+  "source": "headword"
+ },
+ "124": {
+  "text": "إِجْمَاع",
+  "key": "99618bc948",
+  "source": "headword"
+ },
+ "125": {
+  "text": "قِيَاس",
+  "key": "16b5f68f5f",
+  "source": "headword"
+ },
+ "126": {
+  "text": "تَفْسِير",
+  "key": "a8e4155daa",
+  "source": "lemma"
+ },
+ "127": {
+  "text": "تَرْتِيل",
+  "key": "9bcc8fc0ad",
+  "source": "lemma"
+ },
+ "128": {
+  "text": "تَجْوِيد",
+  "key": "91e5e493c7",
+  "source": "headword"
+ },
+ "129": {
+  "text": "خُشُوع",
+  "key": "e0d0b7b5b1",
+  "source": "lemma"
+ },
+ "130": {
+  "text": "خُضُوع",
+  "key": "3fadbe8e08",
+  "source": "headword"
+ },
+ "131": {
+  "text": "تَسْلِيم",
+  "key": "78cd106383",
+  "source": "lemma"
+ },
+ "132": {
+  "text": "تَعْظِيم",
+  "key": "c278661f70",
+  "source": "headword"
+ },
+ "133": {
+  "text": "تَكْبِير",
+  "key": "cede11068b",
+  "source": "lemma"
+ },
+ "134": {
+  "text": "تَهْلِيل",
+  "key": "08f59c75f2",
+  "source": "headword"
+ },
+ "135": {
+  "text": "اِسْتِقَامَة",
+  "key": "5ae9dd53c2",
+  "source": "headword"
+ },
+ "136": {
+  "text": "ثَبَات",
+  "key": "2e6ca82b07",
+  "source": "headword"
+ },
+ "137": {
+  "text": "زَوَال",
+  "key": "8cf0798a00",
+  "source": "lemma"
+ },
+ "138": {
+  "text": "بَقَاء",
+  "key": "c72c48f430",
+  "source": "headword"
+ },
+ "139": {
+  "text": "خُلُود",
+  "key": "301bea3f9f",
+  "source": "lemma"
+ },
+ "140": {
+  "text": "فَنَاء",
+  "key": "20c312220e",
+  "source": "headword"
+ },
+ "allah": {
+  "text": "اللَّه",
+  "key": "56ea9489d1",
+  "source": "recited"
+ },
+ "ar-rahman": {
+  "text": "الرَّحْمَٰن",
+  "key": "9e1b4e59bd",
+  "source": "manual"
+ },
+ "ar-raheem": {
+  "text": "الرَّحِيم",
+  "key": "cf6a3ac56d",
+  "source": "recited"
+ },
+ "al-malik": {
+  "text": "الْمَلِك",
+  "key": "ac123bfda8",
+  "source": "lemma"
+ },
+ "al-quddus": {
+  "text": "الْقُدُّوس",
+  "key": "9f1c1551f8",
+  "source": "recited"
+ },
+ "as-salaam": {
+  "text": "السَّلَام",
+  "key": "8faf43f6c3",
+  "source": "recited"
+ },
+ "al-khaliq": {
+  "text": "الْخَالِق",
+  "key": "124fc9f4d4",
+  "source": "recited"
+ },
+ "al-aleem": {
+  "text": "الْعَلِيم",
+  "key": "04dc9a93e9",
+  "source": "recited"
+ },
+ "al-hakeem": {
+  "text": "الْحَكِيم",
+  "key": "db70ce3254",
+  "source": "recited"
+ },
+ "ar-razzaq": {
+  "text": "الرَّزَّاق",
+  "key": "848b1540fe",
+  "source": "recited"
+ },
+ "al-islam": {
+  "text": "الْإِسْلَام",
+  "key": "60c0d6935e",
+  "source": "recited"
+ },
+ "al-iman": {
+  "text": "الْإِيمَان",
+  "key": "e45bcdd336",
+  "source": "recited"
+ },
+ "at-tawheed": {
+  "text": "التَّوْحِيد",
+  "key": "e44c2d53e8",
+  "source": "manual"
+ },
+ "at-taqwa": {
+  "text": "التَّقْوَى",
+  "key": "4e827f60fb",
+  "source": "lemma"
+ },
+ "as-salah": {
+  "text": "الصَّلَاة",
+  "key": "66c3b74d16",
+  "source": "recited"
+ },
+ "az-zakah": {
+  "text": "الزَّكَاة",
+  "key": "67d2e8c7c0",
+  "source": "recited"
+ },
+ "as-sawm": {
+  "text": "الصَّوْم",
+  "key": "913579fd14",
+  "source": "lemma"
+ },
+ "al-hajj": {
+  "text": "الْحَجّ",
+  "key": "1bc382e2d5",
+  "source": "manual"
+ },
+ "adh-dhikr": {
+  "text": "الذِّكْر",
+  "key": "d7f6da88b3",
+  "source": "recited"
+ },
+ "as-sabr": {
+  "text": "الصَّبْر",
+  "key": "d6c3b4fd78",
+  "source": "recited"
+ },
+ "an-nabi": {
+  "text": "النَّبِيّ",
+  "key": "14ba13b976",
+  "source": "recited"
+ },
+ "ar-rasul": {
+  "text": "الرَّسُول",
+  "key": "cc03d0651d",
+  "source": "recited"
+ },
+ "adam": {
+  "text": "آدَم",
+  "key": "1b16793b74",
+  "source": "manual"
+ },
+ "nuh": {
+  "text": "نُوح",
+  "key": "b6a3e8a994",
+  "source": "recited"
+ },
+ "ibrahim": {
+  "text": "إِبْرَاهِيم",
+  "key": "4c73ec4d35",
+  "source": "recited"
+ },
+ "musa": {
+  "text": "مُوسَى",
+  "key": "913048ff33",
+  "source": "recited"
+ },
+ "isa": {
+  "text": "عِيسَى",
+  "key": "4190741bd2",
+  "source": "recited"
+ },
+ "muhammad": {
+  "text": "مُحَمَّد",
+  "key": "74664a7766",
+  "source": "recited"
+ },
+ "yusuf": {
+  "text": "يُوسُف",
+  "key": "02b93923d3",
+  "source": "recited"
+ },
+ "dawud": {
+  "text": "دَاوُد",
+  "key": "84f119f177",
+  "source": "recited"
+ },
+ "al-akhirah": {
+  "text": "الْآخِرَة",
+  "key": "0e5021d7a7",
+  "source": "manual"
+ },
+ "yawm-al-qiyamah": {
+  "text": "يَوْمُ الْقِيَامَة",
+  "key": "d349c52210",
+  "source": "manual"
+ },
+ "al-jannah": {
+  "text": "الْجَنَّة",
+  "key": "eda99a8ed3",
+  "source": "recited"
+ },
+ "an-nar": {
+  "text": "النَّار",
+  "key": "dae8901dda",
+  "source": "recited"
+ },
+ "jahannam": {
+  "text": "جَهَنَّم",
+  "key": "b5d387777f",
+  "source": "recited"
+ },
+ "al-hisab": {
+  "text": "الْحِسَاب",
+  "key": "6d310e83b5",
+  "source": "recited"
+ },
+ "al-mizan": {
+  "text": "الْمِيزَان",
+  "key": "847ab76006",
+  "source": "recited"
+ },
+ "as-sirat": {
+  "text": "الصِّرَاط",
+  "key": "af6d919ec6",
+  "source": "recited"
+ },
+ "as-samawat": {
+  "text": "السَّمَاوَات",
+  "key": "da13112943",
+  "source": "recited"
+ },
+ "al-ard": {
+  "text": "الْأَرْض",
+  "key": "fad1235313",
+  "source": "recited"
+ },
+ "ash-shams": {
+  "text": "الشَّمْس",
+  "key": "9ff488074a",
+  "source": "recited"
+ },
+ "al-qamar": {
+  "text": "الْقَمَر",
+  "key": "31f813e638",
+  "source": "recited"
+ },
+ "an-nujum": {
+  "text": "النُّجُوم",
+  "key": "299ec01070",
+  "source": "recited"
+ },
+ "al-matar": {
+  "text": "الْمَطَر",
+  "key": "cf66b0e6b2",
+  "source": "lemma"
+ },
+ "ar-riyah": {
+  "text": "الرِّيَاح",
+  "key": "68602f28fa",
+  "source": "recited"
+ },
+ "al-jibal": {
+  "text": "الْجِبَال",
+  "key": "c93b4342a6",
+  "source": "recited"
+ },
+ "al-bihar": {
+  "text": "الْبِحَار",
+  "key": "b082868491",
+  "source": "recited"
+ },
+ "al-ma": {
+  "text": "الْمَاء",
+  "key": "c2d2a5beb6",
+  "source": "recited"
+ },
+ "wahid": {
+  "text": "وَاحِد",
+  "key": "af65686b53",
+  "source": "recited"
+ },
+ "ithnan": {
+  "text": "اِثْنَان",
+  "key": "a0e2160c73",
+  "source": "recited"
+ },
+ "thalathah": {
+  "text": "ثَلَاثَة",
+  "key": "6724337a15",
+  "source": "recited"
+ },
+ "arbaah": {
+  "text": "أَرْبَعَة",
+  "key": "e8dc469976",
+  "source": "recited"
+ },
+ "khamsah": {
+  "text": "خَمْسَة",
+  "key": "2abc78a971",
+  "source": "recited"
+ },
+ "sittah": {
+  "text": "سِتَّة",
+  "key": "13d9989493",
+  "source": "recited"
+ },
+ "sabah": {
+  "text": "سَبْعَة",
+  "key": "6d68b057bb",
+  "source": "recited"
+ },
+ "asharah": {
+  "text": "عَشَرَة",
+  "key": "fa539e9f2a",
+  "source": "recited"
+ },
+ "abyad": {
+  "text": "أَبْيَض",
+  "key": "60de4b9110",
+  "source": "lemma"
+ },
+ "aswad": {
+  "text": "أَسْوَد",
+  "key": "ab10866377",
+  "source": "lemma"
+ },
+ "ahmar": {
+  "text": "أَحْمَر",
+  "key": "6216556936",
+  "source": "manual"
+ },
+ "akhdar": {
+  "text": "أَخْضَر",
+  "key": "c6aace8cf8",
+  "source": "manual"
+ },
+ "asfar": {
+  "text": "أَصْفَر",
+  "key": "2710ed351c",
+  "source": "manual"
+ },
+ "al-qalb": {
+  "text": "الْقَلْب",
+  "key": "d556ce0756",
+  "source": "recited"
+ },
+ "al-aql": {
+  "text": "عَقَلَ",
+  "key": "37a704a968",
+  "source": "headword"
+ },
+ "ar-ruh": {
+  "text": "الرُّوح",
+  "key": "91494309d2",
+  "source": "recited"
+ },
+ "al-ayn": {
+  "text": "الْعَيْن",
+  "key": "c458c07168",
+  "source": "recited"
+ },
+ "al-udhn": {
+  "text": "الْأُذُن",
+  "key": "ba780ef8af",
+  "source": "lemma"
+ },
+ "al-lisan": {
+  "text": "اللِّسَان",
+  "key": "2bda92177f",
+  "source": "lemma"
+ },
+ "al-yad": {
+  "text": "الْيَد",
+  "key": "cbbe58323a",
+  "source": "lemma"
+ },
+ "al-wajh": {
+  "text": "الْوَجْه",
+  "key": "d56f0b2ddf",
+  "source": "lemma"
+ },
+ "al-mu-min": {
+  "text": "الْمُؤْمِن",
+  "key": "3b1d0b3cc0",
+  "source": "recited"
+ },
+ "al-muhaymin": {
+  "text": "الْمُهَيْمِن",
+  "key": "9aa837780e",
+  "source": "recited"
+ },
+ "al-azeez": {
+  "text": "الْعَزِيز",
+  "key": "3942bb7f0a",
+  "source": "recited"
+ },
+ "al-jabbar": {
+  "text": "الْجَبَّار",
+  "key": "91b07a9527",
+  "source": "recited"
+ },
+ "al-mutakabbir": {
+  "text": "الْمُتَكَبِّر",
+  "key": "d3d1dabd06",
+  "source": "recited"
+ },
+ "al-bari": {
+  "text": "الْبَارِئ",
+  "key": "a2c0be7243",
+  "source": "recited"
+ },
+ "al-musawwir": {
+  "text": "الْمُصَوِّر",
+  "key": "230a5a4da2",
+  "source": "recited"
+ },
+ "al-ihsan": {
+  "text": "الْإِحْسَان",
+  "key": "c28a6473f2",
+  "source": "recited"
+ },
+ "ash-shirk": {
+  "text": "الشِّرْك",
+  "key": "8e44f55f12",
+  "source": "recited"
+ },
+ "al-kufr": {
+  "text": "الْكُفْر",
+  "key": "0d141e3007",
+  "source": "recited"
+ },
+ "al-khashyah": {
+  "text": "الْخَشْيَة",
+  "key": "54ae66a7db",
+  "source": "lemma"
+ },
+ "al-malaikah": {
+  "text": "الْمَلَائِكَة",
+  "key": "c29df84383",
+  "source": "recited"
+ },
+ "jibril": {
+  "text": "جِبْرِيل",
+  "key": "a49e9a9f02",
+  "source": "lemma"
+ },
+ "al-jinn": {
+  "text": "الْجِنّ",
+  "key": "0c6b799962",
+  "source": "recited"
+ },
+ "ash-shayateen": {
+  "text": "الشَّيَاطِين",
+  "key": "0a8309c7e9",
+  "source": "recited"
+ },
+ "iblis": {
+  "text": "إِبْلِيس",
+  "key": "0c72af54a6",
+  "source": "recited"
+ },
+ "al-quran": {
+  "text": "الْقُرْآن",
+  "key": "6f1c13bb60",
+  "source": "manual"
+ },
+ "al-kitab": {
+  "text": "الْكِتَاب",
+  "key": "22c6c7f715",
+  "source": "recited"
+ },
+ "al-furqan": {
+  "text": "الْفُرْقَان",
+  "key": "31d3125d75",
+  "source": "recited"
+ },
+ "at-tawrah": {
+  "text": "التَّوْرَاة",
+  "key": "7a4c88956d",
+  "source": "manual"
+ },
+ "al-injeel": {
+  "text": "الْإِنْجِيل",
+  "key": "f2fb51947a",
+  "source": "recited"
+ },
+ "al-muminun": {
+  "text": "الْمُؤْمِنُون",
+  "key": "a2e696051f",
+  "source": "recited"
+ },
+ "al-muslimun": {
+  "text": "الْمُسْلِمُون",
+  "key": "17af4f0ba6",
+  "source": "recited"
+ },
+ "al-kafirun": {
+  "text": "الْكَافِرُون",
+  "key": "c0d8898b50",
+  "source": "recited"
+ },
+ "ahl-al-kitab": {
+  "text": "أَهْلُ الْكِتَاب",
+  "key": "fe26cabff4",
+  "source": "manual"
+ },
+ "al-ummah": {
+  "text": "الْأُمَّة",
+  "key": "7ec4ecde74",
+  "source": "lemma"
+ },
+ "al-birr": {
+  "text": "الْبِرّ",
+  "key": "e59d269cd5",
+  "source": "recited"
+ },
+ "al-fasad": {
+  "text": "الْفَسَاد",
+  "key": "710ef872a7",
+  "source": "recited"
+ },
+ "az-zulm": {
+  "text": "الظُّلْم",
+  "key": "d688b78bfc",
+  "source": "lemma"
+ },
+ "al-maghfirah": {
+  "text": "الْمَغْفِرَة",
+  "key": "7ddf8e1477",
+  "source": "recited"
+ },
+ "al-ghaffar": {
+  "text": "الْغَفَّار",
+  "key": "01d97126ef",
+  "source": "lemma"
+ },
+ "al-qahhar": {
+  "text": "الْقَهَّار",
+  "key": "b6737c2084",
+  "source": "recited"
+ },
+ "al-wahhab": {
+  "text": "الْوَهَّاب",
+  "key": "a05a8cd133",
+  "source": "recited"
+ },
+ "al-fattah": {
+  "text": "الْفَتَّاح",
+  "key": "95298b0d90",
+  "source": "recited"
+ },
+ "al-qabid": {
+  "text": "الْقَابِض",
+  "key": "26603c0024",
+  "source": "manual"
+ },
+ "al-basit": {
+  "text": "الْبَاسِط",
+  "key": "a39b7e33a1",
+  "source": "lemma"
+ },
+ "al-khafid": {
+  "text": "الْخَافِض",
+  "key": "7f75af2da1",
+  "source": "manual"
+ },
+ "ar-rafi": {
+  "text": "الرَّافِع",
+  "key": "fbf1f1cf11",
+  "source": "lemma"
+ },
+ "al-muizz": {
+  "text": "الْمُعِزّ",
+  "key": "e7f8ae1082",
+  "source": "manual"
+ },
+ "al-muzill": {
+  "text": "الْمُذِلّ",
+  "key": "d96d8d4173",
+  "source": "manual"
+ },
+ "as-samee": {
+  "text": "السَّمِيع",
+  "key": "b95f0029f9",
+  "source": "recited"
+ },
+ "al-baseer": {
+  "text": "الْبَصِير",
+  "key": "9aa1e9c55b",
+  "source": "lemma"
+ },
+ "al-hakam": {
+  "text": "الْحَكَم",
+  "key": "305b94acb6",
+  "source": "lemma"
+ },
+ "al-lateef": {
+  "text": "اللَّطِيف",
+  "key": "a241ae6858",
+  "source": "lemma"
+ },
+ "al-khabeer": {
+  "text": "الْخَبِير",
+  "key": "c00814a992",
+  "source": "lemma"
+ },
+ "al-haleem": {
+  "text": "الْحَلِيم",
+  "key": "a58310ad63",
+  "source": "lemma"
+ },
+ "al-azeem": {
+  "text": "الْعَظِيم",
+  "key": "477e5855f4",
+  "source": "recited"
+ },
+ "al-ghafoor": {
+  "text": "الْغَفُور",
+  "key": "2a8fadf8cf",
+  "source": "lemma"
+ },
+ "ash-shakoor": {
+  "text": "الشَّكُور",
+  "key": "f2bd3778fb",
+  "source": "lemma"
+ },
+ "al-ali": {
+  "text": "الْعَلِيّ",
+  "key": "6eed34e970",
+  "source": "recited"
+ },
+ "an-nifaq": {
+  "text": "النِّفَاق",
+  "key": "d5d3eacdbe",
+  "source": "recited"
+ },
+ "al-ibadah": {
+  "text": "الْعِبَادَة",
+  "key": "789b96fad3",
+  "source": "manual"
+ },
+ "al-jihad": {
+  "text": "الْجِهَاد",
+  "key": "4e6b99fa44",
+  "source": "lemma"
+ },
+ "ad-dua": {
+  "text": "الدُّعَاء",
+  "key": "5532d364d8",
+  "source": "recited"
+ },
+ "at-tasbih": {
+  "text": "التَّسْبِيح",
+  "key": "95f8004f90",
+  "source": "lemma"
+ },
+ "at-tahmeed": {
+  "text": "التَّحْمِيد",
+  "key": "11d4dc6452",
+  "source": "manual"
+ },
+ "at-takbeer": {
+  "text": "التَّكْبِير",
+  "key": "c01db4ae6b",
+  "source": "lemma"
+ },
+ "at-tahleel": {
+  "text": "التَّهْلِيل",
+  "key": "bffbdbbc4d",
+  "source": "manual"
+ },
+ "al-istighfar": {
+  "text": "الِاسْتِغْفَار",
+  "key": "f1f186f494",
+  "source": "manual"
+ },
+ "ar-rida": {
+  "text": "الرِّضَا",
+  "key": "edf57c0aa2",
+  "source": "manual"
+ },
+ "al-yawm-al-akhir": {
+  "text": "الْيَوْمُ الْآخِر",
+  "key": "2eb70c1e0d",
+  "source": "manual"
+ },
+ "yawm-ad-deen": {
+  "text": "يَوْمُ الدِّين",
+  "key": "d4c42d75c9",
+  "source": "manual"
+ },
+ "as-saah": {
+  "text": "السَّاعَة",
+  "key": "6c09f7c212",
+  "source": "recited"
+ },
+ "al-bath": {
+  "text": "الْبَعْث",
+  "key": "2f8b6f47e7",
+  "source": "recited"
+ },
+ "an-nushur": {
+  "text": "النُّشُور",
+  "key": "91ed169671",
+  "source": "recited"
+ },
+ "al-firdaws": {
+  "text": "الْفِرْدَوْس",
+  "key": "66908030b7",
+  "source": "recited"
+ },
+ "adn": {
+  "text": "عَدْن",
+  "key": "a24f92ecbd",
+  "source": "recited"
+ },
+ "as-saeer": {
+  "text": "السَّعِير",
+  "key": "9307fcf616",
+  "source": "recited"
+ },
+ "al-jaheem": {
+  "text": "الْجَحِيم",
+  "key": "f1bb089df9",
+  "source": "recited"
+ },
+ "laza": {
+  "text": "لَظَى",
+  "key": "53ac017296",
+  "source": "recited"
+ },
+ "al-khalq": {
+  "text": "الْخَلْق",
+  "key": "8d8fdc8c15",
+  "source": "recited"
+ },
+ "al-anhar": {
+  "text": "الْأَنْهَار",
+  "key": "b5799c9c14",
+  "source": "recited"
+ },
+ "al-layl": {
+  "text": "اللَّيْل",
+  "key": "415231b7d0",
+  "source": "lemma"
+ },
+ "an-nahar": {
+  "text": "النَّهَار",
+  "key": "cd7a7ccf8a",
+  "source": "recited"
+ },
+ "al-fajr": {
+  "text": "الْفَجْر",
+  "key": "20deb482f9",
+  "source": "recited"
+ },
+ "ad-duha": {
+  "text": "الضُّحَى",
+  "key": "caa837ea81",
+  "source": "lemma"
+ },
+ "al-asr": {
+  "text": "الْعَصْر",
+  "key": "5efcfc8c2c",
+  "source": "lemma"
+ },
+ "al-maghrib": {
+  "text": "الْمَغْرِب",
+  "key": "f8600a15e9",
+  "source": "recited"
+ },
+ "al-isha": {
+  "text": "الْعِشَاء",
+  "key": "b75db3b25c",
+  "source": "recited"
+ },
+ "as-sahar": {
+  "text": "السَّحَر",
+  "key": "4beaae42e0",
+  "source": "lemma"
+ },
+ "ismaeel": {
+  "text": "إِسْمَاعِيل",
+  "key": "2e90f7dfd3",
+  "source": "recited"
+ },
+ "ishaq": {
+  "text": "إِسْحَاق",
+  "key": "2033fb6e5e",
+  "source": "recited"
+ },
+ "yaqub": {
+  "text": "يَعْقُوب",
+  "key": "613d366c8c",
+  "source": "recited"
+ },
+ "harun": {
+  "text": "هَارُون",
+  "key": "c16d3080b7",
+  "source": "recited"
+ },
+ "sulayman": {
+  "text": "سُلَيْمَان",
+  "key": "fd1094a5cd",
+  "source": "recited"
+ },
+ "ayyub": {
+  "text": "أَيُّوب",
+  "key": "1582dc057f",
+  "source": "recited"
+ },
+ "yunus": {
+  "text": "يُونُس",
+  "key": "a141d3eee9",
+  "source": "recited"
+ },
+ "zakariyya": {
+  "text": "زَكَرِيَّا",
+  "key": "f0a0bcfc32",
+  "source": "recited"
+ },
+ "yahya": {
+  "text": "يَحْيَى",
+  "key": "583c8243be",
+  "source": "recited"
+ },
+ "mikaail": {
+  "text": "مِيكَال",
+  "key": "ffb571388d",
+  "source": "manual"
+ },
+ "israfil": {
+  "text": "إِسْرَافِيل",
+  "key": "e24b257489",
+  "source": "manual"
+ },
+ "azrail": {
+  "text": "عَزْرَائِيل",
+  "key": "144cb10c26",
+  "source": "manual"
+ },
+ "az-zabur": {
+  "text": "الزَّبُور",
+  "key": "16e378d7f2",
+  "source": "recited"
+ },
+ "as-suhuf": {
+  "text": "الصُّحُف",
+  "key": "cca06ea7fe",
+  "source": "recited"
+ },
+ "al-lawh-al-mahfuz": {
+  "text": "اللَّوْحُ الْمَحْفُوظ",
+  "key": "8f852f7c9e",
+  "source": "manual"
+ },
+ "umm-al-kitab": {
+  "text": "أُمُّ الْكِتَاب",
+  "key": "6f0c6b124c",
+  "source": "manual"
+ },
+ "al-munafiqun": {
+  "text": "الْمُنَافِقُون",
+  "key": "68c5011e04",
+  "source": "recited"
+ },
+ "al-mushrikun": {
+  "text": "الْمُشْرِكُون",
+  "key": "c67355ffea",
+  "source": "recited"
+ },
+ "al-yahud": {
+  "text": "الْيَهُود",
+  "key": "62d37fc31f",
+  "source": "recited"
+ },
+ "an-nasara": {
+  "text": "النَّصَارَى",
+  "key": "372d46cc93",
+  "source": "recited"
+ },
+ "al-majus": {
+  "text": "الْمَجُوس",
+  "key": "5ca84a4940",
+  "source": "lemma"
+ },
+ "as-sabiun": {
+  "text": "الصَّابِئُون",
+  "key": "080f8bae36",
+  "source": "manual"
+ },
+ "an-nas": {
+  "text": "النَّاس",
+  "key": "87def4fbec",
+  "source": "recited"
+ },
+ "al-bashar": {
+  "text": "الْبَشَر",
+  "key": "75921dc9d7",
+  "source": "recited"
+ },
+ "al-insan": {
+  "text": "الْإِنْسَان",
+  "key": "3b2539a4cb",
+  "source": "recited"
+ },
+ "as-salah-righteousness": {
+  "text": "الصَّلَاح",
+  "key": "3d1f10c0e2",
+  "source": "manual"
+ },
+ "al-kidhb": {
+  "text": "الْكَذِب",
+  "key": "28fd1e7e34",
+  "source": "recited"
+ },
+ "al-khiyanah": {
+  "text": "الْخِيَانَة",
+  "key": "f15a691e9d",
+  "source": "lemma"
+ },
+ "al-haya": {
+  "text": "الْحَيَاء",
+  "key": "112f316b1d",
+  "source": "manual"
+ },
+ "at-tawadu": {
+  "text": "التَّوَاضُع",
+  "key": "bdc444eb7f",
+  "source": "manual"
+ },
+ "al-kibr": {
+  "text": "الْكِبْر",
+  "key": "d3307ba3d6",
+  "source": "lemma"
+ },
+ "al-hasad": {
+  "text": "الْحَسَد",
+  "key": "a7b8f0b042",
+  "source": "lemma"
+ },
+ "al-ghadab": {
+  "text": "الْغَضَب",
+  "key": "195ed34a61",
+  "source": "recited"
+ },
+ "al-amal": {
+  "text": "الْعَمَل",
+  "key": "fc2ae26a53",
+  "source": "lemma"
+ },
+ "al-aamal": {
+  "text": "الْأَعْمَال",
+  "key": "81457df208",
+  "source": "manual"
+ },
+ "al-hasanat": {
+  "text": "الْحَسَنَات",
+  "key": "a1f3181f26",
+  "source": "recited"
+ },
+ "as-sayyiat": {
+  "text": "السَّيِّئَات",
+  "key": "13fb30417b",
+  "source": "manual"
+ },
+ "at-taah": {
+  "text": "الطَّاعَة",
+  "key": "80af60405f",
+  "source": "lemma"
+ },
+ "al-masiyah": {
+  "text": "الْمَعْصِيَة",
+  "key": "c974fe1657",
+  "source": "manual"
+ },
+ "fi": {
+  "text": "فِي",
+  "key": "5f6b019f66",
+  "source": "recited"
+ },
+ "min": {
+  "text": "مِنْ",
+  "key": "0457b3622f",
+  "source": "manual"
+ },
+ "ila": {
+  "text": "إِلَى",
+  "key": "1fdea00ced",
+  "source": "recited"
+ },
+ "ala": {
+  "text": "عَلَى",
+  "key": "56774bf67c",
+  "source": "recited"
+ },
+ "an": {
+  "text": "عَنْ",
+  "key": "df4409ae40",
+  "source": "manual"
+ },
+ "maa": {
+  "text": "مَعَ",
+  "key": "dff2e02108",
+  "source": "manual"
+ },
+ "bad": {
+  "text": "بَعْد",
+  "key": "ba261af639",
+  "source": "recited"
+ },
+ "qabl": {
+  "text": "قَبْل",
+  "key": "eb8a38bba7",
+  "source": "recited"
+ },
+ "bismillah-ir-rahman-ir-raheem": {
+  "text": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيم",
+  "key": "feb7cd8ad6",
+  "source": "manual"
+ },
+ "al-hamdu-lillahi-rabbil-alameen": {
+  "text": "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِين",
+  "key": "12c7cf273a",
+  "source": "manual"
+ },
+ "la-ilaha-illa-allah": {
+  "text": "لَا إِلَٰهَ إِلَّا اللَّه",
+  "key": "f32f93a52e",
+  "source": "manual"
+ },
+ "allahu-akbar": {
+  "text": "اللَّهُ أَكْبَر",
+  "key": "5abd083ed1",
+  "source": "manual"
+ },
+ "subhan-allah": {
+  "text": "سُبْحَانَ اللَّه",
+  "key": "49d2717105",
+  "source": "manual"
+ },
+ "in-sha-allah": {
+  "text": "إِنْ شَاءَ اللَّه",
+  "key": "b35b4ad818",
+  "source": "manual"
+ },
+ "as-sahab": {
+  "text": "السَّحَاب",
+  "key": "f88dadd0cb",
+  "source": "recited"
+ },
+ "al-barq": {
+  "text": "الْبَرْق",
+  "key": "8279a3c24f",
+  "source": "recited"
+ },
+ "ar-rad": {
+  "text": "الرَّعْد",
+  "key": "fcbff677c1",
+  "source": "recited"
+ },
+ "ath-thalj": {
+  "text": "الثَّلْج",
+  "key": "b3ff31e3ac",
+  "source": "manual"
+ },
+ "al-barad": {
+  "text": "الْبَرَد",
+  "key": "49a4bef0d6",
+  "source": "lemma"
+ },
+ "at-turab": {
+  "text": "التُّرَاب",
+  "key": "cabcda4284",
+  "source": "recited"
+ },
+ "al-hawa": {
+  "text": "الْهَوَاء",
+  "key": "0a1ee3438b",
+  "source": "lemma"
+ },
+ "an-nabat": {
+  "text": "النَّبَات",
+  "key": "e65a3be1cc",
+  "source": "lemma"
+ },
+ "an-nafs": {
+  "text": "النَّفْس",
+  "key": "eb50c9e1e0",
+  "source": "recited"
+ },
+ "al-fam": {
+  "text": "الْفَم",
+  "key": "df910902d0",
+  "source": "manual"
+ },
+ "al-anf": {
+  "text": "الْأَنْف",
+  "key": "a69a325128",
+  "source": "lemma"
+ },
+ "ar-rijl": {
+  "text": "الرِّجْل",
+  "key": "86f342c3c6",
+  "source": "lemma"
+ },
+ "thamaniyah": {
+  "text": "ثَمَانِيَة",
+  "key": "74452910f8",
+  "source": "recited"
+ },
+ "tisah": {
+  "text": "تِسْعَة",
+  "key": "e464962e8a",
+  "source": "recited"
+ },
+ "ahad-ashar": {
+  "text": "أَحَدَ عَشَر",
+  "key": "3ad8ffc2ee",
+  "source": "manual"
+ },
+ "ithna-ashar": {
+  "text": "اِثْنَا عَشَر",
+  "key": "51963de933",
+  "source": "manual"
+ },
+ "ishrun": {
+  "text": "عِشْرُون",
+  "key": "4e00d2d5f4",
+  "source": "recited"
+ },
+ "sharq": {
+  "text": "شَرْق",
+  "key": "e868b6a3a5",
+  "source": "manual"
+ },
+ "gharb": {
+  "text": "غَرْب",
+  "key": "c9f08059f7",
+  "source": "manual"
+ },
+ "shamal": {
+  "text": "شَمَال",
+  "key": "07efca5b34",
+  "source": "manual"
+ },
+ "janub": {
+  "text": "جَنُوب",
+  "key": "98aa8c732c",
+  "source": "manual"
+ },
+ "yameen": {
+  "text": "يَمِين",
+  "key": "18b18714f1",
+  "source": "recited"
+ },
+ "shimal": {
+  "text": "شِمَال",
+  "key": "d9c2abaa6b",
+  "source": "lemma"
+ },
+ "kana": {
+  "text": "كَانَ",
+  "key": "b28d66ce40",
+  "source": "recited"
+ },
+ "qala": {
+  "text": "قَالَ",
+  "key": "987cc311e5",
+  "source": "recited"
+ },
+ "faala": {
+  "text": "فَعَلَ",
+  "key": "0c9b3b2888",
+  "source": "recited"
+ },
+ "dhahaba": {
+  "text": "ذَهَبَ",
+  "key": "173d0dd723",
+  "source": "recited"
+ },
+ "jaa": {
+  "text": "جَاءَ",
+  "key": "843bffaf2c",
+  "source": "recited"
+ },
+ "alima": {
+  "text": "عَلِمَ",
+  "key": "1785aab87d",
+  "source": "recited"
+ },
+ "raa": {
+  "text": "رَأَى",
+  "key": "24c61850a7",
+  "source": "manual"
+ },
+ "samia": {
+  "text": "سَمِعَ",
+  "key": "ca86b6804c",
+  "source": "recited"
+ },
+ "shaa": {
+  "text": "شَاءَ",
+  "key": "b22f43e7e0",
+  "source": "lemma"
+ },
+ "ghayb": {
+  "text": "غَيْب",
+  "key": "590f95e23b",
+  "source": "lemma"
+ },
+ "arsh": {
+  "text": "عَرْش",
+  "key": "5de38ec387",
+  "source": "lemma"
+ },
+ "shafaah": {
+  "text": "شَفَاعَة",
+  "key": "4d10b08a6f",
+  "source": "lemma"
+ },
+ "mithaq": {
+  "text": "مِيثَاق",
+  "key": "0e65fe45ac",
+  "source": "lemma"
+ },
+ "fitrah": {
+  "text": "فِطْرَة",
+  "key": "cd053fc469",
+  "source": "headword"
+ },
+ "adalla": {
+  "text": "أَضَلَّ",
+  "key": "1bd493af5a",
+  "source": "headword"
+ },
+ "hada": {
+  "text": "هَدَى",
+  "key": "d5ef47f2ec",
+  "source": "lemma"
+ },
+ "qada": {
+  "text": "قَضَى",
+  "key": "77d10e432f",
+  "source": "lemma"
+ },
+ "ajal": {
+  "text": "أَجَل",
+  "key": "7c537a2c88",
+  "source": "lemma"
+ },
+ "sunnah": {
+  "text": "سُنَّة",
+  "key": "d6f4ea7c5e",
+  "source": "headword"
+ },
+ "malakut": {
+  "text": "مَلَكُوت",
+  "key": "0672af1818",
+  "source": "lemma"
+ },
+ "baqarah": {
+  "text": "بَقَرَة",
+  "key": "df8cfb83ac",
+  "source": "lemma"
+ },
+ "kalb": {
+  "text": "كَلْب",
+  "key": "2fbff02076",
+  "source": "lemma"
+ },
+ "fil": {
+  "text": "فِيل",
+  "key": "40deb45a8f",
+  "source": "lemma"
+ },
+ "naml": {
+  "text": "نَمْل",
+  "key": "de58bf2aca",
+  "source": "lemma"
+ },
+ "nahl": {
+  "text": "نَحْل",
+  "key": "d8027c8b8d",
+  "source": "lemma"
+ },
+ "ankabut": {
+  "text": "عَنْكَبُوت",
+  "key": "37b7ee75c4",
+  "source": "lemma"
+ },
+ "hut": {
+  "text": "حُوت",
+  "key": "1987ede0d7",
+  "source": "lemma"
+ },
+ "ghurab": {
+  "text": "غُرَاب",
+  "key": "04448fd563",
+  "source": "lemma"
+ },
+ "hudhud": {
+  "text": "هُدْهُد",
+  "key": "d3019aada0",
+  "source": "lemma"
+ },
+ "dhib": {
+  "text": "ذِئْب",
+  "key": "9a31e867b9",
+  "source": "lemma"
+ },
+ "himar": {
+  "text": "حِمَار",
+  "key": "3aa5c49239",
+  "source": "lemma"
+ },
+ "khayl": {
+  "text": "خَيْل",
+  "key": "69f2eb62c5",
+  "source": "lemma"
+ },
+ "naqah": {
+  "text": "نَاقَة",
+  "key": "4109fd3209",
+  "source": "lemma"
+ },
+ "ghanam": {
+  "text": "غَنَم",
+  "key": "05798c8949",
+  "source": "lemma"
+ },
+ "dhubab": {
+  "text": "ذُبَاب",
+  "key": "029c2216ba",
+  "source": "lemma"
+ },
+ "thuban": {
+  "text": "ثُعْبَان",
+  "key": "4d777e5211",
+  "source": "lemma"
+ },
+ "jarad": {
+  "text": "جَرَاد",
+  "key": "e079709afe",
+  "source": "lemma"
+ },
+ "tayr": {
+  "text": "طَيْر",
+  "key": "624675b3ae",
+  "source": "lemma"
+ },
+ "anam": {
+  "text": "أَنْعَام",
+  "key": "5ada55bce9",
+  "source": "headword"
+ },
+ "dabbah": {
+  "text": "دَابَّة",
+  "key": "b910fe280b",
+  "source": "headword"
+ },
+ "dayf": {
+  "text": "ضَيْف",
+  "key": "18dc61368f",
+  "source": "lemma"
+ },
+ "quraysh": {
+  "text": "قُرَيْش",
+  "key": "dd0811ba9f",
+  "source": "lemma"
+ },
+ "ilaf": {
+  "text": "إِيلَاف",
+  "key": "d2a5e4e3fa",
+  "source": "headword"
+ },
+ "shair": {
+  "text": "شَاعِر",
+  "key": "4e531a2463",
+  "source": "lemma"
+ },
+ "qabail": {
+  "text": "قَبَائِل",
+  "key": "69aed614cb",
+  "source": "lemma"
+ },
+ "asnam": {
+  "text": "أَصْنَام",
+  "key": "9082512236",
+  "source": "lemma"
+ },
+ "al-lat": {
+  "text": "اللَّات",
+  "key": "9e9bd75732",
+  "source": "headword"
+ },
+ "al-uzza": {
+  "text": "الْعُزَّى",
+  "key": "1ca4b707e4",
+  "source": "headword"
+ },
+ "manat": {
+  "text": "مَنَاة",
+  "key": "0101624cdc",
+  "source": "lemma"
+ },
+ "mawudah": {
+  "text": "مَوْءُودَة",
+  "key": "c3a025473f",
+  "source": "manual"
+ },
+ "ibil": {
+  "text": "إِبِل",
+  "key": "b90d615ead",
+  "source": "lemma"
+ },
+ "aswaq": {
+  "text": "أَسْوَاق",
+  "key": "618dd2cf21",
+  "source": "headword"
+ },
+ "azlam": {
+  "text": "أَزْلَام",
+  "key": "4076a84ece",
+  "source": "lemma"
+ },
+ "maysir": {
+  "text": "مَيْسِر",
+  "key": "7bc2c0ac77",
+  "source": "lemma"
+ },
+ "ashirah": {
+  "text": "عَشِيرَة",
+  "key": "a4907d806c",
+  "source": "headword"
+ },
+ "arab": {
+  "text": "أَعْرَاب",
+  "key": "8e87e8ae2a",
+  "source": "lemma"
+ },
+ "bayt": {
+  "text": "بَيْت",
+  "key": "999292f7cc",
+  "source": "lemma"
+ },
+ "masjid": {
+  "text": "مَسْجِد",
+  "key": "087ed82fc8",
+  "source": "lemma"
+ },
+ "kabah": {
+  "text": "كَعْبَة",
+  "key": "d7fd0d09e2",
+  "source": "lemma"
+ },
+ "masakin": {
+  "text": "مَسْكَن",
+  "key": "7fb2280328",
+  "source": "lemma"
+ },
+ "bana": {
+  "text": "بَنَى",
+  "key": "30fc0ea274",
+  "source": "lemma"
+ },
+ "bunyan": {
+  "text": "بُنْيَان",
+  "key": "dad575d021",
+  "source": "lemma"
+ },
+ "qawaid": {
+  "text": "قَوَاعِد",
+  "key": "02a764d5cf",
+  "source": "lemma"
+ },
+ "saqf": {
+  "text": "سَقْف",
+  "key": "5195f6c96b",
+  "source": "lemma"
+ },
+ "jidar": {
+  "text": "جِدَار",
+  "key": "8c8ecadf4f",
+  "source": "lemma"
+ },
+ "sur": {
+  "text": "سُور",
+  "key": "5d82861faa",
+  "source": "lemma"
+ },
+ "sadd": {
+  "text": "سَدّ",
+  "key": "b02809eb37",
+  "source": "lemma"
+ },
+ "qasr": {
+  "text": "قَصْر",
+  "key": "11ab6eb0de",
+  "source": "lemma"
+ },
+ "sarh": {
+  "text": "صَرْح",
+  "key": "93342274bc",
+  "source": "lemma"
+ },
+ "masani": {
+  "text": "مَصَانِع",
+  "key": "6fd6d51770",
+  "source": "lemma"
+ },
+ "ghurfah": {
+  "text": "غُرْفَة",
+  "key": "dfb207c2ad",
+  "source": "lemma"
+ },
+ "mihrab": {
+  "text": "مِحْرَاب",
+  "key": "7160c79208",
+  "source": "lemma"
+ },
+ "amad": {
+  "text": "عَمَد",
+  "key": "fd0474140e",
+  "source": "lemma"
+ },
+ "imad": {
+  "text": "عِمَاد",
+  "key": "e4dd83c730",
+  "source": "lemma"
+ },
+ "sullam": {
+  "text": "سُلَّم",
+  "key": "5b016a8885",
+  "source": "headword"
+ },
+ "kataba": {
+  "text": "كَتَبَ",
+  "key": "43ad29c600",
+  "source": "lemma"
+ },
+ "qaraa": {
+  "text": "قَرَأَ",
+  "key": "d31dfd6b65",
+  "source": "lemma"
+ },
+ "ayah": {
+  "text": "آيَة",
+  "key": "c8c51c1578",
+  "source": "lemma"
+ },
+ "surah": {
+  "text": "سُورَة",
+  "key": "d746ee86ef",
+  "source": "lemma"
+ },
+ "qalam": {
+  "text": "قَلَم",
+  "key": "8186cb2e3b",
+  "source": "lemma"
+ },
+ "katib": {
+  "text": "كَاتِب",
+  "key": "336bdfc6da",
+  "source": "lemma"
+ },
+ "tanzil": {
+  "text": "تَنْزِيل",
+  "key": "ee2290aeb0",
+  "source": "lemma"
+ },
+ "tala": {
+  "text": "تَلَى",
+  "key": "56bc7b69b2",
+  "source": "lemma"
+ },
+ "qirtas": {
+  "text": "قِرْطَاس",
+  "key": "58f8ddfea1",
+  "source": "lemma"
+ },
+ "midad": {
+  "text": "مِدَاد",
+  "key": "7dccc6a778",
+  "source": "lemma"
+ },
+ "tijarah": {
+  "text": "تِجَارَة",
+  "key": "760cc0713b",
+  "source": "lemma"
+ },
+ "bay": {
+  "text": "بَيْع",
+  "key": "025228e4ac",
+  "source": "lemma"
+ },
+ "ishtara": {
+  "text": "اِشْتَرَى",
+  "key": "6dd998a27e",
+  "source": "lemma"
+ },
+ "shara": {
+  "text": "شَرَى",
+  "key": "19222878b4",
+  "source": "headword"
+ },
+ "rabiha": {
+  "text": "رَبِحَ",
+  "key": "b8e6a628fc",
+  "source": "headword"
+ },
+ "mal": {
+  "text": "مَال",
+  "key": "036a488257",
+  "source": "lemma"
+ },
+ "kanz": {
+  "text": "كَنْز",
+  "key": "8b1d392d60",
+  "source": "lemma"
+ },
+ "darahim": {
+  "text": "دَرَاهِم",
+  "key": "1bd3f5462b",
+  "source": "lemma"
+ },
+ "qard": {
+  "text": "قَرْض",
+  "key": "29e9aacc70",
+  "source": "lemma"
+ },
+ "maghram": {
+  "text": "مَغْرَم",
+  "key": "80f4009660",
+  "source": "lemma"
+ },
+ "riba": {
+  "text": "رِبَا",
+  "key": "992c3dc8ea",
+  "source": "lemma"
+ },
+ "ajr": {
+  "text": "أَجْر",
+  "key": "85fb570434",
+  "source": "lemma"
+ },
+ "sadaqah": {
+  "text": "صَدَقَة",
+  "key": "e9361da64f",
+  "source": "lemma"
+ },
+ "kayl": {
+  "text": "كَيْل",
+  "key": "768e3c6958",
+  "source": "lemma"
+ },
+ "wazn": {
+  "text": "وَزْن",
+  "key": "c4cf109861",
+  "source": "lemma"
+ },
+ "mutaffifin": {
+  "text": "مُطَفِّفِين",
+  "key": "3948ccf267",
+  "source": "headword"
+ },
+ "libas": {
+  "text": "لِبَاس",
+  "key": "918905b3c8",
+  "source": "lemma"
+ },
+ "thiyab": {
+  "text": "ثِيَاب",
+  "key": "54f19a7cf4",
+  "source": "lemma"
+ },
+ "ziynah": {
+  "text": "زِينَة",
+  "key": "d54ae850ec",
+  "source": "lemma"
+ },
+ "rish": {
+  "text": "رِيش",
+  "key": "a5de103e4e",
+  "source": "lemma"
+ },
+ "qamis": {
+  "text": "قَمِيص",
+  "key": "81c077ede8",
+  "source": "lemma"
+ },
+ "jalabib": {
+  "text": "جَلَابِيب",
+  "key": "d0ffb8ac6b",
+  "source": "lemma"
+ },
+ "sarabil": {
+  "text": "سَرَابِيل",
+  "key": "44e6d47c25",
+  "source": "lemma"
+ },
+ "labus": {
+  "text": "لَبُوس",
+  "key": "da0453c15e",
+  "source": "lemma"
+ },
+ "naalayn": {
+  "text": "نَعْلَيْن",
+  "key": "e27e2ba9c7",
+  "source": "headword"
+ },
+ "harir": {
+  "text": "حَرِير",
+  "key": "ff67eb9935",
+  "source": "lemma"
+ },
+ "sundus": {
+  "text": "سُنْدُس",
+  "key": "866843fbb6",
+  "source": "lemma"
+ },
+ "istabraq": {
+  "text": "إِسْتَبْرَق",
+  "key": "a2bf5a880a",
+  "source": "lemma"
+ },
+ "asawir": {
+  "text": "أَسَاوِر",
+  "key": "9baeb5d2b8",
+  "source": "lemma"
+ },
+ "dhahab": {
+  "text": "ذَهَب",
+  "key": "2b094d2242",
+  "source": "lemma"
+ },
+ "fiddah": {
+  "text": "فِضَّة",
+  "key": "24e541377d",
+  "source": "headword"
+ },
+ "lulu": {
+  "text": "لُؤْلُؤ",
+  "key": "b8677fc0c6",
+  "source": "lemma"
+ },
+ "marjan": {
+  "text": "مَرْجَان",
+  "key": "5b8b83efcd",
+  "source": "lemma"
+ },
+ "hilyah": {
+  "text": "حِلْيَة",
+  "key": "75bb732586",
+  "source": "lemma"
+ },
+ "rabb": {
+  "text": "رَبّ",
+  "key": "fff967b7bc",
+  "source": "lemma"
+ },
+ "illa": {
+  "text": "إِلَّا",
+  "key": "e9e10c5511",
+  "source": "headword"
+ },
+ "kalla": {
+  "text": "كَلَّا",
+  "key": "a62d87f455",
+  "source": "headword"
+ },
+ "yawmaidhin": {
+  "text": "يَوْمَئِذٍ",
+  "key": "064d3349ba",
+  "source": "headword"
+ },
+ "khalaqa": {
+  "text": "خَلَقَ",
+  "key": "9fcab8d9ed",
+  "source": "lemma"
+ },
+ "amma": {
+  "text": "أَمَّا",
+  "key": "676f49579b",
+  "source": "headword"
+ },
+ "kadhdhaba": {
+  "text": "كَذَّبَ",
+  "key": "beaa183351",
+  "source": "headword"
+ },
+ "dhu": {
+  "text": "ذُو",
+  "key": "12eaa702e8",
+  "source": "lemma"
+ },
+ "din": {
+  "text": "دِين",
+  "key": "a506e80816",
+  "source": "lemma"
+ },
+ "adra": {
+  "text": "أَدْرَى",
+  "key": "0c83e3b06c",
+  "source": "lemma"
+ },
+ "an-that": {
+  "text": "أَنْ",
+  "key": "46f62dcdea",
+  "source": "headword"
+ },
+ "jaala": {
+  "text": "جَعَلَ",
+  "key": "cc51141190",
+  "source": "lemma"
+ },
+ "kull": {
+  "text": "كُلّ",
+  "key": "4c24973034",
+  "source": "lemma"
+ },
+ "amila": {
+  "text": "عَمِلَ",
+  "key": "1329447a70",
+  "source": "lemma"
+ },
+ "kafara": {
+  "text": "كَفَرَ",
+  "key": "b33be4bc61",
+  "source": "lemma"
+ },
+ "aw": {
+  "text": "أَوْ",
+  "key": "89fe53e985",
+  "source": "headword"
+ },
+ "nazara": {
+  "text": "نَظَرَ",
+  "key": "5678adaa9f",
+  "source": "lemma"
+ },
+ "sawfa": {
+  "text": "سَوْفَ",
+  "key": "5cca253773",
+  "source": "headword"
+ },
+ "khashiya": {
+  "text": "خَشِيَ",
+  "key": "62f1e8b595",
+  "source": "lemma"
+ },
+ "saliya": {
+  "text": "صَلِيَ",
+  "key": "1480b2cfd3",
+  "source": "headword"
+ },
+ "anna": {
+  "text": "أَنَّ",
+  "key": "d60e7f5f4a",
+  "source": "headword"
+ },
+ "aata": {
+  "text": "آتَى",
+  "key": "03a207122e",
+  "source": "headword"
+ },
+ "ata": {
+  "text": "أَتَى",
+  "key": "3d98b7613f",
+  "source": "lemma"
+ },
+ "ulaika": {
+  "text": "أُولَٰئِكَ",
+  "key": "f99bd882fd",
+  "source": "manual"
+ },
+ "ahl": {
+  "text": "أَهْل",
+  "key": "e0d7e9ff64",
+  "source": "lemma"
+ },
+ "akhraja": {
+  "text": "أَخْرَجَ",
+  "key": "7c9f0e6da6",
+  "source": "lemma"
+ },
+ "awwal": {
+  "text": "أَوَّل",
+  "key": "a9219b871d",
+  "source": "headword"
+ },
+ "salihat": {
+  "text": "صَالِحَات",
+  "key": "201110b6ef",
+  "source": "lemma"
+ },
+ "balad": {
+  "text": "بَلَد",
+  "key": "7eedc847fe",
+  "source": "lemma"
+ },
+ "sawwa": {
+  "text": "سَوَّى",
+  "key": "8aade8cbae",
+  "source": "headword"
+ },
+ "tazakka": {
+  "text": "تَزَكَّى",
+  "key": "eaad4645ad",
+  "source": "headword"
+ },
+ "shay": {
+  "text": "شَيْء",
+  "key": "50ba721a75",
+  "source": "lemma"
+ },
+ "ashab": {
+  "text": "أَصْحَاب",
+  "key": "ef53a10502",
+  "source": "lemma"
+ },
+ "tawalla": {
+  "text": "تَوَلَّى",
+  "key": "8a2ef1f264",
+  "source": "headword"
+ },
+ "tadhakkara": {
+  "text": "تَذَكَّرَ",
+  "key": "ad479ca875",
+  "source": "headword"
+ },
+ "wayl": {
+  "text": "وَيْل",
+  "key": "2a872f8ac7",
+  "source": "lemma"
+ },
+ "radiya": {
+  "text": "رَضِيَ",
+  "key": "38f8a48777",
+  "source": "lemma"
+ },
+ "karim": {
+  "text": "كَرِيم",
+  "key": "cd739766e2",
+  "source": "lemma"
+ },
+ "dhikra": {
+  "text": "ذِكْرَى",
+  "key": "ade83c92d5",
+  "source": "lemma"
+ },
+ "naim": {
+  "text": "نَعِيم",
+  "key": "37cda04817",
+  "source": "lemma"
+ },
+ "tagha": {
+  "text": "طَغَى",
+  "key": "de09801931",
+  "source": "lemma"
+ },
+ "yassara": {
+  "text": "يَسَّرَ",
+  "key": "0f028def09",
+  "source": "headword"
+ },
+ "hamd": {
+  "text": "حَمْد",
+  "key": "61f6d7d1e2",
+  "source": "lemma"
+ },
+ "qadr": {
+  "text": "قَدْر",
+  "key": "e411d7c233",
+  "source": "lemma"
+ },
+ "laylah": {
+  "text": "لَيْلَة",
+  "key": "19ce94e161",
+  "source": "lemma"
+ },
+ "walada": {
+  "text": "وَلَدَ",
+  "key": "9e1cb29131",
+  "source": "lemma"
+ },
+ "bayna": {
+  "text": "بَيْنَ",
+  "key": "b95b7e6a71",
+  "source": "headword"
+ },
+ "idh": {
+  "text": "إِذْ",
+  "key": "cd1ad51a8b",
+  "source": "headword"
+ },
+ "inda": {
+  "text": "عِنْدَ",
+  "key": "26b1b5d320",
+  "source": "manual"
+ },
+ "anzala": {
+  "text": "أَنْزَلَ",
+  "key": "501187dcde",
+  "source": "lemma"
+ },
+ "daa": {
+  "text": "دَعَا",
+  "key": "d7992ab5e5",
+  "source": "lemma"
+ },
+ "ittaqa": {
+  "text": "اِتَّقَى",
+  "key": "6d0a55eac5",
+  "source": "headword"
+ },
+ "bad-some": {
+  "text": "بَعْض",
+  "key": "84ed16af82",
+  "source": "lemma"
+ },
+ "lamma": {
+  "text": "لَمَّا",
+  "key": "ae1aa05b5c",
+  "source": "headword"
+ },
+ "ayyuha": {
+  "text": "أَيُّهَا",
+  "key": "697a40bb1f",
+  "source": "headword"
+ },
+ "ghayr": {
+  "text": "غَيْر",
+  "key": "87cf490010",
+  "source": "lemma"
+ },
+ "ilah": {
+  "text": "إِلَٰه",
+  "key": "bd673752ea",
+  "source": "manual"
+ },
+ "duna": {
+  "text": "دُونَ",
+  "key": "400fe3f185",
+  "source": "manual"
+ },
+ "hatta": {
+  "text": "حَتَّى",
+  "key": "cce3ea0d18",
+  "source": "headword"
+ },
+ "arada": {
+  "text": "أَرَادَ",
+  "key": "d4debdea55",
+  "source": "lemma"
+ },
+ "am": {
+  "text": "أَمْ",
+  "key": "59c0ef3472",
+  "source": "headword"
+ },
+ "ittabaa": {
+  "text": "اِتَّبَعَ",
+  "key": "603533b71f",
+  "source": "headword"
+ },
+ "arsala": {
+  "text": "أَرْسَلَ",
+  "key": "ba1337a418",
+  "source": "lemma"
+ },
+ "zalim": {
+  "text": "ظَالِم",
+  "key": "a049f9c403",
+  "source": "lemma"
+ },
+ "akhadha": {
+  "text": "أَخَذَ",
+  "key": "72145bdf72",
+  "source": "lemma"
+ },
+ "ittakhadha": {
+  "text": "اِتَّخَذَ",
+  "key": "b4fe9b9c20",
+  "source": "headword"
+ },
+ "hadid": {
+  "text": "حَدِيد",
+  "key": "e88f65a848",
+  "source": "lemma"
+ },
+ "sanaa": {
+  "text": "صَنَعَ",
+  "key": "c106eeba77",
+  "source": "headword"
+ },
+ "tin": {
+  "text": "طِين",
+  "key": "18a5c3e57c",
+  "source": "lemma"
+ },
+ "fakhkhar": {
+  "text": "فَخَّار",
+  "key": "5833d46eeb",
+  "source": "headword"
+ },
+ "qitr": {
+  "text": "قِطْر",
+  "key": "1f5e99be5f",
+  "source": "lemma"
+ },
+ "sard": {
+  "text": "سَرْد",
+  "key": "3431269191",
+  "source": "lemma"
+ },
+ "sabighat": {
+  "text": "سَابِغَات",
+  "key": "18fae133c1",
+  "source": "lemma"
+ },
+ "harth": {
+  "text": "حَرْث",
+  "key": "f1ce0b9b6b",
+  "source": "lemma"
+ },
+ "zaraa": {
+  "text": "زَرَعَ",
+  "key": "f0848c982d",
+  "source": "headword"
+ },
+ "raa-pasture": {
+  "text": "رَعَى",
+  "key": "e9895605fa",
+  "source": "headword"
+ },
+ "ghawwas": {
+  "text": "غَوَّاص",
+  "key": "8a9a200100",
+  "source": "headword"
+ },
+ "bannaa": {
+  "text": "بَنَّاء",
+  "key": "3df9149654",
+  "source": "headword"
+ },
+ "sayd": {
+  "text": "صَيْد",
+  "key": "6d0fe68417",
+  "source": "lemma"
+ },
+ "akala": {
+  "text": "أَكَلَ",
+  "key": "b6be2024a4",
+  "source": "lemma"
+ },
+ "shariba": {
+  "text": "شَرِبَ",
+  "key": "1a540c49b9",
+  "source": "lemma"
+ },
+ "taam": {
+  "text": "طَعَام",
+  "key": "092cea5123",
+  "source": "lemma"
+ },
+ "khubz": {
+  "text": "خُبْز",
+  "key": "5372fe2cca",
+  "source": "lemma"
+ },
+ "laban": {
+  "text": "لَبَن",
+  "key": "8f77ed7617",
+  "source": "lemma"
+ },
+ "ghada": {
+  "text": "غَدَاء",
+  "key": "11e59e7be1",
+  "source": "lemma"
+ },
+ "nawm": {
+  "text": "نَوْم",
+  "key": "d8c522b7ad",
+  "source": "lemma"
+ },
+ "masha": {
+  "text": "مَشَى",
+  "key": "ba467ebeb4",
+  "source": "headword"
+ },
+ "qaada": {
+  "text": "قَعَدَ",
+  "key": "fb6adb25e6",
+  "source": "lemma"
+ },
+ "bab": {
+  "text": "بَاب",
+  "key": "2837a6b46d",
+  "source": "lemma"
+ },
+ "surur": {
+  "text": "سُرُر",
+  "key": "55b77654be",
+  "source": "lemma"
+ },
+ "kas": {
+  "text": "كَأْس",
+  "key": "404f6d8fc8",
+  "source": "lemma"
+ },
+ "siraj": {
+  "text": "سِرَاج",
+  "key": "90c5cfd19d",
+  "source": "lemma"
+ },
+ "al-kabir": {
+  "text": "الْكَبِير",
+  "key": "e9f84a03d0",
+  "source": "lemma"
+ },
+ "al-hafiz": {
+  "text": "الْحَفِيظ",
+  "key": "a41d560a2f",
+  "source": "lemma"
+ },
+ "al-muqit": {
+  "text": "الْمُقِيت",
+  "key": "2c7be332f6",
+  "source": "lemma"
+ },
+ "al-hasib": {
+  "text": "الْحَسِيب",
+  "key": "6e4cbc794a",
+  "source": "lemma"
+ },
+ "ar-raqib": {
+  "text": "الرَّقِيب",
+  "key": "0016a9372c",
+  "source": "headword"
+ },
+ "al-mujib": {
+  "text": "الْمُجِيب",
+  "key": "0433b428eb",
+  "source": "lemma"
+ },
+ "al-wasi": {
+  "text": "الْوَاسِع",
+  "key": "901b4d5886",
+  "source": "lemma"
+ },
+ "al-wadud": {
+  "text": "الْوَدُود",
+  "key": "b116185003",
+  "source": "lemma"
+ },
+ "al-majid": {
+  "text": "الْمَجِيد",
+  "key": "75c7f9939f",
+  "source": "lemma"
+ },
+ "ash-shahid": {
+  "text": "الشَّهِيد",
+  "key": "d7ec661c85",
+  "source": "headword"
+ },
+ "al-wakil": {
+  "text": "الْوَكِيل",
+  "key": "2bb73e462b",
+  "source": "lemma"
+ },
+ "al-qawiyy": {
+  "text": "الْقَوِيّ",
+  "key": "a77f6fb3c9",
+  "source": "lemma"
+ },
+ "al-matin": {
+  "text": "الْمَتِين",
+  "key": "0bab5b3639",
+  "source": "lemma"
+ },
+ "al-waliyy": {
+  "text": "الْوَلِيّ",
+  "key": "c062893765",
+  "source": "lemma"
+ },
+ "al-hamid": {
+  "text": "الْحَمِيد",
+  "key": "d9309f7223",
+  "source": "lemma"
+ },
+ "al-muhyi": {
+  "text": "الْمُحْيِي",
+  "key": "4e1bf151e7",
+  "source": "headword"
+ },
+ "al-hayy": {
+  "text": "الْحَيّ",
+  "key": "9bd814b9d2",
+  "source": "lemma"
+ },
+ "al-qayyum": {
+  "text": "الْقَيُّوم",
+  "key": "eac17b7f99",
+  "source": "lemma"
+ },
+ "al-ahad": {
+  "text": "الْأَحَد",
+  "key": "7ae615a3ed",
+  "source": "lemma"
+ },
+ "as-samad": {
+  "text": "الصَّمَد",
+  "key": "b8921eb70c",
+  "source": "headword"
+ },
+ "al-qadir": {
+  "text": "الْقَادِر",
+  "key": "d26d2fa527",
+  "source": "lemma"
+ },
+ "al-muqtadir": {
+  "text": "الْمُقْتَدِر",
+  "key": "c62703d15c",
+  "source": "lemma"
+ },
+ "al-akhir": {
+  "text": "الْآخِر",
+  "key": "79e3ed8007",
+  "source": "headword"
+ },
+ "az-zahir": {
+  "text": "الظَّاهِر",
+  "key": "5bfcfe34a3",
+  "source": "headword"
+ },
+ "al-batin": {
+  "text": "الْبَاطِن",
+  "key": "6e513a4b7b",
+  "source": "lemma"
+ },
+ "al-mutaali": {
+  "text": "الْمُتَعَالِي",
+  "key": "157f2b961c",
+  "source": "headword"
+ },
+ "al-barr": {
+  "text": "الْبَرّ",
+  "key": "019ec25fa4",
+  "source": "lemma"
+ },
+ "at-tawwab": {
+  "text": "التَّوَّاب",
+  "key": "cdd8c9a03b",
+  "source": "headword"
+ },
+ "al-muntaqim": {
+  "text": "الْمُنْتَقِم",
+  "key": "8bcce6818d",
+  "source": "headword"
+ },
+ "al-afuww": {
+  "text": "الْعَفُوّ",
+  "key": "91ec971704",
+  "source": "lemma"
+ },
+ "ar-rauf": {
+  "text": "الرَّءُوف",
+  "key": "c2173b43a2",
+  "source": "headword"
+ },
+ "malik-al-mulk": {
+  "text": "مَالِكُ الْمُلْك",
+  "key": "d9254410bb",
+  "source": "manual"
+ },
+ "dhul-jalali-wal-ikram": {
+  "text": "ذُو الْجَلَالِ وَالْإِكْرَام",
+  "key": "7b673120b7",
+  "source": "manual"
+ },
+ "al-jami": {
+  "text": "الْجَامِع",
+  "key": "908609aa48",
+  "source": "lemma"
+ },
+ "al-hadi": {
+  "text": "الْهَادِي",
+  "key": "c1d217c920",
+  "source": "lemma"
+ },
+ "al-badi": {
+  "text": "الْبَدِيع",
+  "key": "ad8b9d5e6a",
+  "source": "lemma"
+ },
+ "al-warith": {
+  "text": "الْوَارِث",
+  "key": "41bf166359",
+  "source": "lemma"
+ },
+ "allama": {
+  "text": "عَلَّمَ",
+  "key": "10f6f570a9",
+  "source": "headword"
+ },
+ "alamin": {
+  "text": "عَالَمِين",
+  "key": "8d0691eb32",
+  "source": "lemma"
+ },
+ "rahima": {
+  "text": "رَحِمَ",
+  "key": "0f710756c9",
+  "source": "lemma"
+ },
+ "arham": {
+  "text": "أَرْحَم",
+  "key": "c78f8d8f3e",
+  "source": "lemma"
+ },
+ "hukm": {
+  "text": "حُكْم",
+  "key": "72efa97f02",
+  "source": "lemma"
+ },
+ "ahkam": {
+  "text": "أَحْكَم",
+  "key": "059aaa7294",
+  "source": "lemma"
+ },
+ "abada": {
+  "text": "عَبَدَ",
+  "key": "6311dee5b5",
+  "source": "lemma"
+ },
+ "abd": {
+  "text": "عَبْد",
+  "key": "56e9746fb6",
+  "source": "lemma"
+ },
+ "umm": {
+  "text": "أُمّ",
+  "key": "881308ce8d",
+  "source": "lemma"
+ },
+ "ab": {
+  "text": "أَب",
+  "key": "53ae4f362e",
+  "source": "headword"
+ },
+ "aba": {
+  "text": "آبَاء",
+  "key": "5489448e09",
+  "source": "headword"
+ },
+ "walidayn": {
+  "text": "وَالِدَيْن",
+  "key": "0e3251a1cf",
+  "source": "headword"
+ },
+ "ibn": {
+  "text": "اِبْن",
+  "key": "918348a3d3",
+  "source": "lemma"
+ },
+ "banun": {
+  "text": "بَنُون",
+  "key": "eca90f6c73",
+  "source": "headword"
+ },
+ "banat": {
+  "text": "بَنَات",
+  "key": "a9fa7d5da1",
+  "source": "lemma"
+ },
+ "walad": {
+  "text": "وَلَد",
+  "key": "574ec5061f",
+  "source": "lemma"
+ },
+ "akh": {
+  "text": "أَخ",
+  "key": "322809bac5",
+  "source": "lemma"
+ },
+ "ikhwah": {
+  "text": "إِخْوَة",
+  "key": "824245a1c4",
+  "source": "headword"
+ },
+ "ukht": {
+  "text": "أُخْت",
+  "key": "7ec0366f04",
+  "source": "lemma"
+ },
+ "zawj": {
+  "text": "زَوْج",
+  "key": "0046b14066",
+  "source": "lemma"
+ },
+ "sahibah": {
+  "text": "صَاحِبَة",
+  "key": "88c93299d8",
+  "source": "lemma"
+ },
+ "nakaha": {
+  "text": "نَكَحَ",
+  "key": "5974453bd7",
+  "source": "lemma"
+ },
+ "talaq": {
+  "text": "طَلَاق",
+  "key": "e939df0d4a",
+  "source": "lemma"
+ },
+ "mawaddah": {
+  "text": "مَوَدَّة",
+  "key": "68cf242544",
+  "source": "headword"
+ },
+ "yatim": {
+  "text": "يَتِيم",
+  "key": "a3b29b1fdd",
+  "source": "lemma"
+ },
+ "qurba": {
+  "text": "قُرْبَى",
+  "key": "4f22aa1908",
+  "source": "lemma"
+ },
+ "arham-family": {
+  "text": "أَرْحَام",
+  "key": "3526c135b9",
+  "source": "lemma"
+ },
+ "mulk": {
+  "text": "مُلْك",
+  "key": "d8bfb94ddd",
+  "source": "lemma"
+ },
+ "hakama": {
+  "text": "حَكَمَ",
+  "key": "854f926cb2",
+  "source": "lemma"
+ },
+ "hakimin": {
+  "text": "حَاكِمِين",
+  "key": "f1f2486c16",
+  "source": "lemma"
+ },
+ "qist": {
+  "text": "قِسْط",
+  "key": "affd0e6f75",
+  "source": "lemma"
+ },
+ "shura": {
+  "text": "شُورَى",
+  "key": "8765a34444",
+  "source": "lemma"
+ },
+ "sultan": {
+  "text": "سُلْطَان",
+  "key": "f280533e45",
+  "source": "lemma"
+ },
+ "khalifah": {
+  "text": "خَلِيفَة",
+  "key": "418d964a1e",
+  "source": "lemma"
+ },
+ "amr": {
+  "text": "أَمْر",
+  "key": "5ff76e64d9",
+  "source": "lemma"
+ },
+ "amara": {
+  "text": "أَمَرَ",
+  "key": "236eac21b8",
+  "source": "lemma"
+ },
+ "mala": {
+  "text": "مَلَأ",
+  "key": "7935fde23a",
+  "source": "lemma"
+ },
+ "wazir": {
+  "text": "وَزِير",
+  "key": "c78ae84017",
+  "source": "lemma"
+ },
+ "hudud": {
+  "text": "حُدُود",
+  "key": "c67961b7a5",
+  "source": "lemma"
+ },
+ "bayaa": {
+  "text": "بَايَعَ",
+  "key": "92ac3d8990",
+  "source": "headword"
+ },
+ "inna": {
+  "text": "إِنَّ",
+  "key": "8c41a8da5c",
+  "source": "manual"
+ },
+ "lam": {
+  "text": "لَمْ",
+  "key": "aff4e18084",
+  "source": "manual"
+ },
+ "lan": {
+  "text": "لَنْ",
+  "key": "e84415467e",
+  "source": "manual"
+ },
+ "qad": {
+  "text": "قَدْ",
+  "key": "6da6423246",
+  "source": "manual"
+ },
+ "man": {
+  "text": "مَنْ",
+  "key": "cbbf08dfc0",
+  "source": "manual"
+ },
+ "ma": {
+  "text": "مَا",
+  "key": "6ed51b77c3",
+  "source": "lemma"
+ },
+ "alladhi": {
+  "text": "الَّذِي",
+  "key": "f677bd52c5",
+  "source": "headword"
+ },
+ "hadha": {
+  "text": "هَٰذَا",
+  "key": "666d484431",
+  "source": "manual"
+ },
+ "dhalika": {
+  "text": "ذَٰلِكَ",
+  "key": "72210a5aaf",
+  "source": "manual"
+ },
+ "kayfa": {
+  "text": "كَيْفَ",
+  "key": "983bbeae42",
+  "source": "manual"
+ },
+ "ayna": {
+  "text": "أَيْنَ",
+  "key": "873ad09024",
+  "source": "manual"
+ },
+ "mata": {
+  "text": "مَتَى",
+  "key": "8a6af9ce52",
+  "source": "lemma"
+ },
+ "idha": {
+  "text": "إِذَا",
+  "key": "44cfaf498a",
+  "source": "lemma"
+ },
+ "law": {
+  "text": "لَوْ",
+  "key": "1e8591131d",
+  "source": "manual"
+ },
+ "bal": {
+  "text": "بَلْ",
+  "key": "79fc113c0c",
+  "source": "manual"
+ },
+ "thumma": {
+  "text": "ثُمَّ",
+  "key": "c0cde72ebb",
+  "source": "manual"
+ },
+ "hal": {
+  "text": "هَلْ",
+  "key": "083fe20e96",
+  "source": "manual"
+ },
+ "la-negation": {
+  "text": "لَا",
+  "key": "434a1ca374",
+  "source": "lemma"
+ },
+ "in-conditional": {
+  "text": "إِنْ",
+  "key": "f9e98dd76e",
+  "source": "manual"
+ },
+ "marad": {
+  "text": "مَرَض",
+  "key": "c38157b8d6",
+  "source": "lemma"
+ },
+ "marid": {
+  "text": "مَرِيض",
+  "key": "f383d4086c",
+  "source": "lemma"
+ },
+ "marida": {
+  "text": "مَرِضَ",
+  "key": "89f5dcf561",
+  "source": "headword"
+ },
+ "saqim": {
+  "text": "سَقِيم",
+  "key": "1fcd831532",
+  "source": "lemma"
+ },
+ "shifa": {
+  "text": "شِفَاء",
+  "key": "af4587d00b",
+  "source": "lemma"
+ },
+ "yashfi": {
+  "text": "شَفَى",
+  "key": "abc1f50516",
+  "source": "headword"
+ },
+ "ama": {
+  "text": "أَعْمَى",
+  "key": "bb8cf1ade1",
+  "source": "lemma"
+ },
+ "asamm": {
+  "text": "أَصَمّ",
+  "key": "3264eed794",
+  "source": "lemma"
+ },
+ "abkam": {
+  "text": "أَبْكَم",
+  "key": "0d30d4f0f3",
+  "source": "lemma"
+ },
+ "araj": {
+  "text": "أَعْرَج",
+  "key": "5b794d80a2",
+  "source": "lemma"
+ },
+ "qarh": {
+  "text": "قَرْح",
+  "key": "708a6f9947",
+  "source": "lemma"
+ },
+ "durr": {
+  "text": "ضُرّ",
+  "key": "ff11e9b56e",
+  "source": "lemma"
+ },
+ "wahana": {
+  "text": "وَهَنَ",
+  "key": "2a730e3b18",
+  "source": "lemma"
+ },
+ "shayb": {
+  "text": "شَيْب",
+  "key": "8a18c09c19",
+  "source": "lemma"
+ },
+ "sadiq": {
+  "text": "صَادِق",
+  "key": "1d3a2cf812",
+  "source": "lemma"
+ },
+ "amanat": {
+  "text": "أَمَانَات",
+  "key": "641c101d12",
+  "source": "lemma"
+ },
+ "maruf": {
+  "text": "مَعْرُوف",
+  "key": "c114a03be2",
+  "source": "lemma"
+ },
+ "munkar": {
+  "text": "مُنْكَر",
+  "key": "5435999486",
+  "source": "lemma"
+ },
+ "fahishah": {
+  "text": "فَاحِشَة",
+  "key": "0141f2389b",
+  "source": "lemma"
+ },
+ "ithm": {
+  "text": "إِثْم",
+  "key": "f70413604a",
+  "source": "lemma"
+ },
+ "afa": {
+  "text": "عَفَا",
+  "key": "7040ea8cd5",
+  "source": "lemma"
+ },
+ "awfa": {
+  "text": "أَوْفَى",
+  "key": "c4935a416b",
+  "source": "lemma"
+ },
+ "ahd": {
+  "text": "عَهْد",
+  "key": "4709ad582d",
+  "source": "lemma"
+ },
+ "qawm": {
+  "text": "قَوْم",
+  "key": "3a719497e3",
+  "source": "lemma"
+ },
+ "shuub": {
+  "text": "شُعُوب",
+  "key": "5fce6141fd",
+  "source": "lemma"
+ },
+ "faqir": {
+  "text": "فَقِير",
+  "key": "2420444b45",
+  "source": "lemma"
+ },
+ "miskin": {
+  "text": "مِسْكِين",
+  "key": "4e4eb1b48b",
+  "source": "lemma"
+ },
+ "ghani": {
+  "text": "غَنِيّ",
+  "key": "f50860a759",
+  "source": "lemma"
+ },
+ "rajul": {
+  "text": "رَجُل",
+  "key": "4f4d649486",
+  "source": "lemma"
+ },
+ "nisa": {
+  "text": "نِسَاء",
+  "key": "2031392702",
+  "source": "lemma"
+ },
+ "shaykh": {
+  "text": "شَيْخ",
+  "key": "7e856e1e52",
+  "source": "lemma"
+ },
+ "tufan": {
+  "text": "طُوفَان",
+  "key": "935856eff0",
+  "source": "lemma"
+ },
+ "judi": {
+  "text": "جُودِيّ",
+  "key": "57cc723d30",
+  "source": "lemma"
+ },
+ "jubb": {
+  "text": "جُبّ",
+  "key": "5c201a31ac",
+  "source": "lemma"
+ },
+ "suwa": {
+  "text": "صُوَاع",
+  "key": "53ff84917b",
+  "source": "lemma"
+ },
+ "kahf": {
+  "text": "كَهْف",
+  "key": "f5ebf6f0e0",
+  "source": "lemma"
+ },
+ "asa": {
+  "text": "عَصَا",
+  "key": "5c14a260f5",
+  "source": "lemma"
+ },
+ "ijl": {
+  "text": "عِجْل",
+  "key": "b17886b8cf",
+  "source": "lemma"
+ },
+ "tabut": {
+  "text": "تَابُوت",
+  "key": "740a157aa0",
+  "source": "lemma"
+ },
+ "infalaqa": {
+  "text": "اِنْفَلَقَ",
+  "key": "cbd475f3db",
+  "source": "lemma"
+ },
+ "safinah": {
+  "text": "سَفِينَة",
+  "key": "ecc488d54a",
+  "source": "lemma"
+ },
+ "yaqtin": {
+  "text": "يَقْطِين",
+  "key": "68b156d36a",
+  "source": "lemma"
+ },
+ "namlah": {
+  "text": "نَمْلَة",
+  "key": "5cc4ef0750",
+  "source": "lemma"
+ },
+ "ukhdud": {
+  "text": "أُخْدُود",
+  "key": "3e1a945746",
+  "source": "lemma"
+ },
+ "itmaanna": {
+  "text": "اِطْمَأَنَّ",
+  "key": "4efd462f8c",
+  "source": "headword"
+ },
+ "wajilat": {
+  "text": "وَجِلَ",
+  "key": "37a6b4e5c3",
+  "source": "headword"
+ },
+ "tadarru": {
+  "text": "تَضَرُّع",
+  "key": "4901b9f9c8",
+  "source": "headword"
+ },
+ "ghaflah": {
+  "text": "غَفْلَة",
+  "key": "159025ed6b",
+  "source": "lemma"
+ },
+ "mukhlis": {
+  "text": "مُخْلِص",
+  "key": "ff3cb35ea3",
+  "source": "lemma"
+ },
+ "qasat": {
+  "text": "قَسَا",
+  "key": "13a7cd5dd8",
+  "source": "headword"
+ },
+ "ahabba": {
+  "text": "أَحَبَّ",
+  "key": "66bb21abd2",
+  "source": "headword"
+ },
+ "ridwan": {
+  "text": "رِضْوَان",
+  "key": "f270a851c9",
+  "source": "lemma"
+ },
+ "munib": {
+  "text": "مُنِيب",
+  "key": "5715f245a6",
+  "source": "lemma"
+ },
+ "safar": {
+  "text": "سَفَر",
+  "key": "c57fbdb8bb",
+  "source": "lemma"
+ },
+ "hajara": {
+  "text": "هَاجَرَ",
+  "key": "014262b5d1",
+  "source": "lemma"
+ },
+ "sabil": {
+  "text": "سَبِيل",
+  "key": "67facb9cd8",
+  "source": "lemma"
+ },
+ "tariq": {
+  "text": "طَرِيق",
+  "key": "b0cf58250e",
+  "source": "lemma"
+ },
+ "rihlah": {
+  "text": "رِحْلَة",
+  "key": "3315d76b5a",
+  "source": "lemma"
+ },
+ "sara": {
+  "text": "سَارَ",
+  "key": "0f7dc1d81b",
+  "source": "lemma"
+ },
+ "ir": {
+  "text": "عِير",
+  "key": "016bd5ad11",
+  "source": "lemma"
+ },
+ "fulk": {
+  "text": "فُلْك",
+  "key": "adad34fc9f",
+  "source": "lemma"
+ },
+ "asra": {
+  "text": "أَسْرَى",
+  "key": "7cf6fa0342",
+  "source": "lemma"
+ },
+ "fajj": {
+  "text": "فَجّ",
+  "key": "bb1168d4ce",
+  "source": "lemma"
+ },
+ "rakiba": {
+  "text": "رَكِبَ",
+  "key": "76df951972",
+  "source": "lemma"
+ },
+ "zad": {
+  "text": "زَاد",
+  "key": "a0666719c1",
+  "source": "lemma"
+ },
+ "qatala-fight": {
+  "text": "قَاتَلَ",
+  "key": "ade524ade0",
+  "source": "lemma"
+ },
+ "qital": {
+  "text": "قِتَال",
+  "key": "13ee796055",
+  "source": "lemma"
+ },
+ "harb": {
+  "text": "حَرْب",
+  "key": "7780ad9342",
+  "source": "lemma"
+ },
+ "jund": {
+  "text": "جُنْد",
+  "key": "58e7bea9cc",
+  "source": "lemma"
+ },
+ "zahf": {
+  "text": "زَحْف",
+  "key": "7932734d50",
+  "source": "lemma"
+ },
+ "aduww": {
+  "text": "عَدُوّ",
+  "key": "24fe16e683",
+  "source": "lemma"
+ },
+ "itada": {
+  "text": "اِعْتَدَى",
+  "key": "0744a44746",
+  "source": "lemma"
+ },
+ "nasr": {
+  "text": "نَصْر",
+  "key": "ffa490c6cc",
+  "source": "lemma"
+ },
+ "fath": {
+  "text": "فَتْح",
+  "key": "561abcaa60",
+  "source": "lemma"
+ },
+ "hazama": {
+  "text": "هَزَمَ",
+  "key": "fe2228a6a5",
+  "source": "headword"
+ },
+ "asir": {
+  "text": "أَسِير",
+  "key": "ea20fab55b",
+  "source": "lemma"
+ },
+ "maghanim": {
+  "text": "مَغَانِم",
+  "key": "6e5326d798",
+  "source": "lemma"
+ },
+ "salm": {
+  "text": "سَلْم",
+  "key": "d52090c27b",
+  "source": "lemma"
+ },
+ "ahada": {
+  "text": "عَاهَدَ",
+  "key": "2d44d9779c",
+  "source": "lemma"
+ }
+}

@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export type AudioPlayKind = 'word' | 'ayah' | 'related';
+export type AudioPlayKind = 'pronunciation' | 'word' | 'ayah' | 'related';
 
 /** Funnel events and their parameters. */
 export interface AnalyticsEvents {

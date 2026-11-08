@@ -4,12 +4,14 @@ import { Button, type ButtonProps } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTextToSpeech } from '@/hooks/useTextToSpeech';
 import type { Word } from '@/utils/vocabulary-types';
-import { AudioSource, COMPUTER_VOICE_LABEL, getAudioSources, getAyahAudioSource, isSpeechSupported } from '@/utils/audio';
+import { AudioSource, COMPUTER_VOICE_LABEL, getAudioSources, getAyahAudioSource, getRecitationSources, isSpeechSupported } from '@/utils/audio';
 import { track } from '@/lib/analytics';
 
 interface WordAudioButtonProps {
-  /** Play the best genuine recitation for this word (word-by-word, related form, else example ayah). */
+  /** Play this word: its AI-voice pronunciation (default) or, with `quran`, its genuine recitation. */
   word?: Word;
+  /** Play the word as recited in the Quran (Alafasy) instead of the AI-voice pronunciation. */
+  quran?: boolean;
   /** Play the recitation of this ayah (both required). */
   surah?: number;
   ayah?: number;
@@ -24,12 +26,15 @@ interface WordAudioButtonProps {
   className?: string;
 }
 
+const nowPlayingKind = (sources: AudioSource[]) => sources[0]?.kind;
+
 /**
  * Word-page audio button: the same playback rules as AudioPlayer (genuine recitation first,
  * clearly labelled computer voice only as a fallback), styled as a full tactile button.
  */
 const WordAudioButton: React.FC<WordAudioButtonProps> = ({
   word,
+  quran = false,
   surah,
   ayah,
   children,
@@ -42,13 +47,13 @@ const WordAudioButton: React.FC<WordAudioButtonProps> = ({
   const { playSources, speak, stop, isPlaying, isLoading, nowPlaying } = useTextToSpeech();
 
   const sources: AudioSource[] = useMemo(() => {
-    if (word) return getAudioSources(word);
+    if (word) return quran ? getRecitationSources(word) : getAudioSources(word);
     if (surah !== undefined && ayah !== undefined) {
       const s = getAyahAudioSource(surah, ayah);
       return s ? [s] : [];
     }
     return [];
-  }, [word, surah, ayah]);
+  }, [word, quran, surah, ayah]);
 
   // Speech support is browser-only; checked after mount so the prerendered HTML matches hydration.
   const [speechSupported, setSpeechSupported] = useState(false);
@@ -79,7 +84,15 @@ const WordAudioButton: React.FC<WordAudioButtonProps> = ({
     }
     if (started)
       track('audio_play', {
-        kind: !word ? 'ayah' : sources[0]?.kind === 'ayah' ? 'ayah' : word.quranicForm && !word.location ? 'related' : 'word',
+        kind: !word
+          ? 'ayah'
+          : nowPlayingKind(sources) === 'pronunciation'
+            ? 'pronunciation'
+            : sources[0]?.kind === 'ayah'
+              ? 'ayah'
+              : word.quranicForm && !word.location
+                ? 'related'
+                : 'word',
       });
   };
 

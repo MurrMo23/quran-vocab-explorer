@@ -18,6 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import VoicePicker from '@/components/audio/VoicePicker';
 import { deleteAllNotes, useNotes } from '@/lib/notes';
 import { deleteAllCollections, useUserCollections } from '@/lib/collections';
 
@@ -112,6 +113,23 @@ const Settings = () => {
                   <Monitor className="h-4 w-4" /> System
                 </ToggleGroupItem>
               </ToggleGroup>
+            </div>
+          </div>
+        </div>
+
+        <div className="card-tactile mb-8 overflow-hidden">
+          <div className="px-6 py-4 border-b border-border">
+            <h2 className="text-lg font-extrabold">Audio</h2>
+          </div>
+          <div className="p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h3 className="font-bold">Pronunciation voice</h3>
+                <p className="text-sm text-muted-foreground">
+                  The AI voice for "Hear the word". Quran recitation is always Mishary Alafasy. Saved in this browser.
+                </p>
+              </div>
+              <VoicePicker label="" className="shrink-0 text-sm" />
             </div>
           </div>
         </div>
