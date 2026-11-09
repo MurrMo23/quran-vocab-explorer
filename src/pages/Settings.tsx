@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Monitor, Moon, Sun, NotebookPen, Library } from 'lucide-react';
 import { toast } from 'sonner';
@@ -19,6 +19,8 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import VoicePicker from '@/components/audio/VoicePicker';
+import AdvancedGradingToggle from '@/components/review/AdvancedGradingToggle';
+import { ADVANCED_GRADING_EVENT, readAdvancedGrading, writeAdvancedGrading } from '@/components/review/review-session';
 import { deleteAllNotes, useNotes } from '@/lib/notes';
 import { deleteAllCollections, useUserCollections } from '@/lib/collections';
 
@@ -80,6 +82,12 @@ const Settings = () => {
   const { session } = useAuth();
   const notes = useNotes();
   const collections = useUserCollections();
+  const [advancedGrading, setAdvancedGrading] = useState(readAdvancedGrading);
+  useEffect(() => {
+    const sync = () => setAdvancedGrading(readAdvancedGrading());
+    window.addEventListener(ADVANCED_GRADING_EVENT, sync);
+    return () => window.removeEventListener(ADVANCED_GRADING_EVENT, sync);
+  }, []);
 
   return (
     <>
@@ -114,6 +122,19 @@ const Settings = () => {
                 </ToggleGroupItem>
               </ToggleGroup>
             </div>
+          </div>
+        </div>
+
+        <div className="card-tactile mb-8 overflow-hidden">
+          <div className="px-6 py-4 border-b border-border">
+            <h2 className="text-lg font-extrabold">Review</h2>
+          </div>
+          <div className="p-6">
+            <AdvancedGradingToggle
+              id="settings-advanced-grading"
+              checked={advancedGrading}
+              onCheckedChange={(on) => setAdvancedGrading(writeAdvancedGrading(on))}
+            />
           </div>
         </div>
 

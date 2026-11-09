@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Check, Flame, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { Rating } from '@/lib/progress';
 import type { Word } from '@/utils/vocabulary-types';
-import { RATING_OPTIONS } from '@/components/practice/rating-options';
+import { RATING_OPTIONS, seeAgainLabel } from '@/components/practice/rating-options';
 import { cn } from '@/lib/utils';
 import { WRONG_OUTLINE, WRONG_SURFACE, WRONG_TEXT, WRONG_BODY } from './feedback-styles';
 
@@ -68,15 +68,25 @@ interface ChoiceOptionsProps {
   answer: string;
   chosen: string | null;
   onChoose: (option: string) => void;
+  /** Move keyboard focus to the first option when the options appear (after a No). */
+  focusFirst?: boolean;
 }
 
 const KEY_BADGE = 'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border-2 text-sm font-extrabold';
 
 /** 2×2 tactile answers (one column on phones) with their number keys. */
-export const ChoiceOptions: React.FC<ChoiceOptionsProps> = ({ options, answer, chosen, onChoose }) => {
+export const ChoiceOptions: React.FC<ChoiceOptionsProps> = ({ options, answer, chosen, onChoose, focusFirst = false }) => {
   const answered = chosen !== null;
+  const groupRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!focusFirst) return;
+    groupRef.current?.querySelector<HTMLButtonElement>('button:not([disabled])')?.focus({ preventScroll: true });
+    groupRef.current?.scrollIntoView?.({ block: 'nearest', behavior: 'smooth' });
+    // Only when the options first appear.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-3.5" role="group" aria-label="Choose the meaning">
+    <div ref={groupRef} className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-3.5" role="group" aria-label="Choose the meaning">
       {options.map((opt, i) => {
         const isCorrect = opt === answer;
         const picked = chosen === opt;
@@ -145,6 +155,9 @@ export type FeedbackState =
   | { kind: 'yn-right'; word: Word }
   | { kind: 'yn-wrong'; word: Word; explainLabel: 'name' | 'word' };
 
+/** The question asked on every Yes / No card. */
+export const YES_NO_QUESTION = 'Do you know what this means?';
+
 interface FeedbackBarProps {
   state: FeedbackState;
   onReveal: () => void;
@@ -204,13 +217,18 @@ export const FeedbackBar: React.FC<FeedbackBarProps> = ({ state, onReveal, onRat
       <>
         <p className={cn('text-xl font-extrabold leading-tight', WRONG_TEXT)}>Not quite</p>
         <p className={cn('mt-0.5 text-sm', WRONG_BODY)}>
-          {meaningLine(state.word)} Opening the {state.explainLabel === 'name' ? 'page for this name' : 'word page'} so you can
-          learn it…
+          {meaningLine(state.word)} Let’s look at this {state.explainLabel === 'name' ? 'name' : 'word'} together: opening its
+          page… Your place in the review is saved, so press Back to carry on.
         </p>
       </>
     );
   } else if (state.kind === 'yn-ask') {
-    message = <p className="text-base font-extrabold">Do you remember what it means?</p>;
+    message = (
+      <>
+        <p className="text-base font-extrabold">{YES_NO_QUESTION}</p>
+        <p className="hidden text-sm font-semibold text-muted-foreground sm:block">Press Y for Yes · N for No</p>
+      </>
+    );
   } else if (state.kind === 'choice-idle') {
     message = (
       <p className="text-sm font-semibold text-muted-foreground">
@@ -222,7 +240,11 @@ export const FeedbackBar: React.FC<FeedbackBarProps> = ({ state, onReveal, onRat
       <p className="hidden text-sm font-semibold text-muted-foreground sm:block">Space to reveal · 1–4 to rate</p>
     );
   } else {
-    message = <p className="text-sm font-bold text-muted-foreground">How well did you remember it?</p>;
+    message = (
+      <p className="text-sm font-bold text-muted-foreground">
+        How well did you remember it?<span className="hidden sm:inline"> · press 1–4</span>
+      </p>
+    );
   }
 
   return (
@@ -261,7 +283,7 @@ export const FeedbackBar: React.FC<FeedbackBarProps> = ({ state, onReveal, onRat
         </div>
 
         {state.kind === 'yn-ask' && (
-          <div className="grid grid-cols-2 gap-3 sm:w-auto sm:min-w-[20rem]" role="group" aria-label="Do you remember what it means?">
+          <div className="grid grid-cols-2 gap-3 sm:w-auto sm:min-w-[20rem]" role="group" aria-label={YES_NO_QUESTION}>
             <Button size="lg" variant="outline" onClick={onNo} aria-keyshortcuts="n" data-testid="review-no">
               No
             </Button>
@@ -290,16 +312,19 @@ export const FeedbackBar: React.FC<FeedbackBarProps> = ({ state, onReveal, onRat
         )}
 
         {state.kind === 'flip-back' && (
-          <div className="grid grid-cols-4 gap-2 sm:gap-3" role="group" aria-label="How well did you remember it?">
-            {RATING_OPTIONS.map((o) => (
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3" role="group" aria-label="How well did you remember it?">
+            {RATING_OPTIONS.map((o) => {
+              const again = seeAgainLabel(state.previewInterval(state.word.id, o.rating));
+              return (
               <button
                 key={o.rating}
                 type="button"
                 onClick={() => onRate(o.rating)}
                 aria-keyshortcuts={o.key}
+                aria-label={`${o.label}: ${o.hint}. ${again}.`}
                 data-testid={`rate-${o.rating}`}
                 className={cn(
-                  'relative flex h-16 flex-col items-center justify-center gap-0.5 rounded-2xl border-2 border-b-4 px-1',
+                  'relative flex min-h-[5.25rem] flex-col items-center justify-center gap-0.5 rounded-2xl border-2 border-b-4 px-1.5 py-2 text-center',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card',
                   'hover:brightness-[0.97] active:translate-y-[2px] active:border-b-2 motion-safe:transition-[transform,border-width] motion-reduce:active:translate-y-0',
                   o.className,
@@ -309,9 +334,11 @@ export const FeedbackBar: React.FC<FeedbackBarProps> = ({ state, onReveal, onRat
                   {o.key}
                 </span>
                 <span className="text-base font-extrabold leading-none">{o.label}</span>
-                <span className="text-xs font-semibold opacity-90">{state.previewInterval(state.word.id, o.rating)}</span>
+                <span className="text-xs font-bold leading-tight">{o.hint}</span>
+                <span className="text-[11px] font-semibold leading-tight opacity-80">{again}</span>
               </button>
-            ))}
+              );
+            })}
           </div>
         )}
 

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import AdvancedGradingToggle from './AdvancedGradingToggle';
 import type { Collection } from '@/utils/vocabulary-types';
 import type { UserCollection } from '@/lib/collections';
 import { LEARNING_GOALS, isLearningGoalId, type LearningGoalId } from '@/lib/learning-goals';
@@ -23,6 +24,9 @@ interface SourcePickerProps {
   /** Learning goal whose words "Due & new" introduces first. */
   goal: LearningGoalId | null;
   onGoalChange: (value: LearningGoalId | null) => void;
+  /** Opt-in Again / Hard / Good / Easy buttons instead of Yes / No. */
+  advancedGrading: boolean;
+  onAdvancedGradingChange: (on: boolean) => void;
 }
 
 const SELECT =
@@ -40,6 +44,8 @@ const SourcePicker: React.FC<SourcePickerProps> = ({
   onNewPerDayChange,
   goal,
   onGoalChange,
+  advancedGrading,
+  onAdvancedGradingChange,
 }) => {
   const [draft, setDraft] = useState(String(newPerDay));
   useEffect(() => setDraft(String(newPerDay)), [newPerDay]);
@@ -142,6 +148,9 @@ const SourcePicker: React.FC<SourcePickerProps> = ({
               />
             </div>
             <p className="text-xs text-muted-foreground">New words in “Due &amp; new” come from your goal first.</p>
+          </div>
+          <div className="mt-4 border-t-2 pt-4">
+            <AdvancedGradingToggle id="review-advanced-grading" checked={advancedGrading} onCheckedChange={onAdvancedGradingChange} />
           </div>
         </PopoverContent>
       </Popover>

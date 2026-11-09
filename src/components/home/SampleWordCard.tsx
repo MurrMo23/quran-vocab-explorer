@@ -18,7 +18,7 @@ const collectionName = collections.find((c) => c.id === word?.collections[0])?.n
 const audioUrl = word ? getWordAudioUrl(word) : undefined;
 
 interface SampleWordCardProps {
-  /** Where "Again" / "I know it" lead: the same place as the hero's main call to action. */
+  /** Where "Not yet" / "I know it" lead: the same place as the hero's main call to action. */
   startHref: string;
 }
 
@@ -98,7 +98,7 @@ const SampleWordCard: React.FC<SampleWordCardProps> = ({ startHref }) => {
           <Volume2 aria-hidden="true" />
         </Button>
         <Button asChild variant="outline" className="h-[52px] flex-1 font-extrabold">
-          <Link to={startHref}>Again</Link>
+          <Link to={startHref}>Not yet</Link>
         </Button>
         <Button asChild className="h-[52px] flex-1 font-extrabold">
           <Link to={startHref}>I know it</Link>

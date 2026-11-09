@@ -43,8 +43,8 @@ export const getNameWord = (name: DivineName): Word | undefined => {
 export const getNamesReviewIds = (): string[] =>
   NAMES_OF_ALLAH.map((n) => getNameWord(n)?.id).filter((id): id is string => !!id);
 
-/** The names review uses the simple session: Yes / No, then pick the meaning on No. */
-export const reviewHref = (ids: string[]) => `/review?words=${ids.map(encodeURIComponent).join(',')}&simple=1`;
+/** Review these names (every review is Yes / No by default, then pick the meaning on No). */
+export const reviewHref = (ids: string[]) => `/review?words=${ids.map(encodeURIComponent).join(',')}`;
 
 /** The name page a word page should link to, if any. */
 export const getNameForWord = (wordId: string): DivineName | undefined => {

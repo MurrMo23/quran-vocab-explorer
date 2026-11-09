@@ -10,7 +10,7 @@ import { useUserCollections, PRACTICE_COLLECTION_PARAM } from '@/lib/collections
 import { usePracticePool } from '@/components/practice/usePracticePool';
 import ProgressSaveNotice from '@/components/practice/ProgressSaveNotice';
 import { RATING_OPTIONS } from '@/components/practice/rating-options';
-import { ChoiceOptions, FeedbackBar, SessionTopBar, type FeedbackState } from '@/components/review/SessionParts';
+import { ChoiceOptions, FeedbackBar, SessionTopBar, YES_NO_QUESTION, type FeedbackState } from '@/components/review/SessionParts';
 import SourcePicker from '@/components/review/SourcePicker';
 import ReviewCardFace from '@/components/review/ReviewCardFace';
 import ReviewSummary, { type ReviewAnswer } from '@/components/review/ReviewSummary';
@@ -37,10 +37,16 @@ import {
   parseWordList,
   REVIEW_WORDS_PARAM,
   REVIEW_SIMPLE_PARAM,
+  ADVANCED_GRADING_EVENT,
+  readAdvancedGrading,
+  writeAdvancedGrading,
+  saveSessionSnapshot,
+  takeSessionSnapshot,
   SOURCE_DUE,
   SOURCE_WORDS,
   collectionSourceValue,
   type SessionItem,
+  type SessionSnapshot,
 } from '@/components/review/review-session';
 
 type Phase = 'loading' | 'session' | 'summary' | 'empty';
@@ -59,7 +65,7 @@ const Review = () => {
   const wordsParam = searchParams.get(REVIEW_WORDS_PARAM);
   const wordList = useMemo(() => parseWordList(wordsParam), [wordsParam]);
   const kind: 'due' | 'words' | 'collection' = wordsParam !== null ? 'words' : collectionParam ? 'collection' : 'due';
-  // Simple session (used by the 99 Names): "Do you remember?" Yes / No instead of rating buttons.
+  // Yes / No is the default; `simple=1` (older 99 Names links) also forces it when Advanced grading is on.
   const simple = searchParams.get(REVIEW_SIMPLE_PARAM) === '1';
   const navigate = useNavigate();
 
@@ -70,6 +76,13 @@ const Review = () => {
   const collectionPool = usePracticePool(kind === 'collection' ? collectionParam : null);
 
   const [newPerDay, setNewPerDay] = useState(readNewPerDay);
+  // Opt-in Again / Hard / Good / Easy grading (Settings or the review settings popover).
+  const [advanced, setAdvanced] = useState(readAdvancedGrading);
+  useEffect(() => {
+    const sync = () => setAdvanced(readAdvancedGrading());
+    window.addEventListener(ADVANCED_GRADING_EVENT, sync);
+    return () => window.removeEventListener(ADVANCED_GRADING_EVENT, sync);
+  }, []);
   const [goal, setGoal] = useState<LearningGoalId | null>(readLearningGoal);
   // Picking a goal in the chooser on this page updates it too.
   useEffect(() => {
@@ -115,7 +128,13 @@ const Review = () => {
 
   // Latest progress, read when a session is built (the queue must not change as cards are rescheduled).
   const latest = useRef({ cards, logs, newPerDay, pool, goal });
+  const latestAdvanced = useRef(advanced);
+  /** A session parked before opening a missed word's page; undefined until read, null when none. */
+  const parked = useRef<SessionSnapshot | null | undefined>(undefined);
   latest.current = { cards, logs, newPerDay, pool, goal };
+  /** Advanced grading as it was when this session was built (a mid-session toggle applies next session). */
+  const sessionAdvanced = useRef(advanced);
+  latestAdvanced.current = advanced;
 
   useEffect(() => {
     if (!ready) {
@@ -123,6 +142,30 @@ const Review = () => {
       return;
     }
     const { cards: c, logs: l, newPerDay: perDay, pool: p, goal: g } = latest.current;
+    clearAutoNext();
+    // Back from a missed word's page: carry on where the learner left off.
+    // Read once per visit (kept in a ref so React's dev double-run restores the same snapshot).
+    if (parked.current === undefined) parked.current = takeSessionSnapshot(sourceKey);
+    const saved = round === 0 && !p.notFound && parked.current?.sourceKey === sourceKey ? parked.current : null;
+    if (saved) {
+      sessionAdvanced.current = saved.items.some((it) => it.mode === 'flip');
+      repeats.current = new Map(saved.repeats);
+      setItems(saved.items);
+      setAnswers(saved.answers);
+      setRevealed(false);
+      setChosen(null);
+      setYesNo(null);
+      shownAt.current = Date.now();
+      if (saved.position < saved.items.length) {
+        setPosition(saved.position);
+        setPhase('session');
+      } else {
+        setPosition(Math.max(0, saved.items.length - 1));
+        setPhase(saved.answers.length > 0 ? 'summary' : 'empty');
+      }
+      return;
+    }
+    sessionAdvanced.current = latestAdvanced.current;
     let queue: SessionItem[] = [];
     if (!p.notFound) {
       const usePool = kind !== 'due';
@@ -134,11 +177,11 @@ const Review = () => {
         preferredNew: g ? goalWordIds(g) : undefined,
         newOnly: buildMode === 'newOnly',
         ahead: buildMode === 'ahead',
+        advanced: latestAdvanced.current,
         simple,
       });
     }
     repeats.current = new Map();
-    clearAutoNext();
     setItems(queue);
     setPosition(0);
     setRevealed(false);
@@ -179,6 +222,12 @@ const Review = () => {
     if (kind === 'due' && (phase === 'empty' || (phase === 'session' && answers.length === 0))) startRound('normal');
   };
 
+  const changeAdvanced = (on: boolean) => {
+    setAdvanced(writeAdvancedGrading(on));
+    // Like the daily limit: apply right away unless a session is under way.
+    if (phase === 'empty' || (phase === 'session' && answers.length === 0)) startRound('normal');
+  };
+
   const changeGoal = (value: LearningGoalId | null) => {
     writeLearningGoal(value);
     setGoal(value);
@@ -203,11 +252,15 @@ const Review = () => {
     [position],
   );
 
-  /** Record an answer; a word rated Again comes back as a flip card later in this session. */
+  /**
+   * Record an answer; a word rated Again comes back later in this session: as a Yes / No card, or
+   * as a flip card when the session uses Advanced grading.
+   */
   const record = useCallback(
     (rating: Rating, source: 'practice' | 'quiz') => {
       if (!current) return items;
       const elapsedMs = Date.now() - shownAt.current;
+      parked.current = null;
       void recordReview(current.wordId, rating, source, elapsedMs);
       setAnswers((prev) => [...prev, { wordId: current.wordId, rating, elapsedMs }]);
       let queue = items;
@@ -215,9 +268,10 @@ const Review = () => {
         const n = repeats.current.get(current.wordId) ?? 0;
         if (n < MAX_REPEATS_PER_WORD) {
           repeats.current.set(current.wordId, n + 1);
+          const yesNoRepeat = current.mode === 'yesno' || (!sessionAdvanced.current && !!current.options?.length);
           queue = [
             ...items,
-            current.mode === 'yesno'
+            yesNoRepeat
               ? { wordId: current.wordId, mode: 'yesno', options: current.options, isNew: false }
               : { wordId: current.wordId, mode: 'flip', isNew: false },
           ];
@@ -284,11 +338,22 @@ const Review = () => {
       setRevealed(true);
       const right = option === word.meaning;
       const queue = record(right ? 'hard' : 'again', 'quiz');
+      if (right) {
+        autoNext.current = window.setTimeout(() => advance(queue), 1400);
+        return;
+      }
+      // Park the session (answers so far, the requeued word, the next card) so Back carries on.
+      saveSessionSnapshot({
+        sourceKey,
+        items: queue,
+        position: position + 1,
+        answers: [...answers, { wordId: word.id, rating: 'again', elapsedMs: Date.now() - shownAt.current }],
+        repeats: [...repeats.current.entries()],
+      });
       const target = explainPath(word.id);
-      autoNext.current = window.setTimeout(() => (right ? advance(queue) : navigate(target)), right ? 1400 : 2200);
+      autoNext.current = window.setTimeout(() => navigate(target), 2600);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [current, yesNo, chosen, word, record, advance, navigate],
+    [current, yesNo, chosen, word, record, advance, navigate, sourceKey, position, answers],
   );
 
   const continueYesNo = useCallback(() => {
@@ -298,7 +363,6 @@ const Review = () => {
       clearAutoNext();
       navigate(explainPath(word.id));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, word, yesNo, chosen, advance, items, navigate]);
 
   const endSession = () => {
@@ -432,6 +496,8 @@ const Review = () => {
       onNewPerDayChange={changeNewPerDay}
       goal={goal}
       onGoalChange={changeGoal}
+      advancedGrading={advanced}
+      onAdvancedGradingChange={changeAdvanced}
     />
   );
 
@@ -481,7 +547,7 @@ const Review = () => {
                       ? 'Which meaning is it?'
                       : yesNo === 'yes'
                         ? 'Here is the meaning'
-                        : 'Do you remember this word?'
+                        : YES_NO_QUESTION
                     : current.mode === 'choice'
                     ? 'What does this word mean?'
                     : revealed
@@ -510,7 +576,13 @@ const Review = () => {
               />
 
               {current.mode === 'yesno' && yesNo === 'no' && (
-                <ChoiceOptions options={current.options ?? []} answer={word.meaning} chosen={chosen} onChoose={pickMeaning} />
+                <ChoiceOptions
+                  options={current.options ?? []}
+                  answer={word.meaning}
+                  chosen={chosen}
+                  onChoose={pickMeaning}
+                  focusFirst
+                />
               )}
 
               {current.mode === 'choice' && (

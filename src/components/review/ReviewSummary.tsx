@@ -48,7 +48,7 @@ const ReviewSummary: React.FC<ReviewSummaryProps> = ({ answers, onReviewMore }) 
           </dd>
         </div>
         <div className="card-tactile p-4 text-center sm:p-5">
-          <dt className="text-sm font-bold text-muted-foreground">Again</dt>
+          <dt className="text-sm font-bold text-muted-foreground">Missed</dt>
           <dd className={cn('mt-1 text-4xl font-extrabold', againCount > 0 ? WRONG_TEXT : 'text-foreground')} data-testid="summary-again">
             {againCount}
           </dd>

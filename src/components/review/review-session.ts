@@ -1,13 +1,24 @@
 // Pure helpers for the Review session (/review): queue building, the daily new-word limit,
 // when multiple-choice cards are mixed in, and the learner's "new words per day" setting.
-import { dueWordIds, localDateKey, newWordIds, upcomingWordIds, type CardState, type ReviewLog } from '@/lib/progress';
+import {
+  dueWordIds,
+  localDateKey,
+  newWordIds,
+  upcomingWordIds,
+  type CardState,
+  type Rating,
+  type ReviewLog,
+} from '@/lib/progress';
 import { buildQuestion } from '@/components/quiz/quiz-utils';
 import { getAllWords, getWordById } from '@/utils/vocabulary';
 import type { Word } from '@/utils/vocabulary-types';
 
 /** Query parameter with an explicit word list: /review?words=id1,id2 (used by surah pages). */
 export const REVIEW_WORDS_PARAM = 'words';
-/** Query parameter for the simple Yes / No session (no rating buttons): /review?words=…&simple=1. */
+/**
+ * Query parameter that forces the simple Yes / No session even when Advanced grading is on:
+ * /review?words=…&simple=1. Yes / No is the default for every session, so links no longer need it.
+ */
 export const REVIEW_SIMPLE_PARAM = 'simple';
 /** Query parameter with a collection id: /review?collection=<id>. */
 export const REVIEW_COLLECTION_PARAM = 'collection';
@@ -43,6 +54,10 @@ export const DEFAULT_NEW_PER_DAY = 10;
 export const NEW_PER_DAY_MIN = 0;
 export const NEW_PER_DAY_MAX = 50;
 export const NEW_PER_DAY_STORAGE_KEY = 'qv-review-new-per-day';
+/** Opt-in four-button FSRS grading (Again / Hard / Good / Easy). Off by default. */
+export const ADVANCED_GRADING_STORAGE_KEY = 'qv-review-advanced-grading';
+/** Fired on window when Advanced grading is switched on or off (Settings and the review page stay in sync). */
+export const ADVANCED_GRADING_EVENT = 'qv-review-advanced-grading-change';
 /** A card is shown as multiple choice only after this many reviews. */
 export const CHOICE_MIN_REPS = 2;
 /** Share of eligible cards shown as multiple choice. */
@@ -50,7 +65,11 @@ export const CHOICE_RATIO = 1 / 3;
 /** A word rated "Again" comes back later in the same session, at most this many extra times. */
 export const MAX_REPEATS_PER_WORD = 2;
 
-/** flip: reveal then rate; choice: pick the meaning; yesno: "Do you remember?" Yes / No, then pick on No. */
+/**
+ * yesno (default): "Do you know what this means?" Yes / No, then pick from four meanings on No.
+ * choice: pick the meaning (a quick check for words seen a few times).
+ * flip: reveal then rate Again / Hard / Good / Easy (Advanced grading only).
+ */
 export type CardMode = 'flip' | 'choice' | 'yesno';
 
 export interface SessionItem {
@@ -80,6 +99,29 @@ export function writeNewPerDay(value: number): number {
     // Private mode or storage blocked: the setting lasts for this visit only.
   }
   return v;
+}
+
+export function readAdvancedGrading(): boolean {
+  try {
+    return typeof window !== 'undefined' && window.localStorage.getItem(ADVANCED_GRADING_STORAGE_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+export function writeAdvancedGrading(on: boolean): boolean {
+  try {
+    if (on) window.localStorage.setItem(ADVANCED_GRADING_STORAGE_KEY, '1');
+    else window.localStorage.removeItem(ADVANCED_GRADING_STORAGE_KEY);
+  } catch {
+    // Private mode or storage blocked: the setting lasts for this visit only.
+  }
+  try {
+    window.dispatchEvent(new CustomEvent(ADVANCED_GRADING_EVENT, { detail: on }));
+  } catch {
+    // Non-browser environment.
+  }
+  return on;
 }
 
 export function clampNewPerDay(value: number): number {
@@ -156,11 +198,30 @@ export interface BuildQueueInput {
   size?: number;
   now?: Date;
   random?: () => number;
-  /** Every card asks Yes / No, with four meanings ready for a No. */
+  /**
+   * Opt-in Advanced grading: unseen and young cards are flip cards rated Again / Hard / Good / Easy.
+   * Off (the default): every card asks Yes / No, with four meanings ready for a No.
+   */
+  advanced?: boolean;
+  /** Force Yes / No cards even when `advanced` is on (the `simple=1` link parameter). */
   simple?: boolean;
 }
 
-/** Due words first (most overdue first), then new words, each tagged flip or multiple choice. */
+/**
+ * Four meaning options (the answer plus three distinct distractors). Falls back to the whole
+ * vocabulary when the given pool cannot supply three meanings different from the answer.
+ */
+export function meaningOptions(word: Word, distractorPool: readonly Word[], index: number): string[] {
+  let options = buildQuestion(word, 'multiple-choice', distractorPool, index).options;
+  if (options.length < 4) options = buildQuestion(word, 'multiple-choice', getAllWords(), index).options;
+  return options;
+}
+
+/**
+ * Due words first (most overdue first), then new words. By default each card is Yes / No (or, for
+ * words reviewed a few times, sometimes a multiple-choice check); with `advanced` the non-choice
+ * cards are flip cards with the four rating buttons.
+ */
 export function buildReviewQueue({
   cards,
   pool,
@@ -171,6 +232,7 @@ export function buildReviewQueue({
   size = SESSION_MAX,
   now = new Date(),
   random = Math.random,
+  advanced = false,
   simple = false,
 }: BuildQueueInput): SessionItem[] {
   const hasPool = !!pool && pool.length > 0;
@@ -196,16 +258,55 @@ export function buildReviewQueue({
     const isNew = !card || (card.lastReview === null && card.reps === 0);
     const eligible = !!card && !isNew && card.reps >= CHOICE_MIN_REPS;
     const word = getWordById(wordId)!;
-    if (simple) {
-      const q = buildQuestion(word, 'multiple-choice', distractorPool, i);
-      return { wordId, mode: 'yesno', options: q.options, isNew };
+    if (!simple && eligible && random() < CHOICE_RATIO) {
+      const options = meaningOptions(word, distractorPool, i);
+      if (options.length >= 4) return { wordId, mode: 'choice', options, isNew };
     }
-    if (eligible && random() < CHOICE_RATIO) {
-      const q = buildQuestion(word, 'multiple-choice', distractorPool, i);
-      if (q.options.length >= 4) return { wordId, mode: 'choice', options: q.options, isNew };
-    }
+    if (simple || !advanced) return { wordId, mode: 'yesno', options: meaningOptions(word, distractorPool, i), isNew };
     return { wordId, mode: 'flip', isNew };
   });
+}
+
+/* ---------------------------------------------------------- saved session */
+
+/** Where a session is parked while the learner looks up a missed word (this tab only). */
+export const SESSION_SNAPSHOT_STORAGE_KEY = 'qv-review-session';
+/** A parked session older than this is dropped and a fresh one is built. */
+export const SESSION_SNAPSHOT_MAX_AGE_MS = 2 * 60 * 60 * 1000;
+
+export interface SessionSnapshot {
+  /** Identifies the source (due / word list / collection) the session was built for. */
+  sourceKey: string;
+  items: SessionItem[];
+  /** The card to show on return. */
+  position: number;
+  answers: { wordId: string; rating: Rating; elapsedMs: number }[];
+  repeats: [string, number][];
+  savedAt: number;
+}
+
+export function saveSessionSnapshot(snapshot: Omit<SessionSnapshot, 'savedAt'>, now: number = Date.now()): void {
+  try {
+    window.sessionStorage.setItem(SESSION_SNAPSHOT_STORAGE_KEY, JSON.stringify({ ...snapshot, savedAt: now }));
+  } catch {
+    // Storage blocked: the learner starts a fresh session on return (their answers are already recorded).
+  }
+}
+
+/** The parked session for `sourceKey`, removed from storage; null when there is none or it is stale. */
+export function takeSessionSnapshot(sourceKey: string, now: number = Date.now()): SessionSnapshot | null {
+  try {
+    const raw = window.sessionStorage.getItem(SESSION_SNAPSHOT_STORAGE_KEY);
+    if (!raw) return null;
+    const snap = JSON.parse(raw) as SessionSnapshot;
+    if (snap?.sourceKey !== sourceKey) return null;
+    window.sessionStorage.removeItem(SESSION_SNAPSHOT_STORAGE_KEY);
+    if (!Array.isArray(snap.items) || typeof snap.position !== 'number') return null;
+    if (!(now - snap.savedAt <= SESSION_SNAPSHOT_MAX_AGE_MS)) return null;
+    return snap;
+  } catch {
+    return null;
+  }
 }
 
 /** "in 10 min", "in 3 hours" or "now". */
