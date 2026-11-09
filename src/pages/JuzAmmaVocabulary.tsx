@@ -237,6 +237,8 @@ const JuzAmmaVocabulary = () => {
 
         <nav aria-label="Keep exploring" className="mt-10 flex flex-wrap gap-2">
           {[
+            { to: '/juz/29', label: 'Previous: Juz 29 vocabulary' },
+            { to: '/juz', label: 'All 30 juz, juz by juz' },
             { to: PILLAR_PATHS.commonWords, label: 'Most common words in the Quran' },
             { to: '/surahs', label: 'All 114 surah word lists' },
             { to: PILLAR_PATHS.stats, label: 'Quran statistics' },

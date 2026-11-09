@@ -62,3 +62,17 @@ Ramadan is named only in 2:185, عيد occurs only in 5:114 and ليلة الق�
 (siyam, shahr, alf, mubarak, mubarakah, akif, eid) come from `specs/col-ramadan.json` via `gen.py`.
 
     QV_CORPUS=... QV_WORDS=current.json QV_QJSON=... QV_WBW=... python3 scripts/vocab/gen-ramadan.py
+
+## Juz pages (`gen-juz.py`)
+
+`gen-juz.py` writes `src/utils/generated/juz.ts` (one summary row per juz: traditional name, first/last ayah,
+surah parts, word counts, coverage) and `public/data/juz/<n>.json` (each juz's top 60 site words with counts, its
+most frequent corpus lemmas that have no site word, and its first and last ayah with Saheeh International), the data
+behind `/juz` and `/juz/<n>`. Same inputs as `gen-pillars.py`; re-run it whenever words are added:
+
+    QV_CORPUS=<corpus dir> QV_WORDS=current.json QV_QJSON=<quran-json package dir> QV_WBW=<wbw data.json> \
+      python3 scripts/vocab/gen-juz.py
+
+Juz boundaries are read from `JUZ_STARTS` in `src/utils/quran-pages.ts` and checked against the rub' al-hizb marks
+(۞) in the Tanzil text; each traditional name is checked against the opening words of the ayah it comes from. The
+script fails on any mismatch. Juz 30 is Juz Amma: its page is `/juz-amma-vocabulary`, and `/juz/30` is a redirect page.

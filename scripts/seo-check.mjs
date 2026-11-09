@@ -193,7 +193,7 @@ const redirectPaths = new Set([...pages.values()].filter((p) => p.redirect).map(
 // Client-side redirect routes (react-router <Navigate>) that should never be linked internally.
 // Every page under these paths is prerendered, so a link to a missing one is broken (other paths,
 // such as /review or /blog, are client-rendered and cannot be checked here).
-const PRERENDERED_PREFIX = /^\/(word|root|roots|surah|collections|names-of-allah)\/[^/]+$/;
+const PRERENDERED_PREFIX = /^\/(word|root|roots|surah|collections|names-of-allah|juz)\/[^/]+$/;
 const SPA_REDIRECTS = new Set(['/practice', '/quiz', '/enhanced-quiz', '/mobile-flashcards', '/community', '/community-hub']);
 
 // ---------------------------------------------------------------------------------------------

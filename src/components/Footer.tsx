@@ -8,6 +8,7 @@ const learnLinks = [
   { to: '/surahs', label: 'Surah word lists' },
   { to: '/roots', label: 'Roots' },
   { to: '/most-common-words-in-the-quran', label: 'Most common Quran words' },
+  { to: '/juz', label: 'Juz by juz' },
   { to: '/juz-amma-vocabulary', label: 'Juz Amma vocabulary' },
   { to: '/salah-words', label: 'Salah words' },
   { to: '/custom-learning', label: 'My collections' },

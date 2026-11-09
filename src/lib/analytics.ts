@@ -38,6 +38,8 @@ export type PageType =
   | 'pillar'
   | 'topic'
   | 'topics_hub'
+  | 'juz'
+  | 'juz_hub'
   | 'auth'
   | 'dashboard'
   | 'other';
@@ -76,6 +78,8 @@ export function pageTypeFor(pathname: string): PageType {
       return b ? 'phrase' : 'phrases_hub';
     case 'topics':
       return b ? 'topic' : 'topics_hub';
+    case 'juz':
+      return b ? 'juz' : 'juz_hub';
     case 'auth':
     case 'reset-password':
       return 'auth';
