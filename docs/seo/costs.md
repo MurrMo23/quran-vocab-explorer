@@ -35,7 +35,10 @@ Free calls not listed: /v3/appendix/user_data x3 (cost 0), docs lookups.
 | 27 | ml_bd (full) | keywords_data/google_ads/search_volume/live | 0.09 |
 | 28 | ml_tr (full) | keywords_data/google_ads/search_volume/live | 0.09 |
 | 29 | ml_my (full) | keywords_data/google_ads/search_volume/live | 0.09 |
+| 30 | ramadan_us (35 Ramadan/Eid terms, US, 2026-11-09) | keywords_data/google_ads/search_volume/live | 0.09 |
 
 Notes:
 - Costs marked ~ were made in the tool's AI mode, which hides the cost field; values are inferred from identical calls made with full responses (google_ads search_volume = $0.09 per call regardless of 3 or 700 keywords; serp live regular ~ $0.002 each).
 - The 6 multilingual calls were run twice: the first (AI mode) truncated each result to 10 rows, so they were re-run with full output. That duplicate cost ~$0.54.
+
+- Call 30 (Ramadan pages, 2026-11-09): one US search-volume call for 35 Ramadan/Eid terms, $0.09 (cost field from the full response). Running total ~$2.70.

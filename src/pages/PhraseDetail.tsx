@@ -6,6 +6,7 @@ import PageTrail from '@/components/quran/PageTrail';
 import HearItButton from '@/components/word/HearItButton';
 import PhraseVerseCard from '@/components/phrases/PhraseVerseCard';
 import WithArabic from '@/components/phrases/WithArabic';
+import { MoreForRamadan } from '@/components/ramadan/RamadanBits';
 import { Button } from '@/components/ui/button';
 import { reviewWordsUrl } from '@/components/review/review-session';
 import { track } from '@/lib/analytics';
@@ -15,6 +16,7 @@ import { getRootBySlug, getSurahName, rootPath, surahPath, wordPath } from '@/ut
 import { PHRASES, PHRASES_HUB_PATH, getPhrase, phrasePath, phraseRefs, phraseVerses, type Phrase } from '@/utils/phrases';
 import { SITE_URL } from '@/utils/seo-templates';
 import { faqLd, phraseSeo } from '@/utils/seo-pillars';
+import { RAMADAN_PHRASE_SLUGS } from '@/utils/seo-ramadan';
 
 const STATUS_LABEL: Record<Phrase['quran']['status'], string> = {
   exact: 'In the Quran',
@@ -316,6 +318,8 @@ const PhraseDetail = () => {
             All {PHRASES.length} Islamic phrases
           </Link>
         </nav>
+
+        {(RAMADAN_PHRASE_SLUGS as readonly string[]).includes(phrase.slug) && <MoreForRamadan current={path} />}
 
         <p className="mt-10 max-w-3xl text-xs leading-relaxed text-muted-foreground">
           Verses: Tanzil Uthmani text with the Saheeh International translation, checked word by word against the Quranic

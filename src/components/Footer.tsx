@@ -20,6 +20,7 @@ const exploreLinks = [
   { to: '/quran-statistics', label: 'Quran statistics' },
   { to: '/topics', label: 'Topics' },
   { to: '/ramadan', label: 'Ramadan 30-day plan' },
+  { to: '/laylatul-qadr', label: 'Laylatul Qadr' },
   { to: '/audio-practice', label: 'Audio practice' },
   { to: '/blog', label: 'Blog' },
 ];

@@ -15,6 +15,7 @@ import { PILLAR_PATHS } from '@/utils/seo-pillars';
 import { ISLAMIC_TERMS_PATH } from '@/utils/islamic-terms';
 import { SALAH_WORDS_PATH } from '@/utils/salah-guide';
 import { TOPICS, TOPICS_HUB_PATH, topicPath } from '@/utils/topics';
+import { ramadanPages } from '@/utils/seo-ramadan';
 
 // Build-time data for scripts/generate-sitemap.mjs and the legacy /word/<id> redirect pages.
 export { getAllWords, getPublishedCollections };
@@ -81,6 +82,7 @@ export function pillarPages(): string[] {
     PILLAR_PATHS.juzAmma,
     ISLAMIC_TERMS_PATH,
     ...topicPages(),
+    ...ramadanPages(),
   ];
 }
 

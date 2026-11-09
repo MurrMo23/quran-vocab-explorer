@@ -50,7 +50,7 @@ export const phraseSeo = (p: Phrase): PageSeo => {
         : 'and whether it is in the Quran.';
   return {
     title: firstFitting(`${p.name} Meaning: ${titled} (${ar})`, `${p.name} Meaning: ${titled}`, `${p.name} Meaning in Arabic`),
-    description: fitSentences(
+    description: p.metaDescription ?? fitSentences(
       `${p.name} (${ar}) means “${short}”. The Arabic, transliteration, a word-by-word breakdown, when Muslims say it ${inQuran}`,
       'Free, with audio.',
     ),

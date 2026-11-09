@@ -1,0 +1,81 @@
+{
+ "collection": "worship",
+ "existing": [],
+ "new": [
+  {
+   "id": "siyam",
+   "lemma": "SiyaAm",
+   "location": "2:183:6",
+   "transliteration": "siyam",
+   "meaning": "Fasting, the fast",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": ["worship", "ramadan", "fasting"]
+  },
+  {
+   "id": "shahr",
+   "lemma": "$ahor",
+   "location": "97:3:6",
+   "transliteration": "shahr",
+   "meaning": "Month",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": ["time", "ramadan"],
+   "collection": "time",
+   "extraCollections": ["worship"]
+  },
+  {
+   "id": "alf",
+   "lemma": ">alof",
+   "location": "97:3:5",
+   "transliteration": "alf",
+   "meaning": "Thousand",
+   "partOfSpeech": "noun",
+   "level": "beginner",
+   "tags": ["numbers", "ramadan"],
+   "collection": "numbers"
+  },
+  {
+   "id": "mubarak",
+   "lemma": "mubaArak",
+   "location": "21:50:3",
+   "transliteration": "mubarak",
+   "meaning": "Blessed",
+   "partOfSpeech": "adjective",
+   "level": "intermediate",
+   "tags": ["worship", "blessing", "ramadan"],
+   "extraCollections": ["books"]
+  },
+  {
+   "id": "mubarakah",
+   "lemma": "m~uba`rakap",
+   "location": "44:3:5",
+   "transliteration": "mubarakah",
+   "arabic": "مُبَارَكَة",
+   "meaning": "Blessed (feminine)",
+   "partOfSpeech": "adjective",
+   "level": "intermediate",
+   "tags": ["worship", "blessing", "ramadan"]
+  },
+  {
+   "id": "akif",
+   "lemma": "EaAkif",
+   "location": "2:125:20",
+   "transliteration": "akif",
+   "meaning": "Devoted, staying (in worship)",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": ["worship", "ramadan", "devotion"]
+  },
+  {
+   "id": "eid",
+   "lemma": "Eiyd",
+   "location": "5:114:14",
+   "transliteration": "eid",
+   "meaning": "Festival, a recurring celebration",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": ["worship", "celebration", "ramadan"]
+  }
+ ]
+}

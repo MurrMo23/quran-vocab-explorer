@@ -11183,6 +11183,230 @@ export const collectionsExtendedWords: Word[] = [
     ]
   },
   {
+    "id": "siyam",
+    "arabic": "صِيَام",
+    "transliteration": "siyam",
+    "meaning": "Fasting, the fast",
+    "root": "ص و م",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 9,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 2,
+      "ayah": 183,
+      "position": 6
+    },
+    "tags": [
+      "worship",
+      "ramadan",
+      "fasting"
+    ],
+    "collections": [
+      "worship"
+    ],
+    "examples": [
+      {
+        "surah": 2,
+        "ayah": 183,
+        "arabicText": "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ كُتِبَ عَلَيْكُمُ ٱلصِّيَامُ كَمَا كُتِبَ عَلَى ٱلَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ",
+        "translation": "O you who have believed, decreed upon you is fasting as it was decreed upon those before you that you may become righteous"
+      }
+    ]
+  },
+  {
+    "id": "shahr",
+    "arabic": "شَهْر",
+    "transliteration": "shahr",
+    "meaning": "Month",
+    "root": "ش ه ر",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 21,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 97,
+      "ayah": 3,
+      "position": 6
+    },
+    "tags": [
+      "time",
+      "ramadan"
+    ],
+    "collections": [
+      "time",
+      "worship"
+    ],
+    "examples": [
+      {
+        "surah": 97,
+        "ayah": 3,
+        "arabicText": "لَيْلَةُ ٱلْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ",
+        "translation": "The Night of Decree is better than a thousand months"
+      }
+    ]
+  },
+  {
+    "id": "alf",
+    "arabic": "أَلْف",
+    "transliteration": "alf",
+    "meaning": "Thousand",
+    "root": "ا ل ف",
+    "partOfSpeech": "noun",
+    "level": "beginner",
+    "frequency": 14,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 97,
+      "ayah": 3,
+      "position": 5
+    },
+    "tags": [
+      "numbers",
+      "ramadan"
+    ],
+    "collections": [
+      "numbers"
+    ],
+    "examples": [
+      {
+        "surah": 97,
+        "ayah": 3,
+        "arabicText": "لَيْلَةُ ٱلْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ",
+        "translation": "The Night of Decree is better than a thousand months"
+      }
+    ]
+  },
+  {
+    "id": "mubarak",
+    "arabic": "مُبَارَك",
+    "transliteration": "mubarak",
+    "meaning": "Blessed",
+    "root": "ب ر ك",
+    "partOfSpeech": "adjective",
+    "level": "intermediate",
+    "frequency": 8,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 21,
+      "ayah": 50,
+      "position": 3
+    },
+    "tags": [
+      "worship",
+      "blessing",
+      "ramadan"
+    ],
+    "collections": [
+      "worship",
+      "books"
+    ],
+    "examples": [
+      {
+        "surah": 21,
+        "ayah": 50,
+        "arabicText": "وَهَـٰذَا ذِكْرٌ مُّبَارَكٌ أَنزَلْنَـٰهُ أَفَأَنتُمْ لَهُۥ مُنكِرُونَ",
+        "translation": "And this [Qur'an] is a blessed message which We have sent down. Then are you with it unacquainted"
+      }
+    ]
+  },
+  {
+    "id": "mubarakah",
+    "arabic": "مُبَارَكَة",
+    "transliteration": "mubarakah",
+    "meaning": "Blessed (feminine)",
+    "root": "ب ر ك",
+    "partOfSpeech": "adjective",
+    "level": "intermediate",
+    "frequency": 4,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 44,
+      "ayah": 3,
+      "position": 5
+    },
+    "tags": [
+      "worship",
+      "blessing",
+      "ramadan"
+    ],
+    "collections": [
+      "worship"
+    ],
+    "examples": [
+      {
+        "surah": 44,
+        "ayah": 3,
+        "arabicText": "إِنَّآ أَنزَلْنَـٰهُ فِى لَيْلَةٍ مُّبَـٰرَكَةٍ إِنَّا كُنَّا مُنذِرِينَ",
+        "translation": "Indeed, We sent it down during a blessed night. Indeed, We were to warn [mankind]"
+      }
+    ]
+  },
+  {
+    "id": "akif",
+    "arabic": "عَاكِف",
+    "transliteration": "akif",
+    "meaning": "Devoted, staying (in worship)",
+    "root": "ع ك ف",
+    "partOfSpeech": "noun",
+    "level": "advanced",
+    "frequency": 7,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 2,
+      "ayah": 125,
+      "position": 20
+    },
+    "tags": [
+      "worship",
+      "ramadan",
+      "devotion"
+    ],
+    "collections": [
+      "worship"
+    ],
+    "examples": [
+      {
+        "surah": 2,
+        "ayah": 125,
+        "arabicText": "وَإِذْ جَعَلْنَا ٱلْبَيْتَ مَثَابَةً لِّلنَّاسِ وَأَمْنًا وَٱتَّخِذُوا۟ مِن مَّقَامِ إِبْرَٰهِـۧمَ مُصَلًّى وَعَهِدْنَآ إِلَىٰٓ إِبْرَٰهِـۧمَ وَإِسْمَـٰعِيلَ أَن طَهِّرَا بَيْتِىَ لِلطَّآئِفِينَ وَٱلْعَـٰكِفِينَ وَٱلرُّكَّعِ ٱلسُّجُودِ",
+        "translation": "And [mention] when We made the House a place of return for the people and [a place of] security. And take, [O believers], from the standing place of Abraham a place of prayer. And We charged Abraham and Ishmael, [saying], \"Purify My House for those who perform Tawaf and those who are staying [there] for worship and those who bow and prostrate [in prayer]"
+      }
+    ]
+  },
+  {
+    "id": "eid",
+    "arabic": "عِيد",
+    "transliteration": "eid",
+    "meaning": "Festival, a recurring celebration",
+    "root": "ع و د",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 1,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 5,
+      "ayah": 114,
+      "position": 14
+    },
+    "tags": [
+      "worship",
+      "celebration",
+      "ramadan"
+    ],
+    "collections": [
+      "worship"
+    ],
+    "examples": [
+      {
+        "surah": 5,
+        "ayah": 114,
+        "arabicText": "قَالَ عِيسَى ٱبْنُ مَرْيَمَ ٱللَّهُمَّ رَبَّنَآ أَنزِلْ عَلَيْنَا مَآئِدَةً مِّنَ ٱلسَّمَآءِ تَكُونُ لَنَا عِيدًا لِّأَوَّلِنَا وَءَاخِرِنَا وَءَايَةً مِّنكَ وَٱرْزُقْنَا وَأَنتَ خَيْرُ ٱلرَّٰزِقِينَ",
+        "translation": "Said Jesus, the son of Mary, \"O Allah, our Lord, send down to us a table [spread with food] from the heaven to be for us a festival for the first of us and the last of us and a sign from You. And provide for us, and You are the best of providers"
+      }
+    ]
+  },
+  {
     "id": "itmaanna",
     "arabic": "ٱطْمَأَنَّ",
     "transliteration": "itma'anna",
