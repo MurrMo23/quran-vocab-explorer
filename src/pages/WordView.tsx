@@ -83,6 +83,7 @@ const WordView = () => {
           url={canonicalPath ?? undefined}
           image={ogImage('words', getWordSlug(word))}
           word={{
+            id: word.id,
             arabic: word.arabic,
             transliteration: word.transliteration,
             meaning: word.meaning,

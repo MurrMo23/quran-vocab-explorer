@@ -59,7 +59,7 @@ const Surahs = () => {
         image={ogImage('pages', 'surahs')}
         jsonLd={[
           itemListLd(
-            'Surah vocabulary lists',
+            'List of surahs of the Quran',
             '/surahs',
             surahs.map((x) => ({ name: `Surah ${x.name} vocabulary`, path: surahPath(x.number) })),
           ),
@@ -71,10 +71,11 @@ const Surahs = () => {
 
         <header className="card-tactile mb-8 flex flex-col gap-6 rounded-[2rem] p-6 sm:p-9 lg:flex-row lg:items-center lg:justify-between">
           <div className="min-w-0 max-w-2xl">
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Surah vocabulary</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{HUB_SEO.surahs.heading}</h1>
             <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:text-[17px]">
-              Learn the words of the surahs you recite. Each of the 114 surahs has a page listing the QuranVocab words
-              found in it, most frequent first, and how much of the surah they cover. The short surahs of{' '}
+              All 114 surahs of the Quran, in order. Learn the words of the surahs you recite: each surah has a page
+              with its words and their meaning in English, word by word, most frequent first, and how much of the
+              surah they cover; short surahs also have the full English translation. The short surahs of{' '}
               <a href="#juz-amma" className="font-semibold text-primary underline underline-offset-4 hover:text-primary-shade">Juz Amma</a>{' '}
               (78–114) are highlighted.
             </p>

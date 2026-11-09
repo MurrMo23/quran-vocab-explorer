@@ -1,13 +1,16 @@
 import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { track } from '@/lib/analytics';
-import { ArrowLeft, ArrowRight, Target } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronDown, Target } from 'lucide-react';
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
 import { Button } from '@/components/ui/button';
 import { getRootBySlug, getSurahVocabulary, getWordRootSlug, isJuzAmma, rootPath, surahPath, wordPath } from '@/utils/quran-pages';
-import { itemListLd, surahSeo } from '@/utils/seo-templates';
+import { itemListLd, searchSpelling, surahSeo } from '@/utils/seo-templates';
+import { getSurahAliases } from '@/utils/surah-aliases';
+import { hasSurahEnglish, surahEnglishPath, type SurahEnglish } from '@/utils/surah-english';
+import { EmbedStaticData, useStaticData } from '@/lib/static-data';
 
 const pct = (n: number) => `${n.toLocaleString('en-US', { maximumFractionDigits: 1 })}%`;
 
@@ -26,6 +29,8 @@ const SurahVocabulary = () => {
   const surah = useMemo(() => (/^\d+$/.test(number ?? '') ? getSurahVocabulary(n) : undefined), [number, n]);
   // Keyed by surah so moving to the next surah collapses the list again.
   const [expandedFor, setExpandedFor] = useState<number | null>(null);
+  const englishPath = surah && hasSurahEnglish(surah.number, surah.ayahs) ? surahEnglishPath(surah.number) : null;
+  const { data: english } = useStaticData<SurahEnglish>(englishPath);
 
   if (!surah) {
     return (
@@ -42,9 +47,14 @@ const SurahVocabulary = () => {
     );
   }
 
-  const title = `Vocabulary of Surah ${surah.name} (${surah.number})`;
   const count = surah.words.length;
-  const seo = surahSeo({ ...surah, wordCount: count, topWords: surah.words.slice(0, 5).map((w) => w.word.transliteration) });
+  const seo = surahSeo({
+    ...surah,
+    wordCount: count,
+    topWords: surah.words.slice(0, 5).map((w) => w.word.transliteration),
+    hasEnglish: !!englishPath,
+  });
+  const aliases = getSurahAliases(surah.number, surah.name);
   // Roots of the surah's words, in order of first appearance in the (frequency-sorted) list.
   const roots: { slug: string; ar: string }[] = [];
   for (const { word } of surah.words) {
@@ -71,6 +81,7 @@ const SurahVocabulary = () => {
         imageAlt={`Surah ${surah.name} (${surah.arabic}): ${surah.meaning}`}
         keywords={[
           `Surah ${surah.name}`,
+          `Surah ${searchSpelling(surah.name)} in English`,
           `${surah.name} vocabulary`,
           `${surah.name} words meaning`,
           surah.arabic,
@@ -93,6 +104,7 @@ const SurahVocabulary = () => {
             : undefined
         }
       />
+      {englishPath && english && <EmbedStaticData path={englishPath} data={english} />}
 
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
         <PageTrail items={[{ name: 'Surah vocabulary', path: '/surahs' }, { name: surah.name, path: surahPath(surah.number) }]} />
@@ -106,13 +118,23 @@ const SurahVocabulary = () => {
               <span className="rounded-full bg-gold/25 px-3 py-1.5 text-[13px] font-bold text-gold-text">Juz Amma</span>
             )}
           </div>
-          <p className="mt-4 font-quran text-5xl leading-[1.75] text-primary sm:text-6xl" lang="ar" dir="rtl">
-            سورة {surah.arabic}
-          </p>
-          <h1 className="mt-1 text-2xl font-extrabold tracking-tight sm:text-4xl">{title}</h1>
+          {/* One H1, "Surah <Name> (<Arabic>): Words & Meaning": the Arabic is shown first and large
+              (order-first); the brackets and colon are for screen readers and the page outline only. */}
+          <h1 className="mt-4 flex flex-col font-extrabold tracking-tight">
+            <span className="text-2xl sm:text-4xl">Surah {surah.name}</span>
+            <span className="sr-only"> (</span>
+            <span className="order-first font-quran text-5xl font-normal leading-[1.75] text-primary sm:text-6xl" lang="ar" dir="rtl">
+              سورة {surah.arabic}
+            </span>
+            <span className="sr-only">): </span>
+            <span className="mt-1 text-lg text-muted-foreground sm:text-xl">Words &amp; Meaning</span>
+          </h1>
           <p className="mt-2 text-muted-foreground sm:text-[17px]">
             “{surah.meaning}” · {surah.ayahs} ayahs · {surah.totalWords.toLocaleString('en-US')} words · {juz}
           </p>
+          {aliases.length > 0 && (
+            <p className="mt-1 text-sm text-muted-foreground">Also known as: {aliases.map((a) => `Surah ${a}`).join(', ')}</p>
+          )}
         </header>
 
         {count > 0 ? (
@@ -147,6 +169,34 @@ const SurahVocabulary = () => {
           <p className="text-muted-foreground lg:max-w-sm">None of the words on QuranVocab occur in this surah yet.</p>
         )}
         </div>
+
+        {english && (
+          <section aria-labelledby="english-heading" className="mb-8 rounded-[1.75rem] border bg-card p-5 sm:p-7">
+            <details className="group">
+              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+                <h2 id="english-heading" className="text-xl font-extrabold">
+                  Surah {surah.name} in English
+                </h2>
+                <span className="inline-flex shrink-0 items-center gap-1 text-sm font-bold text-primary">
+                  <span className="group-open:hidden">Show {english.ayahs.length} ayahs</span>
+                  <span className="hidden group-open:inline">Hide</span>
+                  <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" aria-hidden="true" />
+                </span>
+              </summary>
+              <ol className="mt-4 grid gap-3">
+                {english.ayahs.map((t, i) => (
+                  <li key={i} className="flex gap-3 text-base leading-relaxed sm:text-[17px]">
+                    <span className="mt-0.5 flex h-7 min-w-7 shrink-0 items-center justify-center rounded-full bg-secondary px-1.5 text-xs font-extrabold text-secondary-foreground">
+                      {i + 1}
+                    </span>
+                    <p>{t}</p>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-4 text-xs text-muted-foreground">Translation: {english.source}.</p>
+            </details>
+          </section>
+        )}
 
         {count > 0 && (
           <section aria-labelledby="words-heading">

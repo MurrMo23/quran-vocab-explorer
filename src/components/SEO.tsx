@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
-import { SITE_NAME, SITE_URL, brandTitle, fitDescription, wordSeo } from '@/utils/seo-templates';
+import { PHRASE_SPELLINGS, SITE_NAME, SITE_URL, brandTitle, fitDescription, wordSeo } from '@/utils/seo-templates';
 
 interface SEOProps {
   title?: string;
@@ -153,10 +153,12 @@ const SEO: React.FC<SEOProps> = ({
   // (patterns live in src/utils/seo-templates.ts).
   const wordDefaults = word
     ? wordSeo({
+        id: word.id,
         arabic: word.arabic,
         transliteration: word.transliteration,
         meaning: word.meaning,
         root: word.root,
+        count: word.frequency,
         usage: word.usage ?? `Used ${word.frequency} times in the Quran.`,
         divineName: word.divineName,
       })
@@ -199,7 +201,7 @@ const SEO: React.FC<SEOProps> = ({
       '@type': 'DefinedTerm',
       '@id': `${canonical}#term`,
       name: `${word.transliteration} (${word.arabic})`,
-      alternateName: word.arabic,
+      alternateName: word.id && PHRASE_SPELLINGS[word.id] ? [word.arabic, ...PHRASE_SPELLINGS[word.id].aka] : word.arabic,
       description: `Arabic word meaning "${word.meaning}". Transliteration: ${word.transliteration}. Root: ${word.root}. Part of speech: ${word.partOfSpeech}. ${word.usage ?? `Frequency in the Quran: ${word.frequency} occurrences.`}`,
       termCode: word.arabic,
       url: canonical,

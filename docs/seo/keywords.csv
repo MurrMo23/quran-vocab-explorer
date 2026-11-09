@@ -1,10 +1,10 @@
 keyword,volume,kd,cpc,intent,page_template,target_url,priority,global_vol,uk,ca,in,pk,ng,my,source,note
-bismillah meaning,40500,,,informational,word (phrase),/word/bismillah-ir-rahman-ir-raheem,P1,,,,,,,,google_ads_us,
-allahu akbar meaning,40500,,2.72,informational,word (phrase),/word/allahu-akbar,P1,,,,,,,,google_ads_us,
-alhamdulillah meaning,33100,,,informational,word (phrase),/word/al-hamdu-lillahi-rabbil-alameen,P1,,,,,,,,google_ads_us,
+bismillah meaning,40500,,,informational,phrase,/phrases/bismillah,P1,,,,,,,,google_ads_us,
+allahu akbar meaning,40500,,2.72,informational,phrase,/phrases/allahu-akbar,P1,,,,,,,,google_ads_us,
+alhamdulillah meaning,33100,,,informational,phrase,/phrases/alhamdulillah,P1,,,,,,,,google_ads_us,
 99 names of allah,27100,21,0.47,informational,name,/names-of-allah,P1,246000,33100,8100,74000,27100,18100,1900,google_ads_us,
 shirk meaning,12100,31,,informational,word,/word/shirk,P1,49500,,,,,,,google_ads_us,
-subhanallah meaning,12100,,,informational,word (phrase),/word/subhan-allah,P1,,,,,,,,google_ads_us,
+subhanallah meaning,12100,,,informational,phrase,/phrases/subhanallah,P1,,,,,,,,google_ads_us,
 hajj meaning,8100,16,9.78,informational,word,/word/hajj,P1,14800,,,,,,,google_ads_us,
 alhamdulillah in arabic,6600,0,0.01,informational,word (phrase),/word/al-hamdu-lillahi-rabbil-alameen,P1,,,,,,,,google_ads_us,
 names of allah,4400,6,0.57,informational,name,/names-of-allah,P1,49500,3600,1600,9900,12100,1900,320,google_ads_us,
@@ -110,10 +110,10 @@ az zahir,70,0,,informational,name,/names-of-allah/az-zahir,P1,8100,,,,,,,google_
 ya jabbar,50,0,,informational,name,/names-of-allah/al-jabbar,P1,8100,,,,,,,google_ads_us,
 al khabir,50,0,,informational,name,/names-of-allah/al-khabir,P1,5400,,,,,,,google_ads_us,
 surah mulk,90500,,3.74,informational,surah,/surah/67,P2,,,,,,,,google_ads_us,bare surah query: dominant intent is full text/recitation; vocab page can rank only if title leads with 'Surah X' and page shows ayahs word-by-word
-inshallah meaning,90500,,,informational,phrase-hub,NEW:/phrases/<slug>,P2,,,,,,,,google_ads_us,
-wallahi meaning,74000,,,informational,phrase-hub,NEW:/phrases/<slug>,P2,,,,,,,,google_ads_us,
+inshallah meaning,90500,,,informational,phrase,/phrases/inshallah,P2,,,,,,,,google_ads_us,
+wallahi meaning,74000,,,informational,phrase,/phrases/wallahi,P2,,,,,,,,google_ads_us,
 halal meaning in islam,74000,24,2.17,informational,other,NEW,P2,,,,,,,,labs_sugg_islam,
-mashallah meaning,60500,,,informational,phrase-hub,NEW:/phrases/<slug> (note: /word/masha is the verb 'to walk' - do not target),P2,,,,,,,,google_ads_us,
+mashallah meaning,60500,,,informational,phrase,/phrases/mashallah,P2,,,,,,,,google_ads_us,
 surah kahf,40500,,6.83,informational,surah,/surah/18,P2,,,,,,,,google_ads_us,bare surah query: dominant intent is full text/recitation; vocab page can rank only if title leads with 'Surah X' and page shows ayahs word-by-word
 surah rahman,33100,,2.5,informational,surah,/surah/55,P2,,,,,,,,google_ads_us,bare surah query: dominant intent is full text/recitation; vocab page can rank only if title leads with 'Surah X' and page shows ayahs word-by-word
 surah waqiah,33100,,4.26,informational,surah,/surah/56,P2,,,,,,,,google_ads_us,bare surah query: dominant intent is full text/recitation; vocab page can rank only if title leads with 'Surah X' and page shows ayahs word-by-word

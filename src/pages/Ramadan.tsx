@@ -27,8 +27,10 @@ import {
   type RamadanPhase,
 } from '@/lib/ramadan-plan';
 
-const TITLE = 'Ramadan 30-Day Quran Vocabulary Plan: Learn the Words You Hear in Taraweeh';
+const TITLE = 'Ramadan Quran Plan: Learn the Words of Taraweeh & Laylatul Qadr';
 const PATH = '/ramadan';
+const wordsCard = 'min-w-0 space-y-3 rounded-[1.75rem] border bg-card p-6 text-sm leading-relaxed text-muted-foreground sm:p-7';
+const inlineLink = 'font-semibold text-primary underline underline-offset-4 hover:text-primary-shade';
 
 interface DayProgress {
   started: number;
@@ -183,7 +185,7 @@ const Ramadan = () => {
   const day1 = plan[0];
   const lastDate = formatPlanDate(ramadanDayDate(RAMADAN_DAYS));
 
-  const description = `A free 30-day plan to learn about ${WORDS_PER_DAY} Quranic Arabic words a day this Ramadan, most frequent first, so you understand more of what you hear in taraweeh. ${coverage.words} words that make up about ${Math.round(coverage.quranPercent)}% of the Quran's words. Starts around ${RAMADAN_START_LABEL}.`;
+  const description = `A free 30-day Ramadan Quran plan: learn about ${WORDS_PER_DAY} Quranic words a day to understand taraweeh and Laylatul Qadr, plus what Ramadan Mubarak means.`;
 
   return (
     <>
@@ -193,7 +195,7 @@ const Ramadan = () => {
         url={PATH}
         image={ogImage('pages', 'ramadan')}
         imageAlt="رمضان: 30-day Ramadan Quran vocabulary plan"
-        keywords={['Ramadan Quran plan', 'Ramadan vocabulary', 'taraweeh', 'Quranic Arabic words', 'Ramadan 2027', 'learn Quran Arabic in Ramadan']}
+        keywords={['Ramadan Quran plan', 'Ramadan vocabulary', 'taraweeh', 'Laylatul Qadr', 'Ramadan Mubarak meaning', 'Ramadan in Arabic', 'Quranic Arabic words', 'Ramadan 2027', 'learn Quran Arabic in Ramadan']}
         type="website"
         breadcrumbs={[{ name: 'Ramadan plan', path: PATH }]}
       />
@@ -270,7 +272,66 @@ const Ramadan = () => {
           </ol>
         </section>
 
-        <section className="mt-12 max-w-3xl space-y-3 rounded-[1.75rem] border bg-card p-6 text-sm leading-relaxed text-muted-foreground sm:p-7" aria-labelledby="how-heading">
+        <div className="mt-12 grid gap-4 lg:grid-cols-3">
+          <section className={wordsCard} aria-labelledby="ramadan-arabic-heading">
+            <h2 id="ramadan-arabic-heading" className="text-xl font-extrabold text-foreground">
+              Ramadan in Arabic
+            </h2>
+            <p>
+              <span className="font-arabic text-2xl text-foreground" lang="ar" dir="rtl">رمضان</span> (Ramaḍān) is the ninth
+              month of the Islamic calendar. The name is traditionally linked to the root{' '}
+              <span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">ر م ض</span>, intense heat. The Quran
+              names the month once, in{' '}
+              <Link to="/surah/2" className={inlineLink}>Al-Baqarah 2:185</Link>:
+            </p>
+            <p className="font-quran text-2xl leading-[1.9] text-foreground" lang="ar" dir="rtl">
+              شَهْرُ رَمَضَانَ الَّذِي أُنزِلَ فِيهِ الْقُرْآنُ
+            </p>
+            <p>“The month of Ramadhan [is that] in which was revealed the Qur’an” (Saheeh International).</p>
+          </section>
+
+          <section className={wordsCard} aria-labelledby="ramadan-greetings-heading">
+            <h2 id="ramadan-greetings-heading" className="text-xl font-extrabold text-foreground">
+              Ramadan Mubarak and Ramadan Kareem meaning
+            </h2>
+            <p>
+              <strong className="text-foreground">Ramadan Mubarak</strong>{' '}
+              (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">رمضان مبارك</span>) means “blessed
+              Ramadan”. Mubārak comes from the root{' '}
+              <Link to="/root/b-r-k" className={cn(inlineLink, 'font-arabic text-lg')} lang="ar">ب ر ك</Link> (blessing); the Quran calls the night it was sent
+              down “a blessed night” (44:3).
+            </p>
+            <p>
+              <strong className="text-foreground">Ramadan Kareem</strong>{' '}
+              (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">رمضان كريم</span>) means “generous
+              Ramadan”. Karīm comes from the root <Link to="/root/k-r-m" className={cn(inlineLink, 'font-arabic text-lg')} lang="ar">ك ر م</Link> (generosity,
+              nobility), as in <Link to="/names-of-allah/al-karim" className={inlineLink}>Al-Karim</Link>, one of the 99 Names
+              of Allah. Both are greetings for the month; neither phrase is itself in the Quran.
+            </p>
+          </section>
+
+          <section className={wordsCard} aria-labelledby="ramadan-nights-heading">
+            <h2 id="ramadan-nights-heading" className="text-xl font-extrabold text-foreground">
+              Taraweeh and Laylatul Qadr
+            </h2>
+            <p>
+              <strong className="text-foreground">Taraweeh</strong>{' '}
+              (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">تراويح</span>) are the night prayers
+              of Ramadan. The word is the plural of tarwīḥa, “a rest”, from the root{' '}
+              <Link to="/root/r-w-hh" className={cn(inlineLink, 'font-arabic text-lg')} lang="ar">ر و ح</Link>, after the short rest taken between sets of
+              rak‘ahs.
+            </p>
+            <p>
+              <strong className="text-foreground">Laylatul Qadr</strong>{' '}
+              (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">ليلة القدر</span>) is “the Night of
+              Decree”, sought in the last ten nights. <Link to="/surah/97" className={inlineLink}>Surah Al-Qadr (97)</Link>{' '}
+              describes it: “The Night of Decree is better than a thousand months” (97:3). Learn its words on Day 27 of the
+              plan.
+            </p>
+          </section>
+        </div>
+
+        <section className="mt-10 max-w-3xl space-y-3 rounded-[1.75rem] border bg-card p-6 text-sm leading-relaxed text-muted-foreground sm:p-7" aria-labelledby="how-heading">
           <h2 id="how-heading" className="text-xl font-extrabold text-foreground">
             How the plan was made
           </h2>

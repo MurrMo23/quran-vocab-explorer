@@ -3,7 +3,7 @@
 // removes the SSR bundle. Writes dist/ (what is deployed) and public/ (the committed copies).
 //
 //   sitemap.xml              sitemap index, pointing at:
-//   sitemap-pages.xml        home, hubs and static pages
+//   sitemap-pages.xml        home, hubs, static pages and the pillar pages (/phrases/<slug>, ...)
 //   sitemap-collections.xml  /collections/<id>
 //   sitemap-words.xml        /word/<slug>
 //   sitemap-roots.xml        /roots/<letter>, /root/<slug>
@@ -29,7 +29,7 @@ const publicDir = resolve('public');
 const ssrDir = resolve('dist-ssr');
 const manifestFile = resolve('scripts', 'sitemap-lastmod.json');
 const ssr = await import(pathToFileURL(join(ssrDir, 'entry-server.js')).href);
-const { getAllWords, getPublishedCollections, getWordSlug, quranPages, namesPages } = ssr;
+const { getAllWords, getPublishedCollections, getWordSlug, quranPages, namesPages, pillarPages } = ssr;
 
 // --- Slug guard ------------------------------------------------------------------------------
 const words = getAllWords();
@@ -55,7 +55,7 @@ const staticPages = ['/', '/collections', '/roots', '/surahs', '/names-of-allah'
 const collections = getPublishedCollections();
 const q = quranPages();
 const groups = {
-  pages: staticPages,
+  pages: [...staticPages, ...pillarPages()],
   collections: collections.map((c) => `/collections/${encodeURIComponent(c.id)}`),
   words: words.map((w) => `/word/${encodeURIComponent(getWordSlug(w))}`),
   roots: q.filter((p) => p.startsWith('/roots/') || p.startsWith('/root/')),
@@ -65,7 +65,7 @@ const groups = {
 const all = Object.values(groups).flat();
 const dupes = all.filter((p, i) => all.indexOf(p) !== i);
 if (dupes.length) console.warn(`[sitemap] duplicate URLs: ${dupes.join(', ')}`);
-const unassigned = [...q, ...namesPages()].filter((p) => !all.includes(p));
+const unassigned = [...q, ...namesPages(), ...pillarPages()].filter((p) => !all.includes(p));
 if (unassigned.length) console.warn(`[sitemap] prerendered routes in no sitemap: ${unassigned.join(', ')}`);
 
 // --- Content hashes -> lastmod ---------------------------------------------------------------

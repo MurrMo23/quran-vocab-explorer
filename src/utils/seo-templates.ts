@@ -79,12 +79,66 @@ export interface PageSeo {
 }
 
 // ---- Word pages: /word/<slug> ------------------------------------------------------------------
+/**
+ * Phrase words people search by a popular spelling ("bismillah meaning", "subhanallah meaning"):
+ * the title leads with that spelling, and the page lists the spellings ("Also written as") while
+ * keeping the site's transliteration in the heading. `title` is optional; without it the page uses
+ * the normal word template (in-sha-allah: the /phrases pages target "inshallah meaning").
+ * Phrase word pages use "in the Quran: Word by Word" titles so the /phrases/<slug> pages own "<phrase> meaning".
+ */
+export const PHRASE_SPELLINGS: Record<string, { name?: string; title?: string; aka: string[]; note?: string }> = {
+  'bismillah-ir-rahman-ir-raheem': {
+    name: 'Bismillah',
+    title: 'Bismillah ir-Rahman ir-Raheem in the Quran: Word by Word',
+    aka: ['Bismillahir Rahmanir Raheem', 'Bismillah ir-Rahman ir-Rahim', 'Bismillah'],
+    note: 'The phrase is called the basmala.',
+  },
+  'al-hamdu-lillahi-rabbil-alameen': {
+    name: 'Alhamdulillah',
+    title: 'Alhamdulillahi Rabbil Alamin in the Quran: Word by Word',
+    aka: ['Alhamdulillahi Rabbil Alamin', 'Alhamdulillah'],
+    note: 'Saying it is called the tahmid.',
+  },
+  'allahu-akbar': {
+    name: 'Allahu Akbar',
+    title: 'Allahu Akbar in Arabic: Word by Word (الله أكبر)',
+    aka: ['Allah-u-Akbar', 'Allah Akbar'],
+    note: 'Saying it is called the takbir.',
+  },
+  'subhan-allah': {
+    name: 'SubhanAllah',
+    title: 'SubhanAllah in the Quran: Word by Word (سبحان الله)',
+    aka: ['SubhanAllah', 'Subhanallah'],
+    note: 'Saying it is called tasbih.',
+  },
+  'la-ilaha-illa-allah': {
+    name: 'La ilaha illallah',
+    title: 'La ilaha illallah in the Quran: Word by Word',
+    aka: ['La ilaha illallah', 'Laa ilaaha illallah'],
+    note: 'Saying it is called the tahlil.',
+  },
+  'in-sha-allah': {
+    title: 'In sha Allah in the Quran: Word by Word (إن شاء الله)',
+    aka: ['Inshallah', 'Insha Allah', "In shaa' Allah"],
+  },
+};
+
+/** "Prayer" from "Prayer, salah (the ritual ...)": the first sense, for "How to say ... in Arabic". */
+export const firstSense = (meaning: string, partOfSpeech?: string): string => {
+  const g = shortGloss(meaning);
+  return partOfSpeech === 'phrase' ? g : (g.split(/\s*,\s*/)[0] || g).trim();
+};
+
 export const wordSeo = (w: {
+  /** Word id: phrase words get the title of their popular spelling (PHRASE_SPELLINGS). */
+  id?: string;
   arabic: string;
   transliteration: string;
   meaning: string;
   /** Root letters in Arabic (e.g. "ص ل و"). */
   root?: string;
+  /** Occurrences in the Quran (0 when the word is not found verbatim). */
+  count?: number;
   /** "Used 83 times in the Quran." or how the word relates to the Quran. */
   usage: string;
   /**
@@ -95,13 +149,28 @@ export const wordSeo = (w: {
 }): PageSeo => {
   const tr = capitalize(w.transliteration.trim());
   const gloss = shortGloss(w.meaning);
-  const head = headTerm(tr, w.arabic);
+  const Gloss = capitalize(gloss);
+  const phrase = w.id ? PHRASE_SPELLINGS[w.id] : undefined;
+  let title: string;
+  if (phrase?.title) title = phrase.title;
+  else if (w.divineName) title = fitTitle(`${headTerm(tr, w.arabic)} in the Quran: `, [gloss]);
+  else {
+    // "<Translit> Meaning in the Quran: <English> (<Arabic>)"; drop "in the Quran", then the Arabic.
+    const options = [`${tr} Meaning in the Quran: ${Gloss} (${w.arabic})`, `${tr} Meaning: ${Gloss} (${w.arabic})`];
+    title = options.find((t) => len(t) <= TITLE_MAX) ?? fitTitle(`${tr} Meaning: `, [Gloss]);
+  }
+  const n = w.count ?? 0;
+  const head = phrase?.title && phrase.name ? phrase.name : tr;
+  const lead =
+    n > 0
+      ? `${head} (${w.arabic}) means "${gloss}" and appears ${n.toLocaleString('en-US')} ${n === 1 ? 'time' : 'times'} in the Quran.`
+      : `${head} (${w.arabic}) means "${gloss}".`;
   return {
-    title: w.divineName ? fitTitle(`${head} in the Quran: `, [gloss]) : fitTitle(`${head} Meaning: `, [gloss]),
+    title,
     description: fitSentences(
-      `${tr} (${w.arabic}) means "${gloss}" in Quranic Arabic.`,
+      lead,
+      n > 0 ? undefined : w.usage,
       w.root && `Root ${w.root}.`,
-      w.usage,
       'See example verses, the root family and audio.',
     ),
   };
@@ -122,7 +191,7 @@ export const rootSeo = (r: {
   const n = r.total.toLocaleString('en-US');
   const words = `${n} ${r.total === 1 ? 'word in the Quran comes' : 'words in the Quran come'} from it, in ${r.forms} ${r.forms === 1 ? 'form' : 'forms'}`;
   return {
-    title: fitTitle(`Root ${r.ar} (${r.slug}) Meaning: `, senses),
+    title: fitTitle(`${r.ar} (${r.slug}) Root Meaning: `, senses),
     description: fitSentences(
       `The Arabic root ${r.ar} (${r.slug}) means ${r.core}.`,
       len(`${words} (${r.topForms.join(', ')}).`) < 90 ? `${words} (${r.topForms.join(', ')}).` : `${words}.`,
@@ -140,6 +209,9 @@ export const rootLetterSeo = (l: { arabic: string; name: string; count: number }
 });
 
 // ---- Surah pages: /surah/<n> -------------------------------------------------------------------
+/** "Al-Waqi'ah" -> "Al-Waqiah": the spelling people type (an apostrophe splits the word in search). */
+export const searchSpelling = (s: string) => s.replace(/['ʿʾ‘’]/g, '');
+
 export const surahSeo = (s: {
   number: number;
   name: string;
@@ -150,31 +222,82 @@ export const surahSeo = (s: {
   wordCount: number;
   coveragePercent: number;
   topWords: string[];
+  /** The page shows the full English translation (Saheeh International), ayah by ayah. */
+  hasEnglish?: boolean;
 }): PageSeo => {
   const pct = `${s.coveragePercent.toLocaleString('en-US', { maximumFractionDigits: 1 })}%`;
+  const name = searchSpelling(s.name);
+  const base = `Surah ${name} in English: Word-by-Word Meaning`;
+  const words = `${s.wordCount} Arabic ${s.wordCount === 1 ? 'word' : 'words'}`;
   return {
     title:
-      s.wordCount > 0
-        ? fitTitle(`Surah ${s.name} Vocabulary: `, [`${s.wordCount} ${s.wordCount === 1 ? 'Word' : 'Words'} & Meanings`])
-        : `Surah ${s.name} (${s.number}) Vocabulary`,
-    description:
-      s.wordCount > 0
+      s.wordCount > 0 || s.hasEnglish
+        ? len(`${base} & Vocabulary`) <= TITLE_MAX
+          ? `${base} & Vocabulary`
+          : base
+        : `Surah ${name} (${s.number}) Vocabulary`,
+    description: s.hasEnglish
+      ? fitSentences(
+          `Surah ${name} (${s.arabic}, "${s.meaning}") in English: the Saheeh International translation of all ${s.ayahs} ayahs.`,
+          s.wordCount > 0 && `Plus the meaning of its ${words}, word by word.`,
+        )
+      : s.wordCount > 0
         ? fitSentences(
-            `Learn the ${s.wordCount} Arabic ${s.wordCount === 1 ? 'word' : 'words'} of Surah ${s.name} (${s.arabic}, "${s.meaning}") with their meanings.`,
-            `Most frequent first: ${s.topWords.join(', ')}.`,
+            `Surah ${name} (${s.arabic}, "${s.meaning}") word by word: the English meaning of its ${words}, most frequent first.`,
+            `Top words: ${s.topWords.join(', ')}.`,
             `They cover ${pct} of the surah.`,
           )
-        : fitSentences(`Vocabulary of Surah ${s.name} (${s.arabic}, "${s.meaning}"): ${s.ayahs} ayahs and ${s.totalWords} words.`),
+        : fitSentences(`Vocabulary of Surah ${name} (${s.arabic}, "${s.meaning}"): ${s.ayahs} ayahs and ${s.totalWords} words.`),
   };
 };
 
 // ---- Collection pages: /collections/<id> -------------------------------------------------------
-export const collectionSeo = (c: { name: string; description: string; count: number }): PageSeo => {
+/**
+ * Collections are titled in the form people search ("Colors in Arabic"). `heading` is also the page's
+ * H1; `title` may use {n} for the word count. Collections not listed use "<Name> in Arabic: N Quranic Words".
+ */
+const COLLECTION_SEO: Record<string, { heading: string; title: string }> = {
+  colors: { heading: 'Colors in Arabic', title: 'Colors in Arabic: {n} Color Words from the Quran' },
+  time: { heading: 'Days of the Week in Arabic & Time Words', title: 'Days of the Week in Arabic & Time Words' },
+  family: { heading: 'Family Words in Arabic', title: 'Family in Arabic: {n} Family Words from the Quran' },
+  prophets: { heading: 'Prophets in the Quran: Names in Arabic & English', title: 'Prophets in the Quran: Names in Arabic & English' },
+  animals: { heading: 'Animals in Arabic', title: 'Animals in Arabic: Names of Animals in the Quran' },
+  body: { heading: 'Body Parts in Arabic', title: 'Body Parts in Arabic: Quranic Words for the Body' },
+  numbers: { heading: 'Numbers in Arabic', title: 'Numbers in Arabic: {n} Number Words in the Quran' },
+  food: { heading: 'Food in Arabic', title: 'Food in Arabic: {n} Quranic Words for Food & Drink' },
+  nature: { heading: 'Nature Words in Arabic', title: 'Nature in Arabic: {n} Quranic Words for Creation' },
+  weather: { heading: 'Weather Words in Arabic', title: 'Weather in Arabic: {n} Quranic Words' },
+  astronomy: { heading: 'Stars & Planets in Arabic', title: 'Stars & Astronomy in Arabic: {n} Quranic Words' },
+  emotions: { heading: 'Emotions in Arabic', title: 'Emotions in Arabic: {n} Quranic Words for Feelings' },
+  clothing: { heading: 'Clothing in Arabic', title: 'Clothing in Arabic: {n} Quranic Words' },
+  directions: { heading: 'Directions in Arabic', title: 'Directions in Arabic: {n} Quranic Words' },
+  afterlife: { heading: 'The Afterlife in the Quran: Arabic Words', title: 'Afterlife in the Quran: {n} Arabic Words & Meanings' },
+  angels: { heading: 'Angels in the Quran: Arabic Words', title: 'Angels in the Quran: {n} Arabic Words & Names' },
+  worship: { heading: 'Worship Words in Arabic', title: 'Worship in Arabic: {n} Quranic Words for Prayer & Ritual' },
+  phrases: { heading: 'Quranic Phrases in Arabic', title: 'Quranic Phrases in Arabic: {n} Phrases & Meanings' },
+  'quranic-stories': { heading: 'Stories in the Quran: Key Arabic Words', title: 'Stories in the Quran: {n} Key Arabic Words' },
+  'divine-names': { heading: 'Names & Attributes of Allah in Arabic', title: 'Attributes of Allah in Arabic: {n} Quranic Words' },
+  verbs: { heading: 'Common Arabic Verbs in the Quran', title: 'Common Arabic Verbs in the Quran: {n} Verbs' },
+  particles: { heading: 'Arabic Particles & Prepositions', title: 'Arabic Particles & Prepositions: {n} Quranic Words' },
+  grammar: { heading: 'Arabic Grammar Patterns in the Quran', title: 'Arabic Grammar Patterns: {n} Quranic Words' },
+  etymology: { heading: 'Arabic Word Origins', title: 'Arabic Word Origins: {n} Quranic Words & Roots' },
+  'advanced-theology': { heading: 'Islamic Theology Terms in Arabic', title: 'Islamic Theology Terms in Arabic: {n} Words' },
+  'arabic-culture': { heading: 'Arabic Culture Words in the Quran', title: 'Arabic Culture in the Quran: {n} Words' },
+  'daily-life': { heading: 'Everyday Arabic Words in the Quran', title: 'Everyday Arabic Words: {n} from the Quran' },
+};
+
+/** The H1 of a collection page (the search form, e.g. "Colors in Arabic"). */
+export const collectionHeading = (c: { id: string; name: string }): string =>
+  COLLECTION_SEO[c.id]?.heading ?? `${c.name} in Arabic`;
+
+export const collectionSeo = (c: { id: string; name: string; description: string; count: number }): PageSeo => {
   const first = `${c.description.replace(/\.\s*$/, '')}.`;
   const words = `${c.count} Quranic Arabic ${c.count === 1 ? 'word' : 'words'}`;
   const long = `Learn ${words} with meanings, roots, example verses and recitation audio.`;
+  const custom = COLLECTION_SEO[c.id]?.title.replace('{n}', String(c.count));
+  const fallback = fitTitle(`${c.name} in Arabic: `, [`${c.count} Quranic ${c.count === 1 ? 'Word' : 'Words'}`]);
   return {
-    title: fitTitle(`${c.name}: `, [`${c.count} Quranic Arabic ${c.count === 1 ? 'Word' : 'Words'}`]),
+    title: custom && len(custom) <= TITLE_MAX ? custom : fallback,
     description: fitSentences(first, len(`${first} ${long}`) <= DESC_MAX ? long : `Learn ${words} with meanings and verses.`),
   };
 };
@@ -188,16 +311,23 @@ export const nameSeo = (n: {
   meaning: string;
   /** Sentence on where the name is found (Quran / hadith). */
   statusText: string;
+  /** The vocative form people search ("Ya Rahman"). */
+  ya: string;
 }): PageSeo => {
-  const base = fitTitle(`${headTerm(n.tr, n.ar)} Meaning: `, [n.en], ', ');
-  const withSection = `${base} | 99 Names of Allah`;
+  const tr = searchSpelling(n.tr);
+  // "<Name> Meaning: <English> | 99 Names of Allah (Ya <Name>)", shortened step by step to fit.
+  const options = [
+    `${tr} Meaning: ${n.en} | 99 Names of Allah (${n.ya})`,
+    `${tr} Meaning: ${n.en} | 99 Names of Allah`,
+    `${tr} Meaning: ${n.en} (${n.ya})`,
+  ];
   return {
-    title: len(withSection) <= TITLE_MAX ? withSection : base,
+    title: options.find((t) => len(t) <= TITLE_MAX) ?? fitTitle(`${tr} Meaning: `, [n.en], ', '),
     description: fitSentences(
-      `${n.tr} (${n.ar}) means "${n.en}".`,
+      `${tr} (${n.ar}) means "${n.en}".`,
       n.meaning,
       n.statusText,
-      `Name ${n.n} of the 99 Names of Allah.`,
+      `Name ${n.n} of the 99 Names of Allah (Asmaul Husna).`,
     ),
   };
 };
@@ -205,7 +335,7 @@ export const nameSeo = (n: {
 // ---- Hubs and one-off pages --------------------------------------------------------------------
 export const HUB_SEO = {
   home: {
-    title: 'QuranVocab — Learn the Words of the Quran',
+    title: 'Learn Quranic Arabic Vocabulary: Understand the Quran',
     description: (wordCount: number) =>
       `Learn ${wordCount} common words of the Quran with flashcards, quizzes and word pages showing root and meaning. Free, no account needed to start.`,
   },
@@ -215,22 +345,25 @@ export const HUB_SEO = {
       `${count} themed lists of Quranic Arabic vocabulary (${words} words): prophets, afterlife, worship, nature and more, each with meanings, roots, verses and audio.`,
   },
   roots: {
-    title: (count: number) => `Quranic Arabic Roots: All ${count.toLocaleString('en-US')} Roots & Meanings`,
+    title: (count: number) => `Arabic Root Words in the Quran: All ${count.toLocaleString('en-US')} Roots`,
+    heading: 'Arabic Root Words in the Quran',
     description: (count: number) =>
-      `Every Arabic root in the Quran (${count.toLocaleString('en-US')}), with its core meaning, all the word forms built from it, how often each occurs and an example verse.`,
+      `Arabic root words in the Quran: all ${count.toLocaleString('en-US')} roots, with each root's core meaning, every word form built from it, how often it occurs and an example verse.`,
   },
   surahs: {
-    title: 'Surah Vocabulary: Word Lists for All 114 Surahs',
+    title: 'List of Surahs: All 114 Surahs of the Quran Word by Word',
+    heading: 'List of Surahs of the Quran, Word by Word',
     description:
-      'The Arabic words of every surah, from Al-Fatihah to An-Nas, ordered by how often they occur, with how much of the surah they cover. Juz Amma included.',
+      'List of all 114 surahs of the Quran, Al-Fatihah to An-Nas: open a surah for its words and meanings in English, word by word. Juz Amma included.',
   },
   names: {
-    title: '99 Names of Allah: Meanings, Arabic & Quran Verses',
+    title: '99 Names of Allah with Meaning (Asmaul Husna)',
+    heading: '99 Names of Allah with Meaning (Asmaul Husna)',
     description: (inQuran: number) =>
-      `All 99 Names of Allah (Asma ul Husna) in Arabic with transliteration and meaning: see which ${inQuran} are used of Allah in the Quran, with verses and recitation.`,
+      `The 99 Names of Allah with meaning (Asmaul Husna) in Arabic, transliteration and English: see which ${inQuran} are used of Allah in the Quran, with verses.`,
   },
   ramadan: {
-    title: 'Ramadan Quran Vocabulary Plan: 30 Days of Words',
+    title: 'Ramadan Quran Plan: Words of Taraweeh & Laylatul Qadr',
   },
   blog: {
     title: 'Quranic Arabic Learning Blog',
