@@ -121,6 +121,21 @@ const Phrases = () => {
               jazakallah khair and ameen, come from the Prophet’s practice rather than the Quran’s text.
             </p>
             <p>
+              For Ramadan, see{' '}
+              <Link to="/phrases/ramadan-mubarak" className="font-bold text-primary underline-offset-4 hover:underline">
+                Ramadan Mubarak
+              </Link>
+              , the{' '}
+              <Link to="/phrases/allahumma-innaka-afuwwun" className="font-bold text-primary underline-offset-4 hover:underline">
+                dua for Laylatul Qadr
+              </Link>{' '}
+              and the other{' '}
+              <Link to="/ramadan" className="font-bold text-primary underline-offset-4 hover:underline">
+                Ramadan words
+              </Link>
+              .
+            </p>
+            <p>
               Learning the handful of words they are made of (Allah, shāʾa “to will”, ḥamd “praise”, ilāh “god”, illā “except”)
               also teaches you some of the most frequent words in the Quran. See the{' '}
               <Link to="/most-common-words-in-the-quran" className="font-bold text-primary underline-offset-4 hover:underline">

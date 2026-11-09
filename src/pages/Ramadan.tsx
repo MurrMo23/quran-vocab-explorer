@@ -13,6 +13,11 @@ import { cn } from '@/lib/utils';
 import { getWordById } from '@/utils/vocabulary';
 import { getWordPath } from '@/utils/word-slugs';
 import { reviewWordsUrl } from '@/components/review/review-session';
+import { phrasePath } from '@/utils/phrases';
+import { wordPath } from '@/utils/quran-pages';
+import { RAMADAN_LINKS } from '@/utils/ramadan-pages';
+import { RAMADAN_PATHS } from '@/utils/seo-ramadan';
+import { RAMADAN_VERSES } from '@/utils/generated/ramadan';
 import {
   RAMADAN_DAYS,
   RAMADAN_START_LABEL,
@@ -216,6 +221,13 @@ const Ramadan = () => {
             {coverage.words} words make up about <strong className="text-foreground">{coverage.quranPercent}%</strong> of
             the words of the Quran and <strong className="text-foreground">{coverage.juzAmmaPercent}%</strong> of Juz Amma.
           </p>
+          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-bold">
+            {RAMADAN_LINKS.filter((l) => l.primary).map((l) => (
+              <Link key={l.to} to={l.to} className="inline-flex min-h-11 items-center text-primary underline-offset-4 hover:underline">
+                {l.label}
+              </Link>
+            ))}
+          </p>
         </header>
 
         <section className="min-w-0 rounded-3xl bg-background p-5 sm:p-6" aria-labelledby="dates-heading">
@@ -272,64 +284,105 @@ const Ramadan = () => {
           </ol>
         </section>
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-3">
-          <section className={wordsCard} aria-labelledby="ramadan-arabic-heading">
-            <h2 id="ramadan-arabic-heading" className="text-xl font-extrabold text-foreground">
-              Ramadan in Arabic
-            </h2>
-            <p>
-              <span className="font-arabic text-2xl text-foreground" lang="ar" dir="rtl">رمضان</span> (Ramaḍān) is the ninth
-              month of the Islamic calendar. The name is traditionally linked to the root{' '}
-              <span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">ر م ض</span>, intense heat. The Quran
-              names the month once, in{' '}
-              <Link to="/surah/2" className={inlineLink}>Al-Baqarah 2:185</Link>:
-            </p>
-            <p className="font-quran text-2xl leading-[1.9] text-foreground" lang="ar" dir="rtl">
-              شَهْرُ رَمَضَانَ الَّذِي أُنزِلَ فِيهِ الْقُرْآنُ
-            </p>
-            <p>“The month of Ramadhan [is that] in which was revealed the Qur’an” (Saheeh International).</p>
-          </section>
+        <section id="ramadan-words" className="mt-12 scroll-mt-24" aria-labelledby="ramadan-words-heading">
+          <h2 id="ramadan-words-heading" className="mb-1 text-[22px] font-extrabold">
+            Ramadan words &amp; phrases
+          </h2>
+          <p className="mb-4 max-w-3xl text-sm text-muted-foreground">
+            What the greetings mean, the nights and prayers of the month, and the Quran verses behind them, word by word.
+          </p>
+          <ul className="grid gap-4 md:grid-cols-3">
+            {RAMADAN_LINKS.filter((l) => l.primary).map((l) => (
+              <li key={l.to}>
+                <Link
+                  to={l.to}
+                  className="flex h-full flex-col gap-1 rounded-[1.375rem] border-2 border-b-4 bg-card p-5 transition-colors hover:border-primary/40"
+                >
+                  <span className="font-quran text-[2rem] leading-[1.9] text-primary" lang="ar" dir="rtl">
+                    {l.ar}
+                  </span>
+                  <span className="text-lg font-extrabold leading-snug">{l.label}</span>
+                  <span className="text-sm text-muted-foreground">{l.note}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {RAMADAN_LINKS.filter((l) => !l.primary).map((l) => (
+              <li key={l.to}>
+                <Link to={l.to} className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 bg-card px-4 text-sm font-bold hover:border-primary/40">
+                  {l.label}
+                  <span className="font-arabic text-base font-normal" lang="ar" dir="rtl">
+                    {l.ar}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-          <section className={wordsCard} aria-labelledby="ramadan-greetings-heading">
-            <h2 id="ramadan-greetings-heading" className="text-xl font-extrabold text-foreground">
-              Ramadan Mubarak and Ramadan Kareem meaning
-            </h2>
-            <p>
-              <strong className="text-foreground">Ramadan Mubarak</strong>{' '}
-              (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">رمضان مبارك</span>) means “blessed
-              Ramadan”. Mubārak comes from the root{' '}
-              <Link to="/root/b-r-k" className={cn(inlineLink, 'font-arabic text-lg')} lang="ar">ب ر ك</Link> (blessing); the Quran calls the night it was sent
-              down “a blessed night” (44:3).
-            </p>
-            <p>
-              <strong className="text-foreground">Ramadan Kareem</strong>{' '}
-              (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">رمضان كريم</span>) means “generous
-              Ramadan”. Karīm comes from the root <Link to="/root/k-r-m" className={cn(inlineLink, 'font-arabic text-lg')} lang="ar">ك ر م</Link> (generosity,
-              nobility), as in <Link to="/names-of-allah/al-karim" className={inlineLink}>Al-Karim</Link>, one of the 99 Names
-              of Allah. Both are greetings for the month; neither phrase is itself in the Quran.
-            </p>
-          </section>
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <section className={wordsCard} aria-labelledby="ramadan-arabic-heading">
+              <h3 id="ramadan-arabic-heading" className="text-xl font-extrabold text-foreground">
+                Ramadan in Arabic
+              </h3>
+              <p>
+                <span className="font-arabic text-2xl text-foreground" lang="ar" dir="rtl">رمضان</span> (Ramaḍān) is the ninth
+                month of the Islamic calendar. The name is traditionally linked to the root{' '}
+                <span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">ر م ض</span>, intense heat. The Quran
+                names the month once, in{' '}
+                <Link to="/surah/2" className={inlineLink}>Al-Baqarah 2:185</Link>:
+              </p>
+              <p className="font-quran text-2xl leading-[1.9] text-foreground" lang="ar" dir="rtl">
+                {RAMADAN_VERSES.ramadan.ar.slice(0, 6).join(' ')}
+              </p>
+              <p>“The month of Ramadhan [is that] in which was revealed the Qur’an” (Saheeh International).</p>
+              <p>
+                The Quran’s word for the fast is{' '}
+                <Link to={wordPath('siyam')} className={inlineLink}>ṣiyām</Link> (2:183).
+              </p>
+            </section>
 
-          <section className={wordsCard} aria-labelledby="ramadan-nights-heading">
-            <h2 id="ramadan-nights-heading" className="text-xl font-extrabold text-foreground">
-              Taraweeh and Laylatul Qadr
-            </h2>
-            <p>
-              <strong className="text-foreground">Taraweeh</strong>{' '}
-              (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">تراويح</span>) are the night prayers
-              of Ramadan. The word is the plural of tarwīḥa, “a rest”, from the root{' '}
-              <Link to="/root/r-w-hh" className={cn(inlineLink, 'font-arabic text-lg')} lang="ar">ر و ح</Link>, after the short rest taken between sets of
-              rak‘ahs.
-            </p>
-            <p>
-              <strong className="text-foreground">Laylatul Qadr</strong>{' '}
-              (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">ليلة القدر</span>) is “the Night of
-              Decree”, sought in the last ten nights. <Link to="/surah/97" className={inlineLink}>Surah Al-Qadr (97)</Link>{' '}
-              describes it: “The Night of Decree is better than a thousand months” (97:3). Learn its words on Day 27 of the
-              plan.
-            </p>
-          </section>
-        </div>
+            <section className={wordsCard} aria-labelledby="ramadan-greetings-heading">
+              <h3 id="ramadan-greetings-heading" className="text-xl font-extrabold text-foreground">
+                Ramadan Mubarak and Ramadan Kareem meaning
+              </h3>
+              <p>
+                <Link to={phrasePath('ramadan-mubarak')} className={inlineLink}>Ramadan Mubarak</Link>{' '}
+                (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">رمضان مبارك</span>) means “blessed
+                Ramadan”. Mubārak comes from the root{' '}
+                <Link to="/root/b-r-k" className={cn(inlineLink, 'font-arabic text-lg')} lang="ar">ب ر ك</Link> (blessing); the Quran calls the night it was sent
+                down “a blessed night” (44:3).
+              </p>
+              <p>
+                <Link to={phrasePath('ramadan-kareem')} className={inlineLink}>Ramadan Kareem</Link>{' '}
+                (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">رمضان كريم</span>) means “generous
+                Ramadan”. Karīm comes from the root <Link to="/root/k-r-m" className={cn(inlineLink, 'font-arabic text-lg')} lang="ar">ك ر م</Link> (generosity,
+                nobility), as in <Link to="/names-of-allah/al-karim" className={inlineLink}>Al-Karim</Link>, one of the 99 Names
+                of Allah. Both are greetings for the month; neither phrase is itself in the Quran.
+              </p>
+            </section>
+
+            <section className={wordsCard} aria-labelledby="ramadan-nights-heading">
+              <h3 id="ramadan-nights-heading" className="text-xl font-extrabold text-foreground">
+                Taraweeh and Laylatul Qadr
+              </h3>
+              <p>
+                <Link to={RAMADAN_PATHS.taraweeh} className={inlineLink}>Taraweeh</Link>{' '}
+                (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">تراويح</span>) are the night prayers
+                of Ramadan. The word is the plural of tarwīḥa, “a rest”, from the root{' '}
+                <Link to="/root/r-w-hh" className={cn(inlineLink, 'font-arabic text-lg')} lang="ar">ر و ح</Link>, after the short rest taken between sets of
+                rak‘ahs.
+              </p>
+              <p>
+                <Link to={RAMADAN_PATHS.laylatulQadr} className={inlineLink}>Laylatul Qadr</Link>{' '}
+                (<span className="font-arabic text-lg text-foreground" lang="ar" dir="rtl">ليلة القدر</span>) is “the Night of
+                Decree”, sought in the last ten nights. <Link to="/surah/97" className={inlineLink}>Surah Al-Qadr (97)</Link>{' '}
+                describes it: “The Night of Decree is better than a thousand months” (97:3). Learn its words on Day 27 of the
+                plan.
+              </p>
+            </section>
+          </div>
+        </section>
 
         <section className="mt-10 max-w-3xl space-y-3 rounded-[1.75rem] border bg-card p-6 text-sm leading-relaxed text-muted-foreground sm:p-7" aria-labelledby="how-heading">
           <h2 id="how-heading" className="text-xl font-extrabold text-foreground">

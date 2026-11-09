@@ -31,6 +31,9 @@ import JuzAmmaVocabulary from '@/pages/JuzAmmaVocabulary';
 import SalahWords from '@/pages/SalahWords';
 import Topics from '@/pages/Topics';
 import TopicDetail from '@/pages/TopicDetail';
+import LaylatulQadr from '@/pages/LaylatulQadr';
+import Taraweeh from '@/pages/Taraweeh';
+import Itikaf from '@/pages/Itikaf';
 
 // Every other route is code-split.
 const Auth = lazy(() => import('@/pages/Auth'));
@@ -102,6 +105,9 @@ function App() {
                 <Route path="names-of-allah" element={page(<NamesOfAllah />)} />
                 <Route path="names-of-allah/:slug" element={page(<NameOfAllah />)} />
                 <Route path="ramadan" element={page(<Ramadan />)} />
+                <Route path="laylatul-qadr" element={page(<LaylatulQadr />)} />
+                <Route path="taraweeh" element={page(<Taraweeh />)} />
+                <Route path="itikaf" element={page(<Itikaf />)} />
                 <Route path="phrases" element={page(<Phrases />)} />
                 <Route path="phrases/:slug" element={page(<PhraseDetail />)} />
                 <Route path="most-common-words-in-the-quran" element={page(<MostCommonWords />)} />

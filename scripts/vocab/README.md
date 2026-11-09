@@ -52,3 +52,13 @@ surah word lists derived from `quran-index.ts` are ordered by frequency. Same in
 re-run it whenever words are added (e.g. after `rabb`, `ahad` or `samad` join the site):
 
     QV_CORPUS=<folder with build/idx.pkl> QV_WORDS=current.json python3 scripts/vocab/gen-salah.py
+
+## Ramadan pages (`gen-ramadan.py`)
+
+`gen-ramadan.py` writes `src/utils/generated/ramadan.ts`: the verses, Surah Al-Qadr word by word, key-word counts and
+root totals behind `/laylatul-qadr`, `/taraweeh`, `/itikaf` and the Ramadan phrase pages (`ramadan-mubarak`,
+`ramadan-kareem`, `eid-mubarak`, `allahumma-innaka-afuwwun`). Same inputs as `gen-pillars.py`; it asserts that
+Ramadan is named only in 2:185, عيد occurs only in 5:114 and ليلة القدر only in 97:1-3. The Ramadan words
+(siyam, shahr, alf, mubarak, mubarakah, akif, eid) come from `specs/col-ramadan.json` via `gen.py`.
+
+    QV_CORPUS=... QV_WORDS=current.json QV_QJSON=... QV_WBW=... python3 scripts/vocab/gen-ramadan.py

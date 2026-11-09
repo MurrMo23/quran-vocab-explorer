@@ -77,6 +77,11 @@ Avoid: "how to learn arabic", "arabic alphabet" (off-core), "quranic corpus" (na
 Seasonal spikes 20-230x: taraweeh (40.5k Feb), laylatul qadr (60.5k Mar), ramadan mubarak/kareem meaning
 (49.5k Feb), itikaf, surah qadr in english. Retitle /ramadan ("Learn the Words of Taraweeh & Laylatul Qadr"),
 add Ramadan Mubarak/Kareem meaning and "Ramadan in Arabic", link /surah/97. Publish by early January 2027.
+Built (Nov 2026): /laylatul-qadr, /taraweeh, /itikaf, /phrases/ramadan-mubarak, /phrases/ramadan-kareem,
+/phrases/eid-mubarak, /phrases/allahumma-innaka-afuwwun (Laylatul Qadr dua); words siyam, shahr, alf, mubarak,
+mubarakah, akif, eid. Extra US volumes (avg / peak): eid mubarak 110k / 1M, eid al fitr 90.5k / 673k, ramadan
+mubarak 40.5k / 450k, eid mubarak meaning 12.1k / 74k, iftar meaning 4.4k / 18.1k, zakat al fitr 3.6k / 33.1k,
+laylatul qadr dua 2.4k / 27.1k, suhoor meaning 1.6k / 12.1k. Not yet built: iftar/suhoor meaning, zakat al-fitr.
 
 ## Language order
 Indonesian (asmaul husna dan artinya 135k; arti ar rahman 40.5k; kosakata bahasa arab 22.2k), then Turkish

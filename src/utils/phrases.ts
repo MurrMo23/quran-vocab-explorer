@@ -2,6 +2,7 @@
 // are written here; every verse, verse text, translation and occurrence count shown with them comes
 // from src/utils/generated/pillars.ts (scripts/vocab/gen-pillars.py, checked against the corpus).
 import { PHRASE_REFS, PHRASE_VERSES, type PhraseVerse } from './generated/pillars';
+import { RAMADAN_PHRASE_VERSES } from './generated/ramadan';
 
 export const PHRASES_HUB_PATH = '/phrases';
 export const phrasePath = (slug: string) => `${PHRASES_HUB_PATH}/${slug}`;
@@ -38,6 +39,8 @@ export interface Phrase {
   meaning: string;
   /** Shorter meaning for the page title, when `meaning` makes it too long. */
   titleMeaning?: string;
+  /** Meta description, when the generated one would be cut off (a long phrase). */
+  metaDescription?: string;
   /** Word-for-word reading of the parts. */
   literal: string;
   parts: PhrasePart[];
@@ -517,13 +520,235 @@ export const PHRASES: Phrase[] = [
     },
     related: ['alhamdulillah', 'astaghfirullah', 'ameen'],
   },
+  // ---- Ramadan and Eid (verses from generated/ramadan.ts, scripts/vocab/gen-ramadan.py) ----------------
+  {
+    slug: 'ramadan-mubarak',
+    name: 'Ramadan Mubarak',
+    ar: 'رَمَضَانُ مُبَارَكٌ',
+    tr: 'Ramaḍān mubārak',
+    variants: ['Ramadan Mubarak', 'Ramzan Mubarak', 'Ramadhan Mubarak', 'Mubarak Ramadan'],
+    meaning: 'Blessed Ramadan (have a blessed Ramadan)',
+    literal: 'Ramadan · blessed',
+    parts: [
+      {
+        ar: 'رَمَضَانُ',
+        tr: 'Ramaḍān',
+        gloss: 'Ramadan (the ninth month)',
+        note: 'The name is traditionally linked to ر م ض, intense heat. The Quran names the month once, in 2:185.',
+      },
+      {
+        ar: 'مُبَارَكٌ',
+        tr: 'mubārak',
+        gloss: 'blessed',
+        wordId: 'mubarak',
+        root: 'b-r-k',
+        note: 'From the root b-r-k (blessing, barakah). The same word describes the Quran: “a blessed message which We have sent down” (21:50).',
+      },
+    ],
+    lines: [
+      {
+        label: 'A common reply',
+        line: { ar: 'عَلَيْنَا وَعَلَيْكُمْ', tr: 'ʿalaynā wa ʿalaykum', en: 'Upon us and upon you' },
+      },
+      {
+        label: 'Or wish the same back',
+        line: { ar: 'رَمَضَانُ مُبَارَكٌ عَلَيْكُمْ', tr: 'Ramaḍān mubārak ʿalaykum', en: 'A blessed Ramadan to you' },
+      },
+    ],
+    usage: [
+      'Ramadan Mubarak is the greeting Muslims exchange as the month of fasting begins and throughout it: “Have a blessed Ramadan.” It is said in person, in messages and on cards, in Arabic-speaking countries and far beyond them.',
+      'There is no single fixed reply. People often say it back, answer “upon us and upon you” (ʿalaynā wa ʿalaykum), or reply with Ramadan Kareem.',
+      'Mubārak (“blessed”) is the same word used in Eid Mubarak and in everyday congratulations such as “mabrūk”, all from the root b-r-k, barakah (blessing).',
+    ],
+    quran: {
+      status: 'related',
+      text: 'The two-word greeting is not in the Quran, but both of its words are. Ramadan is named once, as the month in which the Quran was revealed: shahru Ramaḍān (2:185). The Quran also calls the night it was sent down “a blessed night”, laylatin mubārakah, with the feminine of mubārak (44:3).',
+    },
+    related: ['ramadan-kareem', 'eid-mubarak', 'allahumma-innaka-afuwwun'],
+    faq: [
+      {
+        q: 'How do you reply to Ramadan Mubarak?',
+        a: 'Say it back (“Ramadan Mubarak to you too”), reply ʿalaynā wa ʿalaykum, “upon us and upon you”, or answer with Ramadan Kareem. There is no single required reply.',
+      },
+      {
+        q: 'What is the difference between Ramadan Mubarak and Ramadan Kareem?',
+        a: 'Ramadan Mubarak means “blessed Ramadan”; Ramadan Kareem means “generous Ramadan”. Both are greetings for the month and both are fine to use. Mubārak is from the root b-r-k (blessing), karīm from k-r-m (generosity).',
+      },
+      {
+        q: 'How do you write Ramadan Mubarak in Arabic?',
+        a: 'رمضان مبارك, with full vowels رَمَضَانُ مُبَارَكٌ (Ramaḍānu mubārak).',
+      },
+    ],
+  },
+  {
+    slug: 'ramadan-kareem',
+    name: 'Ramadan Kareem',
+    ar: 'رَمَضَانُ كَرِيمٌ',
+    tr: 'Ramaḍān karīm',
+    variants: ['Ramadan Karim', 'Ramzan Kareem', 'Ramadhan Kareem'],
+    meaning: 'Generous Ramadan (Ramadan is generous)',
+    literal: 'Ramadan · generous, noble',
+    parts: [
+      {
+        ar: 'رَمَضَانُ',
+        tr: 'Ramaḍān',
+        gloss: 'Ramadan (the ninth month)',
+        note: 'Named once in the Quran, in 2:185.',
+      },
+      {
+        ar: 'كَرِيمٌ',
+        tr: 'karīm',
+        gloss: 'generous, noble',
+        wordId: 'karim',
+        root: 'k-r-m',
+        note: 'From the root k-r-m (generosity, nobility). Al-Karīm, “the Most Generous”, is one of the 99 Names of Allah.',
+      },
+    ],
+    lines: [
+      {
+        label: 'A traditional reply',
+        line: { ar: 'اللَّهُ أَكْرَمُ', tr: 'Allāhu akram', en: 'Allah is more generous' },
+      },
+    ],
+    usage: [
+      'Ramadan Kareem is a greeting for the month, especially common in Arabic-speaking countries: “Ramadan is generous”, a month generous in blessings, mercy and reward.',
+      'A traditional reply is Allāhu akram, “Allah is more generous”, which turns the praise from the month to the One who gives it. Saying Ramadan Kareem or Ramadan Mubarak back is also common.',
+    ],
+    quran: {
+      status: 'related',
+      text: 'The greeting is not in the Quran, but its words are. Ramadan is named in 2:185, and karīm is a frequent Quranic word: the Quran describes itself as “a noble Qur’an”, la-qurʾānun karīm (56:77).',
+    },
+    related: ['ramadan-mubarak', 'eid-mubarak', 'jazakallah-khair'],
+    faq: [
+      {
+        q: 'How do you reply to Ramadan Kareem?',
+        a: 'A traditional reply is Allāhu akram (اللَّهُ أَكْرَمُ), “Allah is more generous”. You can also simply say Ramadan Kareem or Ramadan Mubarak back.',
+      },
+      {
+        q: 'Is it Ramadan Kareem or Ramadan Mubarak?',
+        a: 'Both are used and both are fine. Ramadan Mubarak means “blessed Ramadan” and Ramadan Kareem means “generous Ramadan”; which one people say mostly depends on the country.',
+      },
+    ],
+  },
+  {
+    slug: 'allahumma-innaka-afuwwun',
+    name: 'Allahumma Innaka Afuwwun',
+    ar: 'اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي',
+    tr: 'Allāhumma innaka ʿafuwwun tuḥibbu l-ʿafwa faʿfu ʿannī',
+    variants: ['Laylatul Qadr dua', 'Allahumma innaka afuwwun tuhibbul afwa fa’fu anni', 'Dua for Laylatul Qadr'],
+    meaning: 'O Allah, You are Pardoning and You love to pardon, so pardon me',
+    titleMeaning: 'Laylatul Qadr Dua',
+    metaDescription:
+      'The Laylatul Qadr dua, Allahumma innaka afuwwun tuhibbul afwa fa’fu anni: “O Allah, You are Pardoning and love to pardon, so pardon me”, word by word.',
+    literal: 'O Allah · indeed You · (are) Pardoning · You love · the pardon · so pardon · me',
+    parts: [
+      {
+        ar: 'اللَّهُمَّ',
+        tr: 'Allāhumma',
+        gloss: 'O Allah',
+        wordId: 'allah',
+        root: 'a-l-h',
+        note: 'A way of calling on Allah used in duʿāʾ; it occurs in the Quran, as in “Say, ‘O Allah, Owner of Sovereignty’” (3:26).',
+      },
+      { ar: 'إِنَّكَ', tr: 'innaka', gloss: 'indeed You', wordId: 'inna', note: 'inna (indeed) + ka (you).' },
+      {
+        ar: 'عَفُوٌّ',
+        tr: 'ʿafuwwun',
+        gloss: 'Pardoning, the Pardoner',
+        wordId: 'al-afuww',
+        root: 'e-f-w',
+        note: 'Al-ʿAfuww, the One who pardons and erases sins, is one of the 99 Names of Allah.',
+      },
+      { ar: 'تُحِبُّ', tr: 'tuḥibbu', gloss: 'You love', wordId: 'ahabba', root: 'hh-b-b' },
+      { ar: 'الْعَفْوَ', tr: 'al-ʿafwa', gloss: 'pardon, forgiveness', root: 'e-f-w', note: 'The noun ʿafw, “pardoning”, from the same root.' },
+      { ar: 'فَاعْفُ', tr: 'faʿfu', gloss: 'so pardon', wordId: 'afa', root: 'e-f-w', note: 'fa (so) + uʿfu, the command of ʿafā (to pardon).' },
+      { ar: 'عَنِّي', tr: 'ʿannī', gloss: 'me (from me)', wordId: 'an', note: 'ʿan (from, away from) + ī (me): “pardon [the sins] away from me”.' },
+    ],
+    usage: [
+      'This is the duʿāʾ most associated with Laylatul Qadr. ʿĀʾishah asked the Prophet what she should say if she knew which night was Laylat al-Qadr, and he taught her these words. The hadith is recorded by at-Tirmidhi.',
+      'Muslims repeat it often in the last ten nights of Ramadan, in prayer, in sujūd and between the taraweeh prayers. It asks for ʿafw, pardon: not only forgiving a sin but erasing it.',
+      'Some printed versions add karīm (“Generous”) after ʿafuwwun; the wording above is the one most widely reported.',
+    ],
+    quran: {
+      status: 'none',
+      text: 'This duʿāʾ is from the hadith, not from the Quran. Its key word is Quranic: Allah is called ʿafuww, “Pardoning”, in five verses, for example “and Allah is ever Pardoning and Forgiving” (4:99). The Quran also teaches asking for pardon in the duʿāʾ that closes Al-Baqarah: “and pardon us” (2:286).',
+    },
+    related: ['astaghfirullah', 'ramadan-mubarak', 'ameen'],
+    faq: [
+      {
+        q: 'What is the dua for Laylatul Qadr?',
+        a: 'Allāhumma innaka ʿafuwwun tuḥibbu l-ʿafwa faʿfu ʿannī: “O Allah, You are Pardoning and You love to pardon, so pardon me.” The Prophet taught it to ʿĀʾishah for Laylat al-Qadr (recorded by at-Tirmidhi).',
+      },
+      {
+        q: 'What does ʿafuww mean?',
+        a: 'ʿAfuww (عَفُوّ) means “the One who pardons”: who wipes away a sin so that it is no longer counted. It is from the root ʿ-f-w and is one of the 99 Names of Allah, Al-ʿAfuww.',
+      },
+    ],
+  },
+  {
+    slug: 'eid-mubarak',
+    name: 'Eid Mubarak',
+    ar: 'عِيدٌ مُبَارَكٌ',
+    tr: 'ʿĪd mubārak',
+    variants: ['Eid Mubarak', 'Eid Mubarik', 'Id Mubarak', 'Eid ul Fitr Mubarak'],
+    meaning: 'Blessed Eid (have a blessed celebration)',
+    literal: 'festival · blessed',
+    parts: [
+      {
+        ar: 'عِيدٌ',
+        tr: 'ʿīd',
+        gloss: 'festival, celebration',
+        wordId: 'eid',
+        root: 'e-w-d',
+        note: 'From the root ʿ-w-d, to return: a festival that comes back every year.',
+      },
+      { ar: 'مُبَارَكٌ', tr: 'mubārak', gloss: 'blessed', wordId: 'mubarak', root: 'b-r-k' },
+    ],
+    lines: [
+      {
+        label: 'A traditional Eid greeting',
+        line: {
+          ar: 'تَقَبَّلَ اللَّهُ مِنَّا وَمِنْكُمْ',
+          tr: 'taqabbala llāhu minnā wa minkum',
+          en: 'May Allah accept [our worship] from us and from you',
+        },
+      },
+      {
+        label: 'Another common reply',
+        line: { ar: 'خَيْر مُبَارَك', tr: 'khayr mubārak', en: 'Blessed good [to you too]' },
+      },
+    ],
+    usage: [
+      'Muslims say Eid Mubarak on the two Eids: Eid al-Fitr, the “festival of breaking the fast” at the end of Ramadan, and Eid al-Adha, the “festival of the sacrifice” during the Hajj season.',
+      'Common replies are Eid Mubarak back, “khair mubarak” (popular in South Asia), or the traditional greeting taqabbala llāhu minnā wa minkum, “may Allah accept from us and from you”.',
+    ],
+    quran: {
+      status: 'none',
+      text: 'The greeting is not in the Quran. The word ʿīd (festival) occurs once, when ʿĪsā asks for a table spread with food from heaven “to be for us a festival” (5:114). The words of the traditional Eid greeting echo the duʿāʾ of Ibrahim and Ismaʿil: “Our Lord, accept [this] from us” (2:127).',
+    },
+    related: ['ramadan-mubarak', 'ramadan-kareem', 'jazakallah-khair'],
+    faq: [
+      {
+        q: 'How do you reply to Eid Mubarak?',
+        a: 'Say Eid Mubarak back, reply khair mubarak, or use the traditional greeting taqabbala llāhu minnā wa minkum, “may Allah accept from us and from you”.',
+      },
+      {
+        q: 'What does Eid al-Fitr mean?',
+        a: 'ʿĪd al-Fiṭr means “the festival of breaking the fast”: it marks the end of Ramadan, on the first day of the month of Shawwal.',
+      },
+      {
+        q: 'How do you write Eid Mubarak in Arabic?',
+        a: 'عيد مبارك, with full vowels عِيدٌ مُبَارَكٌ (ʿīdun mubārak).',
+      },
+    ],
+  },
 ];
 
 const bySlug = new Map(PHRASES.map((p) => [p.slug, p]));
 export const getPhrase = (slug: string): Phrase | undefined => bySlug.get(slug);
 
 /** Verses shown on a phrase page (generated, verified against the corpus). */
-export const phraseVerses = (slug: string): PhraseVerse[] => PHRASE_VERSES[slug] ?? [];
+export const phraseVerses = (slug: string): PhraseVerse[] => PHRASE_VERSES[slug] ?? RAMADAN_PHRASE_VERSES[slug] ?? [];
 /** Every ayah containing the phrase, for the occurrence list. */
 export const phraseRefs = (key: string): [number, number][] => PHRASE_REFS[key] ?? [];
 
