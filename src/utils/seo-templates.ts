@@ -62,7 +62,7 @@ export const shortGloss = (s: string): string => {
 export const fitTitle = (prefix: string, parts: string[], sep = '; '): string => {
   const room = TITLE_MAX - len(prefix);
   const first = parts[0] ?? '';
-  let out = len(first) > room ? clip(first, Math.max(room, 16)) : first;
+  let out = len(first) > room ? clip(first, Math.max(room, 8)) : first;
   for (const p of parts.slice(1)) {
     if (len(prefix + out + sep + p) > TITLE_MAX) break;
     out += sep + p;
@@ -120,7 +120,7 @@ export const rootSeo = (r: {
 }): PageSeo => {
   const senses = r.core.split(/\s*;\s*/).filter(Boolean).map((s, i) => (i === 0 ? capitalize(s) : s));
   const n = r.total.toLocaleString('en-US');
-  const words = `${n} ${r.total === 1 ? 'word' : 'words'} in the Quran come from it, in ${r.forms} ${r.forms === 1 ? 'form' : 'forms'}`;
+  const words = `${n} ${r.total === 1 ? 'word in the Quran comes' : 'words in the Quran come'} from it, in ${r.forms} ${r.forms === 1 ? 'form' : 'forms'}`;
   return {
     title: fitTitle(`Root ${r.ar} (${r.slug}) Meaning: `, senses),
     description: fitSentences(
