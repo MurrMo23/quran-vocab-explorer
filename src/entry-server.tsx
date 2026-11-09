@@ -15,6 +15,7 @@ import { PILLAR_PATHS } from '@/utils/seo-pillars';
 import { ISLAMIC_TERMS_PATH } from '@/utils/islamic-terms';
 import { SALAH_WORDS_PATH } from '@/utils/salah-guide';
 import { TOPICS, TOPICS_HUB_PATH, topicPath } from '@/utils/topics';
+import { JUZ_AMMA, JUZ_HUB_PATH, juzPagePaths, juzPath } from '@/utils/juz';
 
 // Build-time data for scripts/generate-sitemap.mjs and the legacy /word/<id> redirect pages.
 export { getAllWords, getPublishedCollections };
@@ -79,9 +80,19 @@ export function pillarPages(): string[] {
     PILLAR_PATHS.commonWords,
     PILLAR_PATHS.stats,
     PILLAR_PATHS.juzAmma,
+    JUZ_HUB_PATH,
+    ...juzPagePaths(),
     ISLAMIC_TERMS_PATH,
     ...topicPages(),
   ];
+}
+
+/**
+ * Static redirect pages (prerendered as noindex pages with a canonical link and a meta refresh, like the
+ * legacy /word/<id> pages). /juz/30 is Juz Amma, whose page is /juz-amma-vocabulary.
+ */
+export function staticRedirects(): { from: string; to: string }[] {
+  return [{ from: `${JUZ_HUB_PATH}/${JUZ_AMMA}`, to: juzPath(JUZ_AMMA) }];
 }
 
 /** /salah-words, the /topics hub and the topic pages (prerendered and in the pages sitemap). */

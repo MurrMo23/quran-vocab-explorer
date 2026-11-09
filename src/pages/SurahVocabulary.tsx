@@ -11,6 +11,7 @@ import { itemListLd, searchSpelling, surahSeo } from '@/utils/seo-templates';
 import { getSurahAliases } from '@/utils/surah-aliases';
 import { hasSurahEnglish, surahEnglishPath, type SurahEnglish } from '@/utils/surah-english';
 import { EmbedStaticData, useStaticData } from '@/lib/static-data';
+import { juzPath } from '@/utils/juz';
 
 const pct = (n: number) => `${n.toLocaleString('en-US', { maximumFractionDigits: 1 })}%`;
 
@@ -113,7 +114,13 @@ const SurahVocabulary = () => {
         <header className="min-w-0 flex-1">
           <div className="flex flex-wrap gap-2">
             <span className="rounded-full bg-secondary px-3 py-1.5 text-[13px] font-bold text-secondary-foreground">Surah {surah.number}</span>
-            <span className="rounded-full border bg-background px-3 py-1.5 text-[13px] font-bold">{juz}</span>
+            {surah.juzStart === surah.juzEnd ? (
+              <Link to={juzPath(surah.juzStart)} className="rounded-full border bg-background px-3 py-1.5 text-[13px] font-bold hover:border-primary/40">
+                {juz}
+              </Link>
+            ) : (
+              <span className="rounded-full border bg-background px-3 py-1.5 text-[13px] font-bold">{juz}</span>
+            )}
             {isJuzAmma(surah.number) && (
               <span className="rounded-full bg-gold/25 px-3 py-1.5 text-[13px] font-bold text-gold-text">Juz Amma</span>
             )}

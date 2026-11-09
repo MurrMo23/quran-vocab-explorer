@@ -22,7 +22,7 @@ globalThis.sessionStorage ??= new MemoryStorage();
 const dist = resolve('dist');
 const ssrDir = resolve('dist-ssr');
 const template = readFileSync(join(dist, 'index.html'), 'utf8');
-const { render, routes, getLegacyWordRedirects } = await import(pathToFileURL(join(ssrDir, 'entry-server.js')).href);
+const { render, routes, getLegacyWordRedirects, staticRedirects } = await import(pathToFileURL(join(ssrDir, 'entry-server.js')).href);
 
 // Tags the page itself provides via Helmet (src/components/SEO.tsx) replace the generic ones in the
 // template, so each page has exactly one of each and a single JSON-LD graph.
@@ -84,8 +84,21 @@ for (const { id, slug } of getLegacyWordRedirects?.() ?? []) {
     failed.push(`/word/${id} (redirect): ${e.message}`);
   }
 }
+// Other moved URLs (e.g. /juz/30 -> /juz-amma-vocabulary), same kind of page.
+for (const { from, to } of staticRedirects?.() ?? []) {
+  try {
+    const abs = `https://quranvocab.com${to}`;
+    const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Redirecting…</title><link rel="canonical" href="${esc(abs)}"><meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0; url=${esc(to)}"><script>location.replace(${JSON.stringify(to)}+location.search+location.hash)</script></head><body><p>This page has moved to <a href="${esc(to)}">${esc(abs)}</a>.</p></body></html>\n`;
+    const out = join(dist, from, 'index.html');
+    mkdirSync(dirname(out), { recursive: true });
+    writeFileSync(out, page);
+    redirectsWritten++;
+  } catch (e) {
+    failed.push(`${from} (redirect): ${e.message}`);
+  }
+}
 // dist-ssr is removed by scripts/generate-sitemap.mjs, which runs next and still needs it.
-console.log(`[prerender] ${ok} pages written, ${redirectsWritten} legacy redirects, ${failed.length} failed`);
+console.log(`[prerender] ${ok} pages written, ${redirectsWritten} redirects, ${failed.length} failed`);
 if (failed.length) {
   console.log(failed.slice(0, 20).join('\n'));
   // A partial prerender still leaves a working SPA for the failed routes; only fail the build

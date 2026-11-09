@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 import { getWordById } from '@/utils/vocabulary';
 import { getWordPath } from '@/utils/word-slugs';
 import { reviewWordsUrl } from '@/components/review/review-session';
+import { juzPath } from '@/utils/juz';
 import {
   RAMADAN_DAYS,
   RAMADAN_START_LABEL,
@@ -125,6 +126,12 @@ const DayCard: React.FC<{ d: RamadanDay; progress: DayProgress | null; today: bo
           .
         </p>
       )}
+      {/* One juz a day: Day n's reading (and taraweeh recitation) is commonly Juz n. */}
+      <p className="mt-2 text-sm">
+        <Link to={juzPath(d.day)} className="font-semibold text-primary underline underline-offset-4 hover:text-primary-shade" data-testid={`day-juz-${d.day}`}>
+          Today’s juz: Juz {d.day} — key words
+        </Link>
+      </p>
       <div className="mt-auto flex flex-wrap items-center gap-3 pt-4">
         <Button asChild variant={done ? 'outline' : 'default'}>
           <Link

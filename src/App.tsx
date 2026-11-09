@@ -28,6 +28,8 @@ import MostCommonWords from '@/pages/MostCommonWords';
 import IslamicTerms from '@/pages/IslamicTerms';
 import QuranStatistics from '@/pages/QuranStatistics';
 import JuzAmmaVocabulary from '@/pages/JuzAmmaVocabulary';
+import JuzHub from '@/pages/JuzHub';
+import JuzVocabulary from '@/pages/JuzVocabulary';
 import SalahWords from '@/pages/SalahWords';
 import Topics from '@/pages/Topics';
 import TopicDetail from '@/pages/TopicDetail';
@@ -107,6 +109,8 @@ function App() {
                 <Route path="most-common-words-in-the-quran" element={page(<MostCommonWords />)} />
                 <Route path="quran-statistics" element={page(<QuranStatistics />)} />
                 <Route path="juz-amma-vocabulary" element={page(<JuzAmmaVocabulary />)} />
+                <Route path="juz" element={page(<JuzHub />)} />
+                <Route path="juz/:n" element={page(<JuzVocabulary />)} />
                 <Route path="islamic-terms" element={page(<IslamicTerms />)} />
                 <Route path="salah-words" element={page(<SalahWords />)} />
                 <Route path="topics" element={page(<Topics />)} />
