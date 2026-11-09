@@ -9,6 +9,7 @@ const learnLinks = [
   { to: '/roots', label: 'Roots' },
   { to: '/most-common-words-in-the-quran', label: 'Most common Quran words' },
   { to: '/juz-amma-vocabulary', label: 'Juz Amma vocabulary' },
+  { to: '/salah-words', label: 'Salah words' },
   { to: '/custom-learning', label: 'My collections' },
 ];
 
@@ -16,6 +17,7 @@ const exploreLinks = [
   { to: '/names-of-allah', label: '99 Names of Allah' },
   { to: '/phrases', label: 'Islamic phrases' },
   { to: '/quran-statistics', label: 'Quran statistics' },
+  { to: '/topics', label: 'Topics' },
   { to: '/ramadan', label: 'Ramadan 30-day plan' },
   { to: '/audio-practice', label: 'Audio practice' },
   { to: '/blog', label: 'Blog' },

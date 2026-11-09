@@ -27,6 +27,9 @@ import PhraseDetail from '@/pages/PhraseDetail';
 import MostCommonWords from '@/pages/MostCommonWords';
 import QuranStatistics from '@/pages/QuranStatistics';
 import JuzAmmaVocabulary from '@/pages/JuzAmmaVocabulary';
+import SalahWords from '@/pages/SalahWords';
+import Topics from '@/pages/Topics';
+import TopicDetail from '@/pages/TopicDetail';
 
 // Every other route is code-split.
 const Auth = lazy(() => import('@/pages/Auth'));
@@ -103,6 +106,9 @@ function App() {
                 <Route path="most-common-words-in-the-quran" element={page(<MostCommonWords />)} />
                 <Route path="quran-statistics" element={page(<QuranStatistics />)} />
                 <Route path="juz-amma-vocabulary" element={page(<JuzAmmaVocabulary />)} />
+                <Route path="salah-words" element={page(<SalahWords />)} />
+                <Route path="topics" element={page(<Topics />)} />
+                <Route path="topics/:slug" element={page(<TopicDetail />)} />
                 <Route path="admin" element={page(<Admin />)} />
                 <Route path="analytics" element={page(<Analytics />)} />
                 <Route path="settings" element={page(<Settings />)} />

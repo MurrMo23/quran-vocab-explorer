@@ -36,13 +36,15 @@ export type PageType =
   | 'phrase'
   | 'phrases_hub'
   | 'pillar'
+  | 'topic'
+  | 'topics_hub'
   | 'auth'
   | 'dashboard'
   | 'other';
 
 const REVIEW_ALIASES = new Set(['review', 'practice', 'quiz', 'enhanced-quiz', 'mobile-flashcards']);
 /** One-off guide pages (src/utils/seo-pillars.ts PILLAR_PATHS). */
-const PILLAR_PAGES = new Set(['most-common-words-in-the-quran', 'quran-statistics', 'juz-amma-vocabulary']);
+const PILLAR_PAGES = new Set(['most-common-words-in-the-quran', 'quran-statistics', 'juz-amma-vocabulary', 'salah-words']);
 
 /** Classify a pathname. Pure; safe during SSR. */
 export function pageTypeFor(pathname: string): PageType {
@@ -72,6 +74,8 @@ export function pageTypeFor(pathname: string): PageType {
       return 'ramadan';
     case 'phrases':
       return b ? 'phrase' : 'phrases_hub';
+    case 'topics':
+      return b ? 'topic' : 'topics_hub';
     case 'auth':
     case 'reset-password':
       return 'auth';
