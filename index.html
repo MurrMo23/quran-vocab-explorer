@@ -26,11 +26,11 @@
           var p = path.split('/').filter(Boolean), a = p[0], b = p[1];
           if (!a) return 'home';
           if (/^(review|practice|quiz|enhanced-quiz|mobile-flashcards)$/.test(a)) return 'review';
-          if (/^(most-common-words-in-the-quran|quran-statistics|juz-amma-vocabulary|islamic-terms)$/.test(a)) return 'pillar';
+          if (/^(most-common-words-in-the-quran|quran-statistics|juz-amma-vocabulary|salah-words|islamic-terms)$/.test(a)) return 'pillar';
           var map = { word: b ? 'word' : 'other', root: b ? 'root' : 'roots_hub', roots: 'roots_hub',
             surah: b ? 'surah' : 'surahs_hub', surahs: 'surahs_hub', collections: b ? 'collection' : 'collections_hub',
             'names-of-allah': b ? 'name' : 'names_hub', blog: 'blog', ramadan: 'ramadan', auth: 'auth',
-            phrases: b ? 'phrase' : 'phrases_hub',
+            phrases: b ? 'phrase' : 'phrases_hub', topics: b ? 'topic' : 'topics_hub',
             'reset-password': 'auth', dashboard: 'dashboard' };
           return Object.prototype.hasOwnProperty.call(map, a) ? map[a] : 'other';
         }
