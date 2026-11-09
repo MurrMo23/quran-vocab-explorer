@@ -23,6 +23,7 @@ import {
   getNameWord,
   getRelatedNames,
   hasRootPage,
+  nameSpellings,
   namePath,
   reviewHref,
   verseWordAudioUrl,
@@ -137,6 +138,7 @@ const NameOfAllah = () => {
   const rootLink = hasRootPage(name.root.slug);
   const arPlain = plain(name.ar);
   const path = namePath(name.slug);
+  const spellings = nameSpellings(name.tr);
 
   const { title, description } = nameSeo({
     n: name.n,
@@ -145,13 +147,14 @@ const NameOfAllah = () => {
     en: name.en,
     meaning: name.meaning,
     statusText: statusText(name),
+    ya: spellings.ya,
   });
 
   const term = {
     '@type': 'DefinedTerm',
     '@id': `${SITE_URL}${path}#term`,
     name: `${name.tr} (${name.ar})`,
-    alternateName: [arPlain, name.en],
+    alternateName: [arPlain, name.en, ...spellings.variants],
     description: `${name.en}. ${name.meaning}`,
     termCode: String(name.n),
     inLanguage: 'ar',
@@ -172,7 +175,7 @@ const NameOfAllah = () => {
         url={path}
         image={ogImage('names', name.slug)}
         imageAlt={`${name.ar} (${name.tr}): ${name.en}`}
-        keywords={[`${name.tr} meaning`, `${arPlain}`, `${name.tr} in the Quran`, '99 names of Allah', 'Asma ul Husna']}
+        keywords={[`${name.tr} meaning`, `${arPlain}`, spellings.ya, `${name.tr} in the Quran`, '99 names of Allah', 'Asmaul Husna']}
         breadcrumbs={[
           { name: '99 Names of Allah', path: NAMES_HUB_PATH },
           { name: name.tr, path },
@@ -190,12 +193,22 @@ const NameOfAllah = () => {
             <span className="rounded-full bg-secondary px-3 py-1.5 text-[13px] font-bold text-secondary-foreground">Name {name.n} of 99</span>
             <span className="rounded-full bg-gold/25 px-3 py-1.5 text-[13px] font-bold text-gold-text">{STATUS_LABEL[name.status]}</span>
           </div>
-          <p className="my-2 font-quran text-6xl leading-[1.7] text-primary sm:text-8xl sm:leading-[1.6]" lang="ar" dir="rtl">
-            {name.ar}
-          </p>
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            {name.tr} <span className="text-muted-foreground">·</span> {name.en}
+          {/* One H1, "<Name> (<Arabic>) Meaning: <English>": the Arabic is shown first and large (order-first);
+              the brackets are for screen readers and the page outline only. */}
+          <h1 className="flex flex-col items-center font-extrabold tracking-tight">
+            <span className="text-3xl sm:text-4xl">{name.tr}</span>
+            <span className="sr-only"> (</span>
+            <span className="order-first my-2 font-quran text-6xl font-normal leading-[1.7] text-primary sm:text-8xl sm:leading-[1.6]" lang="ar" dir="rtl">
+              {name.ar}
+            </span>
+            <span className="sr-only">) </span>
+            <span className="mt-1 text-xl sm:text-2xl">
+              <span className="text-muted-foreground">Meaning:</span> {name.en}
+            </span>
           </h1>
+          {spellings.variants.length > 0 && (
+            <p className="mt-2 text-sm text-muted-foreground">Also written as: {spellings.variants.join(', ')}</p>
+          )}
           <p className="mx-auto mt-3 max-w-xl text-[17px] leading-relaxed text-muted-foreground">{name.meaning}</p>
           {audioVerse && (
             <div className="mt-5 flex justify-center">

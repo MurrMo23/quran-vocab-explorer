@@ -135,9 +135,10 @@ const NamesOfAllah = () => {
           <p className="font-quran text-5xl leading-[1.75] text-primary sm:text-6xl sm:leading-[1.75]" lang="ar" dir="rtl">
             الأسماء الحسنى
           </p>
-          <h1 className="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">The 99 Names of Allah</h1>
+          <h1 className="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">{HUB_SEO.names.heading}</h1>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:text-[17px]">
-            Each name with its Arabic, transliteration and meaning, and the verses where the Quran uses it. {inQuran} of
+            The 99 Names of Allah, al-Asma’ al-Husna (often written Asmaul Husna, “the most beautiful names”), each with
+            its Arabic, transliteration and meaning in English, and the verses where the Quran uses it. {inQuran} of
             the 99 are used of Allah in the Quran itself; for the others we show a related Quranic word where there is
             one. Tap a name to read its verses and hear the recitation.
           </p>

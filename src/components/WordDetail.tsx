@@ -19,6 +19,7 @@ import HearItButton from '@/components/word/HearItButton';
 import { AyahPlayButton } from '@/components/word/PlayVerseButton';
 import { getRecitedForm } from '@/utils/audio';
 import { highlightWordInVerse } from '@/components/word/verse-highlight';
+import { PHRASE_SPELLINGS, firstSense } from '@/utils/seo-templates';
 
 /** At most this many "Appears in" surah links; more common words show the surahs where they occur most. */
 const SURAH_CHIPS = 12;
@@ -108,6 +109,27 @@ const WordDetail: React.FC<WordDetailProps> = ({
     .map((c) => ({ id: c.id, name: c.name, count: getWordsByCollection(c.id).length }))
     .filter((c) => c.count > 0);
 
+  const phrase = PHRASE_SPELLINGS[word.id];
+  const sense = firstSense(word.meaning, word.partOfSpeech);
+  const pos = word.partOfSpeech?.toLowerCase();
+  const posPhrase = (
+    <>
+      {pos ? `, ${/^[aeiou]/.test(pos) ? 'an' : 'a'} ${pos}` : ''}
+      {rootArabic && pos !== 'phrase' && (
+        <>
+          {pos ? ' from the root ' : ', from the root '}
+          <bdi lang="ar" className="font-arabic text-xl">
+            {rootArabic}
+          </bdi>
+        </>
+      )}
+    </>
+  );
+  const exampleSurah = firstExample ? getSurahName(firstExample.surah) : undefined;
+  const exampleRef = firstExample
+    ? `${exampleSurah ? `${exampleSurah.name} ` : 'Quran '}${firstExample.surah}:${firstExample.ayah}`
+    : '';
+
   const letters = letterCount(word.arabic);
   const headwordSize =
     letters > 9 || /\s/.test(word.arabic.trim())
@@ -134,31 +156,41 @@ const WordDetail: React.FC<WordDetailProps> = ({
             )}
           </div>
 
-          {/* One H1 with the headword and its meaning, so the page heading carries the English meaning too. */}
-          <div className="flex max-w-full flex-col items-center gap-1">
-            <h1 className="m-0 flex max-w-full flex-col items-center gap-[18px] font-normal">
+          {/* One H1, "<Translit> (<Arabic>): <English>": the Arabic is shown first and large (order-first);
+              the brackets and colon are for screen readers and the page outline only. */}
+          <div className="flex max-w-full flex-col items-center gap-1.5">
+            <h1 className="m-0 flex max-w-full flex-col items-center gap-2 font-normal">
+              <span className="block text-[20px] font-extrabold leading-snug text-primary sm:text-[22px]">{capitalize(word.transliteration)}</span>
+              <span className="sr-only"> (</span>
               <span
                 lang="ar"
                 dir="rtl"
-                className={cn('block max-w-full font-quran leading-[1.85] [overflow-wrap:anywhere]', headwordSize)}
+                className={cn('order-first block max-w-full font-quran leading-[1.85] [overflow-wrap:anywhere]', headwordSize)}
               >
                 {word.arabic}
               </span>
+              <span className="sr-only">): </span>
               <span className="block text-[28px] font-extrabold leading-tight tracking-[-0.02em] sm:text-[34px]">{word.meaning}</span>
             </h1>
-            <p className="text-[17px] text-muted-foreground">
-              {word.transliteration}
-              {word.partOfSpeech && <> · {word.partOfSpeech}</>}
-              {rootArabic && (
-                <>
-                  {' '}
-                  · root{' '}
-                  <bdi lang="ar" className="font-arabic text-xl text-foreground">
-                    {rootArabic}
-                  </bdi>
-                </>
-              )}
-            </p>
+            {(word.partOfSpeech || rootArabic) && (
+              <p className="text-[17px] text-muted-foreground">
+                {word.partOfSpeech && capitalize(word.partOfSpeech)}
+                {word.partOfSpeech && rootArabic && ' · '}
+                {rootArabic && (
+                  <>
+                    root{' '}
+                    <bdi lang="ar" className="font-arabic text-xl text-foreground">
+                      {rootArabic}
+                    </bdi>
+                  </>
+                )}
+              </p>
+            )}
+            {phrase && (
+              <p className="max-w-xl text-[15px] text-muted-foreground">
+                Also written as: {phrase.aka.join(', ')}.{phrase.note && ` ${phrase.note}`}
+              </p>
+            )}
           </div>
 
           <div className="flex w-full flex-col items-stretch gap-3 pt-1.5 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center">
@@ -196,9 +228,39 @@ const WordDetail: React.FC<WordDetailProps> = ({
           )}
         </article>
 
+        {/* How to say it: a one-sentence answer for "<English> in Arabic" searches. */}
+        <section className={cn(sectionCard, 'flex flex-col gap-2')} aria-labelledby="say-it-in-arabic">
+          <h2 id="say-it-in-arabic" className="text-[22px] font-extrabold">
+            How to say “{sense}” in Arabic
+          </h2>
+          <p className="text-[17px] leading-relaxed">
+            “{sense}” in Arabic is{' '}
+            <bdi lang="ar" className="font-arabic text-2xl leading-none">
+              {word.arabic}
+            </bdi>{' '}
+            ({word.transliteration}){posPhrase}
+            {usage.kind === 'verbatim'
+              ? `, used ${word.frequency} ${word.frequency === 1 ? 'time' : 'times'} in the Quran`
+              : usage.kind === 'related'
+                ? '; the Quran uses a related form of it'
+                : '; this exact form is not in the Quran'}
+            {firstExample ? (
+              <>
+                {usage.kind === 'verbatim' ? '; see it in ' : ', as in '}
+                <a href="#in-the-quran" className="font-bold text-primary underline-offset-4 hover:underline">
+                  {exampleRef}
+                </a>{' '}
+                below.
+              </>
+            ) : (
+              '.'
+            )}
+          </p>
+        </section>
+
         {/* In the Quran */}
         <section className={cn(sectionCard, 'flex flex-col gap-4')} aria-labelledby="in-the-quran">
-          <h2 id="in-the-quran" className="text-[22px] font-extrabold">
+          <h2 id="in-the-quran" className="scroll-mt-24 text-[22px] font-extrabold">
             In the Quran
           </h2>
 

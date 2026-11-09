@@ -1,5 +1,5 @@
 import SEO from '@/components/SEO';
-import { SITE_URL, collectionSeo } from '@/utils/seo-templates';
+import { SITE_URL, collectionHeading, collectionSeo } from '@/utils/seo-templates';
 import { ogImage } from '@/utils/og-image';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -36,6 +36,50 @@ const usageNote = (word: Word): string | null => {
   if (usage.kind === 'related') return usage.short;
   return null;
 };
+
+/**
+ * The days of the week in Arabic, for the Time collection. Only Friday (al-Jumu'ah, 62:9) and the
+ * Sabbath (as-Sabt, e.g. 7:163) are named in the Quran; the others are the standard Arabic names.
+ */
+const WEEKDAYS: { en: string; ar: string; tr: string; quran?: string }[] = [
+  { en: 'Sunday', ar: 'الأحد', tr: 'al-Ahad' },
+  { en: 'Monday', ar: 'الإثنين', tr: 'al-Ithnayn' },
+  { en: 'Tuesday', ar: 'الثلاثاء', tr: 'ath-Thulatha’' },
+  { en: 'Wednesday', ar: 'الأربعاء', tr: 'al-Arbi‘a’' },
+  { en: 'Thursday', ar: 'الخميس', tr: 'al-Khamis' },
+  { en: 'Friday', ar: 'الجمعة', tr: 'al-Jumu‘ah', quran: '62:9' },
+  { en: 'Saturday', ar: 'السبت', tr: 'as-Sabt', quran: '7:163' },
+];
+
+const DaysOfTheWeek = () => (
+  <section className="rounded-[28px] border border-border bg-card p-5 sm:p-7" aria-labelledby="weekdays-heading">
+    <h2 id="weekdays-heading" className="text-[22px] font-extrabold">
+      Days of the week in Arabic
+    </h2>
+    <p className="mt-1 text-[15px] leading-relaxed text-muted-foreground">
+      Each day is <span className="font-arabic text-lg text-foreground" lang="ar">يوم</span> (yawm, “day”) followed by its
+      name, e.g. <span className="font-arabic text-lg text-foreground" lang="ar">يوم الجمعة</span> (yawm al-jumu‘ah, Friday).
+      Sunday to Thursday are numbered: al-Ahad (from “one”), al-Ithnayn (“two”), ath-Thulatha’ (“three”), and so on.
+      Only Friday and the Sabbath (Saturday) are named in the Quran.
+    </p>
+    <ul className="mt-4 grid grid-cols-1 gap-2 min-[400px]:grid-cols-2 lg:grid-cols-4">
+      {WEEKDAYS.map((d) => (
+        <li key={d.en} className="flex items-center justify-between gap-3 rounded-2xl bg-background px-4 py-3">
+          <span className="min-w-0">
+            <span className="block font-extrabold">{d.en}</span>
+            <span className="block text-[13px] text-muted-foreground">
+              {d.tr}
+              {d.quran && <> · Quran {d.quran}</>}
+            </span>
+          </span>
+          <span className="shrink-0 font-arabic text-2xl" lang="ar" dir="rtl">
+            {d.ar}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </section>
+);
 
 interface WordTileProps {
   word: Word;
@@ -149,7 +193,7 @@ const CollectionDetails = () => {
   return <>
       <SEO
         {...(collection
-          ? collectionSeo({ name: collection.name, description: collection.description, count: words.length })
+          ? collectionSeo({ id: collection.id, name: collection.name, description: collection.description, count: words.length })
           : { title: 'Collection not found', description: 'Browse a collection of Quranic Arabic vocabulary.' })}
         url={collection ? `/collections/${collection.id}` : undefined}
         image={ogImage('collections', collection?.id)}
@@ -168,7 +212,7 @@ const CollectionDetails = () => {
                 {
                   '@type': 'DefinedTermSet',
                   '@id': `${SITE_URL}/collections/${collection.id}#termset`,
-                  name: `${collection.name}: Quranic Arabic vocabulary`,
+                  name: `${collectionHeading(collection)}: Quranic Arabic vocabulary`,
                   url: `${SITE_URL}/collections/${collection.id}`,
                   inLanguage: 'ar',
                   // The first 100 (large collections would add tens of KB to the page head).
@@ -213,7 +257,7 @@ const CollectionDetails = () => {
                     <Icon className="h-7 w-7" />
                   </span>
                 )}
-                <h1 className="text-3xl font-extrabold tracking-tight sm:text-[44px] sm:leading-[1.1]">{collection.name}</h1>
+                <h1 className="text-3xl font-extrabold tracking-tight sm:text-[44px] sm:leading-[1.1]">{collectionHeading(collection)}</h1>
                 {collection.description && (
                   <p className="text-base leading-relaxed text-muted-foreground sm:text-[17px]">{collection.description}</p>
                 )}
@@ -258,6 +302,8 @@ const CollectionDetails = () => {
                 </Button>
               </div>
             </section>
+
+            {collection.id === 'time' && <DaysOfTheWeek />}
 
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               {levelOptions.length > 0 && (

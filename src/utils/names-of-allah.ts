@@ -66,3 +66,27 @@ export const getAdjacentNames = (name: DivineName) => ({
   prev: NAMES_OF_ALLAH[name.n - 2],
   next: NAMES_OF_ALLAH[name.n],
 });
+
+/** Spellings that are hand-written because the article rule below does not apply. */
+const SPECIAL_SPELLINGS: Record<string, { ya: string; variants: string[] }> = {
+  'Malik al-Mulk': { ya: 'Ya Malik al-Mulk', variants: ['Malik ul-Mulk', 'Maalik al-Mulk', 'Ya Malik al-Mulk'] },
+  'Dhul-Jalali wal-Ikram': {
+    ya: 'Ya Dhal-Jalali wal-Ikram',
+    variants: ['Dhul Jalali wal Ikram', 'Dhul-Jalal wal-Ikram', 'Ya Dhal-Jalali wal-Ikram'],
+  },
+};
+
+/**
+ * Other spellings of a name, as people write and search it: without the ayn/hamza marks, with the
+ * unassimilated article ("Ar-Rahman" -> "Al-Rahman"), without the hyphen, without the article, and
+ * the vocative used in dua ("Ya Rahman", which drops the article).
+ */
+export const nameSpellings = (tr: string): { ya: string; variants: string[] } => {
+  if (SPECIAL_SPELLINGS[tr]) return SPECIAL_SPELLINGS[tr];
+  const plainTr = tr.replace(/['ʿʾ‘’]/g, '');
+  const m = plainTr.match(/^(A[a-z]{1,2})-(.+)$/);
+  if (!m) return { ya: `Ya ${plainTr}`, variants: [plainTr, `Ya ${plainTr}`].filter((v) => v !== tr) };
+  const [, article, bare] = m;
+  const variants = [plainTr, article !== 'Al' ? `Al-${bare}` : '', `${article} ${bare}`, bare, `Ya ${bare}`];
+  return { ya: `Ya ${bare}`, variants: [...new Set(variants)].filter((v) => v && v !== tr) };
+};

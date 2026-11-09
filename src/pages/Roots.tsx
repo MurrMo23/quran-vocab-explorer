@@ -151,7 +151,7 @@ const Roots = () => {
                 ({letterName})
               </>
             ) : (
-              'Arabic roots in the Quran'
+              HUB_SEO.roots.heading
             )}
           </h1>
           <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-[17px]">
