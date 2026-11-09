@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { track } from '@/lib/analytics';
 import { ArrowRight, Loader2, Pause, Play, Repeat } from 'lucide-react';
 import SEO from '@/components/SEO';
 import PageTrail from '@/components/quran/PageTrail';
@@ -9,7 +10,17 @@ import { cn } from '@/lib/utils';
 import { EmbedStaticData, useStaticData } from '@/lib/static-data';
 import { getRootBySlug, getSurahName, hasSurahPage, rootPath, surahPath, wordPath } from '@/utils/quran-pages';
 import { reviewWordsUrl } from '@/components/review/review-session';
-import { FORM_GROUPS, formLabel, rootDataPath, type RootDoc, type RootForm } from '@/utils/root-library';
+import {
+  FORM_GROUPS,
+  ROOT_LETTER_NAMES,
+  formLabel,
+  rootDataPath,
+  rootLetterKey,
+  rootLetterPath,
+  type RootDoc,
+  type RootForm,
+} from '@/utils/root-library';
+import { SITE_URL, rootSeo } from '@/utils/seo-templates';
 
 const SURAHS_SHOWN = 10;
 const capitalize = (t: string) => (t ? t[0].toUpperCase() + t.slice(1) : t);
@@ -128,9 +139,21 @@ const RootDetails = () => {
   const n = root.forms.length;
   const siteWords = siteFamily?.words ?? [];
   const groups = FORM_GROUPS.map((g) => ({ ...g, forms: root.forms.filter((f) => g.kinds.includes(f.kind)) })).filter((g) => g.forms.length);
-  const top = root.forms.slice(0, 3).map((f) => f.gloss).join(', ');
-  const title = `Root ${root.ar} (${root.slug}) in the Quran: ${capitalize(root.core)}`;
-  const description = `The Arabic root ${root.ar} (${root.slug}) means ${root.core}. ${root.total.toLocaleString('en-US')} words in the Quran come from it, in ${n} ${n === 1 ? 'form' : 'forms'} (${top}), each with an example verse.`;
+  const { title, description } = rootSeo({
+    ar: root.ar,
+    slug: root.slug,
+    core: root.core,
+    total: root.total,
+    forms: n,
+    topForms: root.forms.slice(0, 3).map((f) => f.gloss),
+  });
+  // Breadcrumb level: the hub of roots with the same first letter (every root is linked from it).
+  const letterKey = rootLetterKey(root.slug);
+  const firstLetter = root.ar.split(' ')[0];
+  const letterHub = {
+    name: `${firstLetter} (${ROOT_LETTER_NAMES[letterKey] ?? letterKey})`,
+    path: rootLetterPath(letterKey),
+  };
   const maxSurah = root.surahs[0]?.[1] ?? 1;
 
   return (
@@ -142,7 +165,25 @@ const RootDetails = () => {
         keywords={[`root ${root.slug}`, `${root.ar} root`, `${root.ar.replace(/ /g, '')} meaning`, 'Arabic root words', 'Quranic Arabic roots']}
         breadcrumbs={[
           { name: 'Roots', path: '/roots' },
+          ...(letterHub.path === '/roots' ? [] : [letterHub]),
           { name: `Root ${root.ar}`, path: rootPath(root.slug) },
+        ]}
+        jsonLd={[
+          {
+            '@type': 'DefinedTerm',
+            '@id': `${SITE_URL}${rootPath(root.slug)}#term`,
+            name: `${root.ar} (${root.slug})`,
+            description: `Arabic root meaning ${root.core}. ${root.total} words in the Quran, ${n} ${n === 1 ? 'form' : 'forms'}.`,
+            termCode: root.slug,
+            inLanguage: 'ar',
+            url: `${SITE_URL}${rootPath(root.slug)}`,
+            inDefinedTermSet: {
+              '@type': 'DefinedTermSet',
+              '@id': `${SITE_URL}/roots#termset`,
+              name: 'Arabic roots of the Quran',
+              url: `${SITE_URL}/roots`,
+            },
+          },
         ]}
       />
       <EmbedStaticData path={rootDataPath(root.slug)} data={root} />
@@ -151,6 +192,9 @@ const RootDetails = () => {
         <PageTrail
           items={[
             { name: 'Roots', path: '/roots' },
+            ...(letterHub.path === '/roots'
+              ? []
+              : [{ name: <span className="font-arabic" lang="ar" dir="rtl">{firstLetter}</span>, path: letterHub.path }]),
             { name: <span className="font-arabic" lang="ar" dir="rtl">{root.ar}</span>, path: rootPath(root.slug) },
           ]}
         />
@@ -180,7 +224,7 @@ const RootDetails = () => {
           </dl>
           {siteWords.length > 0 && (
             <Button asChild size="lg" className="mt-3">
-              <Link to={reviewWordsUrl(siteWords.map((w) => w.id))}>
+              <Link to={reviewWordsUrl(siteWords.map((w) => w.id))} onClick={() => track('cta_click', { cta: 'learn_root_words', location: 'root_hero' })}>
                 <Repeat aria-hidden />
                 Learn {siteWords.length === 1 ? 'its word' : `its ${siteWords.length} words`}
               </Link>
@@ -252,6 +296,16 @@ const RootDetails = () => {
             </ul>
           </section>
         )}
+
+        <p className="mb-6 text-sm">
+          <Link to={letterHub.path} className="font-bold text-primary underline-offset-4 hover:underline">
+            More Quranic roots starting with{' '}
+            <bdi lang="ar" className="font-arabic text-base">
+              {firstLetter}
+            </bdi>{' '}
+            ({ROOT_LETTER_NAMES[letterKey] ?? letterKey}) →
+          </Link>
+        </p>
 
         <p className="max-w-3xl text-xs leading-relaxed text-muted-foreground">
           Root, word forms, verb patterns and counts: Quranic Arabic Corpus (morphology v0.4); a count is the number of

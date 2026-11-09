@@ -2,14 +2,15 @@
 import React from 'react';
 import BlogList from '@/components/blog/BlogList';
 import BlogSidebar from '@/components/blog/BlogSidebar';
+import { HUB_SEO } from '@/utils/seo-templates';
 import SEO from '@/components/SEO';
 
 const Blog = () => {
   return (
     <>
       <SEO 
-        title="Blog | Arabic Words"
-        description="Read our blog posts about Arabic vocabulary, learning tips, and more. Expert insights on Quranic Arabic learning."
+        title={HUB_SEO.blog.title}
+        description={HUB_SEO.blog.description}
         keywords={["Arabic blog", "language learning", "vocabulary tips", "Quranic Arabic", "educational content"]}
         url="https://quranvocab.com/blog"
         type="website"

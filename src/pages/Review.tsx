@@ -70,7 +70,7 @@ const Review = () => {
   const navigate = useNavigate();
 
   const progress = useProgress();
-  const { recordReview, previewInterval, cards, logs, stats, loading: progressLoading } = progress;
+  const { recordReview, noteReviewPlan, previewInterval, cards, logs, stats, loading: progressLoading } = progress;
   const collections = useMemo(() => getPublishedCollections(), []);
   const { items: userCollections } = useUserCollections();
   const collectionPool = usePracticePool(kind === 'collection' ? collectionParam : null);
@@ -182,6 +182,8 @@ const Review = () => {
       });
     }
     repeats.current = new Map();
+    // Analytics: review_start / review_complete are measured against this queue.
+    if (queue.length > 0) noteReviewPlan(queue.map((it) => it.wordId), `review_${kind}`);
     setItems(queue);
     setPosition(0);
     setRevealed(false);
@@ -261,7 +263,7 @@ const Review = () => {
       if (!current) return items;
       const elapsedMs = Date.now() - shownAt.current;
       parked.current = null;
-      void recordReview(current.wordId, rating, source, elapsedMs);
+      void recordReview(current.wordId, rating, source, elapsedMs, current.mode);
       setAnswers((prev) => [...prev, { wordId: current.wordId, rating, elapsedMs }]);
       let queue = items;
       if (rating === 'again') {

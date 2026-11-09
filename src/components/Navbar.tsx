@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { track } from '@/lib/analytics';
 import { useAuth } from './AuthProvider';
 import { usePermissions } from '@/hooks/usePermissions';
 import { Button } from './ui/button';
@@ -140,7 +141,7 @@ const Navbar = ({ onSearch }: { onSearch?: () => void }) => {
                 ) : (
                   <div className="grid gap-2">
                     <Button asChild>
-                      <Link to="/review" onClick={closeMenu}>Start free</Link>
+                      <Link to="/review" onClick={() => { track('cta_click', { cta: 'start_free', location: 'nav_mobile' }); closeMenu(); }}>Start free</Link>
                     </Button>
                     <Button asChild variant="outline">
                       <Link to="/auth" onClick={closeMenu}>Sign in</Link>
@@ -205,7 +206,7 @@ const Navbar = ({ onSearch }: { onSearch?: () => void }) => {
                 Sign in
               </Link>
               <Button asChild size="sm" className="h-10 px-4">
-                <Link to="/review">Start free</Link>
+                <Link to="/review" onClick={() => track('cta_click', { cta: 'start_free', location: 'nav' })}>Start free</Link>
               </Button>
             </>
           )}

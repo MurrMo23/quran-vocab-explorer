@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { ogImage } from '@/utils/og-image';
 import { Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
+import { HUB_SEO, itemListLd } from '@/utils/seo-templates';
 import SEO from '@/components/SEO';
 import PageTrail from '@/components/quran/PageTrail';
 import { Input } from '@/components/ui/input';
@@ -50,12 +51,19 @@ const Surahs = () => {
   return (
     <>
       <SEO
-        title="Surah Vocabulary: Word Lists for All 114 Surahs"
-        description="The Quranic Arabic words of every surah, from Al-Fatihah to An-Nas: each list is ordered by how often the word occurs in the surah and shows how much of the surah the words cover. Juz Amma included."
+        title={HUB_SEO.surahs.title}
+        description={HUB_SEO.surahs.description}
         url="/surahs"
         keywords={['surah vocabulary', 'surah word list', 'Quran words by surah', 'Juz Amma vocabulary', 'Quranic Arabic']}
         breadcrumbs={[{ name: 'Surah vocabulary', path: '/surahs' }]}
         image={ogImage('pages', 'surahs')}
+        jsonLd={[
+          itemListLd(
+            'Surah vocabulary lists',
+            '/surahs',
+            surahs.map((x) => ({ name: `Surah ${x.name} vocabulary`, path: surahPath(x.number) })),
+          ),
+        ]}
       />
 
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">

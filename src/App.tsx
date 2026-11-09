@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import { AuthProvider } from '@/components/AuthProvider';
 import Layout from '@/components/Layout';
 import ScrollToTop from '@/components/ScrollToTop';
+import { AnalyticsContext } from '@/lib/analytics-context';
 import RedirectToReview from '@/components/review/RedirectToReview';
 // The home page stays in the main bundle so the first paint does not wait for a chunk.
 import Index from '@/pages/Index';
@@ -67,6 +68,7 @@ function App() {
       <AuthProvider>
         <ThemeProvider>
           <ScrollToTop />
+          <AnalyticsContext />
           <div className="min-h-screen bg-background">
             <Routes>
               <Route path="/" element={<Layout />}>
@@ -84,6 +86,7 @@ function App() {
                 <Route path="mobile-flashcards" element={<RedirectToReview />} />
                 <Route path="word/:id" element={page(<WordView />)} />
                 <Route path="roots" element={page(<Roots />)} />
+                <Route path="roots/:letter" element={page(<Roots />)} />
                 <Route path="root/:root" element={page(<RootDetails />)} />
                 <Route path="surahs" element={page(<Surahs />)} />
                 <Route path="surah/:number" element={page(<SurahVocabulary />)} />

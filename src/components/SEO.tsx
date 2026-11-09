@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
+import { SITE_NAME, SITE_URL, brandTitle, fitDescription, wordSeo } from '@/utils/seo-templates';
 
 interface SEOProps {
   title?: string;
@@ -33,6 +34,8 @@ interface SEOProps {
     usage?: string;
     partOfSpeech: string;
     tags: string[];
+    /** The word is one of the 99 Names (its name page targets "<name> meaning"). */
+    divineName?: boolean;
   };
   /** Trail for a BreadcrumbList (Home is added first); the last item is this page. */
   breadcrumbs?: { name: string; path: string }[];
@@ -40,9 +43,9 @@ interface SEOProps {
   jsonLd?: Record<string, unknown>[];
 }
 
-const SITE_NAME = 'QuranVocab';
-const SITE_URL = 'https://quranvocab.com';
 const SITE_TAGLINE = 'Learn the words of the Quran';
+const DEFAULT_DESCRIPTION =
+  'Learn high-frequency Quranic Arabic vocabulary with themed collections, flashcards and quizzes. Free, with word pages showing root and meaning.';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
 const DEFAULT_IMAGE_ALT = 'QuranVocab: learn the words of the Quran';
 // Every share image we ship (the default and public/og/**) is 1200x630.
@@ -121,8 +124,8 @@ const removeStaticHeadDuplicates = () => {
 };
 
 const SEO: React.FC<SEOProps> = ({
-  title = `${SITE_NAME} — ${SITE_TAGLINE}`,
-  description = 'Learn high-frequency Quranic Arabic vocabulary with themed collections, flashcards and quizzes. Free, with word pages showing root and meaning.',
+  title,
+  description: descriptionProp,
   keywords = ['Quranic Arabic', 'Quran vocabulary', 'Arabic words', 'Quran study', 'Arabic flashcards'],
   image = DEFAULT_IMAGE,
   imageAlt,
@@ -146,24 +149,31 @@ const SEO: React.FC<SEOProps> = ({
   const absoluteImage = toAbsolute(image || DEFAULT_IMAGE, SITE_URL);
   const imageType = /\.jpe?g$/i.test(absoluteImage) ? 'image/jpeg' : /\.png$/i.test(absoluteImage) ? 'image/png' : undefined;
 
-  // Generate word-specific SEO data if word prop is provided
-  const wordTitle = word ? `${word.transliteration} (${word.arabic}) — meaning: ${word.meaning}` : title;
-  const wordDescription = word
-    ? `"${word.arabic}" (${word.transliteration}) means "${word.meaning}". Root: ${word.root}. ${word.usage ?? `${word.frequency} occurrences in the Quran.`} Learn it with audio and examples.`
-    : description;
+  // Word pages: title and description come from the word template unless the page passes its own
+  // (patterns live in src/utils/seo-templates.ts).
+  const wordDefaults = word
+    ? wordSeo({
+        arabic: word.arabic,
+        transliteration: word.transliteration,
+        meaning: word.meaning,
+        root: word.root,
+        usage: word.usage ?? `Used ${word.frequency} times in the Quran.`,
+        divineName: word.divineName,
+      })
+    : undefined;
   const wordKeywords = word
     ? [...keywords, word.arabic, word.transliteration, word.meaning, word.root, ...word.tags, 'Quranic Arabic']
     : keywords;
 
-  const finalTitle = word ? wordTitle : title;
-  const finalDescription = word ? wordDescription : description;
+  const finalTitle = title ?? wordDefaults?.title ?? `${SITE_NAME} — ${SITE_TAGLINE}`;
+  const finalDescription = fitDescription(
+    descriptionProp ?? wordDefaults?.description ?? DEFAULT_DESCRIPTION,
+  );
   const finalKeywords = word ? wordKeywords : keywords;
   const finalImageAlt =
     imageAlt ?? (word ? `${word.arabic} (${word.transliteration}): ${word.meaning}` : image && image !== DEFAULT_IMAGE ? finalTitle : DEFAULT_IMAGE_ALT);
-  const fullTitle =
-    finalTitle.includes(siteTitle)
-      ? finalTitle
-      : `${finalTitle} | ${siteTitle}`;
+  // " | QuranVocab" only when the title stays within 60 characters.
+  const fullTitle = brandTitle(finalTitle);
 
   const organization = {
     '@type': 'Organization',
@@ -207,14 +217,16 @@ const SEO: React.FC<SEOProps> = ({
         { '@type': 'PropertyValue', name: 'partOfSpeech', value: word.partOfSpeech }
       ]
     });
-    graph.push({
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-        { '@type': 'ListItem', position: 2, name: 'Words', item: `${SITE_URL}/collections` },
-        { '@type': 'ListItem', position: 3, name: `${word.transliteration} (${word.arabic})`, item: canonical }
-      ]
-    });
+    if (!breadcrumbs?.length) {
+      graph.push({
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: 'Collections', item: `${SITE_URL}/collections` },
+          { '@type': 'ListItem', position: 3, name: `${word.transliteration} (${word.arabic})`, item: canonical }
+        ]
+      });
+    }
   } else if (type === 'article' || article) {
     graph.push({
       '@type': 'Article',
@@ -238,7 +250,7 @@ const SEO: React.FC<SEOProps> = ({
     });
   }
 
-  if (!word && breadcrumbs?.length) {
+  if (breadcrumbs?.length) {
     graph.push({
       '@type': 'BreadcrumbList',
       itemListElement: [{ name: 'Home', path: '/' }, ...breadcrumbs].map((b, i) => ({

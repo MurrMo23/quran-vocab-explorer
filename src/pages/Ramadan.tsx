@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CalendarPlus, CheckCircle2, Moon, Play } from 'lucide-react';
+import { HUB_SEO } from '@/utils/seo-templates';
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
@@ -187,7 +188,7 @@ const Ramadan = () => {
   return (
     <>
       <SEO
-        title={TITLE}
+        title={HUB_SEO.ramadan.title}
         description={description}
         url={PATH}
         image={ogImage('pages', 'ramadan')}

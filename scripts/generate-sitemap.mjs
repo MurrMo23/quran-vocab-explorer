@@ -1,18 +1,34 @@
-// Build step: generates sitemap.xml from the same data the app renders (via the SSR bundle), so
-// it cannot go stale. Writes dist/ (what is deployed) and
-// public/ (the committed copies). Runs after `vite build --ssr`, before scripts/prerender.mjs.
+// Build step: generates the sitemaps from the same data the app renders (via the SSR bundle), so
+// they cannot go stale. Runs after scripts/prerender.mjs (it reads the prerendered pages) and then
+// removes the SSR bundle. Writes dist/ (what is deployed) and public/ (the committed copies).
+//
+//   sitemap.xml              sitemap index, pointing at:
+//   sitemap-pages.xml        home, hubs and static pages
+//   sitemap-collections.xml  /collections/<id>
+//   sitemap-words.xml        /word/<slug>
+//   sitemap-roots.xml        /roots/<letter>, /root/<slug>
+//   sitemap-surahs.xml       /surah/<n>
+//   sitemap-names.xml        /names-of-allah/<slug>
+//
+// <lastmod> is the date a page's content last changed, not the build date: each page's rendered
+// content is hashed and compared with scripts/sitemap-lastmod.json (commit that file after a build
+// so the dates carry over). Pages that are not prerendered get no <lastmod>. Pages whose prerendered
+// HTML is noindex are left out.
 //
 // It also guards the word slugs: the build fails if any slug is duplicated, not URL-safe,
 // numeric, or equal to another word's id (which would make /word/<x> ambiguous).
 import './static-loader.mjs';
-import { writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const SITE_URL = 'https://quranvocab.com';
 const dist = resolve('dist');
 const publicDir = resolve('public');
-const ssr = await import(pathToFileURL(resolve('dist-ssr', 'entry-server.js')).href);
+const ssrDir = resolve('dist-ssr');
+const manifestFile = resolve('scripts', 'sitemap-lastmod.json');
+const ssr = await import(pathToFileURL(join(ssrDir, 'entry-server.js')).href);
 const { getAllWords, getPublishedCollections, getWordSlug, quranPages, namesPages } = ssr;
 
 // --- Slug guard ------------------------------------------------------------------------------
@@ -33,54 +49,121 @@ if (errors.length) {
   process.exit(1);
 }
 
-// --- sitemap.xml -----------------------------------------------------------------------------
-const lastmod = new Date().toISOString().slice(0, 10);
-// [path, changefreq, priority]. Add new public, indexable pages here.
-const staticPages = [
-  ['/', 'weekly', '1.0'],
-  ['/collections', 'weekly', '0.9'],
-  ['/review', 'monthly', '0.8'],
-  ['/ramadan', 'weekly', '0.8'],
-  ['/blog', 'weekly', '0.7'],
-  ['/about', 'yearly', '0.5'],
-  ['/contact', 'yearly', '0.4'],
-  ['/help', 'yearly', '0.4'],
-  ['/privacy-policy', 'yearly', '0.3'],
-  ['/terms-of-service', 'yearly', '0.3'],
-];
+// --- URL groups ------------------------------------------------------------------------------
+// Public, indexable pages. The static ones without a prerendered file are client-rendered.
+const staticPages = ['/', '/collections', '/roots', '/surahs', '/names-of-allah', '/ramadan', '/review', '/blog', '/about', '/contact', '/help', '/privacy-policy', '/terms-of-service'];
 const collections = getPublishedCollections();
-const entries = [
-  ...staticPages,
-  ...collections.map((c) => [`/collections/${encodeURIComponent(c.id)}`, 'monthly', '0.7']),
-  ...words.map((w) => [`/word/${encodeURIComponent(getWordSlug(w))}`, 'monthly', '0.6']),
-  // /roots, /root/<slug>, /surahs, /surah/<n>
-  ...quranPages().map((path) => [path, 'monthly', /^\/(roots|surahs)$/.test(path) ? '0.8' : '0.6']),
-  // /names-of-allah, /names-of-allah/<slug>
-  ...namesPages().map((path) => [path, 'monthly', path === '/names-of-allah' ? '0.9' : '0.7']),
-];
+const q = quranPages();
+const groups = {
+  pages: staticPages,
+  collections: collections.map((c) => `/collections/${encodeURIComponent(c.id)}`),
+  words: words.map((w) => `/word/${encodeURIComponent(getWordSlug(w))}`),
+  roots: q.filter((p) => p.startsWith('/roots/') || p.startsWith('/root/')),
+  surahs: q.filter((p) => p.startsWith('/surah/')),
+  names: namesPages().filter((p) => p !== '/names-of-allah'),
+};
+const all = Object.values(groups).flat();
+const dupes = all.filter((p, i) => all.indexOf(p) !== i);
+if (dupes.length) console.warn(`[sitemap] duplicate URLs: ${dupes.join(', ')}`);
+const unassigned = [...q, ...namesPages()].filter((p) => !all.includes(p));
+if (unassigned.length) console.warn(`[sitemap] prerendered routes in no sitemap: ${unassigned.join(', ')}`);
+
+// --- Content hashes -> lastmod ---------------------------------------------------------------
+const today = new Date().toISOString().slice(0, 10);
+let manifest = {};
+try {
+  manifest = JSON.parse(readFileSync(manifestFile, 'utf8'));
+} catch {
+  /* first run: every prerendered page gets today's date */
+}
+const htmlFile = (path) => (path === '/' ? join(dist, 'index.html') : join(dist, decodeURIComponent(path), 'index.html'));
+/** What a reader or crawler sees change: title, description, canonical, robots and the rendered page. */
+function fingerprint(html) {
+  const head = html.slice(0, html.indexOf('</head>'));
+  const pick = (re) => head.match(re)?.[0] ?? '';
+  const root = html.slice(html.indexOf('data-prerendered="true"'));
+  return createHash('sha1')
+    .update(pick(/<title[^>]*>[\s\S]*?<\/title>/))
+    .update(pick(/<meta[^>]*name="description"[^>]*>/))
+    .update(pick(/<link[^>]*rel="canonical"[^>]*>/))
+    .update(pick(/<meta[^>]*name="robots"[^>]*>/))
+    .update(
+      root
+        .replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, (m) => (m.includes('application/json') ? m : ''))
+        .replace(/-[A-Za-z0-9_-]{8}\.(js|css|woff2?|png|jpe?g|svg|webp)/g, '.$1') // build hashes
+        .replace(/©\s*\d{4}/g, '©'), // footer year
+    )
+    .digest('hex')
+    .slice(0, 16);
+}
+const nextManifest = {};
+const lastmodOf = new Map();
+const skipped = [];
+let changed = 0;
+for (const path of all) {
+  const file = htmlFile(path);
+  if (!existsSync(file) || (path === '/' && !readFileSync(file, 'utf8').includes('data-prerendered="true"'))) continue;
+  const html = readFileSync(file, 'utf8');
+  if (/<meta[^>]*name="robots"[^>]*noindex/i.test(html.slice(0, html.indexOf('</head>')))) {
+    skipped.push(path);
+    continue;
+  }
+  const hash = fingerprint(html);
+  const prev = manifest[path];
+  const lastmod = prev && prev.hash === hash ? prev.lastmod : today;
+  if (!prev || prev.hash !== hash) changed++;
+  nextManifest[path] = { hash, lastmod };
+  lastmodOf.set(path, lastmod);
+}
+
+// --- Write -----------------------------------------------------------------------------------
 const xmlEscape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const sitemap = [
+const urlset = (paths) =>
+  [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<!-- Generated by scripts/generate-sitemap.mjs during the build. Do not edit by hand. -->',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...paths
+      .filter((p) => !skipped.includes(p))
+      .map((p) => {
+        const lm = lastmodOf.get(p);
+        return `  <url><loc>${xmlEscape(SITE_URL + p)}</loc>${lm ? `<lastmod>${lm}</lastmod>` : ''}</url>`;
+      }),
+    '</urlset>',
+    '',
+  ].join('\n');
+const files = Object.entries(groups).map(([name, paths]) => {
+  const dates = paths.map((p) => lastmodOf.get(p)).filter(Boolean).sort();
+  return { file: `sitemap-${name}.xml`, xml: urlset(paths), lastmod: dates[dates.length - 1], count: paths.length };
+});
+const index = [
   '<?xml version="1.0" encoding="UTF-8"?>',
-  `<!-- Generated by scripts/generate-sitemap.mjs during the build (${words.length} words, ${collections.length} collections). Do not edit by hand. -->`,
-  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...entries.map(
-    ([path, changefreq, priority]) =>
-      `  <url>\n    <loc>${xmlEscape(SITE_URL + path)}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`,
-  ),
-  '</urlset>',
+  '<!-- Generated by scripts/generate-sitemap.mjs during the build. Do not edit by hand. -->',
+  '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  ...files.map((f) => `  <sitemap><loc>${SITE_URL}/${f.file}</loc>${f.lastmod ? `<lastmod>${f.lastmod}</lastmod>` : ''}</sitemap>`),
+  '</sitemapindex>',
   '',
 ].join('\n');
 
-const write = (dir, label) => {
-  writeFileSync(join(dir, 'sitemap.xml'), sitemap);
-  return label;
+const writeAll = (dir) => {
+  writeFileSync(join(dir, 'sitemap.xml'), index);
+  for (const f of files) writeFileSync(join(dir, f.file), f.xml);
 };
-const written = [write(dist, 'dist')];
+writeAll(dist);
+const written = ['dist'];
 try {
-  written.push(write(publicDir, 'public'));
+  writeAll(publicDir);
+  written.push('public');
 } catch (e) {
   console.warn(`[sitemap] could not update public/ copies: ${e.message}`);
 }
+try {
+  writeFileSync(manifestFile, `${JSON.stringify(nextManifest, null, 0).replace(/\},"/g, '},\n"')}\n`);
+} catch (e) {
+  console.warn(`[sitemap] could not update ${manifestFile}: ${e.message}`);
+}
+rmSync(ssrDir, { recursive: true, force: true });
 console.log(
-  `[sitemap] ${entries.length} URLs (${words.length} words, ${collections.length} collections) -> ${written.join(', ')}`,
+  `[sitemap] ${all.length - skipped.length} URLs in ${files.length} sitemaps (${files.map((f) => `${f.file.slice(8, -4)} ${f.count}`).join(', ')}) -> ${written.join(', ')}; ` +
+    `${changed} pages new or changed since the last lastmod manifest${skipped.length ? `; ${skipped.length} noindex pages left out` : ''}`,
 );

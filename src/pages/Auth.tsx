@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { track } from '@/lib/analytics';
+import { markOAuthPending } from '@/lib/auth-analytics';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -61,7 +62,7 @@ const Auth = () => {
           return;
         }
 
-        const { error } = await supabase.auth.signUp({ 
+        const { data: signUpData, error } = await supabase.auth.signUp({ 
           email, 
           password,
           options: {
@@ -70,7 +71,8 @@ const Auth = () => {
         });
         
         if (error) throw error;
-        track('sign_up', { method: 'email' });
+        // An already-registered email gets the same response with no identities: not a new sign-up.
+        if (signUpData.user?.identities?.length !== 0) track('sign_up', { method: 'email' });
         toast.success('Account created! Please check your email to verify your account.');
       } else if (mode === 'login') {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -95,6 +97,7 @@ const Auth = () => {
 
   const handleGoogleAuth = async () => {
     setGoogleLoading(true);
+    markOAuthPending('google');
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',

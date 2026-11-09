@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Loader2, Search } from 'lucide-react';
 import SEO from '@/components/SEO';
 import PageTrail from '@/components/quran/PageTrail';
@@ -9,7 +9,16 @@ import { ogImage } from '@/utils/og-image';
 import { rootPath } from '@/utils/quran-pages';
 import { cn } from '@/lib/utils';
 import { EmbedStaticData, useStaticData } from '@/lib/static-data';
-import { ROOTS_INDEX_PATH, type RootIndex, type RootIndexRow } from '@/utils/root-library';
+import {
+  FIRST_ROOT_LETTER,
+  ROOTS_INDEX_PATH,
+  ROOT_LETTER_NAMES,
+  rootLetterKey,
+  rootLetterPath,
+  type RootIndex,
+  type RootIndexRow,
+} from '@/utils/root-library';
+import { HUB_SEO, itemListLd, rootLetterSeo } from '@/utils/seo-templates';
 
 type Sort = 'alpha' | 'frequent';
 
@@ -53,8 +62,11 @@ const Roots = () => {
   const { data, error } = useStaticData<RootIndex>(ROOTS_INDEX_PATH);
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState<Sort>('alpha');
-  // One letter at a time (1,600+ cards at once is slow on phones); search and "most frequent" page by 120.
-  const [letter, setLetter] = useState<string | null>(null);
+  // One letter at a time (1,600+ cards at once is slow on phones): /roots lists the first letter and
+  // /roots/<letter> each other one, so every root is reachable through plain links. Search and
+  // "most frequent" page by 120.
+  const { letter: letterParam } = useParams<{ letter?: string }>();
+  const letter = letterParam ?? FIRST_ROOT_LETTER;
   const [limit, setLimit] = useState(PAGE);
   const rows = useMemo(() => data?.roots ?? [], [data]);
   const tokens = rows.reduce((n, r) => n + r[2], 0);
@@ -73,37 +85,81 @@ const Roots = () => {
       const letter = r[1].split(' ')[0];
       const last = out[out.length - 1];
       if (last && last.letter === letter) last.rows.push(r);
-      else out.push({ letter, key: r[0].split('-')[0], rows: [r] });
+      else out.push({ letter, key: rootLetterKey(r[0]), rows: [r] });
     }
     return out;
   }, [shown]);
 
   const count = rows.length || 1642;
   const searching = query.trim().length > 0;
-  const current = groups.find((g) => g.key === letter) ?? groups[0];
+  // The letter's roots, whatever the view (also what the page's SEO and ItemList describe).
+  const letterGroup = useMemo(() => {
+    const own = rows.filter((r) => rootLetterKey(r[0]) === letter);
+    return own.length ? { letter: own[0][1].split(' ')[0], key: letter, rows: own } : undefined;
+  }, [rows, letter]);
+  const current = groups.find((g) => g.key === letter) ?? (searching ? groups[0] : undefined);
   const visible = searching || sort === 'frequent' ? shown.slice(0, limit) : current?.rows ?? [];
+  const isLetterPage = letterParam !== undefined && letterParam !== FIRST_ROOT_LETTER;
+  const letterName = ROOT_LETTER_NAMES[letter] ?? letter;
+  const unknownLetter = !!data && !letterGroup;
+  const path = rootLetterPath(letter);
+  const seo = isLetterPage && letterGroup
+    ? rootLetterSeo({ arabic: letterGroup.letter, name: letterName, count: letterGroup.rows.length })
+    : { title: HUB_SEO.roots.title(count), description: HUB_SEO.roots.description(count) };
+  const trail = isLetterPage
+    ? [
+        { name: 'Roots', path: '/roots' },
+        { name: letterGroup ? `${letterGroup.letter} (${letterName})` : letter, path },
+      ]
+    : [{ name: 'Roots', path: '/roots' }];
 
   return (
     <>
       <SEO
-        title={`Quranic Arabic Roots: All ${count.toLocaleString('en-US')} Roots with Meanings and Word Forms`}
-        description={`Every Arabic root in the Quran (${count.toLocaleString('en-US')}), with its core meaning, all the word forms built from it, how often each occurs and an example verse. Search by root letters or meaning.`}
-        url="/roots"
+        title={seo.title}
+        description={seo.description}
+        url={path}
+        noindex={unknownLetter}
         keywords={['Quranic Arabic roots', 'Arabic root words', 'Quran root list', 'trilateral roots', 'Quran vocabulary by root']}
-        breadcrumbs={[{ name: 'Roots', path: '/roots' }]}
+        breadcrumbs={trail.map((t) => ({ name: String(t.name), path: t.path }))}
         image={ogImage('pages', 'roots')}
+        jsonLd={
+          letterGroup
+            ? [
+                itemListLd(
+                  `Quranic roots starting with ${letterGroup.letter}`,
+                  path,
+                  letterGroup.rows.map((r) => ({ name: `${r[1]} (${r[0]})`, path: rootPath(r[0]) })),
+                ),
+              ]
+            : undefined
+        }
       />
       {data && <EmbedStaticData path={ROOTS_INDEX_PATH} data={data} />}
 
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
-        <PageTrail items={[{ name: 'Roots', path: '/roots' }]} />
+        <PageTrail items={trail} />
 
         <header className="card-tactile mb-6 rounded-[2rem] p-6 sm:p-9">
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Arabic roots in the Quran</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+            {isLetterPage && letterGroup ? (
+              <>
+                Quranic roots starting with{' '}
+                <bdi lang="ar" className="font-arabic font-normal">
+                  {letterGroup.letter}
+                </bdi>{' '}
+                ({letterName})
+              </>
+            ) : (
+              'Arabic roots in the Quran'
+            )}
+          </h1>
           <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-[17px]">
             Most Arabic words are built from a root of three letters, and every word from a root shares its core
-            meaning. Learn one root and you can recognise a whole family of words. Here are all{' '}
-            {count.toLocaleString('en-US')} roots in the Quran, with every word form built from them.
+            meaning. Learn one root and you can recognise a whole family of words.{' '}
+            {isLetterPage && letterGroup
+              ? `These are the ${letterGroup.rows.length} roots that begin with ${letterName}, out of ${count.toLocaleString('en-US')} roots in the Quran.`
+              : `Here are all ${count.toLocaleString('en-US')} roots in the Quran, with every word form built from them.`}
           </p>
           {data && (
             <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-3 text-sm">
@@ -176,10 +232,11 @@ const Roots = () => {
             <ul className="flex flex-wrap gap-1.5" lang="ar" dir="rtl">
               {groups.map((g) => (
                 <li key={g.key}>
-                  <button
-                    type="button"
-                    onClick={() => setLetter(g.key)}
-                    aria-pressed={g === current}
+                  {/* Plain links (crawlable): each letter has its own page. */}
+                  <Link
+                    to={rootLetterPath(g.key)}
+                    state={{ keepScroll: true }}
+                    aria-current={g === current ? 'page' : undefined}
                     aria-label={`Roots starting with ${g.letter} (${g.rows.length})`}
                     className={cn(
                       'flex h-11 w-11 items-center justify-center rounded-xl border-2 border-b-4 font-arabic text-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
@@ -187,7 +244,7 @@ const Roots = () => {
                     )}
                   >
                     {g.letter}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -201,6 +258,11 @@ const Roots = () => {
         )}
         {error && <p className="py-16 text-center text-muted-foreground">The root list could not be loaded. Check your connection and reload.</p>}
 
+        {unknownLetter && !searching && sort === 'alpha' && (
+          <p className="py-10 text-center text-muted-foreground">
+            No Quranic root starts with “{letter}”. <Link to="/roots" className="font-bold text-primary hover:underline">See all roots</Link>
+          </p>
+        )}
         {data && shown.length === 0 && <p className="py-10 text-center text-muted-foreground">No root matches “{query}”.</p>}
 
         {data && shown.length > 0 && (
