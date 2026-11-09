@@ -98,10 +98,10 @@ const SampleWordCard: React.FC<SampleWordCardProps> = ({ startHref }) => {
           <Volume2 aria-hidden="true" />
         </Button>
         <Button asChild variant="outline" className="h-[52px] flex-1 font-extrabold">
-          <Link to={startHref}>Not yet</Link>
+          <Link to={startHref} onClick={() => track('cta_click', { cta: 'sample_not_yet', location: 'home_sample' })}>Not yet</Link>
         </Button>
         <Button asChild className="h-[52px] flex-1 font-extrabold">
-          <Link to={startHref}>I know it</Link>
+          <Link to={startHref} onClick={() => track('cta_click', { cta: 'sample_know_it', location: 'home_sample' })}>I know it</Link>
         </Button>
       </div>
     </article>

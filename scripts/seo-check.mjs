@@ -191,6 +191,9 @@ for (const p of pages.values()) {
 }
 const redirectPaths = new Set([...pages.values()].filter((p) => p.redirect).map((p) => p.path));
 // Client-side redirect routes (react-router <Navigate>) that should never be linked internally.
+// Every page under these paths is prerendered, so a link to a missing one is broken (other paths,
+// such as /review or /blog, are client-rendered and cannot be checked here).
+const PRERENDERED_PREFIX = /^\/(word|root|roots|surah|collections|names-of-allah)\/[^/]+$/;
 const SPA_REDIRECTS = new Set(['/practice', '/quiz', '/enhanced-quiz', '/mobile-flashcards', '/community', '/community-hub']);
 
 // ---------------------------------------------------------------------------------------------
@@ -236,6 +239,7 @@ for (const p of pages.values()) {
   if (!p.noindex && !(inbound.get(p.path) > 0)) add('error', 'orphan', p.path);
   for (const l of p.links) {
     if (redirectPaths.has(l) || SPA_REDIRECTS.has(l)) add('warn', 'links-to-redirect', p.path, l);
+    else if (PRERENDERED_PREFIX.test(l) && !pages.has(l)) add('error', 'broken-link', p.path, l);
   }
 }
 for (const [path, e] of sitemapPaths) {

@@ -8,6 +8,7 @@ import { ogImage } from '@/utils/og-image';
 import { Word, getAllWords, getCollectionById, getWordsByCollection } from '@/utils/vocabulary';
 import { getWordBySlugOrId, getWordPath, getWordSlug } from '@/utils/word-slugs';
 import { toast } from 'sonner';
+import { getNameForWord } from '@/utils/names-of-allah';
 import { getQuranicUsage } from '@/utils/word-usage';
 import { publicId, track } from '@/lib/analytics';
 
@@ -89,8 +90,14 @@ const WordView = () => {
             frequency: word.frequency,
             usage: getQuranicUsage(word).long,
             partOfSpeech: word.partOfSpeech,
-            tags: word.tags
+            tags: word.tags,
+            divineName: !!getNameForWord(word.id),
           }}
+          breadcrumbs={[
+            { name: 'Collections', path: '/collections' },
+            ...(breadcrumbCollection ? [{ name: breadcrumbCollection.name, path: `/collections/${breadcrumbCollection.id}` }] : []),
+            { name: `${word.transliteration} (${word.arabic})`, path: canonicalPath ?? getWordPath(word) },
+          ]}
         />
       )}
       
@@ -99,6 +106,12 @@ const WordView = () => {
           <>
             <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
               <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <li>
+                  <Link to="/" className="inline-flex min-h-6 items-center hover:text-foreground hover:underline underline-offset-4">
+                    Home
+                  </Link>
+                </li>
+                <li aria-hidden="true">›</li>
                 <li>
                   <Link to="/collections" className="inline-flex min-h-6 items-center hover:text-foreground hover:underline underline-offset-4">
                     Collections

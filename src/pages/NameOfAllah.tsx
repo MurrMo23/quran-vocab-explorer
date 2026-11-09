@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { track } from '@/lib/analytics';
 import { ArrowLeft, ArrowRight, BookOpen, ExternalLink, Repeat } from 'lucide-react';
+import { nameSeo } from '@/utils/seo-templates';
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
@@ -136,8 +138,14 @@ const NameOfAllah = () => {
   const arPlain = plain(name.ar);
   const path = namePath(name.slug);
 
-  const title = `${name.tr} (${arPlain}) meaning: ${name.en} | 99 Names of Allah`;
-  const description = `${name.tr} (${arPlain}) means "${name.en}". ${name.meaning} ${statusText(name)} Name ${name.n} of the 99 Names of Allah, with Quran verses and recitation.`;
+  const { title, description } = nameSeo({
+    n: name.n,
+    tr: name.tr,
+    ar: arPlain,
+    en: name.en,
+    meaning: name.meaning,
+    statusText: statusText(name),
+  });
 
   const term = {
     '@type': 'DefinedTerm',
@@ -204,7 +212,7 @@ const NameOfAllah = () => {
         <div className="mb-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
             {word && (
               <Button asChild size="lg">
-                <Link to={reviewHref([word.id])}>
+                <Link to={reviewHref([word.id])} onClick={() => track('cta_click', { cta: 'review_name', location: 'name_actions' })}>
                   <Repeat className="h-5 w-5" aria-hidden="true" />
                   Review this name
                 </Link>

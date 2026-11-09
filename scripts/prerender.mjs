@@ -2,7 +2,7 @@
 // so crawlers and link previews get real content, titles and structured data. The client
 // hydrates this markup (src/main.tsx), so visitors see no flash.
 import './static-loader.mjs';
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -24,14 +24,19 @@ const ssrDir = resolve('dist-ssr');
 const template = readFileSync(join(dist, 'index.html'), 'utf8');
 const { render, routes, getLegacyWordRedirects } = await import(pathToFileURL(join(ssrDir, 'entry-server.js')).href);
 
-// Tags the page itself provides via Helmet replace the generic ones in the template.
+// Tags the page itself provides via Helmet (src/components/SEO.tsx) replace the generic ones in the
+// template, so each page has exactly one of each and a single JSON-LD graph.
 const stripDefaults = (html) =>
   html
     .replace(/<title>[\s\S]*?<\/title>/, '')
-    .replace(/<meta name="description"[^>]*>/, '')
+    .replace(/<meta name="(description|author)"[^>]*>/g, '')
     .replace(/<link rel="canonical"[^>]*>/, '')
-    .replace(/<meta property="og:(title|description|url|type|image)"[^>]*>/g, '')
-    .replace(/<meta name="twitter:(title|description|image)"[^>]*>/g, '');
+    .replace(/<meta property="og:[a-z_:]+"[^>]*>/g, '')
+    .replace(/<meta name="twitter:[a-z_:]+"[^>]*>/g, '')
+    .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '');
+// The template's <noscript> fallback (generic H1 and links to old URLs) is only for the unrendered
+// shell; prerendered pages already carry their real content.
+const stripNoscript = (html) => html.replace(/\s*<!-- Readable fallback[^>]*-->\s*<noscript>[\s\S]*?<\/noscript>/, '');
 
 const BOOT = /<div id="root">[\s\S]*?<\/div><\/div>/;
 const BOOT_HTML = template.match(BOOT)[0].replace(/^<div id="root">/, '').replace(/<\/div>$/, '');
@@ -54,6 +59,7 @@ for (const url of routes()) {
       page = page.replace(/(<div id="root" data-prerendered="true">[\s\S]*?)(\s*<!-- Readable fallback)/, (_m, a, b) => `${a}${HOME_GUARD_BODY}${b}`);
       if (!page.includes(HOME_GUARD_BODY)) throw new Error('home guard not inserted');
     }
+    if (head) page = stripNoscript(page);
     const out = url === '/' ? join(dist, 'index.html') : join(dist, decodeURIComponent(url), 'index.html');
     mkdirSync(dirname(out), { recursive: true });
     writeFileSync(out, page);
@@ -78,7 +84,7 @@ for (const { id, slug } of getLegacyWordRedirects?.() ?? []) {
     failed.push(`/word/${id} (redirect): ${e.message}`);
   }
 }
-rmSync(ssrDir, { recursive: true, force: true });
+// dist-ssr is removed by scripts/generate-sitemap.mjs, which runs next and still needs it.
 console.log(`[prerender] ${ok} pages written, ${redirectsWritten} legacy redirects, ${failed.length} failed`);
 if (failed.length) {
   console.log(failed.slice(0, 20).join('\n'));

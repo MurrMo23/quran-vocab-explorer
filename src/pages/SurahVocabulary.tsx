@@ -1,16 +1,20 @@
 import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { track } from '@/lib/analytics';
 import { ArrowLeft, ArrowRight, Target } from 'lucide-react';
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
 import { Button } from '@/components/ui/button';
-import { getSurahVocabulary, isJuzAmma, surahPath, wordPath } from '@/utils/quran-pages';
+import { getRootBySlug, getSurahVocabulary, getWordRootSlug, isJuzAmma, rootPath, surahPath, wordPath } from '@/utils/quran-pages';
+import { itemListLd, surahSeo } from '@/utils/seo-templates';
 
 const pct = (n: number) => `${n.toLocaleString('en-US', { maximumFractionDigits: 1 })}%`;
 
 /** Long surahs list this many words until "Show all" is pressed. */
 const INITIAL_WORDS = 50;
+/** Root links under the word list (the most frequent words' roots). */
+const ROOTS_SHOWN = 24;
 /** The Review button practises at most this many words (the most frequent ones). */
 const REVIEW_WORDS = 20;
 
@@ -40,11 +44,16 @@ const SurahVocabulary = () => {
 
   const title = `Vocabulary of Surah ${surah.name} (${surah.number})`;
   const count = surah.words.length;
-  const topWords = surah.words.slice(0, 5).map((w) => w.word.transliteration).join(', ');
-  const description =
-    count > 0
-      ? `${count} Quranic Arabic ${count === 1 ? 'word' : 'words'} from Surah ${surah.name} (${surah.arabic}, "${surah.meaning}"), most frequent first: ${topWords}. Learning them covers ${pct(surah.coveragePercent)} of the surah's ${surah.totalWords} words.`
-      : `Vocabulary of Surah ${surah.name} (${surah.arabic}, "${surah.meaning}"), ${surah.ayahs} ayahs and ${surah.totalWords} words.`;
+  const seo = surahSeo({ ...surah, wordCount: count, topWords: surah.words.slice(0, 5).map((w) => w.word.transliteration) });
+  // Roots of the surah's words, in order of first appearance in the (frequency-sorted) list.
+  const roots: { slug: string; ar: string }[] = [];
+  for (const { word } of surah.words) {
+    const slug = getWordRootSlug(word.id);
+    if (!slug || roots.some((r) => r.slug === slug)) continue;
+    const family = getRootBySlug(slug);
+    if (family) roots.push({ slug, ar: family.arabic });
+    if (roots.length >= ROOTS_SHOWN) break;
+  }
   const reviewWords = surah.words.slice(0, REVIEW_WORDS);
   const practiceHref = `/review?words=${reviewWords.map((w) => encodeURIComponent(w.word.id)).join(',')}`;
   const reviewLabel = count > REVIEW_WORDS ? `Review the ${REVIEW_WORDS} most frequent words` : 'Review these words';
@@ -55,8 +64,8 @@ const SurahVocabulary = () => {
   return (
     <>
       <SEO
-        title={title}
-        description={description}
+        title={seo.title}
+        description={seo.description}
         url={surahPath(surah.number)}
         image={ogImage('surah', surah.number)}
         imageAlt={`Surah ${surah.name} (${surah.arabic}): ${surah.meaning}`}
@@ -72,6 +81,17 @@ const SurahVocabulary = () => {
           { name: 'Surah vocabulary', path: '/surahs' },
           { name: `Surah ${surah.name}`, path: surahPath(surah.number) },
         ]}
+        jsonLd={
+          count > 0
+            ? [
+                itemListLd(
+                  `Words in Surah ${surah.name}`,
+                  surahPath(surah.number),
+                  surah.words.slice(0, INITIAL_WORDS).map(({ word }) => ({ name: `${word.transliteration} (${word.arabic})`, path: wordPath(word.id) })),
+                ),
+              ]
+            : undefined
+        }
       />
 
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
@@ -117,7 +137,7 @@ const SurahVocabulary = () => {
               surah are forms of these words.
             </p>
             <Button asChild size="lg" className="mt-1 h-auto min-h-14 w-full whitespace-normal py-3 text-center">
-              <Link to={practiceHref}>
+              <Link to={practiceHref} onClick={() => track('cta_click', { cta: 'review_surah_words', location: 'surah_review_box' })}>
                 <Target className="mr-2 h-4 w-4" aria-hidden="true" />
                 {reviewLabel}
               </Link>
@@ -174,6 +194,29 @@ const SurahVocabulary = () => {
               Counts are from the Quranic Arabic Corpus: every form of a word (its dictionary form, or lemma) counts,
               while attached pronouns and one-letter prefixes such as “wa” are not counted as separate words.
             </p>
+          </section>
+        )}
+
+        {roots.length > 0 && (
+          <section aria-labelledby="roots-heading" className="mt-10">
+            <h2 id="roots-heading" className="mb-3 text-xl font-extrabold">
+              Roots of these words
+            </h2>
+            <ul className="flex flex-wrap gap-2">
+              {roots.map((r) => (
+                <li key={r.slug}>
+                  <Link
+                    to={rootPath(r.slug)}
+                    className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 bg-card px-4 text-sm font-bold hover:border-primary/40"
+                  >
+                    <span className="font-arabic text-lg font-normal" lang="ar" dir="rtl">
+                      {r.ar}
+                    </span>
+                    {r.slug}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </section>
         )}
 

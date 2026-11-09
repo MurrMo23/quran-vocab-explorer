@@ -7,7 +7,7 @@ import App from './App';
 import { ProgressProvider } from '@/lib/progress';
 import { getAllWords, getPublishedCollections } from '@/utils/vocabulary';
 import { SURAH_PAGES, rootPath, surahPath } from '@/utils/quran-pages';
-import { ROOTS_INDEX_PATH, type RootIndex } from '@/utils/root-library';
+import { FIRST_ROOT_LETTER, ROOTS_INDEX_PATH, rootLetterKey, rootLetterPath, type RootIndex } from '@/utils/root-library';
 import { getWordPath } from '@/utils/word-slugs';
 import { NAMES_HUB_PATH, getAllNames, namePath } from '@/utils/names-of-allah';
 
@@ -50,7 +50,15 @@ export function quranPages(): string[] {
   // Every Quranic root, from the generated root library (public/data/roots/index.json).
   const index = globalThis.__QV_STATIC_LOADER__?.(ROOTS_INDEX_PATH) as RootIndex | undefined;
   if (!index) throw new Error('static data loader not installed (see scripts/static-loader.mjs)');
-  return ['/roots', ...index.roots.map((r) => rootPath(r[0])), '/surahs', ...SURAH_PAGES.map(surahPath)];
+  // One hub per first letter (/roots itself lists the first one).
+  const letters = [...new Set(index.roots.map((r) => rootLetterKey(r[0])))].filter((k) => k !== FIRST_ROOT_LETTER);
+  return [
+    '/roots',
+    ...letters.map(rootLetterPath),
+    ...index.roots.map((r) => rootPath(r[0])),
+    '/surahs',
+    ...SURAH_PAGES.map(surahPath),
+  ];
 }
 
 /** The 99 Names of Allah hub and one page per name (prerendered and in the sitemap). */

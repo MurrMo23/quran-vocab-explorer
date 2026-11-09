@@ -8,7 +8,55 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-16CP5B8EQB');
+      // Context set BEFORE config so the first page_view carries it (docs/ANALYTICS.md).
+      (function () {
+        var ctx = {};
+        var ls = null;
+        try { ls = window.localStorage; } catch (e) {}
+        try {
+        // Internal traffic: ?internal=1 marks this browser (GA4 data filter "traffic_type = internal"), ?internal=0 clears it.
+        try {
+          var q = new URLSearchParams(location.search).get('internal');
+          if (q === '1') ls.setItem('qv-internal', '1');
+          else if (q === '0') ls.removeItem('qv-internal');
+          if (ls.getItem('qv-internal') === '1') ctx.traffic_type = 'internal';
+        } catch (e) {}
+        // Page type. KEEP IN SYNC with pageTypeFor() in src/lib/analytics.ts.
+        function pageType(path) {
+          var p = path.split('/').filter(Boolean), a = p[0], b = p[1];
+          if (!a) return 'home';
+          if (/^(review|practice|quiz|enhanced-quiz|mobile-flashcards)$/.test(a)) return 'review';
+          var map = { word: b ? 'word' : 'other', root: b ? 'root' : 'roots_hub', roots: 'roots_hub',
+            surah: b ? 'surah' : 'surahs_hub', surahs: 'surahs_hub', collections: b ? 'collection' : 'collections_hub',
+            'names-of-allah': b ? 'name' : 'names_hub', blog: 'blog', ramadan: 'ramadan', auth: 'auth',
+            'reset-password': 'auth', dashboard: 'dashboard' };
+          return Object.prototype.hasOwnProperty.call(map, a) ? map[a] : 'other';
+        }
+        var now = Date.now(), type = pageType(location.pathname), landing = type;
+        try {
+          // Session landing page type ("<type>|<last activity ms>"; 30 min timeout like GA4).
+          var l = (ls.getItem('qv-landing') || '').split('|');
+          if (l[0] && now - Number(l[1]) <= 1800000) landing = l[0];
+          ls.setItem('qv-landing', landing + '|' + now);
+          // First-ever landing page type, as a user property for acquisition splits.
+          if (!ls.getItem('qv-first-landing')) ls.setItem('qv-first-landing', type);
+          gtag('set', 'user_properties', { first_landing_type: ls.getItem('qv-first-landing') });
+        } catch (e) {}
+        ctx.page_type = type;
+        ctx.landing_page_type = landing;
+        gtag('set', ctx);
+        // Update page_type before GA4's history-based page_view (gtag.js wraps history after this runs).
+        function onNav() { try { gtag('set', { page_type: pageType(location.pathname) }); } catch (e) {} }
+        try {
+          ['pushState', 'replaceState'].forEach(function (m) {
+            var orig = history[m];
+            history[m] = function () { var r = orig.apply(this, arguments); onNav(); return r; };
+          });
+          addEventListener('popstate', onNav);
+        } catch (e) {}
+        } catch (e) {}
+        gtag('config', 'G-16CP5B8EQB', ctx.traffic_type ? { traffic_type: 'internal' } : {});
+      })();
     </script>
     
     <meta charset="UTF-8" />

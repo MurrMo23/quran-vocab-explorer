@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { track } from '@/lib/analytics';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/components/AuthProvider';
+import { HUB_SEO } from '@/utils/seo-templates';
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
 import { sampleVocabulary, collections, getWordsByCollection } from '@/utils/vocabulary';
@@ -62,8 +64,8 @@ const Index = () => {
   return (
     <>
       <SEO
-        title="QuranVocab — Learn the Words of the Quran"
-        description={`Learn ${wordCount} common words of the Quran with flashcards, quizzes and word pages showing root and meaning. Free, no account needed to start.`}
+        title={HUB_SEO.home.title}
+        description={HUB_SEO.home.description(wordCount)}
         keywords={["Quranic Arabic", "Quran vocabulary", "Quranic words", "Arabic flashcards", "Quran study"]}
         image={ogImage('pages', 'home')}
         type="website"
@@ -84,7 +86,7 @@ const Index = () => {
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild size="lg" className="px-[26px] text-[17px] font-extrabold">
-              <Link to={startHref}>{session ? 'Continue learning' : 'Start learning free'}</Link>
+              <Link to={startHref} onClick={() => track('cta_click', { cta: session ? 'continue_learning' : 'start_learning', location: 'home_hero' })}>{session ? 'Continue learning' : 'Start learning free'}</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="px-6 text-[17px] font-extrabold">
               <Link to="/collections">Browse collections</Link>

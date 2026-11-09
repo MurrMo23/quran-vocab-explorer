@@ -1,7 +1,6 @@
 // Lookups for the 99 Names of Allah pages (/names-of-allah, /names-of-allah/<slug>), over data generated
 // from the Quranic Arabic Corpus by scripts/vocab/gen-names.py.
 import { NAMES_OF_ALLAH, WORD_NAME, type DivineName, type NameStatus, type NameVerse } from './generated/names-of-allah';
-import { getRootBySlug } from './quran-pages';
 import { getWordById, type Word } from './vocabulary';
 import { pad3 } from './audio';
 
@@ -56,7 +55,12 @@ export const getNameForWord = (wordId: string): DivineName | undefined => {
 export const getRelatedNames = (name: DivineName): DivineName[] =>
   NAMES_OF_ALLAH.filter((n) => n.slug !== name.slug && n.root.slug === name.root.slug);
 
-export const hasRootPage = (slug: string) => !!getRootBySlug(slug);
+/**
+ * Every Quranic root has a page (/root/<slug>, from public/data/roots/), including roots with no
+ * QuranVocab word; every name's root is a corpus root, so any well-formed slug links.
+ * (scripts/seo-check.mjs reports a broken link if that ever stops being true.)
+ */
+export const hasRootPage = (slug: string) => /^[a-z]+(?:-[a-z]+)+$/.test(slug);
 
 export const getAdjacentNames = (name: DivineName) => ({
   prev: NAMES_OF_ALLAH[name.n - 2],

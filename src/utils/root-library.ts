@@ -92,3 +92,45 @@ export const FORM_GROUPS: { id: string; title: string; kinds: FormKind[] }[] = [
     kinds: ['time', 'place', 'pronoun', 'demonstrative', 'relative', 'particle', 'other'],
   },
 ];
+
+// ---- Letter hubs: /roots (the first letter, alif/hamza) and /roots/<letter> for the others --------
+/** Transliteration key of a root's first radical, as used in root slugs (k-t-b -> "k"). */
+export const rootLetterKey = (slug: string) => slug.split('-')[0];
+
+/** The first letter's roots are listed on /roots itself, so it has no separate page. */
+export const FIRST_ROOT_LETTER = 'a';
+
+/** English names of the first radicals, by slug key (in Arabic alphabetical order). */
+export const ROOT_LETTER_NAMES: Record<string, string> = {
+  a: 'Hamza',
+  b: 'Ba',
+  t: 'Ta',
+  th: 'Tha',
+  j: 'Jim',
+  hh: 'Ḥa',
+  kh: 'Kha',
+  d: 'Dal',
+  dh: 'Dhal',
+  r: 'Ra',
+  z: 'Zay',
+  s: 'Sin',
+  sh: 'Shin',
+  ss: 'Ṣad',
+  dd: 'Ḍad',
+  tt: 'Ṭa',
+  zz: 'Ẓa',
+  e: 'ʿAyn',
+  gh: 'Ghayn',
+  f: 'Fa',
+  q: 'Qaf',
+  k: 'Kaf',
+  l: 'Lam',
+  m: 'Mim',
+  n: 'Nun',
+  h: 'Ha',
+  w: 'Waw',
+  y: 'Ya',
+};
+
+/** Hub page listing the roots that start with this letter. */
+export const rootLetterPath = (key: string) => (key === FIRST_ROOT_LETTER ? '/roots' : `/roots/${key}`);

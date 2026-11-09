@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { track } from '@/lib/analytics';
 import { ArrowLeft, ArrowRight, Plus } from 'lucide-react';
 import { Word, getCollectionById, getWordsByCollection } from '@/utils/vocabulary';
 import AudioAttribution from './audio/AudioAttribution';
@@ -133,16 +134,18 @@ const WordDetail: React.FC<WordDetailProps> = ({
             )}
           </div>
 
-          <h1
-            lang="ar"
-            dir="rtl"
-            className={cn('m-0 max-w-full font-quran font-normal leading-[1.85] [overflow-wrap:anywhere]', headwordSize)}
-          >
-            {word.arabic}
-          </h1>
-
-          <div className="flex flex-col gap-1">
-            <h2 className="text-[28px] font-extrabold leading-tight tracking-[-0.02em] sm:text-[34px]">{word.meaning}</h2>
+          {/* One H1 with the headword and its meaning, so the page heading carries the English meaning too. */}
+          <div className="flex max-w-full flex-col items-center gap-1">
+            <h1 className="m-0 flex max-w-full flex-col items-center gap-[18px] font-normal">
+              <span
+                lang="ar"
+                dir="rtl"
+                className={cn('block max-w-full font-quran leading-[1.85] [overflow-wrap:anywhere]', headwordSize)}
+              >
+                {word.arabic}
+              </span>
+              <span className="block text-[28px] font-extrabold leading-tight tracking-[-0.02em] sm:text-[34px]">{word.meaning}</span>
+            </h1>
             <p className="text-[17px] text-muted-foreground">
               {word.transliteration}
               {word.partOfSpeech && <> · {word.partOfSpeech}</>}
@@ -168,7 +171,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
               </AyahPlayButton>
             )}
             <Button asChild size="lg" className="font-extrabold [&_svg]:size-5">
-              <Link to={reviewHref}>
+              <Link to={reviewHref} onClick={() => track('cta_click', { cta: 'add_to_review', location: 'word_hero' })}>
                 <Plus aria-hidden="true" />
                 Add to my review
               </Link>
@@ -455,6 +458,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
           </p>
           <Link
             to={reviewHref}
+            onClick={() => track('cta_click', { cta: 'start_review', location: 'word_learn_for_good' })}
             className="inline-flex h-[52px] items-center justify-center rounded-2xl border-b-4 border-[#2A9580] bg-[#3CC4A6] text-base font-extrabold text-[#062019] transition-transform hover:bg-[#3CC4A6]/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3CC4A6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#10231F] active:translate-y-[2px] active:border-b-2"
           >
             Start a review

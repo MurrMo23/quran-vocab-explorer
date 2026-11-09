@@ -1,7 +1,9 @@
 import SEO from '@/components/SEO';
+import { SITE_URL, collectionSeo } from '@/utils/seo-templates';
 import { ogImage } from '@/utils/og-image';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { track } from '@/lib/analytics';
 import { Check } from 'lucide-react';
 import SearchBar from '@/components/SearchBar';
 import HearItButton from '@/components/word/HearItButton';
@@ -146,18 +148,51 @@ const CollectionDetails = () => {
 
   return <>
       <SEO
-        title={collection ? `${collection.name}: ${words.length} Quranic Arabic words` : 'Collection'}
-        description={collection
-          ? `${collection.description}. Learn ${words.length} Quranic Arabic words with meanings, roots, example verses and recitation audio.`
-          : 'Browse a collection of Quranic Arabic vocabulary.'}
+        {...(collection
+          ? collectionSeo({ name: collection.name, description: collection.description, count: words.length })
+          : { title: 'Collection not found', description: 'Browse a collection of Quranic Arabic vocabulary.' })}
         url={collection ? `/collections/${collection.id}` : undefined}
         image={ogImage('collections', collection?.id)}
         noindex={!collection}
+        breadcrumbs={
+          collection
+            ? [
+                { name: 'Collections', path: '/collections' },
+                { name: collection.name, path: `/collections/${collection.id}` },
+              ]
+            : undefined
+        }
+        jsonLd={
+          collection
+            ? [
+                {
+                  '@type': 'DefinedTermSet',
+                  '@id': `${SITE_URL}/collections/${collection.id}#termset`,
+                  name: `${collection.name}: Quranic Arabic vocabulary`,
+                  url: `${SITE_URL}/collections/${collection.id}`,
+                  inLanguage: 'ar',
+                  // The first 100 (large collections would add tens of KB to the page head).
+                  hasDefinedTerm: words.slice(0, 100).map((w) => ({
+                    '@type': 'DefinedTerm',
+                    name: `${w.transliteration} (${w.arabic})`,
+                    description: w.meaning,
+                    url: `${SITE_URL}${getWordPath(w)}`,
+                  })),
+                },
+              ]
+            : undefined
+        }
       />
 
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-16 pt-6 sm:gap-7 sm:px-6 sm:pt-8">
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <li>
+              <Link to="/" className="inline-flex min-h-11 items-center text-muted-foreground no-underline hover:text-foreground">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden="true">›</li>
             <li>
               <Link to="/collections" className="inline-flex min-h-11 items-center text-muted-foreground no-underline hover:text-foreground">
                 Collections
@@ -219,7 +254,7 @@ const CollectionDetails = () => {
                       : 'Review these words and your progress shows up here.'}
                 </p>
                 <Button asChild size="lg" className="w-full text-[17px] font-extrabold">
-                  <Link to={practiceCollectionUrl(collection.id)}>Review this collection</Link>
+                  <Link to={practiceCollectionUrl(collection.id)} onClick={() => track('cta_click', { cta: 'review_collection', location: 'collection_progress' })}>Review this collection</Link>
                 </Button>
               </div>
             </section>

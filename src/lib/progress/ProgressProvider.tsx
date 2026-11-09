@@ -278,7 +278,13 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, [commit]);
 
   const recordReview = useCallback(
-    async (wordId: string, rating: Rating, source: ReviewSource, elapsedMs?: number): Promise<CardState> => {
+    async (
+      wordId: string,
+      rating: Rating,
+      source: ReviewSource,
+      elapsedMs?: number,
+      mode?: 'yesno' | 'choice' | 'flip',
+    ): Promise<CardState> => {
       const at = new Date();
       const s = stateRef.current;
       const card = scheduleReview(s.cards.get(wordId), wordId, rating, at);
@@ -295,7 +301,7 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       const logs = [...s.logs, log];
       commit({ ...s, cards, logs });
       setNow(at);
-      sessionAnalytics.current.record(wordId, rating, source, at.getTime());
+      sessionAnalytics.current.record(wordId, rating, source, at.getTime(), mode);
 
       if (!s.userId) {
         LocalStore.save(cards, logs);
@@ -340,6 +346,10 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     [state.cards],
   );
   const getCard = useCallback((wordId: string) => state.cards.get(wordId), [state.cards]);
+  const noteReviewPlan = useCallback(
+    (wordIds: readonly string[], label?: string) => sessionAnalytics.current.notePlan(wordIds, label),
+    [],
+  );
 
   const value = useMemo<ProgressContextValue>(
     () => ({
@@ -353,13 +363,14 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       getDueWordIds,
       getNewWordIds,
       buildSession,
+      noteReviewPlan,
       previewInterval,
       userId: state.userId,
       pendingSync,
       getCard,
       refresh,
     }),
-    [state, stats, recordReview, getDueWordIds, getNewWordIds, buildSession, previewInterval, pendingSync, getCard, refresh],
+    [state, stats, recordReview, getDueWordIds, getNewWordIds, buildSession, noteReviewPlan, previewInterval, pendingSync, getCard, refresh],
   );
 
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;

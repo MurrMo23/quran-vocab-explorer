@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { track } from '@/lib/analytics';
 import { ExternalLink, Repeat, Search } from 'lucide-react';
+import { HUB_SEO } from '@/utils/seo-templates';
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
@@ -115,8 +117,8 @@ const NamesOfAllah = () => {
   return (
     <>
       <SEO
-        title="99 Names of Allah: Meanings, Arabic & Where They Appear in the Quran"
-        description={`All 99 Names of Allah (Asma ul Husna) in Arabic with transliteration and meaning. See which ${inQuran} names are used of Allah in the Quran, read the verses, listen to the recitation and review them.`}
+        title={HUB_SEO.names.title}
+        description={HUB_SEO.names.description(inQuran)}
         url={NAMES_HUB_PATH}
         image={ogImage('pages', 'names-of-allah')}
         imageAlt="الأسماء الحسنى: the 99 Names of Allah"
@@ -144,7 +146,7 @@ const NamesOfAllah = () => {
         <div className="flex w-full flex-col gap-2 rounded-3xl bg-background p-5 sm:p-6 lg:max-w-xs">
           {reviewIds.length > 0 && (
             <Button asChild size="lg" className="w-full">
-              <Link to={reviewHref(reviewIds)}>
+              <Link to={reviewHref(reviewIds)} onClick={() => track('cta_click', { cta: 'review_all_names', location: 'names_hub_hero' })}>
                 <Repeat className="mr-2 h-4 w-4" aria-hidden="true" />
                 Review all 99
               </Link>

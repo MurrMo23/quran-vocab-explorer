@@ -67,7 +67,19 @@ export interface UseProgressResult {
   logs: readonly ReviewLog[];
   stats: ProgressStats;
   /** Schedule the word with FSRS, persist the card and the log. Returns the updated card. */
-  recordReview: (wordId: string, rating: Rating, source: ReviewSource, elapsedMs?: number) => Promise<CardState>;
+  recordReview: (
+    wordId: string,
+    rating: Rating,
+    source: ReviewSource,
+    elapsedMs?: number,
+    /** Card UI mode, for analytics only (review_rating / review_start `mode`). */
+    mode?: 'yesno' | 'choice' | 'flip',
+  ) => Promise<CardState>;
+  /**
+   * Analytics only: the queue a review UI is about to present (buildSession() notes its own), so
+   * review_start gets card_count and review_complete fires when every planned word was answered.
+   */
+  noteReviewPlan: (wordIds: readonly string[], label?: string) => void;
   /** Word ids due now, most overdue first. */
   getDueWordIds: (limit?: number) => string[];
   /** Ids from `pool` the learner has never reviewed, in pool order. */

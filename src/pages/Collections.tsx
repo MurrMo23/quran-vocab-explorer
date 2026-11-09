@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { BookOpenCheck, Plus } from 'lucide-react';
 import { collectionIcon, countLevels, SEARCH_BAR_CLASS, type LevelCounts } from '@/components/collections/collection-meta';
 import { getWordsByCollection, getPublishedCollections, addCustomCollection, Collection } from '@/utils/vocabulary';
+import { HUB_SEO, itemListLd } from '@/utils/seo-templates';
+import PageTrail from '@/components/quran/PageTrail';
 import SEO from '@/components/SEO';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { usePermissions } from '@/hooks/usePermissions';
@@ -97,16 +99,25 @@ const Collections = () => {
 
   return (
     <>
-      <SEO 
-        title="Quranic Vocabulary Collections"
-        description="Browse and learn from organized collections of Arabic vocabulary words. Explore different categories and difficulty levels."
-        keywords={["Arabic collections", "vocabulary categories", "organized learning", "word lists"]}
-        url="https://quranvocab.com/collections"
+      <SEO
+        title={HUB_SEO.collections.title}
+        description={HUB_SEO.collections.description(collections.length, totalWords)}
+        keywords={["Quranic Arabic vocabulary list", "Quran words by theme", "Arabic word lists", "Quranic vocabulary"]}
+        url="/collections"
         type="website"
         image={ogImage('pages', 'collections')}
+        breadcrumbs={[{ name: 'Collections', path: '/collections' }]}
+        jsonLd={[
+          itemListLd(
+            'Quranic Arabic vocabulary collections',
+            '/collections',
+            collections.map((c) => ({ name: c.name, path: `/collections/${c.id}` })),
+          ),
+        ]}
       />
-      
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-16 pt-8 sm:gap-8 sm:px-6 sm:pt-10">
+
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-16 pt-6 sm:gap-8 sm:px-6 sm:pt-8">
+        <PageTrail items={[{ name: 'Collections', path: '/collections' }]} />
         <header className="flex flex-col gap-3">
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-[44px] sm:leading-[1.1]">Word collections</h1>
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-[17px]">
