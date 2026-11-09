@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useAudioRecording, isRecordingSupported } from '@/hooks/useAudioRecording';
 import { stopAllAudio } from '@/utils/audio';
-import AudioPlayer from '@/components/AudioPlayer';
+import HearItButton from '@/components/word/HearItButton';
 import type { Word } from '@/utils/vocabulary-types';
 
 interface SelfPracticeRecorderProps {
@@ -86,13 +86,20 @@ const SelfPracticeRecorder: React.FC<SelfPracticeRecorderProps> = ({ word, onDon
         <div className="rounded-lg border bg-muted/40 p-4 space-y-3">
           <p className="text-sm font-medium text-center">Compare: listen to both, then try again</p>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="icon" onClick={playMine} aria-label="Play your recording">
-                {isPlayingMine ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-              </Button>
-              <span className="text-sm">Your recording</span>
-            </div>
-            <AudioPlayer word={word} label="Reference" showAttribution={false} />
+            <Button
+              type="button"
+              variant="outline"
+              onClick={playMine}
+              aria-pressed={isPlayingMine}
+              aria-label={isPlayingMine ? 'Stop your recording' : 'Play your recording'}
+              className="w-full font-extrabold [&_svg]:size-5"
+            >
+              {isPlayingMine ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
+              {isPlayingMine ? 'Stop' : 'Your recording'}
+            </Button>
+            <HearItButton word={word} size="sm" className="items-stretch">
+              Reference
+            </HearItButton>
           </div>
           {onDone && (
             <div className="flex justify-center pt-1">

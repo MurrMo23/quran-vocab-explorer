@@ -4,7 +4,11 @@ import { ArrowLeft, ArrowRight, BookOpen, ExternalLink, Repeat } from 'lucide-re
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
-import AudioPlayer from '@/components/AudioPlayer';
+import HearItButton from '@/components/word/HearItButton';
+import { PlayVerseButton } from '@/components/word/PlayVerseButton';
+import AudioAttribution from '@/components/audio/AudioAttribution';
+import { useVerseFollowAlong } from '@/components/quran/useVerseFollowAlong';
+import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { rootPath, wordPath } from '@/utils/quran-pages';
@@ -39,55 +43,72 @@ const statusText = (name: DivineName): string => {
   return 'This name comes from the hadith list of 99 names; the Quran does not use a word from its root to describe Allah.';
 };
 
-/** The verse with the word at position `w` highlighted. */
-const VerseText: React.FC<{ v: NameVerse }> = ({ v }) => {
-  const words = v.ar.split(' ');
+/** The verse with the word at position `w` highlighted; `active` is the word being recited. */
+const VerseText: React.FC<{ v: NameVerse; words: string[]; active: number; playing: boolean }> = ({ v, words, active, playing }) => (
+  <p className="font-quran text-[1.75rem] leading-[1.9] sm:text-[2.125rem]" lang="ar" dir="rtl">
+    {words.map((t, i) => (
+      <React.Fragment key={i}>
+        {i > 0 && ' '}
+        <span
+          className={cn(
+            'rounded-lg [box-decoration-break:clone] motion-safe:transition-[color,text-shadow] motion-safe:duration-200',
+            i === v.w - 1 && !playing && 'bg-secondary px-1.5 text-secondary-foreground',
+            i === active && 'reciting',
+          )}
+          data-reciting={i === active ? 'true' : undefined}
+        >
+          {t}
+        </span>
+      </React.Fragment>
+    ))}{' '}
+    <span className="font-arabic text-xl text-muted-foreground">﴿{v.a.toLocaleString('ar-EG')}﴾</span>
+  </p>
+);
+
+const VerseCard: React.FC<{ v: NameVerse; name: DivineName }> = ({ v, name }) => {
+  const words = useMemo(() => v.ar.split(' '), [v.ar]);
+  // The whole verse is shown: displayed word i is verse word position i + 1.
+  const positions = useMemo(() => words.map((_, i) => i + 1), [words]);
+  const { state, active, toggle } = useVerseFollowAlong(v.s, v.a, positions);
+  const playing = state === 'playing';
   return (
-    <p className="font-quran text-[1.75rem] leading-[1.9] sm:text-[2.125rem]" lang="ar" dir="rtl">
-      {words.map((t, i) => (
-        <React.Fragment key={i}>
-          {i > 0 && ' '}
-          {i === v.w - 1 ? <mark className="rounded-lg bg-secondary px-1.5 text-secondary-foreground">{t}</mark> : t}
-        </React.Fragment>
-      ))}{' '}
-      <span className="font-arabic text-xl text-muted-foreground">﴿{v.a.toLocaleString('ar-EG')}﴾</span>
-    </p>
+    <li className="rounded-3xl bg-background p-5 sm:p-6">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <h3 className="font-extrabold">
+          Quran {ref(v)}
+          {v.kind === 'related' && (
+            <Badge variant="outline" className="ml-2 align-middle font-normal">
+              Related word: <span className="ml-1 font-arabic text-base" lang="ar" dir="rtl">{v.word}</span>
+            </Badge>
+          )}
+        </h3>
+        <a
+          href={`https://quran.com/${v.s}/${v.a}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-11 items-center gap-1 text-sm font-bold text-primary underline-offset-4 hover:underline"
+        >
+          Read on Quran.com <ExternalLink className="h-3 w-3" aria-hidden="true" />
+        </a>
+      </div>
+      <VerseText v={v} words={words} active={active} playing={playing} />
+      <p className="mt-3 text-base leading-relaxed text-foreground/85 sm:text-[17px]">“{v.en}”</p>
+      {v.kind === 'related' && (
+        <p className="mt-2 text-xs text-muted-foreground">
+          The highlighted word comes from the same root as {name.tr}; it is not the name itself.
+        </p>
+      )}
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <HearItButton src={verseWordAudioUrl(v)} size="sm" allowComputerVoice={false}>
+          Hear the word
+        </HearItButton>
+        <PlayVerseButton surah={v.s} ayah={v.a} state={state} onClick={toggle} followAlong />
+        {state === 'error' && <span className="text-xs text-gold-text">Audio could not play. Tap again.</span>}
+      </div>
+      <AudioAttribution className="mt-2" />
+    </li>
   );
 };
-
-const VerseCard: React.FC<{ v: NameVerse; name: DivineName }> = ({ v, name }) => (
-  <li className="rounded-3xl bg-background p-5 sm:p-6">
-    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-      <h3 className="font-extrabold">
-        Quran {ref(v)}
-        {v.kind === 'related' && (
-          <Badge variant="outline" className="ml-2 align-middle font-normal">
-            Related word: <span className="ml-1 font-arabic text-base" lang="ar" dir="rtl">{v.word}</span>
-          </Badge>
-        )}
-      </h3>
-      <a
-        href={`https://quran.com/${v.s}/${v.a}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex min-h-11 items-center gap-1 text-sm font-bold text-primary underline-offset-4 hover:underline"
-      >
-        Read on Quran.com <ExternalLink className="h-3 w-3" aria-hidden="true" />
-      </a>
-    </div>
-    <VerseText v={v} />
-    <p className="mt-3 text-base leading-relaxed text-foreground/85 sm:text-[17px]">“{v.en}”</p>
-    {v.kind === 'related' && (
-      <p className="mt-2 text-xs text-muted-foreground">
-        The highlighted word comes from the same root as {name.tr}; it is not the name itself.
-      </p>
-    )}
-    <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3">
-      <AudioPlayer src={verseWordAudioUrl(v)} label="Word" allowComputerVoice={false} showAttribution={false} />
-      <AudioPlayer surah={v.s} ayah={v.a} label="Whole verse" allowComputerVoice={false} />
-    </div>
-  </li>
-);
 
 const NameNotFound = () => (
   <>
@@ -170,10 +191,11 @@ const NameOfAllah = () => {
           <p className="mx-auto mt-3 max-w-xl text-[17px] leading-relaxed text-muted-foreground">{name.meaning}</p>
           {audioVerse && (
             <div className="mt-5 flex justify-center">
-              <AudioPlayer
+              <HearItButton
                 src={verseWordAudioUrl(audioVerse)}
-                label={`Listen (from ${ref(audioVerse)})`}
                 allowComputerVoice={false}
+                caption={`Recited in ${ref(audioVerse)}`}
+                attribution
               />
             </div>
           )}

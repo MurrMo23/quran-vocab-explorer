@@ -1,7 +1,7 @@
 import React from 'react';
 import { Mic } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import AudioPlayer from '@/components/AudioPlayer';
+import HearItButton from '@/components/word/HearItButton';
 import SelfPracticeRecorder from '@/components/audio/SelfPracticeRecorder';
 import { Word } from '@/utils/vocabulary-types';
 
@@ -30,7 +30,9 @@ const AdvancedAudioRecorder: React.FC<AdvancedAudioRecorderProps> = ({ word }) =
         </div>
 
         <div className="flex justify-center">
-          <AudioPlayer word={word} label="Reference pronunciation" />
+          <HearItButton word={word} attribution>
+            Hear the reference
+          </HearItButton>
         </div>
 
         <SelfPracticeRecorder word={word} />

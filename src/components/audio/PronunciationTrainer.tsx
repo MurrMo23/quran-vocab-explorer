@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Volume2, Mic } from 'lucide-react';
-import AudioPlayer from '@/components/AudioPlayer';
+import HearItButton from '@/components/word/HearItButton';
 import SelfPracticeRecorder from '@/components/audio/SelfPracticeRecorder';
 import { Word } from '@/utils/vocabulary-types';
 
@@ -24,7 +24,9 @@ const PronunciationTrainer: React.FC<PronunciationTrainerProps> = ({ word, onCom
           <p className="text-lg mt-2">{word.meaning}</p>
         </div>
         <div className="flex justify-center">
-          <AudioPlayer word={word} label="1. Listen" size="lg" />
+          <HearItButton word={word} attribution>
+            1. Listen
+          </HearItButton>
         </div>
       </div>
 

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Check, X, SkipForward, Headphones, RotateCcw } from 'lucide-react';
-import AudioPlayer from '@/components/AudioPlayer';
+import HearItButton from '@/components/word/HearItButton';
 import { Word } from '@/utils/vocabulary-types';
 import { useProgress } from '@/lib/progress';
 import { shuffle } from '@/components/quiz/quiz-utils';
@@ -153,12 +153,11 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({ words, onComplete
         <div className="text-center space-y-4">
           <div className="text-2xl font-arabic mb-2">{currentQuestion.word.arabic}</div>
           <div className="flex justify-center">
-            <AudioPlayer
+            <HearItButton
               key={currentQuestion.word.id}
               word={currentQuestion.word}
-              label="Play Audio"
-              size="lg"
               onPlay={handleAudioPlay}
+              attribution
             />
           </div>
           {!hasPlayedAudio && (

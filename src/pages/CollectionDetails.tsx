@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import SearchBar from '@/components/SearchBar';
-import AudioPlayer from '@/components/AudioPlayer';
+import HearItButton from '@/components/word/HearItButton';
 import { Button } from '@/components/ui/button';
 import { getCollectionById, getWordsByCollection, Word } from '@/utils/vocabulary';
 import { toast } from 'sonner';
@@ -56,11 +56,7 @@ const WordTile = React.memo(({ word, learned }: WordTileProps) => {
             </span>
           )}
         </span>
-        <AudioPlayer
-          word={word}
-          size="sm"
-          className="relative z-10 -my-2 -mr-2 shrink-0 [&_button]:h-11 [&_button]:w-11"
-        />
+        <HearItButton word={word} size="sm" iconOnly className="relative z-10 -my-2 shrink-0" />
       </div>
       <Link
         to={getWordPath(word.id)}

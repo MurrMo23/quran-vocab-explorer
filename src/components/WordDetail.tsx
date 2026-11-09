@@ -14,7 +14,8 @@ import { getRecitationSources, hasPronunciation } from '@/utils/audio';
 import VoicePicker from '@/components/audio/VoicePicker';
 import ExampleVerseCard from '@/components/word/ExampleVerseCard';
 import { reviewWordsUrl } from '@/components/review/review-session';
-import WordAudioButton from '@/components/word/WordAudioButton';
+import HearItButton from '@/components/word/HearItButton';
+import { AyahPlayButton } from '@/components/word/PlayVerseButton';
 import { getRecitedForm } from '@/utils/audio';
 import { highlightWordInVerse } from '@/components/word/verse-highlight';
 
@@ -158,19 +159,13 @@ const WordDetail: React.FC<WordDetailProps> = ({
           </div>
 
           <div className="flex w-full flex-col items-stretch gap-3 pt-1.5 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center">
-            <WordAudioButton word={word} variant="gold">
+            <HearItButton word={word} size="lg" className="items-stretch sm:items-center">
               Hear the word
-            </WordAudioButton>
+            </HearItButton>
             {firstExample && (
-              <WordAudioButton
-                surah={firstExample.surah}
-                ayah={firstExample.ayah}
-                allowComputerVoice={false}
-                icon="play"
-                variant="outline"
-              >
+              <AyahPlayButton surah={firstExample.surah} ayah={firstExample.ayah} size="lg">
                 Hear the verse
-              </WordAudioButton>
+              </AyahPlayButton>
             )}
             <Button asChild size="lg" className="font-extrabold [&_svg]:size-5">
               <Link to={reviewHref}>

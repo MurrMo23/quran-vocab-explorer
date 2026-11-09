@@ -4,7 +4,7 @@ import { ExternalLink, Repeat, Search } from 'lucide-react';
 import SEO from '@/components/SEO';
 import { ogImage } from '@/utils/og-image';
 import PageTrail from '@/components/quran/PageTrail';
-import AudioPlayer from '@/components/AudioPlayer';
+import HearItButton from '@/components/word/HearItButton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
@@ -66,16 +66,17 @@ const NameCard: React.FC<{ name: DivineName }> = ({ name }) => {
           <span className="mt-2 block text-xs font-semibold text-gold-text">{STATUS_LABEL[name.status]}</span>
         )}
         {/* Room for the play button, which sits outside the link. */}
-        {verse && <span className="mt-2 block h-10" aria-hidden="true" />}
+        {verse && <span className="mt-2 block h-11" aria-hidden="true" />}
       </Link>
       {verse && (
-        <AudioPlayer
+        <HearItButton
           src={verseWordAudioUrl(verse)}
           size="sm"
-          label=""
           allowComputerVoice={false}
           className="absolute bottom-3.5 left-3.5 sm:bottom-5 sm:left-5"
-        />
+        >
+          Hear it
+        </HearItButton>
       )}
     </li>
   );
