@@ -15,14 +15,14 @@ export const AHMAD_REFS: [number, number][] = [[61,6]];
 
 /** Most frequent site words (one per corpus lemma), and tokens whose lemma is among the first n. */
 export const TOP_WORD_IDS: string[] = ["min","allah","ma","la-negation","fi","inna","qala","alladhi","ala","kana","rabb","man","ila","in-conditional","illa","an-that","4","dhalika","an","al-ard","idha","qad","6","qawm","alima","ayah","anna","kull","lam","jaala","thumma","ar-rasul","75","hadha","60","an-nafs","kafara","shay","aw","jaa","amila","aata","raa","bayna","ata","al-kitab","64","qabl","an-nas","idh","shaa","ulaika","al-mu-min","law","bad","inda","khalaqa","anzala","58","kadhdhaba","sabil","daa","amr","ittaqa","al-aleem","maa","bad-some","lamma","al-akhir","ayyuha","al-jannah","ghayr","ilah","an-nar","duna","hada","hatta","arada","am","ittabaa","musa","al-qalb","abd","arsala","al-kafirun","zalim","ahl","akhadha","bal","ittakhadha","abada","al-azeem","al-yad","ar-raheem","27","2","lan","30","ajr","al-azeez"];
-export const TOP_WORD_COVERAGE: [number, number][] = [[10,19061],[25,27555],[50,34973],[100,42395],[250,49843],[500,52035],[633,52239]];
+export const TOP_WORD_COVERAGE: [number, number][] = [[10,19061],[25,27555],[50,34973],[100,42395],[250,49879],[500,52157],[642,52387]];
 /** Tokens covered by the n most frequent corpus lemmas (site words or not). */
 export const CORPUS_LEMMA_COVERAGE: [number, number][] = [[100,42438],[300,54466],[500,59827],[1000,65874],[2000,70358]];
 
 /** Juz Amma (surahs 78-114): totals, and tokens covered by its n most frequent site words. */
-export const JUZ_AMMA_STATS = {"ayahs":564,"words":2308,"lemmas":839,"siteWords":244} as const;
+export const JUZ_AMMA_STATS = {"ayahs":564,"words":2308,"lemmas":839,"siteWords":245} as const;
 export const JUZ_AMMA_TOP_IDS: string[] = ["ma","inna","fi","idha","rabb","min","alladhi","la-negation","ala","man","allah","6","kana","qala","lam","raa","illa","kalla","ila","thumma","al-insan","yawmaidhin","an","khalaqa","amma","kadhdhaba","al-ard","alima","60","dhu","din","4","dhalika","al-kitab","adra","an-that","an-nas","jaala","an-nafs","an-nar","al-layl","75","jaa","shaa","kull","hadha","amila","al-jannah","bal","abada","mal","al-ahad","59","in-conditional","qad","kafara","aw","58","hal","nazara","kayfa","al-wajh","sawfa","khashiya","al-jibal","al-jaheem","saliya","anna","aata","ata","ulaika","ahl","akhraja","faala","awwal","salihat","al-ayn","yatim","balad","sawwa","as-suhuf","tazakka","ayah","shay","al-akhir","hada","ashab","tawalla","jahannam","al-ma","tadhakkara","wayl","al-hisab","radiya","karim","taam","dhikra","al-barr","naim","tagha"];
-export const JUZ_AMMA_COVERAGE: [number, number][] = [[10,472],[25,738],[50,978],[100,1230],[244,1466]];
+export const JUZ_AMMA_COVERAGE: [number, number][] = [[10,472],[25,738],[50,978],[100,1230],[245,1469]];
 
 /** Verses shown on the phrase pages: Uthmani words, corpus position per word (0 = pause mark),
  *  highlighted word span [from, to] (indexes into ar) and the Saheeh International translation. */

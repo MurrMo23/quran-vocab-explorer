@@ -93,7 +93,7 @@ def check_collection_spec(spec, seen_ids, seen_lemmas):
         lem = n.get('lemma')
         if lem in EXIST_LEMMAS and not n.get('allowSharedLemma'):
             errs.append(f"{tag}: lemma {lem} already on the site as '{EXIST_LEMMAS[lem]}' - list it under existing instead")
-        if lem in seen_lemmas and seen_lemmas[lem] != tag:
+        if lem in seen_lemmas and seen_lemmas[lem] != tag and not n.get('allowSharedLemma'):
             errs.append(f'{tag}: lemma {lem} also added as {seen_lemmas[lem]} - add it once and use extraCollections')
         seen_lemmas.setdefault(lem, tag)
         loc = check_loc(errs, tag, lem, n.get('location'))

@@ -9487,6 +9487,322 @@ export const collectionsExtendedWords: Word[] = [
     ]
   },
   {
+    "id": "halal",
+    "arabic": "حَلَال",
+    "transliteration": "halal",
+    "meaning": "Lawful, permitted",
+    "root": "ح ل ل",
+    "partOfSpeech": "adjective",
+    "level": "intermediate",
+    "frequency": 6,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 2,
+      "ayah": 168,
+      "position": 7
+    },
+    "tags": [
+      "ethics",
+      "law",
+      "food"
+    ],
+    "collections": [
+      "ethics",
+      "food"
+    ],
+    "examples": [
+      {
+        "surah": 2,
+        "ayah": 168,
+        "arabicText": "يَـٰٓأَيُّهَا ٱلنَّاسُ كُلُوا۟ مِمَّا فِى ٱلْأَرْضِ حَلَـٰلًا طَيِّبًا وَلَا تَتَّبِعُوا۟ خُطُوَٰتِ ٱلشَّيْطَـٰنِ إِنَّهُۥ لَكُمْ عَدُوٌّ مُّبِينٌ",
+        "translation": "O mankind, eat from whatever is on earth [that is] lawful and good and do not follow the footsteps of Satan. Indeed, he is to you a clear enemy"
+      }
+    ]
+  },
+  {
+    "id": "haram",
+    "arabic": "حَرَام",
+    "transliteration": "haram",
+    "meaning": "Forbidden, unlawful; sacred",
+    "root": "ح ر م",
+    "partOfSpeech": "adjective",
+    "level": "intermediate",
+    "frequency": 33,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 16,
+      "ayah": 116,
+      "position": 10
+    },
+    "tags": [
+      "ethics",
+      "law",
+      "sacred"
+    ],
+    "collections": [
+      "ethics"
+    ],
+    "examples": [
+      {
+        "surah": 16,
+        "ayah": 116,
+        "arabicText": "وَلَا تَقُولُوا۟ لِمَا تَصِفُ أَلْسِنَتُكُمُ ٱلْكَذِبَ هَـٰذَا حَلَـٰلٌ وَهَـٰذَا حَرَامٌ لِّتَفْتَرُوا۟ عَلَى ٱللَّهِ ٱلْكَذِبَ إِنَّ ٱلَّذِينَ يَفْتَرُونَ عَلَى ٱللَّهِ ٱلْكَذِبَ لَا يُفْلِحُونَ",
+        "translation": "And do not say about what your tongues assert of untruth, \"This is lawful and this is unlawful,\" to invent falsehood about Allah. Indeed, those who invent falsehood about Allah will not succeed"
+      }
+    ]
+  },
+  {
+    "id": "fitnah",
+    "arabic": "فِتْنَة",
+    "transliteration": "fitnah",
+    "meaning": "Trial, test; temptation, persecution",
+    "root": "ف ت ن",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 34,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 64,
+      "ayah": 15,
+      "position": 4
+    },
+    "tags": [
+      "faith",
+      "trial"
+    ],
+    "collections": [
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 64,
+        "ayah": 15,
+        "arabicText": "إِنَّمَآ أَمْوَٰلُكُمْ وَأَوْلَـٰدُكُمْ فِتْنَةٌ وَٱللَّهُ عِندَهُۥٓ أَجْرٌ عَظِيمٌ",
+        "translation": "Your wealth and your children are but a trial, and Allah has with Him a great reward"
+      }
+    ]
+  },
+  {
+    "id": "hijab",
+    "arabic": "حِجَاب",
+    "transliteration": "hijab",
+    "meaning": "Screen, partition, barrier",
+    "root": "ح ج ب",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 7,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 19,
+      "ayah": 17,
+      "position": 4
+    },
+    "tags": [
+      "faith",
+      "barrier"
+    ],
+    "collections": [
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 19,
+        "ayah": 17,
+        "arabicText": "فَٱتَّخَذَتْ مِن دُونِهِمْ حِجَابًا فَأَرْسَلْنَآ إِلَيْهَا رُوحَنَا فَتَمَثَّلَ لَهَا بَشَرًا سَوِيًّا",
+        "translation": "And she took, in seclusion from them, a screen. Then We sent to her Our Angel, and he represented himself to her as a well-proportioned man"
+      }
+    ]
+  },
+  {
+    "id": "imam",
+    "arabic": "إِمَام",
+    "transliteration": "imam",
+    "meaning": "Leader, example to follow; record",
+    "root": "ا م م",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 12,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 25,
+      "ayah": 74,
+      "position": 13
+    },
+    "tags": [
+      "governance",
+      "leadership"
+    ],
+    "collections": [
+      "governance",
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 25,
+        "ayah": 74,
+        "arabicText": "وَٱلَّذِينَ يَقُولُونَ رَبَّنَا هَبْ لَنَا مِنْ أَزْوَٰجِنَا وَذُرِّيَّـٰتِنَا قُرَّةَ أَعْيُنٍ وَٱجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+        "translation": "And those who say, \"Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous"
+      }
+    ]
+  },
+  {
+    "id": "hadith",
+    "arabic": "حَدِيث",
+    "transliteration": "hadith",
+    "meaning": "Speech, statement; story, account",
+    "root": "ح د ث",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 28,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 79,
+      "ayah": 15,
+      "position": 3
+    },
+    "tags": [
+      "knowledge",
+      "speech"
+    ],
+    "collections": [
+      "knowledge"
+    ],
+    "examples": [
+      {
+        "surah": 79,
+        "ayah": 15,
+        "arabicText": "هَلْ أَتَىٰكَ حَدِيثُ مُوسَىٰٓ",
+        "translation": "Has there reached you the story of Moses"
+      }
+    ]
+  },
+  {
+    "id": "shahadah",
+    "arabic": "شَهَادَة",
+    "transliteration": "shahadah",
+    "meaning": "Testimony, witness; the seen world",
+    "root": "ش ه د",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 23,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 43,
+      "ayah": 19,
+      "position": 11
+    },
+    "tags": [
+      "faith",
+      "testimony"
+    ],
+    "collections": [
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 43,
+        "ayah": 19,
+        "arabicText": "وَجَعَلُوا۟ ٱلْمَلَـٰٓئِكَةَ ٱلَّذِينَ هُمْ عِبَـٰدُ ٱلرَّحْمَـٰنِ إِنَـٰثًا أَشَهِدُوا۟ خَلْقَهُمْ سَتُكْتَبُ شَهَـٰدَتُهُمْ وَيُسْـَٔلُونَ",
+        "translation": "And they have made the angels, who are servants of the Most Merciful, females. Did they witness their creation? Their testimony will be recorded, and they will be questioned"
+      }
+    ]
+  },
+  {
+    "id": "fidyah",
+    "arabic": "فِدْيَة",
+    "transliteration": "fidyah",
+    "meaning": "Ransom, compensation",
+    "root": "ف د ي",
+    "partOfSpeech": "noun",
+    "level": "advanced",
+    "frequency": 3,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 57,
+      "ayah": 15,
+      "position": 5
+    },
+    "tags": [
+      "worship",
+      "fasting",
+      "ransom"
+    ],
+    "collections": [
+      "worship"
+    ],
+    "examples": [
+      {
+        "surah": 57,
+        "ayah": 15,
+        "arabicText": "فَٱلْيَوْمَ لَا يُؤْخَذُ مِنكُمْ فِدْيَةٌ وَلَا مِنَ ٱلَّذِينَ كَفَرُوا۟ مَأْوَىٰكُمُ ٱلنَّارُ هِىَ مَوْلَىٰكُمْ وَبِئْسَ ٱلْمَصِيرُ",
+        "translation": "So today no ransom will be taken from you or from those who disbelieved. Your refuge is the Fire. It is most worthy of you, and wretched is the destination"
+      }
+    ]
+  },
+  {
+    "id": "amanah",
+    "arabic": "أَمَانَة",
+    "transliteration": "amanah",
+    "meaning": "Trust, something entrusted",
+    "root": "ا م ن",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 2,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 33,
+      "ayah": 72,
+      "position": 3
+    },
+    "tags": [
+      "morality",
+      "trust"
+    ],
+    "collections": [
+      "morality",
+      "ethics"
+    ],
+    "examples": [
+      {
+        "surah": 33,
+        "ayah": 72,
+        "arabicText": "إِنَّا عَرَضْنَا ٱلْأَمَانَةَ عَلَى ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَٱلْجِبَالِ فَأَبَيْنَ أَن يَحْمِلْنَهَا وَأَشْفَقْنَ مِنْهَا وَحَمَلَهَا ٱلْإِنسَـٰنُ إِنَّهُۥ كَانَ ظَلُومًا جَهُولًا",
+        "translation": "Indeed, we offered the Trust to the heavens and the earth and the mountains, and they declined to bear it and feared it; but man [undertook to] bear it. Indeed, he was unjust and ignorant"
+      }
+    ]
+  },
+  {
+    "id": "wali",
+    "arabic": "وَلِيّ",
+    "transliteration": "wali",
+    "meaning": "Protector, ally, close friend; guardian",
+    "root": "و ل ي",
+    "partOfSpeech": "noun",
+    "level": "intermediate",
+    "frequency": 86,
+    "frequencyVerified": true,
+    "location": {
+      "surah": 4,
+      "ayah": 45,
+      "position": 6
+    },
+    "tags": [
+      "faith",
+      "friendship"
+    ],
+    "collections": [
+      "faith"
+    ],
+    "examples": [
+      {
+        "surah": 4,
+        "ayah": 45,
+        "arabicText": "وَٱللَّهُ أَعْلَمُ بِأَعْدَآئِكُمْ وَكَفَىٰ بِٱللَّهِ وَلِيًّا وَكَفَىٰ بِٱللَّهِ نَصِيرًا",
+        "translation": "And Allah is most knowing of your enemies; and sufficient is Allah as an ally, and sufficient is Allah as a helper"
+      }
+    ]
+  },
+  {
     "id": "marad",
     "arabic": "مَرَض",
     "transliteration": "marad",
