@@ -25,6 +25,7 @@ import Ramadan from '@/pages/Ramadan';
 import Phrases from '@/pages/Phrases';
 import PhraseDetail from '@/pages/PhraseDetail';
 import MostCommonWords from '@/pages/MostCommonWords';
+import IslamicTerms from '@/pages/IslamicTerms';
 import QuranStatistics from '@/pages/QuranStatistics';
 import JuzAmmaVocabulary from '@/pages/JuzAmmaVocabulary';
 
@@ -103,6 +104,7 @@ function App() {
                 <Route path="most-common-words-in-the-quran" element={page(<MostCommonWords />)} />
                 <Route path="quran-statistics" element={page(<QuranStatistics />)} />
                 <Route path="juz-amma-vocabulary" element={page(<JuzAmmaVocabulary />)} />
+                <Route path="islamic-terms" element={page(<IslamicTerms />)} />
                 <Route path="admin" element={page(<Admin />)} />
                 <Route path="analytics" element={page(<Analytics />)} />
                 <Route path="settings" element={page(<Settings />)} />

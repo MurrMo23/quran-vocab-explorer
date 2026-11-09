@@ -12,6 +12,7 @@ import { getWordPath } from '@/utils/word-slugs';
 import { NAMES_HUB_PATH, getAllNames, namePath } from '@/utils/names-of-allah';
 import { PHRASES, PHRASES_HUB_PATH, phrasePath } from '@/utils/phrases';
 import { PILLAR_PATHS } from '@/utils/seo-pillars';
+import { ISLAMIC_TERMS_PATH } from '@/utils/islamic-terms';
 
 // Build-time data for scripts/generate-sitemap.mjs and the legacy /word/<id> redirect pages.
 export { getAllWords, getPublishedCollections };
@@ -70,7 +71,7 @@ export function namesPages(): string[] {
 
 /** Pillar pages: the phrase hub and pages, and the one-off guides (prerendered and in the pages sitemap). */
 export function pillarPages(): string[] {
-  return [PHRASES_HUB_PATH, ...PHRASES.map((p) => phrasePath(p.slug)), PILLAR_PATHS.commonWords, PILLAR_PATHS.stats, PILLAR_PATHS.juzAmma];
+  return [PHRASES_HUB_PATH, ...PHRASES.map((p) => phrasePath(p.slug)), PILLAR_PATHS.commonWords, PILLAR_PATHS.stats, PILLAR_PATHS.juzAmma, ISLAMIC_TERMS_PATH];
 }
 
 /** Public routes worth prerendering (everything that is in the sitemap and needs no account). */

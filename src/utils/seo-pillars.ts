@@ -80,6 +80,14 @@ export const juzAmmaSeo = (top: number, covered: number, total: number): PageSeo
   ),
 });
 
+/** /islamic-terms: the A–Z glossary of Islamic terms (src/utils/islamic-terms.ts). `names`: a few term names. */
+export const islamicTermsSeo = (count: number, names: string[]): PageSeo => ({
+  title: 'Islamic Terms & Arabic Words: Meanings A–Z',
+  description: fitSentences(
+    `What ${names.join(', ')} and ${count - names.length} more Islamic terms mean: an A–Z glossary with the Arabic and the Quran verses behind each word.`,
+  ),
+});
+
 /** schema.org FAQPage for a page's visible Q&A section (the answers must be shown on the page). */
 export const faqLd = (path: string, items: { q: string; a: string }[]) => ({
   '@type': 'FAQPage',

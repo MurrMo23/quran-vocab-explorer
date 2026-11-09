@@ -41,8 +41,8 @@ export type PageType =
   | 'other';
 
 const REVIEW_ALIASES = new Set(['review', 'practice', 'quiz', 'enhanced-quiz', 'mobile-flashcards']);
-/** One-off guide pages (src/utils/seo-pillars.ts PILLAR_PATHS). */
-const PILLAR_PAGES = new Set(['most-common-words-in-the-quran', 'quran-statistics', 'juz-amma-vocabulary']);
+/** One-off guide pages (src/utils/seo-pillars.ts PILLAR_PATHS, and /islamic-terms). */
+const PILLAR_PAGES = new Set(['most-common-words-in-the-quran', 'quran-statistics', 'juz-amma-vocabulary', 'islamic-terms']);
 
 /** Classify a pathname. Pure; safe during SSR. */
 export function pageTypeFor(pathname: string): PageType {

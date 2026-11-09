@@ -15,6 +15,7 @@ const learnLinks = [
 const exploreLinks = [
   { to: '/names-of-allah', label: '99 Names of Allah' },
   { to: '/phrases', label: 'Islamic phrases' },
+  { to: '/islamic-terms', label: 'Islamic terms' },
   { to: '/quran-statistics', label: 'Quran statistics' },
   { to: '/ramadan', label: 'Ramadan 30-day plan' },
   { to: '/audio-practice', label: 'Audio practice' },

@@ -1,0 +1,120 @@
+{
+ "collection": "faith",
+ "existing": [],
+ "new": [
+  {
+   "id": "halal",
+   "lemma": "Hala`l",
+   "location": "2:168:7",
+   "transliteration": "halal",
+   "arabic": "حَلَال",
+   "meaning": "Lawful, permitted",
+   "partOfSpeech": "adjective",
+   "level": "intermediate",
+   "tags": ["ethics", "law", "food"],
+   "collection": "ethics",
+   "extraCollections": ["food"]
+  },
+  {
+   "id": "haram",
+   "lemma": "HaraAm",
+   "location": "16:116:10",
+   "transliteration": "haram",
+   "meaning": "Forbidden, unlawful; sacred",
+   "partOfSpeech": "adjective",
+   "level": "intermediate",
+   "tags": ["ethics", "law", "sacred"],
+   "collection": "ethics"
+  },
+  {
+   "id": "fitnah",
+   "lemma": "fitonap",
+   "location": "64:15:4",
+   "transliteration": "fitnah",
+   "meaning": "Trial, test; temptation, persecution",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": ["faith", "trial"]
+  },
+  {
+   "id": "hijab",
+   "lemma": "HijaAb",
+   "location": "19:17:4",
+   "transliteration": "hijab",
+   "meaning": "Screen, partition, barrier",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": ["faith", "barrier"]
+  },
+  {
+   "id": "imam",
+   "lemma": "<imaAm",
+   "location": "25:74:13",
+   "transliteration": "imam",
+   "meaning": "Leader, example to follow; record",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": ["governance", "leadership"],
+   "collection": "governance",
+   "extraCollections": ["faith"]
+  },
+  {
+   "id": "hadith",
+   "lemma": "Hadiyv",
+   "location": "79:15:3",
+   "transliteration": "hadith",
+   "meaning": "Speech, statement; story, account",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": ["knowledge", "speech"],
+   "collection": "knowledge"
+  },
+  {
+   "id": "shahadah",
+   "lemma": "$aha`dap",
+   "location": "43:19:11",
+   "transliteration": "shahadah",
+   "arabic": "شَهَادَة",
+   "meaning": "Testimony, witness; the seen world",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": ["faith", "testimony"]
+  },
+  {
+   "id": "fidyah",
+   "lemma": "fidoyap",
+   "location": "57:15:5",
+   "transliteration": "fidyah",
+   "meaning": "Ransom, compensation",
+   "partOfSpeech": "noun",
+   "level": "advanced",
+   "tags": ["worship", "fasting", "ransom"],
+   "collection": "worship"
+  },
+  {
+   "id": "amanah",
+   "lemma": ">ama`nat",
+   "location": "33:72:3",
+   "transliteration": "amanah",
+   "arabic": "أَمَانَة",
+   "meaning": "Trust, something entrusted",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": ["morality", "trust"],
+   "collection": "morality",
+   "extraCollections": ["ethics"]
+  },
+  {
+   "id": "wali",
+   "lemma": "waliY~",
+   "location": "4:45:6",
+   "transliteration": "wali",
+   "arabic": "وَلِيّ",
+   "meaning": "Protector, ally, close friend; guardian",
+   "partOfSpeech": "noun",
+   "level": "intermediate",
+   "tags": ["faith", "friendship"],
+   "allowSharedLemma": true
+  }
+ ]
+}
