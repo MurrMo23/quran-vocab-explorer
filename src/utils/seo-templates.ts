@@ -84,39 +84,41 @@ export interface PageSeo {
  * the title leads with that spelling, and the page lists the spellings ("Also written as") while
  * keeping the site's transliteration in the heading. `title` is optional; without it the page uses
  * the normal word template (in-sha-allah: the /phrases pages target "inshallah meaning").
+ * Phrase word pages use "in the Quran: Word by Word" titles so the /phrases/<slug> pages own "<phrase> meaning".
  */
 export const PHRASE_SPELLINGS: Record<string, { name?: string; title?: string; aka: string[]; note?: string }> = {
   'bismillah-ir-rahman-ir-raheem': {
     name: 'Bismillah',
-    title: 'Bismillah Meaning & Arabic: In the Name of Allah (Basmala)',
+    title: 'Bismillah ir-Rahman ir-Raheem in the Quran: Word by Word',
     aka: ['Bismillahir Rahmanir Raheem', 'Bismillah ir-Rahman ir-Rahim', 'Bismillah'],
     note: 'The phrase is called the basmala.',
   },
   'al-hamdu-lillahi-rabbil-alameen': {
     name: 'Alhamdulillah',
-    title: 'Alhamdulillah Meaning & Arabic: Praise Be to Allah',
+    title: 'Alhamdulillahi Rabbil Alamin in the Quran: Word by Word',
     aka: ['Alhamdulillahi Rabbil Alamin', 'Alhamdulillah'],
     note: 'Saying it is called the tahmid.',
   },
   'allahu-akbar': {
     name: 'Allahu Akbar',
-    title: 'Allahu Akbar Meaning & Arabic: Allah Is the Greatest',
+    title: 'Allahu Akbar in Arabic: Word by Word (الله أكبر)',
     aka: ['Allah-u-Akbar', 'Allah Akbar'],
     note: 'Saying it is called the takbir.',
   },
   'subhan-allah': {
     name: 'SubhanAllah',
-    title: 'SubhanAllah Meaning & Arabic: Glory Be to Allah',
+    title: 'SubhanAllah in the Quran: Word by Word (سبحان الله)',
     aka: ['SubhanAllah', 'Subhanallah'],
     note: 'Saying it is called tasbih.',
   },
   'la-ilaha-illa-allah': {
     name: 'La ilaha illallah',
-    title: 'La ilaha illallah Meaning: There Is No God but Allah',
+    title: 'La ilaha illallah in the Quran: Word by Word',
     aka: ['La ilaha illallah', 'Laa ilaaha illallah'],
     note: 'Saying it is called the tahlil.',
   },
   'in-sha-allah': {
+    title: 'In sha Allah in the Quran: Word by Word (إن شاء الله)',
     aka: ['Inshallah', 'Insha Allah', "In shaa' Allah"],
   },
 };

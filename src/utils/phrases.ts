@@ -36,6 +36,8 @@ export interface Phrase {
   variants: string[];
   /** Short meaning, used in the H1 area, cards and meta description. */
   meaning: string;
+  /** Shorter meaning for the page title, when `meaning` makes it too long. */
+  titleMeaning?: string;
   /** Word-for-word reading of the parts. */
   literal: string;
   parts: PhrasePart[];
@@ -86,7 +88,7 @@ export const PHRASES: Phrase[] = [
     },
     refs: [{ key: 'inshallah', label: 'Every ayah with إن شاء الله' }],
     wordId: 'in-sha-allah',
-    related: ['mashallah', 'bismillah', 'alhamdulillah'],
+    related: ['mashallah', 'wallahi', 'bismillah'],
     faq: [
       {
         q: 'What is the difference between inshallah and mashallah?',
@@ -202,7 +204,7 @@ export const PHRASES: Phrase[] = [
     },
     refs: [{ key: 'bismillah', label: 'Every ayah with بسم الله' }],
     wordId: 'bismillah-ir-rahman-ir-raheem',
-    related: ['alhamdulillah', 'inshallah', 'allahu-akbar'],
+    related: ['alhamdulillah', 'assalamu-alaikum', 'ameen'],
   },
   {
     slug: 'allahu-akbar',
@@ -267,7 +269,7 @@ export const PHRASES: Phrase[] = [
     },
     refs: [{ key: 'alhamdulillah', label: 'Every ayah with الحمد لله (also with “and” or “so”)' }],
     wordId: 'al-hamdu-lillahi-rabbil-alameen',
-    related: ['subhanallah', 'allahu-akbar', 'bismillah'],
+    related: ['subhanallah', 'mashallah', 'inna-lillahi-wa-inna-ilayhi-rajiun'],
   },
   {
     slug: 'subhanallah',
@@ -333,7 +335,7 @@ export const PHRASES: Phrase[] = [
       status: 'related',
       text: 'The first-person words astaghfiru llāh do not occur in the Quran as a phrase, but the Quran repeatedly commands seeking forgiveness with the same verb: Nuh tells his people “Ask forgiveness of your Lord. Indeed, He is ever a Perpetual Forgiver” (71:10), and the Prophet is told “And seek forgiveness of Allah” (4:106).',
     },
-    related: ['subhanallah', 'alhamdulillah', 'inna-lillahi-wa-inna-ilayhi-rajiun'],
+    related: ['subhanallah', 'wallahi', 'inna-lillahi-wa-inna-ilayhi-rajiun'],
   },
   {
     slug: 'assalamu-alaikum',
@@ -423,7 +425,7 @@ export const PHRASES: Phrase[] = [
       status: 'none',
       text: 'The phrase itself is not in the Quran. Its two key words are: jazāʾ (reward, recompense) from the root j-z-y, and khayr (good). Surah Ar-Rahman asks “Is the reward for good [anything] but good?” (55:60).',
     },
-    related: ['assalamu-alaikum', 'alhamdulillah', 'ameen'],
+    related: ['assalamu-alaikum', 'ameen', 'mashallah'],
   },
   {
     slug: 'ameen',
@@ -450,7 +452,7 @@ export const PHRASES: Phrase[] = [
       status: 'none',
       text: 'Ameen is not part of the Quran’s text. It is said after the last verse of Al-Fatihah (1:7), shown below. Do not confuse it with أَمِين (amīn, “trustworthy”), a different word from the same root that does occur, as in “Indeed, I am to you a trustworthy messenger” (26:107).',
     },
-    related: ['alhamdulillah', 'bismillah', 'jazakallah-khair'],
+    related: ['alhamdulillah', 'jazakallah-khair', 'bismillah'],
   },
   {
     slug: 'la-ilaha-illallah',
@@ -459,6 +461,7 @@ export const PHRASES: Phrase[] = [
     tr: 'lā ilāha illā llāh',
     variants: ['La ilaha illa Allah', 'Lailahaillallah', 'La ilaha ilallah'],
     meaning: 'There is no god but Allah',
+    titleMeaning: 'No God but Allah',
     literal: 'no · god · except · Allah',
     parts: [
       { ar: 'لَا', tr: 'lā', gloss: 'no (there is no)', wordId: 'la-negation' },
@@ -486,7 +489,7 @@ export const PHRASES: Phrase[] = [
     },
     refs: [{ key: 'la-ilaha-illallah', label: 'Every ayah with لا إله إلا الله' }],
     wordId: 'la-ilaha-illa-allah',
-    related: ['allahu-akbar', 'subhanallah', 'bismillah'],
+    related: ['allahu-akbar', 'subhanallah', 'wallahi'],
   },
   {
     slug: 'inna-lillahi-wa-inna-ilayhi-rajiun',
@@ -512,7 +515,7 @@ export const PHRASES: Phrase[] = [
       status: 'exact',
       text: 'The words are from Surah Al-Baqarah. Allah describes the patient as those “who, when disaster strikes them, say, ‘Indeed we belong to Allah, and indeed to Him we will return’” (2:156), and the next verse says that upon them are blessings from their Lord and mercy (2:157).',
     },
-    related: ['alhamdulillah', 'astaghfirullah', 'la-ilaha-illallah'],
+    related: ['alhamdulillah', 'astaghfirullah', 'ameen'],
   },
 ];
 
@@ -527,3 +530,6 @@ export const phraseRefs = (key: string): [number, number][] => PHRASE_REFS[key] 
 /** Word page id -> the phrase page that covers the same phrase (for the link on the word page). */
 const PHRASE_FOR_WORD = new Map(PHRASES.filter((p) => p.wordId).map((p) => [p.wordId as string, p]));
 export const phraseForWord = (wordId: string): Phrase | undefined => PHRASE_FOR_WORD.get(wordId);
+
+/** Phrases with this word among their parts (for "Said in" links on the word page). */
+export const phrasesUsingWord = (wordId: string): Phrase[] => PHRASES.filter((p) => p.parts.some((x) => x.wordId === wordId));

@@ -22,6 +22,7 @@ import {
   Search,
   ScrollText,
   GitFork,
+  MessageSquareQuote,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -47,6 +48,7 @@ const navItems = [
 
 // Secondary destinations: in the mobile menu and the footer.
 const moreItems = [
+  { href: '/phrases', label: 'Islamic phrases', icon: MessageSquareQuote },
   { href: '/custom-learning', label: 'My collections', icon: Library },
   { href: '/audio-practice', label: 'Audio practice', icon: Volume2 },
   { href: '/blog', label: 'Blog', icon: Globe },

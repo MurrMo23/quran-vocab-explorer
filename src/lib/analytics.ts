@@ -33,11 +33,16 @@ export type PageType =
   | 'review'
   | 'blog'
   | 'ramadan'
+  | 'phrase'
+  | 'phrases_hub'
+  | 'pillar'
   | 'auth'
   | 'dashboard'
   | 'other';
 
 const REVIEW_ALIASES = new Set(['review', 'practice', 'quiz', 'enhanced-quiz', 'mobile-flashcards']);
+/** One-off guide pages (src/utils/seo-pillars.ts PILLAR_PATHS). */
+const PILLAR_PAGES = new Set(['most-common-words-in-the-quran', 'quran-statistics', 'juz-amma-vocabulary']);
 
 /** Classify a pathname. Pure; safe during SSR. */
 export function pageTypeFor(pathname: string): PageType {
@@ -45,6 +50,7 @@ export function pageTypeFor(pathname: string): PageType {
   const [a, b] = parts;
   if (!a) return 'home';
   if (REVIEW_ALIASES.has(a)) return 'review';
+  if (PILLAR_PAGES.has(a)) return 'pillar';
   switch (a) {
     case 'word':
       return b ? 'word' : 'other';
@@ -64,6 +70,8 @@ export function pageTypeFor(pathname: string): PageType {
       return 'blog';
     case 'ramadan':
       return 'ramadan';
+    case 'phrases':
+      return b ? 'phrase' : 'phrases_hub';
     case 'auth':
     case 'reset-password':
       return 'auth';

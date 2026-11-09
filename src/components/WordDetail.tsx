@@ -17,6 +17,7 @@ import ExampleVerseCard from '@/components/word/ExampleVerseCard';
 import { reviewWordsUrl } from '@/components/review/review-session';
 import HearItButton from '@/components/word/HearItButton';
 import { AyahPlayButton } from '@/components/word/PlayVerseButton';
+import PhraseLink from '@/components/phrases/PhraseLink';
 import { getRecitedForm } from '@/utils/audio';
 import { highlightWordInVerse } from '@/components/word/verse-highlight';
 import { PHRASE_SPELLINGS, firstSense } from '@/utils/seo-templates';
@@ -227,6 +228,7 @@ const WordDetail: React.FC<WordDetailProps> = ({
             </p>
           )}
         </article>
+        <PhraseLink wordId={word.id} />
 
         {/* How to say it: a one-sentence answer for "<English> in Arabic" searches. */}
         <section className={cn(sectionCard, 'flex flex-col gap-2')} aria-labelledby="say-it-in-arabic">

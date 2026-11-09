@@ -10,6 +10,8 @@ import { SURAH_PAGES, rootPath, surahPath } from '@/utils/quran-pages';
 import { FIRST_ROOT_LETTER, ROOTS_INDEX_PATH, rootLetterKey, rootLetterPath, type RootIndex } from '@/utils/root-library';
 import { getWordPath } from '@/utils/word-slugs';
 import { NAMES_HUB_PATH, getAllNames, namePath } from '@/utils/names-of-allah';
+import { PHRASES, PHRASES_HUB_PATH, phrasePath } from '@/utils/phrases';
+import { PILLAR_PATHS } from '@/utils/seo-pillars';
 
 // Build-time data for scripts/generate-sitemap.mjs and the legacy /word/<id> redirect pages.
 export { getAllWords, getPublishedCollections };
@@ -66,6 +68,11 @@ export function namesPages(): string[] {
   return [NAMES_HUB_PATH, ...getAllNames().map((n) => namePath(n.slug))];
 }
 
+/** Pillar pages: the phrase hub and pages, and the one-off guides (prerendered and in the pages sitemap). */
+export function pillarPages(): string[] {
+  return [PHRASES_HUB_PATH, ...PHRASES.map((p) => phrasePath(p.slug)), PILLAR_PATHS.commonWords, PILLAR_PATHS.stats, PILLAR_PATHS.juzAmma];
+}
+
 /** Public routes worth prerendering (everything that is in the sitemap and needs no account). */
 export function routes(): string[] {
   // '/' is prerendered into dist/index.html, which the host also serves for client-only routes
@@ -74,5 +81,5 @@ export function routes(): string[] {
   const statics = ['/', '/collections', '/ramadan'];
   const collections = getPublishedCollections().map((c) => `/collections/${c.id}`);
   const words = getAllWords().map((w) => getWordPath(w));
-  return [...statics, ...collections, ...words, ...quranPages(), ...namesPages()];
+  return [...statics, ...collections, ...words, ...quranPages(), ...namesPages(), ...pillarPages()];
 }

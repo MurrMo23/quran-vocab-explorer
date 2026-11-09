@@ -160,8 +160,8 @@ const QuranStatistics = () => {
               <p className="text-sm font-bold text-muted-foreground">One-word ayahs</p>
               <p className="mt-1 text-lg font-extrabold">{st.oneWordAyahs} ayahs</p>
               <p className="text-sm">
-                e.g. <span lang="ar" dir="rtl" className="font-quran text-lg">مُدْهَآمَّتَانِ</span> (55:64) and the opening letters{' '}
-                <span lang="ar" dir="rtl" className="font-quran text-lg">طه</span> (20:1)
+                e.g. <bdi lang="ar" className="font-quran text-lg">مُدْهَآمَّتَانِ</bdi> (55:64) and the opening letters{' '}
+                <bdi lang="ar" className="font-quran text-lg">طه</bdi> (20:1)
               </p>
             </li>
           </ul>

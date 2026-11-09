@@ -5,6 +5,7 @@ import SEO from '@/components/SEO';
 import PageTrail from '@/components/quran/PageTrail';
 import HearItButton from '@/components/word/HearItButton';
 import PhraseVerseCard from '@/components/phrases/PhraseVerseCard';
+import WithArabic from '@/components/phrases/WithArabic';
 import { Button } from '@/components/ui/button';
 import { reviewWordsUrl } from '@/components/review/review-session';
 import { track } from '@/lib/analytics';
@@ -174,7 +175,11 @@ const PhraseDetail = () => {
                       {part.ar}
                     </p>
                   </div>
-                  {part.note && <p className="text-sm leading-relaxed text-muted-foreground">{part.note}</p>}
+                  {part.note && (
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      <WithArabic text={part.note} />
+                    </p>
+                  )}
                   {(word || part.root) && (
                     <div className="mt-auto flex flex-wrap items-center gap-2">
                       {word && (
@@ -225,7 +230,9 @@ const PhraseDetail = () => {
           </h2>
           <div className="space-y-3 text-[17px] leading-relaxed">
             {phrase.usage.map((p, i) => (
-              <p key={i}>{p}</p>
+              <p key={i}>
+                <WithArabic text={p} />
+              </p>
             ))}
           </div>
         </section>
@@ -234,7 +241,9 @@ const PhraseDetail = () => {
           <h2 id="quran-heading" className="mb-3 text-xl font-extrabold">
             Is {phrase.name} in the Quran?
           </h2>
-          <p className="mb-5 max-w-3xl text-[17px] leading-relaxed">{phrase.quran.text}</p>
+          <p className="mb-5 max-w-3xl text-[17px] leading-relaxed">
+            <WithArabic text={phrase.quran.text} />
+          </p>
           {verses.length > 0 && (
             <div className="grid gap-4">
               {verses.map((v) => (
@@ -245,7 +254,7 @@ const PhraseDetail = () => {
           {refGroups.map((g) => (
             <div key={g.key} className="mt-6">
               <h3 className="mb-2 font-extrabold">
-                {g.label} <span className="font-normal text-muted-foreground">({g.refs.length} {g.refs.length === 1 ? 'ayah' : 'ayahs'})</span>
+                <WithArabic text={g.label} /> <span className="font-normal text-muted-foreground">({g.refs.length} {g.refs.length === 1 ? 'ayah' : 'ayahs'})</span>
               </h3>
               <ul className="flex flex-wrap gap-2">
                 {g.refs.map(([s, a]) => (
@@ -272,7 +281,9 @@ const PhraseDetail = () => {
             {faq.map((f) => (
               <div key={f.q} className="p-5">
                 <dt className="font-extrabold">{f.q}</dt>
-                <dd className="mt-1 leading-relaxed text-muted-foreground">{f.a}</dd>
+                <dd className="mt-1 leading-relaxed text-muted-foreground">
+                  <WithArabic text={f.a} />
+                </dd>
               </div>
             ))}
           </dl>

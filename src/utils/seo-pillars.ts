@@ -19,6 +19,13 @@ const len = (s: string) => [...s].length;
 const firstFitting = (...titles: string[]) => titles.find((t) => len(t) <= TITLE_MAX) ?? titles[titles.length - 1];
 /** Arabic without vowel marks (shorter in titles, and how people type it). */
 const plainArabic = (s: string) => s.replace(/[\u064B-\u065F\u0670]/g, '');
+const SMALL_WORDS = /^(a|an|and|as|at|but|by|for|from|in|is|of|on|or|the|to|upon|with)$/;
+/** "in the name of Allah" -> "In the Name of Allah". */
+const titleCase = (s: string) =>
+  s
+    .split(' ')
+    .map((w, i) => (i > 0 && SMALL_WORDS.test(w.toLowerCase()) ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1)))
+    .join(' ');
 const pct = (part: number, whole: number) => `${((100 * part) / whole).toFixed(1)}%`;
 
 export const PHRASES_HUB_SEO = {
@@ -33,7 +40,7 @@ export const PHRASES_HUB_SEO = {
 /** "Inshallah Meaning: If Allah Wills (إن شاء الله)"; the H1 is "<name> Meaning". */
 export const phraseSeo = (p: Phrase): PageSeo => {
   const short = p.meaning.replace(/\s*\([^)]*\)/g, '');
-  const titled = short.replace(/\b([a-z])/g, (m) => m.toUpperCase());
+  const titled = titleCase(p.titleMeaning ?? short);
   const ar = plainArabic(p.ar);
   const inQuran =
     p.quran.status === 'exact'

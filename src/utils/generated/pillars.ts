@@ -5,9 +5,6 @@
 /** Whole-Quran counts (see the script docstring for how each is computed). */
 export const QURAN_STATS = {"surahs":114,"ayahs":6236,"words":77429,"lemmas":4832,"roots":1642,"pages":604,"meccan":86,"medinan":28,"longestSurah":2,"longestSurahAyahs":286,"longestSurahWords":6116,"mostWordsSurah":2,"shortestSurahsByAyahs":[103,108,110],"shortestSurahAyahs":3,"fewestWordsSurah":108,"fewestWords":10,"longestAyah":[2,282],"longestAyahWords":128,"oneWordAyahs":28,"initialsSurahs":29,"noLemmaTokens":3307} as const;
 
-/** Corpus word tokens per surah (surah n at index n - 1). */
-export const SURAH_WORD_TOKENS: number[] = [29,6116,3481,3747,2804,3050,3320,1233,2498,1833,1917,1777,853,830,655,1844,1556,1579,961,1335,1169,1274,1050,1316,893,1318,1151,1430,976,817,546,372,1287,883,775,725,860,733,1172,1219,794,860,830,346,488,643,539,560,347,373,360,312,360,342,351,379,574,472,445,348,221,175,180,241,287,249,333,300,258,217,226,285,199,255,164,243,181,173,179,133,104,80,169,107,109,61,72,92,137,82,54,71,40,27,34,72,30,94,36,40,36,28,14,33,23,17,25,10,26,19,23,15,23,20];
-
 /** Meccan (k) or Medinan (d) for surah n at index n - 1 (Tanzil metadata via quran-json). */
 export const SURAH_TYPES = "kddddkkddkkkdkkkkkkkkdkdkkkkkkkkdkkkkkkkkkkkkkdddkkkkkdkddddddddddkkkkkkkkkdkkkkkkkkkkkkkkkkkkkkkddkkkkkkkkkkdkkkk";
 

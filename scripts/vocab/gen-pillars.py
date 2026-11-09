@@ -187,7 +187,6 @@ def main():
         'initialsSurahs': len(initials),
         'noLemmaTokens': no_lemma,
     }
-    surah_words = [s_tokens[s] for s in range(1, 115)]
     surah_type = ''.join('k' if x['type'] == 'meccan' else 'd' for x in qj)
 
     mentions = []
@@ -261,9 +260,6 @@ def main():
         '',
         '/** Whole-Quran counts (see the script docstring for how each is computed). */',
         f'export const QURAN_STATS = {js(stats)} as const;',
-        '',
-        '/** Corpus word tokens per surah (surah n at index n - 1). */',
-        f'export const SURAH_WORD_TOKENS: number[] = {js(surah_words)};',
         '',
         '/** Meccan (k) or Medinan (d) for surah n at index n - 1 (Tanzil metadata via quran-json). */',
         f'export const SURAH_TYPES = {js(surah_type)};',
